@@ -16,17 +16,21 @@ def send_javascript(filename):
     return bottle.static_file(filename, root='static/javascript')
 
 @bottle.route('/naloga/<filename:re:.*\.html>')
-def send_css(filename):
+def send_html(filename):
     return bottle.static_file(filename, root='naloga')
 
 @bottle.route('/naloga/<filename:re:.*\.js>')
-def send_css(filename):
+def send_file_js(filename):
     return bottle.static_file(filename, root='naloga')
+
+@bottle.route('/../../Pisek/pisek-git/_common/modules/pemFioi/<filename:re:.*\.js>')
+def send_lib_js(filename):
+    return bottle.static_file(filename, root='../../Pisek/pisek-git/_common/modules/pemFioi')
 
 
 @bottle.get("/")    
 def home():              
-    return bottle.template("something.html")
+    return bottle.template("bla.html")
 
 @bottle.post("/") 
 def get_data():
