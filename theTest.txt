@@ -1,0 +1,138 @@
+function initTask(subTask) {
+ subTask.gridInfos = {
+     languageStrings: {
+          sl: {}
+     },
+     hideControls: {
+          restart: false,
+          saveOrLoad: false,
+          loadBestAnswer: false,
+          speedSlider: false,
+          backToFirst: false,
+          nextStep: false,
+          goToEnd: false
+     },
+     introMaxHeight: "33%",
+     maxListSize: 100,
+     scrollbars: true,
+     zoom: {
+          controls: true,
+          scale: 1
+     },
+     actionDelay: 400,
+     blocklyColourTheme: "bwinf",
+     maxInstructions: 0,
+     includeBlocks: {
+          groupByCategory: true,
+          generatedBlocks: {
+               robot: [
+                    "move",
+                    "moveSimple",
+                    "forward",
+                    "forwardSimple",
+                    "turn",
+                    "turnAround",
+                    "jump",
+                    "changeRobot",
+                    "transport",
+                    "sensorBool",
+                    "sensorValue",
+                    "alterValue",
+                    "destroy",
+                    "create",
+                    "wait",
+                    "nitems",
+                    "sensorRowCol"
+               ]
+          },
+          standardBlocks: {
+               includeAll: true,
+               wholeCategories: [],
+               singleBlocks: [],
+               excludedBlocks: []
+          }
+     },
+     startingExample: {
+          blockly: "<xml xmlns=http://www.w3.org/1999/xhtml><block type=robot_start id=Yx#}`-PvOO]HA4c0m7]F deletable=false movable=false editable=false x=0 y=0><next><block type=move id=CoO|[q[@qpAx1_*bS`Or><field name=PARAM_0>S</field><value name=PARAM_1><shadow type=math_number id=Hyc?21Pdl93/lRnSQ;yk><field name=NUM>5</field></shadow></value><next><block type=move id=.0,k.*t.-0!PhL2?iW=S><field name=PARAM_0>W</field><value name=PARAM_1><shadow type=math_number id=Eoy,Bt|qklJL]F[A_HUS><field name=NUM>5</field></shadow></value><next><block type=move id=-0w[|/Bnh{6lzt*/qE/1><field name=PARAM_0>N</field><value name=PARAM_1><shadow type=math_number id=)T;FmigiJI@U(YA2/T+[><field name=NUM>1</field></shadow></value></block></next></block></next></block></next></block><block type=controls_repeat_ext id=2E]Uhs@W}KrbH3PJF36* x=20 y=155><value name=TIMES><shadow type=math_number id=z_GWSb[:HQjB|Qf]0C9N><field name=NUM>3</field></shadow></value><statement name=DO><block type=moveSimple id=yar~u.Qkhzs]q=@VlZ9c><field name=PARAM_0>S</field></block></statement><next><block type=controls_repeat_ext id=z@Gfs[CGcB6T{G-72W|z><value name=TIMES><shadow type=math_number id=73LZY(lJ1blr[EH[s;W*><field name=NUM>4</field></shadow></value><statement name=DO><block type=moveSimple id=#-0m.#:qs#=w*PlCX[qW><field name=PARAM_0>W</field></block></statement></block></next></block><additional>{}</additional></xml>"
+     },
+     checkEndCondition: (context, lastTurn) => { 
+	robotEndConditions.checkCombiner(context, lastTurn, [
+		(context, lastTurn) => { robotEndConditions.checkItemExistence(context, lastTurn, {category: "coin"}, {}, exist=false) },
+		//
+	])
+},
+     border: 0,
+     backgroundColour: "white",
+     backgroundTile: "",
+     borderColour: "black",
+     showLabels: true,
+     cellSide: 60,
+     numberOfRobots: 1,
+     itemTypes: {
+          robot0: {
+               num: 2,
+               img: [
+                    "pisek.png"
+               ],
+               zOrder: 2,
+               nbStates: 8,
+               category: [
+                    {
+                         "robot": true
+                    }
+               ],
+               value: 0
+          }
+     }
+};
+subTask.data = {
+     easy: [
+          {
+               tiles: [[1, 1, 1, 1, 1],
+       [1, 1, 1, 1, 1],
+       [1, 1, 1, 1, 1],
+       [1, 1, 1, 1, 1]],
+               initItems: [
+                    {
+                         row: 2,
+                         col: 2,
+                         dir: 4,
+                         type: "robot",
+                         value: 1
+                    },
+                    {
+                         row: 3,
+                         col: 1,
+                         dir: 4,
+                         type: "krNekej",
+                         value: 5
+                    }
+               ]
+          },
+          {
+               tiles: [[1, 1, 1, 1, 1, 1, 1, 1],
+       [1, 1, 1, 1, 1, 1, 1, 1],
+       [1, 1, 1, 1, 1, 1, 1, 1],
+       [1, 1, 1, 1, 1, 1, 1, 1],
+       [1, 1, 1, 1, 1, 1, 1, 1]],
+               initItems: [
+                    {
+                         row: 2,
+                         col: 2,
+                         dir: 4,
+                         type: "robot",
+                         value: 1
+                    },
+                    {
+                         row: 3,
+                         col: 1,
+                         dir: 4,
+                         type: "krNekej",
+                         value: 5
+                    }
+               ]
+          }
+     ]
+};
+initBlocklySubTask(subTask); 
+}
