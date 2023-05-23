@@ -104,5 +104,3 @@ def naredi_matriko(n, m):
 
     return "[" + shifted_matrix_string.strip() + "\n" + 39 * " " + "]"
 
-dodaj_grid(2, 3)
-
