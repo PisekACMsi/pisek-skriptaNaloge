@@ -1,259 +1,258 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
-    <meta name="generator" content="Hugo 0.84.0">
-    <title>Pišek generator nalog</title>
 
-    <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/checkout/">
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="">
+  <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+  <meta name="generator" content="Hugo 0.84.0">
+  <title>Pišek generator nalog</title>
 
-    <!-- Bootstrap core CSS -->
-<link href="../static/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/checkout/">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
-    <style>
-      .bd-placeholder-img {
-        font-size: 1.125rem;
-        text-anchor: middle;
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        user-select: none;
+
+  <!-- Bootstrap core CSS -->
+  <link href="../static/css/bootstrap.min.css" rel="stylesheet">
+
+  <style>
+    .bd-placeholder-img {
+      font-size: 1.125rem;
+      text-anchor: middle;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      user-select: none;
+    }
+
+    @media (min-width: 768px) {
+      .bd-placeholder-img-lg {
+        font-size: 3.5rem;
       }
+    }
+  </style>
 
-      @media (min-width: 768px) {
-        .bd-placeholder-img-lg {
-          font-size: 3.5rem;
-        }
-      }
-    </style>
 
-    
-    <!-- Custom styles for this template -->
-    <link href="../static/css/form-validation.css" rel="stylesheet">
-  </head>
-  <body class="bg-light">
-    
-<div class="container">
-  <main>
-    <div class="py-5 text-center">
-      <img class="d-block mx-auto mb-4" src="../static/img/pisek.png" alt="" width="72" height="57">
-      <h2>Pišek generator nalog</h2>
-      <p class="lead">To je program za sestavljanje nalog. V polja vneseš podatke in algoritem samodejno generira nalogo.</p>
-    </div>
+  <!-- Custom styles for this template -->
+  <link href="../static/css/form-validation.css" rel="stylesheet">
+</head>
 
-    <div class="row justify-content-center">
-      <div class="col-md-7 col-lg-8">
-        <!--<h4 class="mb-3"></h4>-->
-        <form class="needs-validation" novalidate>
-          <div class="row g-3">
+<body class="bg-light">
+  <script>
 
-            <div class="col-12">
-              <label for="naslov" class="form-label">Naslov naloge</label>
-              <div class="input-group has-validation">
-                <input type="text" class="form-control" id="naslov" placeholder="Miha in Piki" required>
-              <div class="invalid-feedback">
+    $(document).ready(function () {
+      $("#junak").change(function () {
+        var value = $("#junak option:selected");
+        var newURL = "../static/img/characters/" + value.text().split(' ').join('_') + ".png";
+        $("#slika1").attr("src", newURL);
+      });
+    });
+
+    $(document).ready(function () {
+      $("#polje").change(function () {
+        var value = $("#polje option:selected");
+        var newURL = "../static/img/tiles/" + value.text().split(' ').join('_') + ".png";
+        $("#slika2").attr("src", newURL);
+      });
+    });
+  </script>
+  <div class="container">
+    <main>
+      <div class="py-5 text-center">
+        <img class="d-block mx-auto mb-4" src="../static/img/pisek.png" alt="" width="72" height="57">
+        <h2>Pišek generator nalog</h2>
+        <p class="lead">To je program za sestavljanje nalog. V polja vneseš podatke in algoritem samodejno generira
+          nalogo.</p>
+      </div>
+
+      <div class="row justify-content-center">
+        <div class="col-md-7 col-lg-8">
+          <!--<h4 class="mb-3"></h4>-->
+          <form class="needs-validation" novalidate>
+            <div class="row g-3">
+
+              <div class="col-12">
+                <label for="naslov" class="form-label">Naslov naloge</label>
+                <div class="input-group has-validation">
+                  <input type="text" class="form-control" id="naslov" placeholder="Miha in Piki" required>
+                  <div class="invalid-feedback">
+                    Polje ne sme biti prazno!
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-12">
+                <label for="besedilo" class="form-label">Besedilo naloge</label>
+                <input type="text" class="form-control" id="besedilo"
+                  placeholder="Miha in Piki trenirata na pasjem poligonu. Najprej mora Miha odpreti vrata Pikiju.">
+                <div class="invalid-feedback">
                   Polje ne sme biti prazno!
+                </div>
+              </div>
+
+              <div class="col-12">
+                <label for="email" class="form-label">Dodatno besedilo naloge<span
+                    class="text-muted">(Opcijsko)</span></label>
+                <input type="besedilo" class="form-control" id="besedilo"
+                  placeholder="Pravimo, da je pes človeku najboljši prijatelj.">
+                <div class="invalid-feedback">
+                  Polje ne sme biti prazno!
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <label for="state" class="form-label">Izberi junaka</label>
+                <select id="junak" class="form-select" id="state" required>
+                  <option value="">Izberi...</option>
+                  <option>avto</option>
+                  <option>gasilec</option>
+                  <option>gasilski avto</option>
+                  <option>zelen gasilski avto</option>
+                  <option>zelen robot</option>
+                  <option>rdec robot</option>
+                  <option>cebela</option>
+                  <option>mis</option>
+                  <option>Marta</option>
+                  <option>Marta in piki</option>
+                  <option>Marta slascicarka</option>
+                  <option>Kekec</option>
+                  <option>Pisek</option>
+                  <option>astronavt in cebelica</option>
+                  <option>gusarska ladja</option>
+                  <option>tovornjak4</option>
+                  <option>tabornik na kolesu</option>
+                  <option>plesalec</option>
+                  <option>plesalka</option>
+                  <option>tabornik na sankah</option>
+
+                </select>
+                <div class="invalid-feedback">
+                  Polje ne sme biti prazno
+                </div>
+              </div>
+
+              <div class="col-md-12">
+                <img id="slika1" onerror="this.onerror=null; this.remove();" style="max-width: 100%; max-height: 100%; object-fit: contain;">
+              </div>
+
+              <div class="col-md-6">
+                <label for="state" class="form-label">Izberi površino</label>
+                <select id="polje" class="form-select" id="state" required>
+                  <option value="">Izberi...</option>
+                  <option>asfalt</option>
+                  <option>trava</option>
+                  <option>kamni</option>
+                  <option>lava</option>
+                  <option>morje</option>
+                  <option>vesolje</option>
+                  <option>zemlja</option>
+                  <option>crna</option>
+                  <option>modra</option>
+                  <option>rdeca</option>
+                  <option>rjava</option>
+                  <option>siva</option>
+                  <option>svetlo zelena</option>
+                  <option>zelena</option>
+                  <option>turkizna</option>
+
+                </select>
+                <div class="invalid-feedback">
+                  Polje ne sme biti prazno
+                </div>
+              </div>
+
+              <div class="col-md-12">
+                <img id="slika2" onerror="this.onerror=null; this.remove();" style="max-width: 200px; max-height: 200px; object-fit: contain;">
+              </div>
+            </div>
+
+            <hr class="my-4">
+
+            <div class="form-check">
+              <input type="checkbox" class="form-check-input" id="same-address">
+              <label class="form-check-label" for="same-address">Shipping address is the same as my billing
+                address</label>
+            </div>
+
+            <div class="form-check">
+              <input type="checkbox" class="form-check-input" id="save-info">
+              <label class="form-check-label" for="save-info">Save this information for next time</label>
+            </div>
+
+            <hr class="my-4">
+
+            <h4 class="mb-3">Payment</h4>
+
+            <div class="my-3">
+              <div class="form-check">
+                <input id="credit" name="paymentMethod" type="radio" class="form-check-input" checked required>
+                <label class="form-check-label" for="credit">Credit card</label>
+              </div>
+              <div class="form-check">
+                <input id="debit" name="paymentMethod" type="radio" class="form-check-input" required>
+                <label class="form-check-label" for="debit">Debit card</label>
+              </div>
+              <div class="form-check">
+                <input id="paypal" name="paymentMethod" type="radio" class="form-check-input" required>
+                <label class="form-check-label" for="paypal">PayPal</label>
+              </div>
+            </div>
+
+            <div class="row gy-3">
+              <div class="col-md-6">
+                <label for="cc-name" class="form-label">Name on card</label>
+                <input type="text" class="form-control" id="cc-name" placeholder="" required>
+                <small class="text-muted">Full name as displayed on card</small>
+                <div class="invalid-feedback">
+                  Name on card is required
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <label for="cc-number" class="form-label">Credit card number</label>
+                <input type="text" class="form-control" id="cc-number" placeholder="" required>
+                <div class="invalid-feedback">
+                  Credit card number is required
+                </div>
+              </div>
+
+              <div class="col-md-3">
+                <label for="cc-expiration" class="form-label">Expiration</label>
+                <input type="text" class="form-control" id="cc-expiration" placeholder="" required>
+                <div class="invalid-feedback">
+                  Expiration date required
+                </div>
+              </div>
+
+              <div class="col-md-3">
+                <label for="cc-cvv" class="form-label">CVV</label>
+                <input type="text" class="form-control" id="cc-cvv" placeholder="" required>
+                <div class="invalid-feedback">
+                  Security code required
                 </div>
               </div>
             </div>
 
-            <div class="col-12">
-              <label for="besedilo" class="form-label">Besedilo naloge</label>
-              <input type="text" class="form-control" id="besedilo" placeholder="Miha in Piki trenirata na pasjem poligonu. Najprej mora Miha odpreti vrata Pikiju.">
-              <div class="invalid-feedback">
-                Polje ne sme biti prazno!
-              </div>
-            </div>
+            <hr class="my-4">
 
-            <div class="col-12">
-              <label for="email" class="form-label">Dodatno besedilo naloge<span class="text-muted">(Opcijsko)</span></label>
-              <input type="besedilo" class="form-control" id="besedilo" placeholder="Pravimo, da je pes človeku najboljši prijatelj.">
-              <div class="invalid-feedback">
-                Polje ne sme biti prazno!
-              </div>
-            </div>
-
-            <div class="col-md-6">
-              <label for="state" class="form-label">State</label>
-              <select class="form-select" id="state" required>
-                <option value="">Izberi...</option>
-                <option>avto</option>
-                <option>pes</option>
-                <option>gasilec</option>
-                <option>gasilski avto</option>
-                <option>zelen avto</option>
-                <option>Marta</option>
-                <option>Kekec</option>
-                <option>Čebela in astronavt</option>
-                <option>Pišek</option>
-                <option>Gusarska ladja</option>
-                <option>tovornjak</option>
-                <option>tabornik na kolesu</option>
-                <option>Marta in piki</option>
-                <option>plesalec</option>
-                <option>plesalka</option>
-                <option>slaščičarka</option>
-                <option>tabornik na sankah</option>
-
-              </select>
-              <div class="invalid-feedback">
-                Polje ne sme biti prazno
-              </div>
-            </div>
-
-            <div class="col-md-12">
-              <img class ="selected-image" src="" alt="Izberi junaka" style="max-width: 100%; max-height: 100%; object-fit: contain;">
-            </div>
-            
-          </div>
-
-          <hr class="my-4">
-
-          <div class="form-check">
-            <input type="checkbox" class="form-check-input" id="same-address">
-            <label class="form-check-label" for="same-address">Shipping address is the same as my billing address</label>
-          </div>
-
-          <div class="form-check">
-            <input type="checkbox" class="form-check-input" id="save-info">
-            <label class="form-check-label" for="save-info">Save this information for next time</label>
-          </div>
-
-          <hr class="my-4">
-
-          <h4 class="mb-3">Payment</h4>
-
-          <div class="my-3">
-            <div class="form-check">
-              <input id="credit" name="paymentMethod" type="radio" class="form-check-input" checked required>
-              <label class="form-check-label" for="credit">Credit card</label>
-            </div>
-            <div class="form-check">
-              <input id="debit" name="paymentMethod" type="radio" class="form-check-input" required>
-              <label class="form-check-label" for="debit">Debit card</label>
-            </div>
-            <div class="form-check">
-              <input id="paypal" name="paymentMethod" type="radio" class="form-check-input" required>
-              <label class="form-check-label" for="paypal">PayPal</label>
-            </div>
-          </div>
-
-          <div class="row gy-3">
-            <div class="col-md-6">
-              <label for="cc-name" class="form-label">Name on card</label>
-              <input type="text" class="form-control" id="cc-name" placeholder="" required>
-              <small class="text-muted">Full name as displayed on card</small>
-              <div class="invalid-feedback">
-                Name on card is required
-              </div>
-            </div>
-
-            <div class="col-md-6">
-              <label for="cc-number" class="form-label">Credit card number</label>
-              <input type="text" class="form-control" id="cc-number" placeholder="" required>
-              <div class="invalid-feedback">
-                Credit card number is required
-              </div>
-            </div>
-
-            <div class="col-md-3">
-              <label for="cc-expiration" class="form-label">Expiration</label>
-              <input type="text" class="form-control" id="cc-expiration" placeholder="" required>
-              <div class="invalid-feedback">
-                Expiration date required
-              </div>
-            </div>
-
-            <div class="col-md-3">
-              <label for="cc-cvv" class="form-label">CVV</label>
-              <input type="text" class="form-control" id="cc-cvv" placeholder="" required>
-              <div class="invalid-feedback">
-                Security code required
-              </div>
-            </div>
-          </div>
-
-          <hr class="my-4">
-
-          <button class="w-100 btn btn-primary btn-lg" type="submit">Continue to checkout</button>
-        </form>
+            <button class="w-100 btn btn-primary btn-lg" type="submit">Continue to checkout</button>
+          </form>
+        </div>
       </div>
-    </div>
-  </main>
+    </main>
 
-  <footer class="my-5 pt-5 text-muted text-center text-small">
-    <p class="mb-1">&copy; 2017–2021 Company Name</p>
-    <ul class="list-inline">
-      <li class="list-inline-item"><a href="#">Privacy</a></li>
-      <li class="list-inline-item"><a href="#">Terms</a></li>
-      <li class="list-inline-item"><a href="#">Support</a></li>
-    </ul>
-  </footer>
-</div>
-      <script>
-      $(document).ready(function() {
-      // Mapping of option values to image names
-      var imageMappings = {
-        'avto': 'avto.png',
-        'pes': 'pes.jpg',
-        'gasilec': 'gasilec.jpg',
-        'gasilski avto': 'firetruck.jpg',
-        'zelen avto': 'green_car.jpg',
-        // Add more mappings here
-      };
+    <footer class="my-5 pt-5 text-muted text-center text-small">
+      <p class="mb-1">&copy; 2017–2021 Company Name</p>
+      <ul class="list-inline">
+        <li class="list-inline-item"><a href="#">Privacy</a></li>
+        <li class="list-inline-item"><a href="#">Terms</a></li>
+        <li class="list-inline-item"><a href="#">Support</a></li>
+      </ul>
+    </footer>
+  </div>
+  <script src="../static/javascript/bootstrap.bundle.min.js"></script>
+  <script src="../static/javascript/form-validation.js"></script>
 
-      // Function to search for the image in multiple directories
-      function findImage(option) {
-        var imageDirectories = ['Mesto', 'images2', 'images3']; // Replace with your directory names
-        var imageExtension = '.png'; // Replace with the actual image file extension
+</body>
 
-        for (var i = 0; i < imageDirectories.length; i++) {
-          var imageUrl = '../../Pisek/pisek-git/noviPisek/graphics' + imageDirectories[i] + '/' + imageMappings[option] + imageExtension;
-
-          // Perform an AJAX request to check if the image exists
-          $.ajax({
-            url: imageUrl,
-            type: 'HEAD',
-            async: false,
-            success: function() {
-              // Update the src attribute of the image tag
-              $('#selected-image').attr('src', imageUrl);
-              return;
-            },
-            error: function() {
-              // Image not found in this directory, continue to the next one
-              return;
-            }
-          });
-        }
-
-        // Image not found in any directory
-        console.log('Image not found');
-      }
-
-      // Get the select element
-      var select = $('#state');
-
-      // Add an event listener for the selection change
-      select.on('change', function() {
-        // Get the selected option value
-        var selectedOption = $(this).val();
-
-        // Make sure a valid option is selected
-        if (selectedOption !== '') {
-          // Find the image based on the selected option
-          findImage(selectedOption);
-        }
-      });
-    });
-      </script>
-      <script src="../static/javascript/bootstrap.bundle.min.js"></script>
-
-      <script src="../static/javascript/form-validation.js"></script>
-
-  </body>
 </html>

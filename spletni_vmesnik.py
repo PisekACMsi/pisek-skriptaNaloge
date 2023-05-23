@@ -4,27 +4,32 @@ import skripta
 """Bottle poskrbi, da stran laufa in da so vse stvari povezane med sabo."""
 
 #css 
-@bottle.route('static/css/<filename:re:.*\.css>')
+@bottle.route('/static/css/<filename:re:.*\.css>')
 def send_css(filename):
     return bottle.static_file(filename, root='static/css')
 
 #img
-@bottle.route('static/img/<filename:re:.*\.png>')
+@bottle.route('/static/img/<filename:re:.*\.png>')
+def send_img(filename):
+    return bottle.static_file(filename, root='static/img')
+
+#img - characters
+@bottle.route('/static/img/characters<filename:re:.*\.png>')
 def send_img(filename):
     return bottle.static_file(filename, root='static/img')
 
 #javascript
-@bottle.route('static/javascript/<filename:re:.*\.js>')
+@bottle.route('/static/javascript/<filename:re:.*\.js>')
 def send_javascript(filename):
     return bottle.static_file(filename, root='static/javascript')
 
 #html - naloga
-@bottle.route('naloga/<filename:re:.*\.html>')
+@bottle.route('/naloga/<filename:re:.*\.html>')
 def send_html(filename):
     return bottle.static_file(filename, root='naloga')
 
 #javascript robotlib
-@bottle.route('naloga/<filename:re:.*\.js>')
+@bottle.route('/naloga/<filename:re:.*\.js>')
 def send_file_js(filename):
     return bottle.static_file(filename, root='naloga')
 

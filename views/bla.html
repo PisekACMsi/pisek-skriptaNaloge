@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src= "https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"> </script>
+<script>
+$(document).ready(function(){
+$("#optionselect").change(function(){
+var values = $("#optionselect option:selected");
+alert(values.text());
+});
+});
+</script>
+<style>
+#optionselect{
+height: 50px;
+padding: 15px;
+}
+</style>
+</head>
+<body>
+<h3> Please choose what Requirements to study </h3>
+<select id = "optionselect">
+<option value = " " selected disable> Choose The Method </option>
+<option value = "1"> Tutorial </option>
+<option value = "2"> Study material </option>
+<option value = "3"> Subject Notes </option>
+<option value = "4"> Subject Guideline </option>
+</select>
+</body>
+</html>
