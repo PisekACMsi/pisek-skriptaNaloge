@@ -1,0 +1,6 @@
+(context, lastTurn) => { 
+	robotEndConditions.checkCombiner(context, lastTurn, [
+		funkcija1,
+		funkcija2
+	])
+}
