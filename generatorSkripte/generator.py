@@ -148,6 +148,7 @@ def sestaviIncializacijo(row, col, type, dir = 0, value = 0):
 
     return slv
 
+#PARAMETRI
 
 slvLS = {}
 s1LS = "program 2"
@@ -165,7 +166,7 @@ strSE = '<xml xmlns="http://www.w3.org/1999/xhtml"><block type="robot_start" id=
 
 robotIB = ["move", "moveSimple", "forward", "forwardSimple", "turn", "turnAround", "jump", "changeRobot", "transport", "sensorBool", "sensorValue", "alterValue", "destroy", "create", "wait", "nitems", "sensorRowCol",]
 
-
+#OBJEKTI
 ime1IT = "robot0"
 numIT = 2
 imgIT = ["pisek.png"]
@@ -174,14 +175,16 @@ nbStatesIT = 8
 catIT = "robot"
 categoryIT = [{"\"%s\""%catIT:True}]
 item1IT = ustvariItemType(numIT, imgIT, zOrderIT, nbStatesIT, categoryIT)
-#default slvIT je prazen {}, nekam zapiši vse opcije in tipe inputa
+
 slvIT = {}
 slvIT[ime1IT] = item1IT
 
+#MREŽA
 matrika1TD = sestaviMatriko(4,5)
 items1TD = [sestaviIncializacijo(row = 2, col = 2, dir = 4, type = "robot", value = 1), sestaviIncializacijo(row = 3, col = 1, dir = 4, type = "krNekej", value = 5)]
 easy1TD = {"tiles":matrika1TD, "initItems":items1TD}
 
+#INICIALIZACIJA
 matrika2TD = sestaviMatriko(5,8)
 items2TD = [sestaviIncializacijo(row = 2, col = 2, dir = 4, type = "robot", value = 1), sestaviIncializacijo(row = 3, col = 1, dir = 4, type = "krNekej", value = 5)]
 easy2TD = {"tiles":matrika2TD, "initItems":items2TD}
