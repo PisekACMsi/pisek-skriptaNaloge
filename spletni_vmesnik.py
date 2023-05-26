@@ -13,20 +13,19 @@ def send_css(filename):
 def send_img(filename):
     return bottle.static_file(filename, root='static/img')
 
-#img - characters
-@bottle.route('/static/img/characters<filename:re:.*\.png>')
-def send_img(filename):
+#img 
+@bottle.route('/static/javascript/modules/img/algorea<filename:re:.*\.png>')
+def send_img2(filename):
     return bottle.static_file(filename, root='static/img')
+#html
+@bottle.route('/views/<filename:re:.*\.html>')
+def serve_html(filename):
+    return bottle.static_file(filename, root='views')
 
 #javascript
 @bottle.route('/static/javascript/<filename:re:.*\.js>')
 def send_javascript(filename):
     return bottle.static_file(filename, root='static/javascript')
-
-#html - naloga
-@bottle.route('/naloga/<filename:re:.*\.html>')
-def send_html(filename):
-    return bottle.static_file(filename, root='naloga')
 
 #javascript robotlib
 @bottle.route('/naloga/<filename:re:.*\.js>')
@@ -140,7 +139,7 @@ def send_quickAlgo_css(filename):
 
 @bottle.get("/")    
 def home():              
-    return bottle.template("bla.html")
+    return bottle.template("index.html")
 
 @bottle.post("/") 
 def get_data():
