@@ -149,8 +149,9 @@ def izpisiItemTypes():
     pySlv["itemTypes"] = itemsIT
     return pySlv
 
-def dodajItemType(itemSpecifications):
-    global itemsIT, itemID, typeOptions, possibleCategories
+def dodajItemType():
+    global itemsIT, itemID, typeOptions, possibleCategories, itemSpecifications
+    itemID += 1
     cats = itemSpecifications["category"]
     catsTrue = []
     for cat in cats.keys():
@@ -161,8 +162,14 @@ def dodajItemType(itemSpecifications):
     itemSpecifications["category"] = catsTrue
     ime = itemSpecifications.pop("name")
     itemsIT[ime] = itemSpecifications
-    typeOptions.append(ime)
-    
+    typeOptions.add(ime)
+    itemSpecifications = {"name":"objekt_{}".format(itemID-2), "num": itemID, "img":"", "zOrder":itemID, "category":catIT, "value":0}
+
+def izbrisiItemType(ime):
+    global itemsIT, itemID, typeOptions, possibleCategories
+    itemID -= 1
+    typeOptions.pop(ime)
+    itemsIT.pop(ime)
 
 def izpisiSubTaskData():
     global matrixExamples, initialisationExamples
@@ -192,22 +199,43 @@ def addExample():
     matrixExamples.append([])
     addMatrix(mmm, nnn)
 
+def changeMatrixValues(row, col, value):
+    global matrixExamples, aktivenPrimer
+    matrixExamples[aktivenPrimer][row][col] = value
+
+def changeMatrixSize(nrows, ncols):
+    global matrixExamples, aktivenPrimer
+    mat = matrixExamples[aktivenPrimer]
+    rr = len(mat)
+    cc = len(mat[0])
+    # upam da se mat obnaša klokr referenca ne kokr solo matrika
+    mat2 = np.ones((nrows, ncols))
+    if (rr > nrows and cc > ncols):
+        mat = mat[:nrows, :ncols]
+    elif (rr < nrows and cc < ncols):
+        mat2[:rr, :cc] = mat
+        mat = mat2
+    elif (rr > nrows and cc < ncols):
+        mat2[::, :cc] = mat[:nrows, ::]
+    elif (rr < nrows and cc > ncols):
+        mat2[:rr, ::] = mat[::, :ncols]
 
 
+#TE SPREMENLJIVKE SE SPREMINJAJO DIREKTNO S SPLETNE STRANI   KUL?
 #Globalna spremenljivka LANGUAGE STRINGS - shranjuje vse language stringe
 slvLS = {}
-#posodobitev slvLS
-parLS = {"categories": {"actions": "Gibanje"}} #dobljeni parameter s spletne strani, možne parametre najdeš v templateText.txt
+#primer parametra
+parLS = {"categories": {"actions": "Gibanje"}} #dobljeni parameter s spletne strani, možne parametre najdeš v templateText.txt - to naj bo dropdown z opcijami za obklukat
+
 slvLS = dodajSlovar(slvLS, parLS) # za posodobitev kliči to funkcijo in za drugi paramter uporabi kar pride iz spletne strani
 
 # ZAČETNA POSTAVITEV - na spletni strani naj bo gumb - posodobi začetno postavitev. Samo zamenjaj string
 strSE = ''
 
-
 # INCLUDE BLOCKS
 groupByCategory = True # neki za obklukat
 includeAllIB = False # neki za obklukat
-wholeCategories = {"tools":False, "logic":False, "loops":False, "math":False, "texts":False, "lists":False, "colour":False, "variables":False, "functions":False}
+wholeCategories = {"tools":False, "logic":False, "loops":False, "math":False, "texts":False, "lists":False, "colour":False, "variables":False, "functions":False} # neki za obklukat
 # bloki za robota, na začetku so vsi false, na spletni strani naj bo dropdown za klukat, ko obkljuka spremeni v True
 robotIB = {"move": False, "moveSimple": False, "forward": False, "forwardSimple": False, "turn": False, "turnAround": False, "jump": False, "changeRobot": False, "transport": False, "sensorBool": False, "sensorValue": False, "alterValue": False, "destroy": False, "create": False, "wait": False, "nitems": False, "sensorRowCol": False}
 singleBlocksIB = {}
@@ -215,42 +243,48 @@ excludedBlocksIB = {}
 # moćžnosti "move", "moveSimple", "forward", "forwardSimple", "turn", "turnAround", "jump", "changeRobot", "transport", "sensorBool", "sensorValue", "alterValue", "destroy", "create", "wait", "nitems", "sensorRowCol"
 
 # END CONDITIONS
-possibleIdicateors = {'category', 'value', 'type'}
-possibleCategories = {} # updejta se pri ustvarjenju objektov
-typeOptions = [] #imena predmetov, ki so na izbiro za inicializacijo objekta, dodajajo se avtomatsko s klicanjem funkcije dodajItemType.
+possibleIdicateors = {'category', 'value', 'type'} # možnosti
+
+possibleCategories = set() # updejta se samodejno pri ustvarjenju objektov
+typeOptions = set() #imena predmetov, ki so na izbiro za inicializacijo objekta, dodajajo se avtomatsko s klicanjem funkcije dodajItemType.
 # opcije za indikator = possibleIdicateors
 # odvisno od izbranega indikatorja so odvisna tudi imena
 # če je indikator category = opcije za ime = possibleCategories
 # če je indikator value = opcije za ime = kerakol številka. Mejbi bo treba dtr omejitev
 # če je indikator type = opcije za ime = typeOptions
 # jebeš keys, nerabš
-# ubistvu lahko karkol napišeš notr, prazne opcije bo pohendlala funkcija
+# to je default, vpisuj notr kar najdeš v zgornjih opcijah
 endCondition = {"Exist": {"indikator1": "category", "ime1": "coin", "negIndikator1": "", "negIme1": ""},
                 "Coincide": {"indikatorA": "", "imeA": "", "indikatorB": "", "imeB": "", "keys": "", "negIndikatorA": "", "negImeA": "", "negIndikatorB": "", "negImeB": ""}}
 
 
 #OBJEKTI
-itemsIT = {} #shranjuje vse iteme
+itemsIT = {} # samodejno shranjuje vse iteme
 itemID = 2 #se poveča samodejno, odvisen od števila itemov
-catIT = {'junak': False, 'ovira': False, 'paket': False, 'gumb': False, 'kovanec': False, 'številka': False} #za obklukat
+# ko uporabnik želi ustvariti nov objekt naj ima možnosti ime, slika, kategorija, vrednost - izbira naj se vpiše v itemSpecifications
+# poleg možnosti naj bosta zraven še gumba ustvari in izbriši ki kličeta funkciji dodajItemType
+
+catIT = {'junak': False, 'ovira': False, 'paket': False, 'gumb': False, 'kovanec': False, 'številka': False} #za obklukat - možnosti kategorij
 
 # imgIT = ["pisek.png"]
 # zOrderIT #naj bo odvisen od vrstnega reda stvaritve objektov, seprav isti kokritemID
 # nbStatesIT = 8 odvisen le od robota
 
+#globalna spremenljivka trenutnih nastavitev za nov item, po ustvarjenju itema se resetira na default vrednosti
 itemSpecifications = {"name":"objekt_{}".format(itemID-2), "num": itemID, "img":"", "zOrder":itemID, "category":catIT, "value":0}
-dodajItemType(itemSpecifications) #kliče naj se z gumbom ustvari
+dodajItemType() #kliče naj se z gumbom ustvari
 
 #MREŽA
 #GLOBAL
-aktivenPrimer = 0
+aktivenPrimer = 0 # če imaš več primerov, Id katerega trenutno editiraš
 mmm = 5
 nnn = 5
 matrixExamples = [[]] #seznam matrik - lahko da je več testov
 initialisationExamples = [[]]
-ityp = 0 # izberi iz typeOptions
-inicialisationOptions = {"row":0, "col":0, "type":typeOptions[ityp], "dir": 0, "value": 0}
-addMatrix(mmm, nnn) #dodaj test, naj se izvede ob zagonu
+# type nujno!!! izberi it typeOptions
+inicialisationOptions = {"row":0, "col":0, "type":list(typeOptions)[0], "dir": 0, "value": 0}
+addMatrix(mmm, nnn) #dodaj test. Naj se izvede ob zagonu
+
 addInicialisation() # kliči da dodaš ityem v initialisationExamples
 addExample() #kliči če želiš dodati dodaten primer
 
