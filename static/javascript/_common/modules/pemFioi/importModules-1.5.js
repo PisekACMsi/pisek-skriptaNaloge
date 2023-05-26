@@ -52,6 +52,7 @@
          'prismjs-css': {type: "stylesheet", src: modulesPath+"/ext/prismjs/prism.css", id: "prismjs-css"},
 
          'taskStyles-0.1': {type: "stylesheet", src: modulesPath+"/pemFioi/taskStyles-0.1.css", id: "http://www.france-ioi.org/modules/pemFioi/taskStyles-0.1.css"},
+         'taskStyles-mobileFirst': {type: "stylesheet", src: modulesPath+"/pemFioi/taskStyles-mobileFirst.css", id: "http://www.france-ioi.org/modules/pemFioi/taskStyles-mobileFirst.css"},
 
          'conceptDisplay-1.0': {src: modulesPath+"/pemFioi/conceptDisplay-1.0.js", id: "concept_display"},
          'conceptViewer-1.0': {src: modulesPath+"/pemFioi/conceptViewer-1.0-mobileFirst.js", id: "concept_viewer"},
@@ -91,7 +92,7 @@
          'quickAlgo_subtask': {src: modulesPath+"/pemFioi/quickAlgo/subtask.js", id: "quickAlgo_subtask"},
          'quickAlgo_context': {src: modulesPath+"/pemFioi/quickAlgo/context.js", id: "quickAlgo_context"},
          //'quickAlgo_css': {type: "stylesheet", src: modulesPath+"/pemFioi/quickAlgo/quickAlgo.css", id: "quickAlgo_css"},
-
+         'quickAlgo_css': {type: "stylesheet", src: modulesPath+"/pemFioi/quickAlgo/quickAlgo-mobileFirst.css", id: "quickAlgo_css"},
 
          'createAlgoreaInstructions': {src: modulesPath+"/pemFioi/createAlgoreaInstructions.js", id: "createAlgoreaInstructions"},
          'createAlgoreaInstructions-1.0': {src: modulesPath+"/pemFioi/createAlgoreaInstructions-1.0.js", id: "createAlgoreaInstructions"},
@@ -140,6 +141,7 @@
          'files_repository': {src: modulesPath+"/pemFioi/shared/files_repository.js", id: "files_repository"},
          'blocks_helper': {src: modulesPath+"/pemFioi/shared/blocks_helper.js", id: "blocks_helper"},
          'numeric_keypad': { src: modulesPath + "/pemFioi/shared/numeric_keypad/keypad.js", id: "numeric_keypad" },
+         'numeric_keypad_css': { type: "stylesheet", src: modulesPath + "/pemFioi/shared/numeric_keypad/keypad.css", id: "numeric_keypad_css" },
 
          // Quiz task
          'quiz_styles': {type: "stylesheet", src: modulesPath+"/pemFioi/quiz/quizStyles-0.1.css", id: "quiz_styles"},

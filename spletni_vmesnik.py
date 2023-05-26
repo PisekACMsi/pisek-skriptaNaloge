@@ -33,42 +33,43 @@ def send_html(filename):
 def send_file_js(filename):
     return bottle.static_file(filename, root='naloga')
 
-#knjižnica v modules 
+#knjižnica v modules
 #raphaelFactory-1.0
 #delayFactory-1.0
 #simulationFactory-1.0
 #beav-1.0
-#beaver-task-2.0 
-@bottle.route('../static/javascript/_common/<filename:re:.*\.js>')
+@bottle.route('../static/javascript/_common/<filename:re:.*>')
 def send_lib_js(filename):
     return bottle.static_file(filename, root='../../Pisek/pisek-git/_common/modules/pemFioi')
 
-# jquery-1.7.1 
+#jquery-1.7.1
 @bottle.route('../static/javascript/_common/modules/ext/jquery/<filename:re:.*\.js>')
 def send_jquery(filename):
     return bottle.static_file(filename, root='../../Pisek/pisek-git/_common/modules/ext/jquery')
 
-#JSON-js 
+#JSON-js
 @bottle.route('../static/javascript/_common/modules/ext/json/<filename:re:.*\.js>')
 def send_json(filename):
     return bottle.static_file(filename, root='../../Pisek/pisek-git/_common/modules/ext/json')
 
-#raphael-2.2.1 
+#raphael-2.2.1
 @bottle.route('../static/javascript/_common/modules/ext/raphael/2.2.1/<filename:re:.*\.js>')
 def send_raphael(filename):
     return bottle.static_file(filename, root='../../Pisek/pisek-git/_common/modules/ext/raphael/2.2.1')
 
-#jschannel 
+#beaver-task-2.0 
+
+#jschannel
 @bottle.route('../static/javascript/_common/modules/ext/jschannel/<filename:re:.*\.js>')
 def send_jschannel(filename):
     return bottle.static_file(filename, root='../../Pisek/pisek-git/_common/modules/ext/jschannel')
 
-#platform-pr 
+#platform-pr
 @bottle.route('../static/javascript/_common/modules/integrationAPI.01/official/<filename:re:.*\.js>')
 def send_platformpr(filename):
     return bottle.static_file(filename, root='../../Pisek/pisek-git/_common/modules/integrationAPI.01/official')
 
-#buttonsAndMessages 
+#buttonsAndMessages
 @bottle.route('../static/javascript/_common/modules/integrationAPI.01/installationAPI.01/pemFioi/<filename:re:.*\.js>')
 def send_buttonsAndMessages(filename):
     return bottle.static_file(filename, root='../../Pisek/pisek-git/_common/modules/integrationAPI.01/installationAPI.01/pemFioi')
@@ -80,8 +81,13 @@ def send_installationAPI(filename):
 
 #miniPlatform
 @bottle.route('../static/javascript/_common/modules/integrationAPI.01/official/<filename:re:.*\.js>')
-def send_miniPlatform(filename):
+def senminiPlatform(filename):
     return bottle.static_file(filename, root='../../Pisek/pisek-git/_common/modules/integrationAPI.01/official')
+
+#taskStyles-mobileFirst
+@bottle.route('../static/javascript/_common/modules/pemFioi/<filename:re:.*\.css>')
+def send_taskStyles(filename):
+    return bottle.static_file(filename, root='../../Pisek/pisek-git/_common/modules/pemFioi')
 
 #-----------------------------------------------------------------------------------------------
 #Blockly knjižnica
@@ -121,6 +127,11 @@ def send_blockly_fioi(filename):
 def send_numeric_keypad(filename):
     return bottle.static_file(filename, root='../../Pisek/pisek-git/_common/modules/pemFioi/shared/numeric_keypad')
 
+#numeric_keypad_css
+@bottle.route('../static/javascript/_common/modules/pemFioi/shared/numeric_keypad/<filename:re:.*\.css>')
+def send_numeric_keypadd_css(filename):
+    return bottle.static_file(filename, root='../../Pisek/pisek-git/_common/modules/pemFioi/shared/numeric_keypad')
+
 #quickAlgo_i18n
 #quickAlgo_interface
 #quickAlgo_utils
@@ -134,13 +145,13 @@ def send_quickAlgo(filename):
     return bottle.static_file(filename, root='../../Pisek/pisek-git/_common/modules/pemFioi/quickAlgo')
 
 #quickAlgo_css
-@bottle.route('../static/css/modules/<filename:re:.*\.css>')
+@bottle.route('../static/javascript/_common/modules/pemFioi/quickAlgo/<filename:re:.*\.css>')
 def send_quickAlgo_css(filename):
-    return bottle.static_file(filename, root='../static/css/modules')
+    return bottle.static_file(filename, root='../../Pisek/pisek-git/_common/modules/pemFioi/quickAlgo')
 
 @bottle.get("/")    
 def home():              
-    return bottle.template("bla.html")
+    return bottle.template("index.html")
 
 @bottle.post("/") 
 def get_data():

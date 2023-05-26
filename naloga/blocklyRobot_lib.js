@@ -1,242 +1,336 @@
-// FUTURE: Check _common/modules/pemFioi/blocklyRobot_lib-1.0.0.js and blocklyRobot_lib-1.0.1-dev.js!!!
-
-// language strings
-var localLanguageStrings = {
-   sl: {
-      startingBlockName: "Program",	//Začetni blok programa
-      categories: {							//Imena kategorij
-         movement: "Gibanje", // FUTURE override?? doesnt work
-         tools: "Pripomočki",
-      },
-      label: {									//Imena ukazov
-         move: "premakni se v smer %1 za %2",
-         moveSimple: "premakni se %1",
-         forward: "premakni se naprej za %1",
-         forwardSimple: "premakni se naprej",
-         turn: "obrni se %1",
-         turnAround: "obrni se okoli",
-         jump: "skoči za %1 %2 in za %3 %4",
-         move1d: "pojdi %1",
-         jump1d: "skoči %1",
-         changeRobot: "zamenjaj vlogo %1", 
-         transport: "%1 predmet",
-         sensorBool: "%1 %3 %2",
-         sensorBool1D: "%1 %3 %2",
-         sensorValue: "%3 %2 %1",
-         sensorValue1D: "%3 %2 %1",
-         alterValue: "nastavi %3 %2 %1 na %4",
-         alterValue1D: "nastavi %3 %2 %1 na %4",
-         destroy: "odstrani %1 predmet, ki %3 %2",
-         destroy1D: "odstrani %1 predmet, ki %3 %2",
-         create: "naredi %1 %2, z %3 %4",
-         create1D: "naredi %1 %2, z %3 %4",
-         wait: "počakaj",
-         nitems: "število predmetov, ki %2 %1",
-         sensorRowCol: "%1 predmeta, ki %3 %2",
-      },
-      code: {
-         move: "premakni",
-         moveSimple: "premakniPreprosto",
-         forward: "naprejZa",
-         forwardSimple: "naprej",
-         turn: "obrni",
-         turnAround: "obrniSeOkoli",
-         jump: "skociZa",
-         move1d: "pojdiV",
-         jump1d: "skoci",
-         changeRobot: "zamenjajVlogo", 
-         transport: "poberiSpustiPredmet",
-         sensorBool: "predmetSmerVrednostKljuc",
-         sensorBool1D: "predmetSmerVrednostKljuc1D",
-         sensorValue: "vrednostPredmetaKljuc",
-         sensorValue1D: "vrednostPredmetaKljuc1D",
-         alterValue: "nastaviVrednostPredmetaKljuc",
-         alterValue1D: "nastaviVrednostPredmetaKljuc1D",
-         destroy: "odstrani",
-         destroy1D: "odstrani1D",
-         create: "naredi",
-         create1D: "naredi1D",
-         wait: "pocakaj",
-         nitems: "vrniSteviloPredmetovKi",
-         sensorRowCol: "vrsticaStolpecPredmetaKljuc",
-      },
-      description: {								//Opis ukazov
-         move: "premakni junaka za N korakov v določeno smer gledano absolutno oz. relativno",
-         moveSimple: "premakni junaka za 1 korak v določeno smer gledano absolutno oz. relativno",
-         forward: "premakni se naprej za N korakov",
-         forwardSimple: "premakni se naprej",
-         turn: "obrni se v smer",
-         turnAround: "obrni se okoli",
-         jump: "skok za N gor/dol in za M desno/levo",
-         move1d: "pojdi v levo/desno",
-         jump1d: "skoic gor/dol",
-         changeRobot: "zamenjaj vlogo junaka", 
-         transport: "poberi/spusti predmet",
-         sensorBool: "preveri ce ima predmetv smeri vrednost na kljucu",
-         sensorBool1D: "preveri ce ima predmetv smeri vrednost na kljucu",
-         sensorValue: "vrni vrednost kljuca na predmetu",
-         sensorValue1D: "vrni vrednost kljuca na predmetu",
-         alterValue: "nastavi vrednost kljuca na predmetu na",
-         alterValue1D: "nastavi vrednost kljuca na predmetu na 1D",
-         destroy: "odstrani predmet v smeri",
-         destroy1D: "odstrani predmet v smeri",
-         create: "naredi predmet v smeri z vrednostjo",
-         create1D: "naredi predmet v smeri z vrednostjo",
-         wait: "pocaka",
-         nitems: "vrni število predmetov, ki",
-         sensorRowCol: "vrstica/stolpec predmeta s ključem",
-      },
-      options:{
-         robotName0: "Robot", 
-         robotName1: "Miha", 
-         pick: "poberi",
-         drop: "spusti",
-         move: {
-            north: "severno",
-            south: "južno",
-            east: "vzhodno",
-            west: "zahodno",
-            northwest: "severozahodno",
-            southwest: "jugozahodno",
-            southeast: "jugovzhodno",
-            northeast: "severovzhodno",
-            up: "gor",
-            down: "dol",
-            left: "levo",
-            right: "desno",
-            around: "okoli",
-            forward: "naprej",
-            forwardLong: "zelo naprej",
-            leftforward: "levo naprej",
-            leftbackward: "levo nazaj",
-            rightforward: "desno naprej",
-            rightbackward: "desno nazaj",
-         },
-         tools: {
-            row: "vrstica",
-            col: "stolpec",
-            forward: "spredaj",
-            forwardDown: "spredaj dol",
-            under: "spodaj",
-            bool: {
-               category: 'je',
-               notcategory: 'ni',
-               robot: 'junak',
-               obstacle: 'ovira',
-               transportable: 'paket',
-               button: 'gumb',
-               coin: 'kovanec',
-               number: 'številka',
-               edge: 'rob',
-               has: 'ima',
-               colour: 'barvo',
-               transOrder: 'številko paketa',
-            },
-            value: {
-               robot: 'junaka',
-               obstacle: 'ovire',
-               transportable: 'paketa',
-               button: 'gumba',
-               coin: 'kovanca',
-               number: 'številke',
-               nonspecific: 'česarkoli',
-               colour: 'barva',
-               value: 'vrednost',
-               transOrder: 'številka paketa',
-            },
-            alter: {
-               colour: 'barvo',
-               value: 'vrednost',
-               transOrder: 'številko paketa',
-            },
-            create: {
-               colour: "barvo",
-               value: "vrednostjo",
-               paint: "barvo",
-               number: "številko",
-               obstacle: "oviro",
-            },
-            nitems: {
-               category: 'so',
-               notcategory: 'niso',
-               robot: 'junak',
-               obstacle: 'ovira',
-               transportable: 'paket',
-               button: 'gumb',
-               coin: 'kovanec',
-               number: 'številka',
-               has: 'imajo',
-               colour: 'barvo',
-               transOrder: 'številko paketa',
-            },
-         },
-      },
-      messages: {								//Besedila sporočil
-         success: "Bravo! ",
-         failure: "Ojoj! ",
-         itemsExist: "Predmeti so na mreži.",
-         itemsDontExist: "Predmetov ni na mreži.",
-         itemsCoincide: "Predmeti A in B sovpadajo.",
-         itemsDontCoincide: "Predmeti A in B ne sovpadajo.",
-         successReachGeenArea: "Bravo dosegel si cilj",
-         failureReachGeenArea: "Booooooo, nisi dosegel cilja"
-      },
-      errors: {
-         unknownJump: 'Junak ne zna izvesti takega skoka.',
-         obstacle: "Pazi, ovira!",
-         leavesGrid: "Pazi, rob mreže!",
-         nothingToPickUp: "Ni predmetov, ki bi jih lahko pobral.",
-         alreadyTransporting: "Robot že nosi tak predmet.",
-         notTransporting: "Robot skuša spustiti predmet, vendar ga ne nosi.",
-         robotNotOnGrid: "Piki je na povodcu, sedaj mora voditi Miha!",
-         wrongPickOrder: "Robot skuša pobrati napačen predmet!",
-         noSuchItemOnCell: "Na tem polju ni takega predmeta!",
-         unknownType: "Robot ne pozna tega koncepta!",
-      },
-   },
-};
-
-
-// function for replacing keys inside dictionary
-function replaceDict(source, dest) {
-   if ((typeof source != "object") || (typeof dest != "object")) {
-      return;
-   }
-   for (var key1 in source) {
-      if (dest[key1] != undefined) {
-         if (dest[key1] instanceof Array) {
-            dest[key1] = dest[key1].concat(source[key1]);
-         }
-         else if (typeof dest[key1] == "object") {
-            replaceDict(source[key1], dest[key1]);
-         } else {
-            dest[key1] = source[key1];
-         }
-      }
-      else dest[key1] = source[key1];
-   }
-}
-
-
+//TODO: Check _common/modules/pemFioi/blocklyRobot_lib-1.0.0.js and blocklyRobot_lib-1.0.1-dev.js!!!
 //generatedBlocks
 var getContext = function(display, infos) {
-	var context = quickAlgoContext(display, infos);
-	context.robot = {};
-  
-   // set language strings
-   var strings = localLanguageStrings;
+	var localLanguageStrings = {
+		sl: {
+			startingBlockName: "Program",	//Začetni blok programa
+			categories: {							//Imena kategorij
+				actions: "Dejanja",
+				sensors: "Senzorji",
+			},
+			label: {									//Imena ukazov
+				wait: "počakaj",
+				right: "obrni se desno",
+				left: "obrni se levo",
+				forward: "premakni se naprej",
+    	        turnAround: "obrni se okoli",
+	            jump: "skoči",
+	            down: "pojdi dol",
+				east: "premakni se desno",
+				south: "premakni se dol",
+				west: "premakni se levo",
+				north: "premakni se gor",
+				paint: "pobarvaj polje",
+				pickTransportable: "poberi paket",
+				dropTransportable: "pospravi paket",
+				onTransportable: "na paketu",
+				onRoundObject: "na okroglem predmetu",
+				onSquareObject: "na kvadratnem predmetu",
+				onTriangleObject: "na trikotnem predmetu",
+				onDottedObject: "na pikčastem predmetu",
+				onFullObject: "na polnem predmetu",
+				onStripedObject: "na črtastem predmetu",
+				onHole: "na odložišču",
+				transportableShape: "oblika predmeta",
+				transportableColor: "barva predmeta",
+				transportableRed:  "predmet je rdeč",
+				transportableBlue: "predmet je moder",
+				transportableSquare: "predmet je kvadraten",
+				greenCell: "polje je zeleno",
+				brownCell: "polje je rjavo",
+				markedCell: "polje je označeno",
+				addPlatformAbove: "zgradi ploščad zgoraj",
+				addPlatformInFront: "zgradi ploščad spredaj",
+				platformInFront: "ploščad spedaj",
+				platformInFrontAndBelow: "ploščad spredaj in spodaj",
+				platformAbove: "ploščad zgoraj",
+				gridEdgeInFront: "rob mreže spredaj",
+				gridEdgeAbove: "rob mreže zgoraj",
+				gridEdgeBelow: "rob mreže spodaj",
+				gridEdgeEast: "rob mreže desno",
+				gridEdgeWest: "rob mreže levo",
+				obstacleInFront: "ovira spredaj",
+				obstacleRight: "ovira desno",
+				obstacleLeft: "ovira levo",
+				obstacleEast: "ovira vzhodno",
+				obstacleWest: "ovira zahodno",
+				obstacleNorth: "ovira severno",
+				obstacleSouth: "ovira južno",
+				paintInFront: "barva spredaj",
+				paintOnCell: "pobarvano polje",
+				paintNorthWest: "barva zgoraj in levo",
+				paintNorth: "barva zgoraj",
+				paintNorthEast: "barva zgoraj in desno",
+				colorUnder: "barva polja",
+				numberUnder: "številka polja",
+				writeNumber: "nastavi številko polja na",
+				dir: "smer robota",
+				col: "stolpec robota",
+				row: "vrstica robota",
+				alert: "opozorilo",
+				onPill: "na bonbonu",
+				number: "skupno število predmetov za prenos",
+				exists: "obstaja predmet, ki ga je mogoče prenesti",
+				trans_row: "vrstica predmeta za prenos",
+				trans_col: "stolpec predmeta za prenos",
+				//custom
+				pickWithdrawable: "popij vodo",
+				onWithdrawable: "na priboru",
+				pickWithdrawableOptions: "daj pribor v %1 žep",
+				onWithdrawableOptions: "na %1",
+				left_pocket: "levi",
+				right_pocket: "desni",
+				middle_pocket: "srednji",
+				onFork: "vilici",
+				onSpoon: "žlici",
+				onKnife: "nožu",
+				letterUnder: "črka polja",
+				letterOnCell: "črka na polju",
+				numberOnCell: "številka na polju",
+			},
+			code: {
+				wait: "počakaj",
+				right: "obrniSeDesno",
+				left: "obrniSeLevo",
+				turnAround: "obrniSeOkoli",
+				jump: "skoči",
+				down: "pojdiDol",
+				forward: "naprej",
+				east: "desno",
+				south: "dol",
+				west: "levo",
+				north: "gor",
+				paint: "pobarvaj",
+				pickTransportable: "poberi",
+				dropTransportable: "odvrzi",
+				onTransportable: "naPredmetu",
+				onRoundObject: "naKrogu",
+				onSquareObject: "naKvadratu",
+				onTriangleObject: "naTrikotniku",
+				onDottedObject: "naPikčastnemPredmetu",
+				onFullObject: "naPolnemPredmetu",
+				onStripedObject: "naČrtastemPredmetu",
+				onHole: "naLuknji",
+				transportableShape: "oblikaPredmeta",
+				transportableColor: "barvaPredmeta",
+				transportableRed: "rdečiPredmet",
+				transportableBlue: "mordiPredmet",
+				transportableSquare: "kvadratniPredmet",
+				greenCell: "zelenoPolje",
+				brownCell: "rjavoPolje",
+				markedCell: "označenoPolje",
+				platformInFront: "ploščadSpredaj",
+				addPlatformAbove: "dodajPloščadZgoraj",
+				addPlatformInFront: "dodajPloščadSpredaj",
+				platformInFrontAndBelow: "ploščadSpredajInSpodaj",
+				platformAbove: "ploščadZgoraj",
+				gridEdgeInFront: "robMrežeSpredaj",
+				obstacleInFront: "oviraSpredaj",
+				gridEdgeEast: "robMrežeDesno",
+				gridEdgeWest: "robMrežeLevo",
+				gridEdgeAbove: "robMrežeZgoraj",
+				gridEdgeBelow: "robMrežeSpodaj",
+				obstacleRight: "oviraDesno",
+				obstacleLeft: "oviraLevo",
+				obstacleEast: "oviravzhodno",
+				obstacleWest: "ovirazahodno",
+				obstacleNorth: "oviraseverno",
+				obstacleSouth: "ovirajužno",
+				paintInFront: "pobarvanaSpredaj",
+				paintOnCell: "pobarvanoPolje",
+				paintNorthWest: "pobarvanaZgorajLevo",
+				paintNorth: "pobarvanaZgoraj",
+				paintNorthEast: "pobarvanaZgorajDesno",
+				colorUnder: "barvaPolja",
+				numberUnder: "številkaPolja",
+				writeNumber: "zapišiŠtevilko",
+				dir: "smer",
+				col: "stolpec",
+				row: "vrstica",
+				alert: "opozorilo",
+				onPill: "naBonbonu",
+				number: "številoPredmetov",
+				exists: "obstajaPredmet",
+				trans_row: "vrsticaPredmeta",
+				trans_col: "stolpecPredmeta",
+				//custom
+				pickWithdrawable: "PirborVZep",
+				onWithdrawable: "naPriboru",
+				pickWithdrawableOptions: "priborVZep2",
+				onWithdrawableOptions: "naPriboru2",
+				letterUnder: "crkaPolja", 
+				letterOnCell: "crkaNaPolju",
+				numberOnCell: "stevilkaNaPolju", 
+			},
+			description: {								//Opis ukazov
+				wait: "počaka",
+				right: "obrne se v smeri urinega kazalca",
+				left: "obrne se v nasprotni smeri urinega kazalca",
+				turnAround: "obrne se za 180°",
+				jump: "skok",
+				down: "skok dol",
+				forward: "naprej",
+				east: "desno",
+				south: "dol",
+				west: "levo",
+				north: "gor",
+				paint: "pobarva",
+				pickTransportable: "pobere",
+				dropTransportable: "odvrže",
+				onTransportable: "na prenosljivem predmetu",
+				onRoundObject: "na okroglem predmetu",
+				onSquareObject: "na kvadratastem predmetu",
+				onTriangleObject: "na trikotnem predmetu",
+				onDottedObject: "na pikčastnem predmetu",
+				onFullObject: "na polnem predmetu",
+				onStripedObject: "na črtastem predmetu",
+				onHole: "na luknji",
+				transportableShape: "oblika prenosljivega predmeta",
+				transportableColor: "barva prenosljivega predmeta",
+				transportableRed: "rdeči prenosljivi predmet",
+				transportableBlue: "mordi prenosljivi predmet",
+				transportableSquare: "kvadratni prenosljivi predmet",
+				greenCell: "zeleno polje",
+				brownCell: "rjavo polje",
+				markedCell: "polje z markerjem",
+				platformInFront: "ploščad spredaj",
+				addPlatformAbove: "dodaj ploščad zgoraj",
+				addPlatformInFront: "dodaj ploščad spredaj",
+				platformInFrontAndBelow: "ploščad spredaj in spodaj",
+				platformAbove: "ploščad zgoraj",
+				gridEdgeInFront: "rob mreže spredaj",
+				obstacleInFront: "ovira spredaj",
+				gridEdgeEast: "rob mreže desno",
+				gridEdgeWest: "rob mreže levo",
+				gridEdgeAbove: "rob mreže zgoraj",
+				gridEdgeBelow: "rob mreže spodaj",
+				obstacleRight: "ovira desno",
+				obstacleLeft: "ovira levo",
+				obstacleEast: "ovira vzhodno",
+				obstacleWest: "ovira zahodno",
+				obstacleNorth: "ovira severno",
+				obstacleSouth: "ovira južno",
+				paintInFront: "pobarvana spredaj",
+				paintOnCell: "pobarvano polje",
+				paintNorthWest: "pobarvana zgoraj levo",
+				paintNorth: "pobarvana zgoraj",
+				paintNorthEast: "pobarvana zgoraj desno",
+				colorUnder: "barva polja",
+				numberUnder: "številka polja",
+				writeNumber: "zapiši številko",
+				dir: "smer",
+				col: "stolpec",
+				row: "vrstica",
+				alert: "opozorilo",
+				onPill: "na bonbonu",
+				number: "število prenosljivih predmetov",
+				exists: "obstaja prenosljiv predmet",
+				trans_row: "vrstica prenosljivega predmeta",
+				trans_col: "stolpec prenosljivega predmeta",
+				//custom
+				pickWithdrawable: "daj pribor v žep",
+				onWithdrawable: "na priboru",
+				pickWithdrawableOptions: "daj pribor v %1 žep",
+				onWithdrawableOptions: "na %1",
+				letterUnder: "črka polja", 
+				letterOnCell: "črka na polju", 
+				numberOnCell: "številka na polju",
+			},
+			messages: {								//Besedila sporočil
+				nothingToPickUp: "Ni predmetov, ki bi jih lahko pobral.",
+				alreadyTransporting: "Robot že nosi predmet.",
+				notTransporting: "Robot skuša spustiti predmet, vendar ga ne nosi.",
+				successDroppedAllObjects: "Čestitamo, robot je spustil vse predmete!",
+				successMarkersPainted: "Čestitamo, pišek je pravilno pobarval polja!",
+				failureMarkersPainted: "Pišek ni pravilno pobarval polja.",
+				successPickedAllCollectibles: "Čestitamo, robot je pobral vse predmete!",
+				failurePickedAllCollectibles: "Robot ni pobral vseh predmetov!",
+				successReachGeenArea: "Super! Tekač je dosegel cilj.",
+				failureReachGeenArea: "Ojoj! Tekač ni prispel do cilja. Poskusi še enkrat.",
+				successOneMarbleInHole: "Čestitamo, paket je na pravem mestu!",
+				successAllMarblesInHoles: "Čestitamo, vsi paketi so na pravih mestih!",
+				failureOneMarbleInHole: "Paket ni v odložišču!",
+				failureAllMarblesInHoles: "Vsi paketi niso v odložiščih!",
+				leavesGrid: "Pišek je zapustil mrežo!",
+				jumpOutsideGrid: "Pišek skuša skočiti izven mreže!",
+				jumpObstacleBlocking: "Robot skuša skočiti, vendar zaradi ovire ne more!",
+				jumpNoPlatform: "Robot skuša skočiti, vendar ni nobene ploščadi!",
+				downOutsideGrid: "Robot se skuša premakniti izven mreže!",
+				downNoPlatform: "Robot se skuša premakniti dol, vendar spodaj ni ploščadi!",
+				falls: "Pišek pada v prazno.",
+				willFallAndCrash: "Pišek bo padel z ploščadi in se poškodoval!",
+				obstacleOnCell: "Na tem polju je ovira.",
+				platformOnCell: "Na tem polju je že ploščad.",
+				obstacle: "Ojoj! Pišek se je zaletel v oviro. Poskusi še enkrat.",
+				//custom
+				successPickedAllWithdrawables: "Čestitamo, tekač je popil vse vode!",
+				failurePickedAllWithdrawables: "Tekač ni popil vse vode!",
+				nothingToPickUp2: "Ni vode, ki bi jo lahko popil.",
+				wrongWithdraw1: "Vilice morajo iti v levi žep.",
+				wrongWithdraw2: "Žlice morajo iti v srednji žep.",
+				wrongWithdraw3: "Noži morajo iti v desni žep.",
+			},
+		},
+		none: {
+			comment: {
+			}
+		}
+	};
 
-   if (infos.languageStrings != undefined) replaceDict(infos.languageStrings, strings);
-   strings = context.setLocalLanguageStrings(strings); // set language
-   
+	var context = quickAlgoContext(display, infos);
+
+	var strings = context.setLocalLanguageStrings(localLanguageStrings);
+
+   function replaceStringsRec(source, dest) {
+      if ((typeof source != "object") || (typeof dest != "object")) {
+         return;
+      }
+      for (var key1 in source) {
+         if (dest[key1] != undefined) {
+            if (typeof dest[key1] == "object") {
+               replaceStringsRec(source[key1], dest[key1]);
+            } else {
+               dest[key1] = source[key1];
+            }
+         }
+      }
+   }
+
+   if (infos.languageStrings != undefined) {
+      replaceStringsRec(infos.languageStrings.blocklyRobot_lib, strings);
+   }
+
+	var cells = [];
+	var colsLabels = [];
+	var rowsLabels = [];
+	var scale = 1;
+	var paper;
+
+   if (infos.leftMargin === undefined) {
+      infos.leftMargin = 0;
+   }
+   if (infos.topMargin === undefined) {
+      if (infos.showLabels) {
+         infos.topMargin = 0;
+      } else {
+         infos.topMargin = infos.cellSide / 2;
+      }
+   }
+   if (infos.showLabels) {
+      infos.leftMargin += infos.cellSide;
+      infos.topMargin += infos.cellSide;
+   }
+
+	context.robot = {};
+
 	//Funkcija za določanje barv blokov ukazov
 	switch (infos.blocklyColourTheme) {
 		case "bwinf":
 			context.provideBlocklyColours = function() {
 				return {
 					categories: {
-						movement: 260,	//print  	//turtle
-						tools: 200,	//read 	//turtleInput
+						actions: 260,	//print  	//turtle
+						sensors: 200,	//read 	//turtleInput
 						logic: 100,
 						loops: 180,
 						math: 230,
@@ -251,8 +345,8 @@ var getContext = function(display, infos) {
 						_default: 500,
 					},
 					blocks: {
-						movement: 260,	//print  	//turtle
-						tools: 200,	//read 	//turtleInput
+						actions: 260,	//print  	//turtle
+						sensors: 200,	//read 	//turtleInput
 						logic: 100,
 						loops: 180,
 						math: 230,
@@ -273,924 +367,788 @@ var getContext = function(display, infos) {
         // we could set robot specific default colours here, if we wanted to …
 	}
 
-   // setup grid
-   context.props = {
-      cells: [],
-      tiles: [],
-      colsLabels: [],
-      rowsLabels: [],
-      scale: 1.,
-      paper: undefined,
-      // dirToState: [0, 2, 4, 6], // [3, 0, 1, 2];
-      // delta: [[0,1],[1,0],[0,-1],[-1,0]],
-      delta: [[0,1],[1,1],[1,0],[1,-1],[0,-1],[-1,-1],[-1,0],[-1,1],],
-      // dirNames: ["E","S","W","N"],
-      dirNames: ["E","SE","S","SW","W","NW","N","NE"],
-      reduceDir: [0,0,1,2,2,2,3,0],
-   }
-
-   if (infos.leftMargin === undefined) {
-      infos.leftMargin = 0;
-   }
-   if (infos.rightMargin === undefined) {
-      infos.rightMargin = 0;
-   }
-   if (infos.topMargin === undefined) {
-      if (infos.showLabels) {
-         infos.topMargin = 0;
-      } else {
-         infos.topMargin = infos.cellSide / 2;
-      }
-   }
-   if (infos.showLabels) {
-      infos.leftMargin += infos.cellSide;
-      infos.topMargin += infos.cellSide;
-   }
-
-	
-
-
-
-   // Grid DISPLAY functions ==== DO NOT USE IN BLOCKS!!!!! -----------------------------------------------------
-   context.reset = function(gridInfos) {		
+   context.reset = function(gridInfos) {
       if (gridInfos) {
-         this.actionSpeed = gridInfos.actionSpeed;
-         this.tiles = gridInfos.tiles;
-         this.initItems = gridInfos.initItems;
-         this.nbRows = this.tiles.length;
-         this.nbCols = this.tiles[0].length;
+         context.tiles = gridInfos.tiles;
+         context.initItems = gridInfos.initItems;
+         context.nbRows = context.tiles.length;
+         context.nbCols = context.tiles[0].length;
       }
-      this.items = [];
-      this.fullTransport = false;
-      this.lost = false;
-      this.success = false;
-      this.nbMoves = 0;
-      this.nbCoins = 0;
-		this.robotRankInUse = 0;
-      this.transporting = []; 
-      this.transportingValues = []; 
-      for(var i=0; i<infos.numberOfRobots; i++){
-         this.transporting.push([]);
-         this.transportingValues.push([]);
+      context.items = [];
+      context.lost = false;
+      context.nbMoves = 0;
+      context.success = false;
+      context.curRobot = 0;
+      context.nbTransportedItems = 0;
+      context.nbCollectedItems = 0;
+      if (context.display) {
+         context.resetDisplay();
+         $("#nbMoves").html(context.nbMoves);
+      } else {
+         resetItems();
       }
-
-      if(this.display) {
-         this.delayFactory.destroyAll();
-         this.raphaelFactory.destroyAll();
-         if(this.props.paper !== undefined)
-            this.props.paper.remove();
-         this.props.paper = this.raphaelFactory.create(
-            "paperMain", 
-            "grid", 
-            Math.round(infos.cellSide * this.nbCols * this.props.scale), 
-            Math.round(infos.cellSide * this.nbRows * this.props.scale)
-         );
-         this.resetBoard();
-         this.resetItems();
-         this.updateScale();
-         $("#nbMoves").html(this.nbMoves);
-      }
-      else this.resetItems();
-   };	
-   context.resetBoard = function() {
-      for(var iRow = 0;iRow < this.nbRows;iRow++) {
-         this.props.cells[iRow] = [];
-         this.props.tiles[iRow] = [];
-         for(var iCol = 0;iCol < this.nbCols;iCol++) {
-            this.props.cells[iRow][iCol] = this.props.paper.rect(0, 0, 10, 10);
-            if(this.tiles[iRow][iCol] == 0)
-               this.props.cells[iRow][iCol].attr({'stroke-width': '0'});
-            else{
-               this.props.cells[iRow][iCol].attr({'stroke-width': (infos.border*infos.cellSide).toString()});
-               if(infos.backgroundColour)
-                  this.props.cells[iRow][iCol].attr({'fill': infos.backgroundColour});  
-               if(infos.borderColour )
-                  this.props.cells[iRow][iCol].attr({'stroke': infos.borderColour});
-            }
-            
-            if(infos.backgroundTile && this.tiles[iRow][iCol] != 0) {
-               this.props.tiles[iRow][iCol] = this.props.paper.image(imgPath+infos.backgroundTile, 0, 0, 10, 10);
-            }
-            else this.props.tiles[iRow][iCol] = undefined;
-         }
-      }
-      if(infos.showLabels) {
-          for(var iRow = 0;iRow < this.nbRows;iRow++) {
-             this.props.rowsLabels[iRow] = this.props.paper.text(0, 0, (iRow + 1));
-          }
-          for(var iCol = 0;iCol < this.nbCols;iCol++) {
-             this.props.colsLabels[iCol] = this.props.paper.text(0, 0, (iCol + 1));
-          }
-      }
+      //resetScores();
    };
-   context.resetItems = function() {
-      // empty item initialization
-		this.items = [];
-      // get item type codes
-		var itemTypeByNum = {};
-      for (var type in infos.itemTypes) {
-         var itemType = infos.itemTypes[type];
-         if (itemType.num != undefined) {
-            itemTypeByNum[itemType.num] = type;
-         }
-      }
-      // reset items on tiles
-      for (var iRow = 0; iRow < this.nbRows; iRow++) {
-         for (var iCol = 0; iCol < this.nbCols; iCol++) {
-            var itemTypeNum = this.tiles[iRow][iCol];
-            if (itemTypeByNum[itemTypeNum] != undefined) {
-               this.resetItem({	row: iRow,  col: iCol,  type: itemTypeByNum[itemTypeNum]  });
-            }
-         }
-      }
-		// reset items in initItems
-      for (var iItem = this.initItems.length - 1; iItem >= 0; iItem--) {
-         this.resetItem(this.initItems[iItem]);
-      }
-      
-      // check robotRanks
-      var robots = this.getItems(undefined, undefined, {category: 'robot'});
-      for(var irobot = 0; irobot < robots.length; irobot++){
-         var item = robots[irobot];
-         if(!("rank" in item)){
-            for (var ir = 0; ir < infos.numberOfRobots; ir++) {
-               var robotsWithRank = this.getItems(undefined, undefined, {category: 'robot', rank: ir});
-               if(robotsWithRank.length == 0) {
-                  item.rank = ir;
-               }
-            }
-         }
-         else{
-            var robotsWithRank = this.getItems(undefined, undefined, {category: 'robot', rank: item.rank});
-            if(robotsWithRank.length > 1){
-               throw("ERROR: only one robot can have the same rank!");
-            }
-         }
-      }
+   context.resetDisplay = function() {
+      this.delayFactory.destroyAll();
+      this.raphaelFactory.destroyAll();
+      paper = this.raphaelFactory.create("paperMain", "grid", infos.cellSide * context.nbCols * scale, infos.cellSide * context.nbRows * scale);
+      resetBoard();
+      context.blocklyHelper.updateSize();
+      resetItems();
+      context.updateScale();
    };
    context.unload = function() {
-      if (this.display) {
-         if (this.props.paper != null) {
-            this.props.paper.remove();
+      if (context.display) {
+         if (paper != null) {
+            paper.remove();
          }
       }
    };
    context.updateScale = function() {
-      if (!this.display) {
+      if (!context.display) {
          return;
       }
-      if (this.props.paper == undefined) {
+      if (paper == null) {
          return;
       }
-
-      var newCellSide = 0;
-      if(window.quickAlgoResponsive) {
-         var areaWidth = Math.max(200, $('#grid').width()-24);
-         var areaHeight = Math.max(150, $('#grid').height()-24);
+      var newCellSide;
+      if (context.nbCols && context.nbRows) {
+         var marginAsCols = infos.leftMargin / infos.cellSide;
+         var marginAsRows = infos.topMargin / infos.cellSide;
+         newCellSide = Math.min(infos.cellSide, Math.min(400 / (context.nbCols + marginAsCols), 600 / (context.nbRows + marginAsRows)));
       } else {
-         var areaWidth = 400;
-         var areaHeight = 600;
+         newCellSide = 0;
       }
-      if (this.nbCols && this.nbRows) {
-         var marginAsCols = (infos.leftMargin + infos.rightMargin) / infos.cellSide;
-         var marginAsRows = (infos.topMargin + infos.rightMargin) / infos.cellSide;
-         newCellSide = Math.min(
-            infos.cellSide, Math.min(
-               areaWidth / (this.nbCols + marginAsCols), 
-               areaHeight / (this.nbRows + marginAsRows)
-            )
-         );
-      }
-
-      this.props.scale = newCellSide / infos.cellSide;
-      var roundLeftMargin = Math.round(infos.leftMargin * this.props.scale);
-      var roundTopMargin = Math.round(infos.topMargin * this.props.scale);
-      var roundCellSide = Math.round(infos.cellSide * this.props.scale);
-      var db = Math.round(infos.cellSide * infos.border * this.props.scale); // for borders
-
-      this.props.paper.setSize( roundCellSide * this.nbCols + roundLeftMargin, roundCellSide * this.nbRows + roundTopMargin );
-      for (var iRow = 0; iRow < this.nbRows; iRow++) {
-         for (var iCol = 0; iCol < this.nbCols; iCol++) {
-            if (this.props.cells[iRow][iCol] != undefined) {
-               var x = roundCellSide * iCol + roundLeftMargin;
-               var y = roundCellSide * iRow + roundTopMargin;
-               this.props.cells[iRow][iCol].attr({
-                  x: x, 
-                  y: y, 
-                  width: roundCellSide, 
-                  height: roundCellSide
-               });
-            }
-            if (this.props.tiles[iRow][iCol] != undefined) {
-               var x = roundCellSide * iCol + roundLeftMargin;
-               var y = roundCellSide * iRow + roundTopMargin;
-               this.props.tiles[iRow][iCol].attr({
-                  x: x + db/2, 
-                  y: y + db/2, 
-                  width: roundCellSide-db, 
-                  height: roundCellSide-db
-               });
+      scale = newCellSide / infos.cellSide;
+      paper.setSize((infos.cellSide * context.nbCols + infos.leftMargin) * scale, (infos.cellSide * context.nbRows + infos.topMargin) * scale);
+      for (var iRow = 0; iRow < context.nbRows; iRow++) {
+         for (var iCol = 0; iCol < context.nbCols; iCol++) {
+            if (cells[iRow][iCol] != undefined) {
+               var x = (infos.cellSide * iCol + infos.leftMargin) * scale;
+               var y = (infos.cellSide * iRow + infos.topMargin) * scale;
+               cells[iRow][iCol].attr({x: x, y: y, width: infos.cellSide * scale, height: infos.cellSide * scale});
             }
          }
       }
       if (infos.showLabels) {
-         for (var iRow = 0; iRow < this.nbRows; iRow++) {
-            var x = roundLeftMargin - roundCellSide / 2;
-            var y = roundCellSide * (iRow + 0.5) + roundTopMargin;
-            this.props.rowsLabels[iRow].attr({x: x, y: y}).attr({"font-size": roundCellSide / 2});
+         for (var iRow = 0; iRow < context.nbRows; iRow++) {
+            var x = (infos.leftMargin - infos.cellSide / 2) * scale;
+            var y = (infos.cellSide * (iRow + 0.5) + infos.topMargin) * scale;
+            rowsLabels[iRow].attr({x: x, y: y}).attr({"font-size": infos.cellSide * scale / 2});
          }
-         for (var iCol = 0; iCol < this.nbCols; iCol++) {
-            var x = roundCellSide * iCol + roundLeftMargin + roundCellSide / 2;
-            var y = roundTopMargin - roundCellSide / 2;
-            this.props.colsLabels[iCol].attr({x: x, y: y}).attr({"font-size": roundCellSide / 2});
-         }
-      }
-      for (var iItem = 0; iItem < this.items.length; iItem++) {
-         var item = this.items[iItem];
-         this.redisplayItem(item);
-         item.element.attr(this.itemAttributes(item));
-      }
-   };
-
-
-   // BACKEND functions for blocks -------------------------------------------------------------------  
-   context.resetItem = function(initItem) {
-      // reset item and add it to context.items based on function call parameteres
-      var item = {};
-      this.items.push(item);
-      // pass on properties from function call { row:, col:, type: }
-      for (var property in initItem) {
-         item[property] = initItem[property];
-      }
-      this.resetProperties(item);
-
-      if(!("value" in item)){
-         item.value = 0;
-      }
-      
-      if (!("offsetX" in item)) item.offsetX = 0;
-      if (!("offsetY" in item)) item.offsetY = 0;
-      if (!("nbStates" in item)) item.nbStates = 1;
-      if (!("zOrder" in item)) item.zOrder = 0;
-
-      if (this.display) {
-         this.redisplayItem(item);
-      }
-   };
-   context.resetProperties = function(item, updateOnly=false){
-      var itemType = infos.itemTypes[item.type];
-      if(itemType != undefined){
-         for (var key in itemType) {
-            if(!(updateOnly) && !(key in item)){
-               if( itemType[key] instanceof Array ){
-                  item[key] = itemType[key][ (item.value)%itemType[key].length ];
-               }
-               else{
-                  item[key] = itemType[key];
-               }
-            }
-            else{ // update only
-               if( itemType[key] instanceof Array ){
-                  item[key] = itemType[key][ (item.value)%itemType[key].length ];
-               }
-            }
+         for (var iCol = 0; iCol < context.nbCols; iCol++) {
+            var x = (infos.cellSide * iCol + infos.leftMargin + infos.cellSide / 2) * scale;
+            var y = (infos.topMargin - infos.cellSide / 2) * scale;
+            colsLabels[iCol].attr({x: x, y: y}).attr({"font-size": infos.cellSide * scale / 2});
          }
       }
-      else{
-         console.log("Error: ", itemType, item);
-         alert("ERROR: item type is not defined!");
+      for (var iItem = 0; iItem < context.items.length; iItem++) {
+         var item = context.items[iItem];
+         redisplayItem(item);
+         item.element.attr(itemAttributes(item));
       }
-
-      // set default values
-      if(!("side" in item)){
-         item.side = infos.cellSide
-      }
-   };
-   context.resetItemsZOrder = function(row, col) {
-      var cellItems = this.getItems(row, col, {}, {});
-      cellItems.sort(function(itemA, itemB) {
-         if (itemA.zOrder < itemB.zOrder) {
-            return -1;
-         }
-         if (itemA.zOrder == itemB.zOrder) {
-            return 0;
-         }
-         return 1;
-      });
-      
-      for (var iItem = 0; iItem < cellItems.length; iItem++) { //robot on cell is implicitly included
-         if(cellItems[iItem].element != undefined){
-            try{
-               cellItems[iItem].element.toFront();
-            }
-            catch(err){
-               console.log("rZOrder: ", err, cellItems[iItem].type, cellItems[iItem].element, Object.keys(cellItems[iItem]));
-            }
-         }
-      }
-   };
-   context.redisplayItem = function(item) {
-      if (item.element != null) {
-         item.element.remove();
-      }
-
-      this.resetProperties(item, updateOnly=true);
-      var roundLeftMargin = Math.round(infos.leftMargin * this.props.scale);
-      var roundTopMargin = Math.round(infos.topMargin * this.props.scale);
-      var roundCellSide = Math.round(infos.cellSide * this.props.scale);
-      var roundItemSide = Math.round(item.side * this.props.scale);
-      
-      var x = roundCellSide * item.col + roundLeftMargin;
-      var y = roundCellSide * item.row + roundTopMargin;
-      
-      if (item.img != undefined) {
-         item.element = this.props.paper.image(
-            imgPath+item.img, 
-            x, y, 
-            roundItemSide * item.nbStates, 
-            roundItemSide
-         );
-      }
-      else if (item.colour != undefined) {
-         item.element = this.props.paper.rect(
-            x, y, 
-            roundItemSide,
-            roundItemSide,
-            8,
-         ).attr({'fill': item.colour});
-      }
-      else if (item.value != undefined) {
-         item.element = this.props.paper.text(
-            x + roundItemSide / 2, 
-            y + roundItemSide / 2, 
-            item.value
-         ).attr({"font-size": roundItemSide / 2});
-      }
-      else{
-         throw("ERROR: item cannot be displayed!");
-      }
-      item.element.attr(this.itemAttributes(item));
-      this.resetItemsZOrder(item.row, item.col);
    };	
-   context.itemAttributes = function(item) {
-      var roundLeftMargin = Math.round(infos.leftMargin * this.props.scale);
-      var roundTopMargin = Math.round(infos.topMargin * this.props.scale);
-      var roundCellSide = Math.round(infos.cellSide * this.props.scale);
-      var roundItemSide = Math.round(item.side * this.props.scale);
-      var roundItemOffsetX = Math.round((item.offsetX) * this.props.scale);
-      var roundItemOffsetY = Math.round((item.offsetY) * this.props.scale);
-      var db = Math.round(infos.cellSide * infos.border * this.props.scale); // for borders
-
-      var x = roundCellSide * item.col + roundItemOffsetX + roundLeftMargin;
-      var y = roundCellSide * item.row - (roundItemSide - roundCellSide) + roundItemOffsetY + roundTopMargin;
-      if (!item.img && !item.colour) {
-         x += roundItemSide / 2;
-         y += roundItemSide / 2;
-      }
-
-      
-      if (item.dir != undefined) {
-         var xClip = x;
-         if(item.nbStates == 4){ // FUTURE test, dont know if it works??
-            x = x - ( this.props.reduceDir[item.dir] * roundItemSide);
-         }
-         else x = x - (item.dir * roundItemSide);
-         // clipping image to display only one robot direction profile!
-         var clipRect = "" + xClip + "," + y + "," + roundItemSide + "," + roundItemSide;
-         return {
-            x: x+db/2, 
-            y: y+db/2, 
-            width: roundItemSide * item.nbStates-db,
-            height: roundItemSide-db,
-            "clip-rect": clipRect
-         };
-      }
-      else{
-         return {
-            x: x+db/2, 
-            y: y+db/2, 
-            width: roundItemSide-db,
-            height: roundItemSide-db,
-         };
-      }
+   context.getRobotItem = function(iRobot) {
+      var items = context.getItems(undefined, undefined, {category: "robot"});
+      return items[iRobot];
    };
-   context.getItems = function(row, col, filters, negfilters) {
-      var listItems = [];
-      for (var iItem = 0; iItem < this.items.length; iItem++) {
-         var item = this.items[iItem];
-         if ((row == undefined) || ((item.row == row) && (item.col == col))) {
-            var accepted = true;
-            // has to have these filters
-            for (var property in filters) {
-               var value = filters[property];
-               // if filter value is defined, but items value is not
-               if ((item[property] == undefined) && (value != undefined)) {
-                  accepted = false;
-                  break;
-               }
-               // if filter value is defined, and is different from items value
-               if ((item[property] != undefined) && (value != undefined)) {
-                  if(item[property] instanceof Object){ // important for multiple categories
-                     if(!(value in item[property]) || !(item[property][value])){
-                        accepted = false;
-                        break;
-                     }
-                  }
-                  else if (item[property] != value){
-                     accepted = false;
-                     break;
-                  }
-               }
-               // if filter value is undefined, and item doesnt have this property
-               if ((value == undefined) && (!(property in item)) ) {
-                  accepted = false;
-                  break;
-               }
-            }
-            
-            if(accepted){
-               // must NOT have these filters!!
-               for (var property in negfilters) {
-                  var value = negfilters[property];
-                  // if value is not defined and item has this property
-                  if ((property in item) && (value == undefined)) {
-                     accepted = false;
-                     break;
-                  }
-                  // if value is defined and item value is as well
-                  if ((value != undefined) && (item[property] != undefined)) {
-                     // check if they are the same
-                     if(item[property] instanceof Object){ // important for multiple categories
-                        if((value in item[property]) && item[property][value]){
-                           accepted = false;
-                           break;
-                        }
-                     }
-                     if(item[property] == value){
-                        accepted = false;
-                        break;
-                     }
-                  }
-               }
-            }
-            
-            if (accepted) {
-               item.index = iItem;
-               listItems.push(item);
-            }
-         }
-      }
-      return listItems;
-   };
-   context.moveRobot = function(newRow, newCol, newDir, prevTime=0., factor=1.) {
-      var iRobot = this.robotRankInUse;
-      var robot = this.getItems(undefined, undefined, {category: 'robot', rank: this.robotRankInUse}).pop();
-
-      // check of tile is prohibited
-      var crash = this.checkTileProhibited(newRow, newCol);
-      if (crash) {
-         factor *= 10;
-         if(robot.row > newRow) newRow += 3/4;
-         else if(robot.row < newRow) newRow -= 3/4;
-         if(robot.col > newCol) newCol += 3/4;
-         else if(robot.col < newCol) newCol -= 3/4;
-      }
-
-      var changeLoc = (robot.row != newRow) || (robot.col != newCol)
-      var changeDir = (robot.dir != newDir)
-
-      // If the robot turns and moves at the sime time, we do an instant turn (for now).
-      if (changeDir && changeLoc) {
-         robot.dir = newDir;
-         if (this.display) {
-            attr = this.itemAttributes(robot);
-            robot.element.attr(attr);
-         }
-      }
-
-      var path = Math.sqrt(Math.pow(robot.row-newRow,2) + Math.pow(robot.col-newCol,2));
-      var currTime = path * factor;
-		robot.dir = newDir;
-		robot.row = newRow;
-		robot.col = newCol;
-      
-   
-      var attr = this.itemAttributes(robot);
-      if (changeLoc || changeDir) {
-         // ***** define animation!! THIS FINALY WORKS SMOOTHLY
-         if (this.display) {
-            var name = "animRobot" + iRobot + "_" + Math.random();   // Do we need this randoms?? FUTURE
-            var animName = '' + name + Math.random();
-            this.raphaelFactory.animations[animName] = robot.element;
-            this.raphaelFactory.animationNames[name] = animName;            
-            // Raphael.animation(params, ms, [easing], [callback])
-            var sAnimation = Raphael.animation(attr, infos.actionDelay * currTime);
-            this.raphaelFactory.animations[animName].animate( sAnimation.delay(infos.actionDelay * prevTime) );
-            // this is neceasery!
-            robot.element.attr(attr); 
-            if(crash) throw crash;
-         }
-
-         // ****** activate buttons
-         var buttons = this.getItems(newRow, newCol, {category: 'button'});
-         for(var ib = 0; ib < buttons.length; ib++) {
-            var button = buttons[ib];
-            var triggered = this.getItems(undefined, undefined, {id: button.id});
-            for(var it = 0; it < triggered.length; it++) {
-               triggered[it].value += 1;
-               this.resetProperties(triggered[it], updateOnly=true);
-            }
-
-            var triggerFunction = function(){
-               for(var it = 0; it < triggered.length; it++) {
-                  var trigItem = triggered[it];
-                  if(context.display){
-                     trigItem.element.attr("src", imgPath+trigItem.img);
-                     // context.redisplayItem(trigItem); // FUTURE this would be better in some cases??
-                  }
-               }
-            }
-
-            if (this.display) this.delayFactory.createTimeout("changeItems" + iRobot + "_" + Math.random(), triggerFunction, infos.actionDelay * (currTime + prevTime));
-            else triggerFunction();
-         }
-
-         // ***** clear coins
-         var coins = this.getItems(newRow, newCol, {category: 'coin'});
-         if (coins.length > 0) {
-            this.destroyItems( coins, false );
-            this.nbCoins += coins.length;
-            var coinFunction = function(){
-               for (var ic = coins.length-1; ic >= 0; ic--) coins[ic].element.remove();
-            }
-            if (this.display)
-               this.delayFactory.createTimeout("removeItems" + iRobot + "_" + Math.random(), coinFunction, infos.actionDelay * (currTime + prevTime));
-         }
-      }
-      
-      $("#nbMoves").html(this.nbMoves);
-      $("#nbCoins").html(this.nbCoins);
-
-      // check for falling in gravity, if not jumping
-      if (infos.hasGravity) {
-         // check if tile under is obstacle to stand on
-         var obstacles = this.getItems(newRow+1, newCol, {category: 'obstacle'});
-         if(obstacles.length == 0){
-            currTime += this.moveRobot(newRow+1, newCol, newDir, prevTime=prevTime+currTime, factor=0.5);
-         }
-      }
-
-      return currTime;
-   };
-   context.checkTileProhibited = function(row, col) {
-      var obstacles = this.getItems(row, col, {category: 'obstacle'});
-      if (infos.ignoreInvalidMoves) {
-         return false;
-      }
-      else if (this.isOutsideGrid(row, col) || (this.tiles[row][col] == 0)) {
-         return this.strings.errors.leavesGrid;
-      }
-      else if (obstacles.length > 0) {
-         return this.strings.errors.obstacle;
-      }
-      else{
-         return false;
-      }
-   };
-   context.isOutsideGrid = function(row, col) {
-      return ((col < 0) || (row < 0) || (col >= this.nbCols) || (row >= this.nbRows));
-   };
-   context.destroyItems = function(listItems, remove=true) {
-      listItems.sort(function(itemA, itemB) {
-         if (itemA.index < itemB.index) return -1;
-         if (itemA.index > itemB.index) return 1;
-         return 0;
-      });
-      for (var iItem = listItems.length-1; iItem >= 0; iItem--) {
-         if (this.display && remove) listItems[iItem].element.remove();      
-         this.items.splice(listItems[iItem].index, 1);
-      }
-   };
-   context.dirHelper = function(robot, dDir){
-      var newDir;
-      if(dDir == 'under') newDir = -1;
-      else if(dDir == 'up') newDir = 6;
-      else if(dDir == 'down') newDir = 2;
-      else if(dDir == 'forwardDown' && robot.dir == 0) newDir = 1;
-      else if(dDir == 'forwardDown' && robot.dir == 4) newDir = 3;
-      else{  
-         dDir = robot.dir+parseInt(dDir);
-         if (dDir < 0){
-            dDir = 8-((-1)*dDir)%8;
-         }
-         var newDir = dDir
-      }
-
-      var dRow, dCol;
-      if(newDir == -1) dRow = dCol = 0;
-      else{
-         var dRow = this.props.delta[newDir][0];
-         var dCol = this.props.delta[newDir][1];
-      }
-      var row = robot.row+dRow;
-      var col = robot.col+dCol;
-      return { row, col };
-   };
-   context.filterHelper = function(row, col, key, value, edgeSwitch=false){
-      var filters = {};
-      var items;
-      if(value.includes("category")){
-         if(key == "edge" && edgeSwitch){
-            if(value.includes("not")) this.callCallback(callback, !(this.tiles[row][col] == undefined));
-            else this.callCallback(callback, (this.tiles[row][col] == undefined));
-            return;
-         }
-         else{
-            if(value.includes("not")) items = this.getItems(row, col, {}, {category: key});
-            else items = this.getItems(row, col, {category: key});
-         }
-      }
-      else{
-         if(value == "undefined") value = undefined; 
-         filters[key] = value;
-         var items = this.getItems(row, col, filters);
-      }
-      return items;
-   };
-   context.addItem = function(newItem, robot) {
-      this.resetItem(newItem);
-      if (this.display) {
-         this.redisplayItem(newItem);
-         if ((robot.col != newItem.col) || (robot.row != newItem.row)) {
-            this.resetItemsZOrder(robot.row, robot.col);
-         }
-      }
-   };
-   // override
-   context.waitDelay = function(callback, value=undefined, delay=infos.actionDelay) {
-      // Call the callback with value after actionDelay
-      if(this.runner) {
-         this.runner.waitDelay(callback, value, delay);
-      } else {
-         // When a function is used outside of an execution
-         setTimeout(function () { callback(value); }, delay);
-      }
-   };
-
-
-	
-   // BLOCKS functions --------------------------------------------------------------
-   context.robot.move = function(dir, amount, callback) {
-      var newDir = context.props.dirNames.indexOf(dir);
-      var robot = context.getItems(undefined, undefined, {category: 'robot', rank: context.robotRankInUse}).pop();
-      var dRow = context.props.delta[newDir][0];
-      var dCol = context.props.delta[newDir][1];
-      var prevTime = 0;
-
-      var sign = 1;
-      if(amount < 0){
-         sign = -1;
-         amount = -amount;
-      }
-      for(var i=0; i<amount; i++){
-         prevTime += context.moveRobot(robot.row+sign*dRow, robot.col+sign*dCol, newDir, prevTime=prevTime);
-         context.nbMoves++;
-      }
-      
-      context.waitDelay(callback, undefined, infos.actionDelay * prevTime);
-   };
-   context.robot.forward = function(amount, callback) {
-      var robot = context.getItems(undefined, undefined, {category: 'robot', rank: context.robotRankInUse}).pop();
-      var dRow = context.props.delta[robot.dir][0];
-      var dCol = context.props.delta[robot.dir][1];
-      var prevTime = 0;
-      
-      var sign = 1;
-      if(amount < 0){
-         sign = -1;
-         amount = -amount;
-      }
-      for(var i=0; i<amount; i++){
-         prevTime += context.moveRobot(robot.row+sign*dRow, robot.col+sign*dCol, robot.dir, prevTime=prevTime);
-         context.nbMoves++;
-      }
-      context.waitDelay(callback, undefined, infos.actionDelay * prevTime);
-   };
-   context.robot.turn = function(dDir, callback) {
-      var robot = context.getItems(undefined, undefined, {category: 'robot', rank: context.robotRankInUse}).pop();
-      dDir = robot.dir+parseInt(dDir);
-      if (dDir < 0){
-         dDir = 8-((-1)*dDir)%8;
-      }
-      context.moveRobot(robot.row, robot.col, dDir%8 );
-      context.nbMoves++;
-      context.waitDelay(callback, undefined, infos.actionDelay/2);
-   };
-	context.robot.changeRobot = function(status, callback) {
-      var robots = context.getItems(undefined, undefined, {category: 'robot', type: status});
-      if(robots.length > 0) {
-         context.robotRankInUse = robots[0].rank;
-         if(context.display) robots[0].element.toFront(); 
-      }
-		else throw(strings.errors.robotNotOnGrid);
-		context.waitDelay(callback);
-	};
-   context.robot.jump = function(up, upsign, right, rightsign, callback) {
-      var robot = context.getItems(undefined, undefined, {category: 'robot', rank: context.robotRankInUse}).pop();
-      var newDir = robot.dir;
-      if(up == 0){ upsign = 0; }
-      if(right == 0){ rightsign = 0; }
-      if (!infos.hasGravity){
-         for(var k = 0; k < context.props.delta.length; k++){
-            if(context.props.delta[k][0] == upsign && context.props.delta[k][1] == rightsign){
-               newDir = k;
-               break
-            }
-         }
-      }
-      else{
-         for(var k = 0; k < context.props.delta.length; k++){
-            if(context.props.delta[k][0] == 0 && context.props.delta[k][1] == rightsign){
-               newDir = k;
-               break
-            }
-         }
-      }
-     
-      var time = context.moveRobot(robot.row+upsign*up, robot.col+rightsign*right, newDir, prevTime=0., factor=0.5);
-      context.nbMoves++;
-      context.waitDelay(callback, undefined, infos.actionDelay * time);
-   };
-   context.robot.jump1d = function(mode, callback) {
-      var robot = context.getItems(undefined, undefined, {category: 'robot', rank: context.robotRankInUse}).pop();
-      var time = 0;
-      var sign = context.props.delta[robot.dir][1];
-      if(mode == 'up'){
-         time = context.moveRobot(robot.row-2, robot.col, robot.dir, prevTime=0., factor=0.5);
-      }
-      else if(mode == 'down'){
-         time = context.moveRobot(robot.row+2, robot.col, robot.dir, prevTime=0., factor=0.5);
-      }
-      else if(mode == 'forward'){
-         time = context.moveRobot(robot.row-1, robot.col+sign, robot.dir, prevTime=0., factor=0.5);
-      }
-      else if(mode == 'forwardLong'){
-         time = context.moveRobot(robot.row-1, robot.col+2*sign, robot.dir, prevTime=0., factor=0.5);
-      }
-      else{
-         throw(strings.errors.unknownJump);
-      }
-
-      context.nbMoves++;
-      context.waitDelay(callback, undefined, infos.actionDelay * time);
-   };
-   context.robot.transport = function(mode, callback) {
-		var robot = context.getItems(undefined, undefined, {category: 'robot', rank: context.robotRankInUse}).pop();
-      
-      if(mode == 'pick'){
-         // robot can't pick himself up, exclude himself!
-         var transportables = context.getItems(robot.row, robot.col, {category: 'transportable'}, {rank: context.robotRankInUse}); 
-         if (transportables.length == 0) {
-            throw(strings.errors.nothingToPickUp);
-         }
-
-         var transItem = transportables.pop();
-         if (!("transOrder" in transItem)) {
-            context.items.splice(transItem.index, 1);
-            context.transporting[robot.rank].push( transItem );
-         }
-         else if(context.transportingValues[robot.rank].length-1 >= transItem.transOrder){
-            throw(strings.errors.alreadyTransporting);
-         }
-         else if(context.transportingValues[robot.rank].length < transItem.transOrder){
-            throw(strings.errors.wrongPickOrder);
-         }
-         else {
-            context.items.splice(transItem.index, 1);
-            context.transportingValues[robot.rank].push( transItem );
-         }  
-
-         context.waitDelay(function() {
-            if (context.display) {
-               transItem.element.remove();
-            }
-            callback();
-         });
+   context.robot.forward = function(callback) {
+      if (context.lost) {
          return;
       }
-      else if(mode == 'drop'){
-         if(context.transportingValues[robot.rank].length > 0){
-            var dropItem = context.transportingValues[robot.rank].pop();
+      var item = context.getRobotItem(context.curRobot);
+      var coords = getCoordsInFront(0);
+      if (!checkTileAllowed(coords.row, coords.col)) {
+         context.waitDelay(callback);
+      }
+      if (infos.hasGravity) {
+         context.fall(item, coords, callback);
+      } else {
+         context.nbMoves++;
+         moveRobot(coords.row, coords.col, item.dir, callback);
+      }
+   };
+   context.fall = function(item, coords, callback) {
+      var row = coords.row;
+      var platforms = context.getItems(row+1, coords.col, {category: "platform"});
+      while ((!isOutsideGrid(row + 1, coords.col)) && (platforms.length == 0)) {
+         row++;
+         platforms = context.getItems(row+1, coords.col, {category: "platform"});
+      }
+      if (isOutsideGrid(row + 1, coords.col)) {
+         context.lost = true;
+         throw(strings.messages.falls);
+      }
+      if (row - coords.row > 2) {
+         context.lost = true;
+         throw(strings.messages.willFallAndCrash);
+      }
+      coords.row = row;
+      context.nbMoves++;
+      moveRobot(coords.row, coords.col, item.dir, callback);
+   };
+   context.robot.jump = function(callback) {
+      if (!infos.hasGravity) {
+         throw("Error: can't jump without gravity");
+      }
+      if (context.lost) {
+         return;
+      }
+      var item = context.getRobotItem(context.curRobot);
+      if (isOutsideGrid(item.row - 2, item.col)) {
+         context.lost = true;
+         throw(strings.messages.jumpOutsideGrid);
+      }
+      var obstacle = context.getItems(item.row - 2, item.col, {category: "obstacle"});
+      if (obstacle.length > 0) {
+         context.lost = true;
+         throw(strings.messages.jumpObstacleBlocking);
+      }
+      var platforms = context.getItems(item.row - 1, item.col, {category: "platform"});
+      if (platforms.length == 0) {
+         context.lost = true;
+         throw(strings.messages.jumpNoPlatform);
+      }
+      context.nbMoves++;
+      moveRobot(item.row - 2, item.col, item.dir, callback);
+   };
+   context.robot.down = function(callback) {
+      if (!infos.hasGravity) {
+         throw("Error: can't go down without gravity");
+      }
+      if (context.lost) {
+         return;
+      }
+      var item = context.getRobotItem(context.curRobot);
+      if (isOutsideGrid(item.row + 2, item.col)) {
+         context.lost = true;
+         throw(strings.messages.downOutsideGrid);
+      }
+      var platforms = context.getItems(item.row + 3, item.col, {category: "platform"});
+      if (platforms.length == 0) {
+        context.lost = true;
+         throw(strings.messages.downNoPlatform);
+      }
+      context.nbMoves++;
+      moveRobot(item.row + 2, item.col, item.dir, callback);
+   };
+   context.robot.turnAround = function(callback) {
+      if (context.lost) {
+         return;
+      }
+      var item = context.getRobotItem(context.curRobot);
+      var newDir = (item.dir + 2) % 4;
+      moveRobot(item.row, item.col, newDir, callback);
+   };
+   context.robot.platformInFront = function(callback) {
+      var robot = context.getRobotItem(context.curRobot);
+      var col = robot.col;
+      if (robot.dir == 0) {
+         col += 1;
+      } else {
+         col -= 1;
+      }
+      var platforms = context.getItems(robot.row + 1, col, {category: "platform"});
+      context.runner.noDelay(callback, (platforms.length > 0));
+   };
+   context.robot.platformInFrontAndBelow = function(callback) {
+      var item = context.getRobotItem(context.curRobot);
+      var col = item.col;
+      if (item.dir == 0) {
+         col += 1;
+      } else {
+         col -= 1;
+      }
+      var row = item.row + 3;
+      var platforms = context.getItems(row, col, {category: "platform"});
+      context.runner.noDelay(callback, (platforms.length > 0));
+   };
+   context.robot.platformAbove = function(callback) {
+      var robot = context.getRobotItem(context.curRobot);
+      var platforms = context.getItems(robot.row - 1, robot.col, {category: "platform"});
+      context.runner.noDelay(callback, (platforms.length > 0));
+   }
+
+   function gridEdgeCoord(row, col, callback) {
+      var gridEdge = false;
+      if (isOutsideGrid(row, col)) {
+         gridEdge = true;
+      } else if (context.tiles[row][col] == 0) {
+         gridEdge = true;
+      }
+      context.runner.noDelay(callback, gridEdge);
+   };
+
+   context.robot.gridEdgeInFront = function(callback) {
+      var coords = getCoordsInFront(0);
+      gridEdgeCoord(coords.row, coords.col, callback);
+   };
+   context.robot.gridEdgeAbove = function(callback) {
+      var robot = context.getRobotItem(context.curRobot);
+      gridEdgeCoord(robot.row - 1, robot.col, callback);
+   };
+   context.robot.gridEdgeBelow = function(callback) {
+      var robot = context.getRobotItem(context.curRobot);
+      gridEdgeCoord(robot.row + 1, robot.col, callback);
+   };
+   context.robot.gridEdgeEast = function(callback) {
+      var robot = context.getRobotItem(context.curRobot);
+      gridEdgeCoord(robot.row, robot.col + 1, callback);
+   };
+   context.robot.gridEdgeWest = function(callback) {
+      var robot = context.getRobotItem(context.curRobot);
+      gridEdgeCoord(robot.row, robot.col - 1, callback);
+   };
+
+   function destroyItem(row, col, category) {
+      var foundItem = -1;
+      for (var iItem = 0; iItem < context.items.length; iItem++) {
+         var item = context.items[iItem];
+         if ((item.row == row) && (item.col == col) && (item.category == category)) {
+            foundItem = iItem;
+            break;
          }
-         else if(context.transporting[robot.rank].length > 0){
-            var dropItem = context.transporting[robot.rank].pop();
+      }
+      if (foundItem != -1) {
+         if (context.display) {
+            context.items[foundItem].element.remove();
          }
-         else{
-            throw(strings.errors.notTransporting);
-         }
-         
-         context.waitDelay(function() {
-            context.items.push(dropItem);
-            dropItem.row = robot.row;
-            dropItem.col = robot.col;
-            if (context.display) {
-               context.redisplayItem(dropItem);
+         context.items.splice(foundItem, 1);
+      }
+   };
+   function createItem(newItem) {
+      var robot = context.getRobotItem(context.curRobot);
+      if (isOutsideGrid(newItem.row, newItem.col)) {
+         throw("La case est en dehors de la grille");
+      }
+      var addItem = function() {
+         resetItem(newItem);
+         if (context.display) {
+            resetItemsZOrder(newItem.row, newItem.col);
+            if ((robot.col != newItem.col) || (robot.row != newItem.row)) {
+               resetItemsZOrder(robot.row, robot.col);
             }
-            callback();
-         });
-      }
-	};
-   context.robot.sensorBool = function(dDir, key, value, callback) {
-      var robot = context.getItems(undefined, undefined, {category: 'robot', rank: context.robotRankInUse}).pop();
-      var {row, col} = context.dirHelper(robot, dDir);
-
-      var items = context.filterHelper(row, col, key, value, edgeSwitch=true);
-      context.callCallback(callback, (items.length != 0));
-   };
-   context.robot.sensorValue = function(dDir, category, key, callback) {
-      var robot = context.getItems(undefined, undefined, {category: 'robot', rank: context.robotRankInUse}).pop();
-      var {row, col} = context.dirHelper(robot, dDir);
-      
-      var filters = {};
-      if(!(category == 'nonspecific')) filters["category"] = category;
-      filters[key] = undefined;
-      var items = context.getItems(row, col, filters);
-      if(items.length > 0){
-         var item = items.pop();
-         context.callCallback(callback, item[key]);
-      }
-      else {
-         throw(strings.errors.noSuchItemOnCell); 
-      }
-   };
-   context.robot.alterValue = function(dDir, category, key, value, callback) {
-      var robot = context.getItems(undefined, undefined, {category: 'robot', rank: context.robotRankInUse}).pop();
-      var {row, col} = context.dirHelper(robot, dDir);
-      
-      var filters = {};
-      if(!(category == 'nonspecific')){
-         filters["category"] = category;
-      }
-      filters[key] = undefined;
-      var items = context.getItems(row, col, filters);
-      if(items.length > 0){
-         var item = items.pop();
-         item[key] = value;
-         
-         context.resetProperties(item, updateOnly=true);
-         if(context.display){
-            // trigItem.element.attr("src", imgPath+item.img);
-            context.redisplayItem(item);
          }
+      };
+      if ((infos.actionDelay > 0) && (context.display)) {
+         context.delayFactory.createTimeout("addItem" + context.curRobot + "_" + Math.random(), function() {
+            addItem();
+         }, infos.actionDelay / 2);
+      } else {
+         addItem();
       }
-      else {
-         throw(strings.errors.noSuchItemOnCell); 
+   };
+   function addPlatform(row, col, callback) {
+      var platforms = context.getItems(row, col, {category: "platform"});
+      if (platforms.length > 0) {
+         throw(strings.messages.platformOnCell);
       }
+      var obstacles = context.getItems(row, col, {isObstacle: true});
+      if (obstacles.length > 0) {
+         throw(strings.messages.obstacleOnCell);
+      }
+      createItem({row: row, col: col, type: "platform"});
       context.waitDelay(callback);
    };
-   context.robot.destroy = function(dDir, key, value, callback){
-      var robot = context.getItems(undefined, undefined, {category: 'robot', rank: context.robotRankInUse}).pop();
-      var {row, col} = context.dirHelper(robot, dDir);
-      
-      var items = context.filterHelper(row, col, key, value);
-      if(items.length > 0) context.destroyItems([items.pop()]);
-      else throw(strings.errors.noSuchItemOnCell); 
-      
-      var time = 0;
-      if (infos.hasGravity) time = context.moveRobot(robot.row, robot.col, robot.dir); // if robot destroy platform underneath itself
-      context.waitDelay(callback, undefined, infos.actionDelay * time);
-   };
-   context.robot.create = function(dDir, type, key, value, callback){
-      var robot = context.getItems(undefined, undefined, {category: 'robot', rank: context.robotRankInUse}).pop();
-      var {row, col} = context.dirHelper(robot, dDir);
-      
-      if(!(type in infos.itemTypes)) throw(strings.errors.unknownType);
-      var newItem = {row: row, col: col, type: type};
-      newItem[key] = value;
 
-      if (context.display){
-         if (infos.actionDelay > 0) {
-            context.delayFactory.createTimeout("addItem" + "_" + Math.random(), function() {
-               context.addItem(newItem, robot);
-            }, infos.actionDelay / 2);
-         } 
-         else context.addItem(newItem, robot);
+   context.robot.addPlatformInFront = function(callback) {
+      var robot = context.getRobotItem(context.curRobot);
+      var coords = getCoordsInFront(robot.dir);
+      addPlatform(coords.row + 1, coords.col, callback);
+   };
+   context.robot.addPlatformAbove = function(callback) {
+      var robot = context.getRobotItem(context.curRobot);
+      addPlatform(robot.row - 1, robot.col, callback);
+   };
+
+   function paint(row, col, paintType, callback) {
+      if (context.lost) {
+         return;
+      }
+
+      var newItem = {row: row, col: col, type: paintType};
+      var paintItems = context.getItems(row, col, {isPaint: true});
+      if ((paintItems.length != 0) && (paintItems[0].type != paintType)) {
+         destroyItem(row, col, "paint");
+         paintItems.splice(0, 1);
+      }
+      if (paintItems.length == 0) {
+         createItem(newItem);
       }
       context.waitDelay(callback);
+   }
+
+   context.robot.paint = function(callback) {
+      var item = context.getRobotItem(context.curRobot);
+      paint(item.row, item.col, "paint", callback);
+   };
+   context.robot.paintGray = function(callback) {
+      var item = context.getRobotItem(context.curRobot);
+      paint(item.row, item.col, "paintGray", callback);
    };
    context.robot.wait = function(callback) {
       context.waitDelay(callback);
    };
-   context.robot.nitems = function(key, value, callback) {
-      var items = context.filterHelper(undefined, undefined, key, value);
-      context.callCallback(callback, items.length);
+   context.robot.right = function(callback) {
+      if (context.lost) {
+         return;
+      }
+      var dDir = 1;
+      if (context.curRobot == 1) {
+         dDir = 3;
+      }
+      var item = context.getRobotItem(context.curRobot);
+      var newDir = (item.dir + dDir) % 4;
+      moveRobot(item.row, item.col, newDir, callback);
    };
-   context.robot.sensorRowCol = function(rowCol, key, value, callback) {
-      var items = context.filterHelper(undefined, undefined, key, value);
-      if(items.length > 0 ) context.callCallback(callback, items.pop()[rowCol]);
-      else throw(strings.errors.noSuchItemOnCell);
+   context.robot.left = function(callback) {
+      if (context.lost) {
+         return;
+      }
+      var dDir = 3;
+      if (context.curRobot == 1) {
+         dDir = 1;
+      }
+      var item = context.getRobotItem(context.curRobot);
+      var newDir = (item.dir + dDir) % 4;
+      moveRobot(item.row, item.col, newDir, callback);
+   };
+   context.robot.east = function(callback) {
+      if (context.lost) {
+         return;
+      }
+      var item = context.getRobotItem(context.curRobot);
+      if (!checkTileAllowed(item.row, item.col + 1)) {
+         context.waitDelay(callback);
+      } else {
+         context.nbMoves++;
+         moveRobot(item.row, item.col + 1, 0, callback);
+      }
+   };
+   context.robot.west = function(callback) {
+      if (context.lost) {
+         return;
+      }
+      var item = context.getRobotItem(context.curRobot);
+      if (!checkTileAllowed(item.row, item.col - 1)) {
+         context.waitDelay(callback);
+      } else {
+         context.nbMoves++;
+         moveRobot(item.row, item.col - 1, 2, callback);
+      }
+   };
+   context.robot.north = function(callback) {
+      if (context.lost) {
+         return;
+      }
+      var item = context.getRobotItem(context.curRobot);
+      if (!checkTileAllowed(item.row - 1, item.col)) {
+         context.waitDelay(callback);
+      } else {
+         context.nbMoves++;
+         moveRobot(item.row - 1, item.col, 3, callback);
+      }
+   };
+   context.robot.south = function(callback) {
+      if (context.lost) {
+         return;
+      }
+      var item = context.getRobotItem(context.curRobot);
+      if (!checkTileAllowed(item.row + 1, item.col)) {
+         context.waitDelay(callback);
+      } else {
+         context.nbMoves++;
+         moveRobot(item.row + 1, item.col, 1, callback);
+      }
+   };
+   context.robot.itemInFront = function(callback) {
+      var itemsInFront = getItemsInFront({isObstacle: true});
+      context.callCallback(callback, itemsInFront.length > 0);
+   };
+   context.robot.obstacleInFront = function(callback) {
+      categoryInFront("obstacle", false, callback);
+   };
+   context.robot.obstacleRight = function(callback) {
+      var coords = getCoordsInFront(1);
+      var items = context.getItems(coords.row, coords.col, {isObstacle: true});
+      context.callCallback(callback, items.length > 0);
+   };
+   context.robot.obstacleLeft = function(callback) {
+      var coords = getCoordsInFront(-1);
+      var items = context.getItems(coords.row, coords.col, {isObstacle: true});
+      context.callCallback(callback, items.length > 0);
+   };
+   context.robot.obstacleEast = function(callback) {
+      var robot = context.getRobotItem(context.curRobot);
+      var items = context.getItems(robot.row, robot.col + 1, {isObstacle: true});
+      context.callCallback(callback, items.length > 0);
+   };
+   context.robot.obstacleWest = function(callback) {
+      var robot = context.getRobotItem(context.curRobot);
+      var items = context.getItems(robot.row, robot.col - 1, {isObstacle: true});
+      context.callCallback(callback, items.length > 0);
+   };
+   context.robot.obstacleNorth = function(callback) {
+      var robot = context.getRobotItem(context.curRobot);
+      var items = context.getItems(robot.row - 1, robot.col, {isObstacle: true});
+      context.callCallback(callback, items.length > 0);
+   };
+   context.robot.obstacleSouth = function(callback) {
+      var robot = context.getRobotItem(context.curRobot);
+      var items = context.getItems(robot.row + 1, robot.col, {isObstacle: true});
+      context.callCallback(callback, items.length > 0);
+   };
+   context.robot.paintInFront = function(callback) {
+      var coords = getCoordsInFront(0);
+      var items = context.getItems(coords.row, coords.col, {isPaint: true});
+      context.callCallback(callback, items.length > 0);
+   };
+   context.robot.paintOnCell = function(callback) {
+      var robot = context.getRobotItem(context.curRobot);
+      var items = context.getItems(robot.row, robot.col, {isPaint: true});
+      context.callCallback(callback, items.length > 0);
+   };
+   context.robot.paintNorthWest = function(callback) {
+      var robot = context.getRobotItem(context.curRobot);
+      var items = context.getItems(robot.row - 1, robot.col - 1, {isPaint: true});
+      context.callCallback(callback, items.length > 0);
+   };
+   context.robot.paintNorth = function(callback) {
+      var robot = context.getRobotItem(context.curRobot);
+      var items = context.getItems(robot.row - 1, robot.col, {isPaint: true});
+      context.callCallback(callback, items.length > 0);
+   };
+   context.robot.paintNorthEast = function(callback) {
+      var robot = context.getRobotItem(context.curRobot);
+      var items = context.getItems(robot.row - 1, robot.col + 1, {isPaint: true});
+      context.callCallback(callback, items.length > 0);
+   };
+   context.robot.colorUnder = function(callback) {
+      var robot = context.getRobotItem(context.curRobot);
+      var itemsUnder = context.getItems(robot.row, robot.col, {hasColor: true});
+      if (itemsUnder.length == 0) {
+         context.callCallback(callback, "blanc");
+      } else {
+         context.callCallback(callback, infos.itemTypes[itemsUnder[0].type].color);
+      }
+   };
+   context.robot.numberUnder = function(callback) {
+      var robot = context.getRobotItem(context.curRobot);
+      var itemsUnder = context.getItems(robot.row, robot.col, {category: "number"});
+      if (itemsUnder.length == 0) {
+         context.callCallback(callback, 0);
+      } else {
+         context.callCallback(callback, infos.itemTypes[itemsUnder[0].type].value);
+      }
+   };
+   context.robot.writeNumber = function(value, callback) {
+      var robot = context.getRobotItem(context.curRobot);
+      var itemsUnder = context.getItems(robot.row, robot.col, {category: "number"});
+      if (itemsUnder.length == 0) {
+         context.callCallback(callback);
+      } else {
+         itemsUnder[0].type = value;
+         if (context.display) {
+            redisplayItem(itemsUnder[0]);
+         }
+         context.callCallback(callback);
+      }
+   };
+   context.robot.col = function(callback) {
+      var item = context.getRobotItem(context.curRobot);
+      var col = item.col + 1;
+      if (context.curRobot == 1) {
+         col = context.nbCols - col + 1;
+      }
+      context.callCallback(callback, col);
+   };
+   context.robot.row = function(callback) {
+      var item = context.getRobotItem(context.curRobot);
+      context.callCallback(callback, item.row + 1);
    };
 
+   var findTransportable = function(id) {
+      var transportables = context.getItems(undefined, undefined, {isTransportable: true});
+      for (var iItem = 1; iItem < transportables.length; iItem++) {
+         var item = transportables[iItem];
+         if (item.id == id) {
+            return item;
+         }
+      }
+      return null;
+   };
+
+   context.transportable_exists = function(id, callback) {
+      var transportable = findTransportable(id);
+      context.runner.noDelay(callback, transportable != null);
+   };
+   context.transportable_col = function(id, callback) {
+      var transportable = findTransportable(id);
+      var res = 0;
+      if (transportable != null) {
+         res = transportable.col + 1;
+      }
+      context.callCallback(callback, res);
+   };
+   context.transportable_row = function(id, callback) {
+      var transportable = findTransportable(id);
+      var res = 0;
+      if (transportable != null) {
+         res = transportable.row + 1;
+      }
+      context.callCallback(callback, res);
+   };
+   context.transportable_number = function(callback) {
+      var transportables = context.getItems(undefined, undefined, {isTransportable: true});
+      context.callCallback(callback, transportables.length);
+   };
+   context.robot.onTransportable = function(callback) {
+      var robot = context.getRobotItem(context.curRobot);
+      var transportables = context.getItems(robot.row, robot.col, {isTransportable: true});
+      context.callCallback(callback, (transportables.length != 0));
+   };
+   context.robot.onHole = function(callback) {
+      var robot = context.getRobotItem(context.curRobot);
+      var holes = context.getItems(robot.row, robot.col, {isHole: true});
+      context.callCallback(callback, (holes.length != 0));
+   };
+   context.robot.onRoundObject = function(callback) {
+      var robot = context.getRobotItem(context.curRobot);
+      var objects = context.getItems(robot.row, robot.col, {isRound: true});
+      context.callCallback(callback, (objects.length != 0));
+   };
+   context.robot.onSquareObject = function(callback) {
+      var robot = context.getRobotItem(context.curRobot);
+      var objects = context.getItems(robot.row, robot.col, {isSquare: true});
+      context.callCallback(callback, (objects.length != 0));
+   };
+   context.robot.onTriangleObject = function(callback) {
+      var robot = context.getRobotItem(context.curRobot);
+      var objects = context.getItems(robot.row, robot.col, {isTriangle: true});
+      context.callCallback(callback, (objects.length != 0));
+   };
+   context.robot.onFullObject = function(callback) {
+      var robot = context.getRobotItem(context.curRobot);
+      var objects = context.getItems(robot.row, robot.col, {isFull: true});
+      context.callCallback(callback, (objects.length != 0));
+   };
+   context.robot.onDottedObject = function(callback) {
+      var robot = context.getRobotItem(context.curRobot);
+      var objects = context.getItems(robot.row, robot.col, {isDotted: true});
+      context.callCallback(callback, (objects.length != 0));
+   };
+   context.robot.onStripedObject = function(callback) {
+      var robot = context.getRobotItem(context.curRobot);
+      var objects = context.getItems(robot.row, robot.col, {isStriped: true});
+      context.callCallback(callback, (objects.length != 0));
+   };
+   context.robot.transportableColor = function(callback) {
+      var result = getTransportableProperty("color");
+      context.callCallback(callback, result);
+   };
+   context.robot.transportableSquare = function(callback) {
+      var result = getTransportableProperty("shape");
+      context.callCallback(callback, result == "carré");
+   };
+   context.robot.transportableRed = function(callback) {
+      var result = getTransportableProperty("color");
+      context.callCallback(callback, result == "rouge");
+   };
+
+   var robotCellIsColor = function(callback, color) {
+      var robot = context.getRobotItem(context.curRobot);
+      var result = false;
+      var painted = context.getItems(robot.row, robot.col, {category: "paint"});
+      if (painted.length > 0) {
+         var itemType = infos.itemTypes[painted[0].type];
+         if ((painted.length > 0) && (itemType.color != undefined)) {
+            result = (itemType.color == color);
+         }
+      }
+      context.callCallback(callback, result);
+   };
+   context.robot.greenCell = function(callback) {
+      robotCellIsColor(callback, "vert");
+   };
+   context.robot.markedCell = function(callback) {
+      var robot = context.getRobotItem(context.curRobot);
+      var markers = context.getItems(robot.row, robot.col, {isMarker: true});
+      var result = (markers.length > 0);
+      context.callCallback(callback, result);
+   };
+   context.robot.brownCell = function(callback) {
+      robotCellIsColor(callback, "brown");
+   };
+
+   var getTransportableProperty = function(property) {
+      var robot = context.getRobotItem(context.curRobot);
+      var transportables = context.getItems(robot.row, robot.col, {isTransportable: true});
+      if (transportables.length == 0) {
+         return "";
+      }
+      var itemType = infos.itemTypes[transportables[0].type];
+      if ((transportables.length > 0) && (itemType[property] != undefined)) {
+         return itemType[property];
+      }
+      return "";
+   };
+
+   context.robot.transportableShape = function(callback) {
+      var result = getTransportableProperty("shape");
+      context.callCallback(callback, result);
+   };
+   context.robot.pickTransportable = function(callback) {
+      var robot = context.getRobotItem(context.curRobot);
+      var transportables = context.getItems(robot.row, robot.col, {isTransportable: true});
+      if (transportables.length == 0) {
+         throw(context.strings.messages.nothingToPickUp);
+      }
+      /*
+      if (transportables[0].rank != context.nbTransportedItems + 1) {
+         throw("L'objet n'est pas celui qu'il faut ramasser maintenant.");
+      }
+      */
+      if (context.nbTransportedItems > 0) {
+         throw(context.strings.messages.alreadyTransporting);
+      }
+      var transportable = transportables[0];
+      context.items.splice(transportable.index, 1);
+      context.nbTransportedItems++;
+      context.transportedItem = transportable;
+/*
+      if (context.nbTransportedItems == context.nbTransportableItems) {
+         context.success = true;
+         throw("Bravo, vous avez ramassé tous les objets dans le bon ordre !");
+      }
+*/
+      context.waitDelay(function() {
+         if (context.display) {
+            transportable.element.remove();
+         }
+         callback();
+      });
+   };
+   context.robot.dropTransportable = function(callback) {
+      var robot = context.getRobotItem(context.curRobot);
+      if (context.transportedItem == undefined) {
+         throw(context.strings.messages.notTransporting);
+      }
+      /*
+      if (context.tiles[robot.row][robot.col] != 2) { // TODO : replace
+         throw("Le robot essaie de déposer un objet ailleurs que sur une étoile.");
+      }
+      */
+      context.nbDroppedItems++;
+      context.nbTransportedItems = 0;
+      if (context.nbDroppedItems == context.nbTransportableItems - 1) {
+         context.success = true;
+         throw(context.strings.messages.successDroppedAllObjects);
+      }
+      context.waitDelay(function() {
+         context.items.push(context.transportedItem);
+         context.transportedItem.row = robot.row;
+         context.transportedItem.col = robot.col;
+         if (context.display) {
+            redisplayItem(context.transportedItem);
+         }
+         context.transportedItem = undefined;
+         callback();
+      });
+   };
+
+	//custom block
+	context.robot.onWithdrawable = function(callback) {
+		var robot = context.getRobotItem(context.curRobot);
+		var withdrawables = context.getItems(robot.row, robot.col, {isWithdrawable: true});
+		context.callCallback(callback, (withdrawables.length != 0));
+	};
+	context.robot.onWithdrawableOptions = function(kind, callback) {
+		var robot = context.getRobotItem(context.curRobot);
+		var withdrawables = context.getItems(robot.row, robot.col, {isWithdrawable: true});
+		var result = getWithdrawableProperty("kind");
+		context.callCallback(callback, result == kind);
+	};
+	context.robot.paintOnCell = function(callback) {
+		var robot = context.getRobotItem(context.curRobot);
+		var items = context.getItems(robot.row, robot.col, {isPaint: true});
+		context.callCallback(callback, items.length > 0);
+	};	
+	context.robot.letterOnCell = function(callback) {
+		var robot = context.getRobotItem(context.curRobot);
+		var items = context.getItems(robot.row, robot.col, {category: "letter"});
+		context.callCallback(callback, items.length > 0);
+	};
+	//custom variables
+	var getWithdrawableProperty = function(property) {
+		var robot = context.getRobotItem(context.curRobot);
+		var withdrawables = context.getItems(robot.row, robot.col, {isWithdrawable: true});
+		if (withdrawables.length == 0) {
+			return "";
+		}
+		var itemType = infos.itemTypes[withdrawables[0].type];
+		if ((withdrawables.length > 0) && (itemType[property] != undefined)) {
+			return itemType[property];
+		}
+		return "";
+	};
+	//custom blocks
+	context.robot.pickWithdrawable = function(callback) {
+		var robot = context.getRobotItem(context.curRobot);
+		var withdrawables = context.getItems(robot.row, robot.col, {isWithdrawable: true});
+		if (withdrawables.length == 0) {
+			throw(context.strings.messages.nothingToPickUp2);
+		}
+		var withdrawable = withdrawables[0];
+		context.items.splice(withdrawable.index, 1);
+		context.waitDelay(function() {
+			if (context.display) {
+				withdrawable.element.remove();
+			}
+			callback();
+		});
+	};   
+	context.robot.pickWithdrawableOptions = function(status, callback) {
+		var robot = context.getRobotItem(context.curRobot);
+		var withdrawables = context.getItems(robot.row, robot.col, {isWithdrawable: true});
+		var result = getWithdrawableProperty("kind");
+		if (withdrawables.length == 0) {
+			throw(context.strings.messages.nothingToPickUp2);
+		}
+		else if (status == "left" && result != "fork") {
+			throw(context.strings.messages.wrongWithdraw1);
+		}
+		else if (status == "middle" && result != "spoon") {
+			throw(context.strings.messages.wrongWithdraw2);
+		}
+		else if (status == "right" && result != "knife") {
+			throw(context.strings.messages.wrongWithdraw3);
+		}
+		var withdrawable = withdrawables[0];
+		context.items.splice(withdrawable.index, 1);
+		context.waitDelay(function() {
+			if (context.display) {
+				withdrawable.element.remove();
+			}
+			callback();
+		});
+	};
+	context.robot.letterUnder = function(callback) {
+		var robot = context.getRobotItem(context.curRobot);
+		var itemsUnder = context.getItems(robot.row, robot.col, {category: "letter"});
+		if (itemsUnder.length == 0) {
+			context.callCallback(callback, 0);
+		}
+		else {
+			context.callCallback(callback, infos.itemTypes[itemsUnder[0].type].letter);
+		}
+	};
+	
+   var dirNames = ["E", "S", "O", "N"];
+   context.robot.dir = function(callback) {
+      var item = context.getRobotItem(context.curRobot);
+      context.callCallback(callback, dirNames[item.dir]);
+   };
 
    /* structure is as follows:
       {
@@ -1212,844 +1170,519 @@ var getContext = function(display, infos) {
       }
       [1] https://developers.google.com/blockly/guides/create-custom-blocks/define-blocks
       [2] https://developers.google.com/blockly/guides/create-custom-blocks/type-checks
-   */
+    */
 
-   // BLOCKs visual definition --------------------
-   context.customBlocks = {
-      robot: {
-         movement: [
-            {  name: "changeRobot", //custom MULTIROBOT
-               blocklyJson: {
-                  "args0": [
-                     {
-                        "type": "field_dropdown", 
-                        "name": "PARAM_0", 
-                        "options": [
-                           [strings["options"]["robotName0"], 'robot0'],
-                           [strings["options"]["robotName1"], 'robot1'],
-                        ],
-                     }
-                  ],
-               }, 
-            },
-            {  name: "moveSimple", 
-               handler: (dir, callback) => { context.robot.move(dir, 1, callback) },
-               blocklyJson: {
-                  "args0": [
-                     {
-                        "type": "field_dropdown", 
-                        "name": "PARAM_0", 
-                        "options": [
-                           [strings["options"]["move"]["north"], "N"],
-                           [strings["options"]["move"]["east"], "E"],
-                           [strings["options"]["move"]["south"], "S"],
-                           [strings["options"]["move"]["west"], "W"],
-                        ],
-                     },
-                  ],
-               },
-            },
-            {  name: "move", 
-               params: ["String","Number"],
-               blocklyJson: {
-                  "args0": [
-                     {
-                        "type": "field_dropdown", 
-                        "name": "PARAM_0", 
-                        "options": [
-                           [strings["options"]["move"]["north"], "N"],
-                           [strings["options"]["move"]["northeast"], "NE"],
-                           [strings["options"]["move"]["east"], "E"],
-                           [strings["options"]["move"]["southeast"], "SE"],
-                           [strings["options"]["move"]["south"], "S"],
-                           [strings["options"]["move"]["southwest"], "SW"],
-                           [strings["options"]["move"]["west"], "W"],
-                           [strings["options"]["move"]["northwest"], "NW"],
-                        ],
-                     },
-                     {
-                        "type": "input_value", 
-                        "name": "PARAM_1", 
-                        "value": 1,
-                        "check": "Number",
-                     },
-                  ],
-               },
-               blocklyXml: `
-                  <block type="move">
-                     <field name="PARAM_0">W</field>
-                     <value name="PARAM_1">
-                        <shadow type="math_number">
-                           <field name="NUM">1</field>
-                        </shadow>
-                     </value>
-                  </block>
-               `,
-            },
-            {  name: "forward", 
-               params: ["Number"],
-               blocklyJson: {
-                  "args0": [
-                     {
-                        "type": "input_value", 
-                        "name": "PARAM_0", 
-                        "value": 1,
-                        "check": "Number",
-                     },
-                  ],
-               },
-               blocklyXml: `
-                  <block type="forward">
-                     <value name="PARAM_0">
-                        <shadow type="math_number">
-                           <field name="NUM">1</field>
-                        </shadow>
-                     </value>
-                  </block>
-               `,
-            },
-            {  name: "forwardSimple", 
-               handler: (callback) => { context.robot.forward(1, callback) },
-            },
-            {  name: "turn", 
-               params: ["Number"],
-               blocklyJson: {
-                  "args0": [
-                     {
-                        "type": "field_dropdown", 
-                        "name": "PARAM_0", 
-                        "options": [
-                           [strings["options"]["move"]["right"], "2"],
-                           [strings["options"]["move"]["left"], "-2"],
-                           [strings["options"]["move"]["around"], "4"],
-                           [strings["options"]["move"]["rightforward"], "1"],
-                           [strings["options"]["move"]["rightbackward"], "3"],
-                           [strings["options"]["move"]["leftforward"], "-1"],
-                           [strings["options"]["move"]["leftbackward"], "-3"],
-                        ],
-                     },
-                  ],
-               },
-            },
-            {  name: "turnAround",
-               handler: (callback) => { context.robot.turn("4", callback) },
-            },
-            {  name: "jump",
-               params: ["Number","Number","Number","Number"],
-               blocklyJson: {
-                  "args0": [
-                     {
-                        "type": "input_value", 
-                        "name": "PARAM_0", 
-                        "value": 1,
-                        "check": "Number",
-                     },
-                     {
-                        "type": "field_dropdown", 
-                        "name": "PARAM_1", 
-                        "options": [
-                           [strings["options"]["move"]["up"], "-1"],
-                           [strings["options"]["move"]["down"], "1"],
-                        ],
-                     },
-                     {
-                        "type": "input_value", 
-                        "name": "PARAM_2", 
-                        "value": 1,
-                        "check": "Number",
-                     },
-                     {
-                        "type": "field_dropdown", 
-                        "name": "PARAM_3", 
-                        "options": [
-                           [strings["options"]["move"]["right"], "1"],
-                           [strings["options"]["move"]["left"], "-1"],
-                        ],
-                     },
-                  ],
-               }, 
-               blocklyXml: `
-                  <block type="jump">
-                     <field name="PARAM_1">-1</field>
-                     <field name="PARAM_3">1</field>
-                     <value name="PARAM_0">
-                        <shadow type="math_number">
-                           <field name="NUM">1</field>
-                        </shadow>
-                     </value>
-                     <value name="PARAM_2">
-                        <shadow type="math_number">
-                           <field name="NUM">1</field>
-                        </shadow>
-                     </value>
-                  </block>
-               `,
-            },
-            {  name: "move1d",
-               handler: (dir, callback) => { context.robot.move(dir, 1, callback) },
-               blocklyJson: {
-                  "args0": [
-                     {
-                        "type": "field_dropdown", 
-                        "name": "PARAM_0", 
-                        "options": [
-                           [strings["options"]["move"]["right"], "E"],
-                           [strings["options"]["move"]["left"], "W"],
-                        ],
-                        "check":"String",
-                     },
-                  ],
-               },
-            },
-            {  name: "jump1d",
-               blocklyJson: {
-                  "args0": [
-                     {
-                        "type": "field_dropdown", 
-                        "name": "PARAM_0", 
-                        "options": [
-                           [strings["options"]["move"]["up"], "up"],
-                           [strings["options"]["move"]["down"], "down"],
-                           [strings["options"]["move"]["forward"], "forward"],
-                           [strings["options"]["move"]["forwardLong"], "forwardLong"],
-                        ],
-                        "check":"String",
-                     },
-                  ],
-               },
-            },
-            { name: "wait" },
-         ],
-         tools: [
-            {  name: "transport",
-               blocklyJson: {
-                  "args0": [
-                     {
-                        "type": "field_dropdown", 
-                        "name": "PARAM_0", 
-                        "options": [
-                           [strings["options"]["pick"], "pick"],
-                           [strings["options"]["drop"], "drop"],
-                        ],
-                        "check":"String",
-                     },
-                  ],
-               },
-            },
-            {  name: "sensorBool", 
-               yieldsValue: true,
-               blocklyJson: {
-                  "args0": [
-                     {
-                        "type": "field_dropdown", 
-                        "name": "PARAM_0", 
-                        "options": [
-                           [strings["options"]["tools"]["under"], "under"], // special case handling
-                           [strings["options"]["tools"]["forward"], "0"],
-                           [strings["options"]["move"]["right"], "2"],
-                           [strings["options"]["move"]["left"], "-2"],
-                           [strings["options"]["move"]["around"], "4"],
-                        ],
-                     },
-                     {
-                        "type": "field_dropdown", 
-                        "name": "PARAM_1", 
-                        "options": [
-                           [strings["options"]["tools"]["bool"]["obstacle"], "obstacle"],
-                           [strings["options"]["tools"]["bool"]["transportable"], "transportable"],
-                           [strings["options"]["tools"]["bool"]["robot"], "robot"],
-                           [strings["options"]["tools"]["bool"]["coin"], "coin"],
-                           [strings["options"]["tools"]["bool"]["button"], "button"],
-                           [strings["options"]["tools"]["bool"]["number"], "number"],
-                           [strings["options"]["tools"]["bool"]["edge"], "edge"],
-                           [strings["options"]["tools"]["bool"]["colour"], "colour"],
-                           [strings["options"]["tools"]["bool"]["transOrder"], "transOrder"],
-                        ],
-                     },
-                     {
-                        "type": "field_dropdown", 
-                        "name": "PARAM_2", 
-                        "options": [
-                           [strings["options"]["tools"]["bool"]["category"], "category"],
-                           [strings["options"]["tools"]["bool"]["notcategory"], "notcategory"],
-                           [strings["options"]["tools"]["bool"]["has"], "undefined"],
-                        ],
-                     },
-                  ],
-               },
-            },
-            {  name: "sensorBool1D", 
-               yieldsValue: true,
-               handler: context.robot.sensorBool,
-               blocklyJson: {
-                  "args0": [
-                     {
-                        "type": "field_dropdown", 
-                        "name": "PARAM_0", 
-                        "options": [
-                           [strings["options"]["tools"]["under"], "under"], // special case handling
-                           [strings["options"]["tools"]["forward"], "0"],
-                           [strings["options"]["move"]["up"], "up"],// special case handling
-                           [strings["options"]["move"]["down"], "down"],// special case handling
-                        ],
-                     },
-                     {
-                        "type": "field_dropdown", 
-                        "name": "PARAM_1", 
-                        "options": [
-                           [strings["options"]["tools"]["bool"]["obstacle"], "obstacle"],
-                           [strings["options"]["tools"]["bool"]["transportable"], "transportable"],
-                           [strings["options"]["tools"]["bool"]["robot"], "robot"],
-                           [strings["options"]["tools"]["bool"]["coin"], "coin"],
-                           [strings["options"]["tools"]["bool"]["button"], "button"],
-                           [strings["options"]["tools"]["bool"]["number"], "number"],
-                           [strings["options"]["tools"]["bool"]["edge"], "edge"],
-                           [strings["options"]["tools"]["bool"]["colour"], "colour"],
-                           [strings["options"]["tools"]["bool"]["transOrder"], "transOrder"],
-                        ],
-                     },
-                     {
-                        "type": "field_dropdown", 
-                        "name": "PARAM_2", 
-                        "options": [
-                           [strings["options"]["tools"]["bool"]["category"], "category"],
-                           [strings["options"]["tools"]["bool"]["notcategory"], "notcategory"],
-                           [strings["options"]["tools"]["bool"]["has"], "undefined"],
-                        ],
-                     },
-                  ],
-               },
-            },
-            {  name: "sensorValue", 
-               yieldsValue: true,
-               blocklyJson: {
-                  "args0": [
-                     {
-                        "type": "field_dropdown", 
-                        "name": "PARAM_0", 
-                        "options": [
-                           [strings["options"]["tools"]["under"], "under"], // special case handling
-                           [strings["options"]["tools"]["forward"], "0"],
-                           [strings["options"]["move"]["right"], "2"],
-                           [strings["options"]["move"]["left"], "-2"],
-                           [strings["options"]["move"]["around"], "4"],
-                        ],
-                     },
-                     {
-                        "type": "field_dropdown", 
-                        "name": "PARAM_1", 
-                        "options": [
-                           [strings["options"]["tools"]["value"]["obstacle"], "obstacle"],
-                           [strings["options"]["tools"]["value"]["transportable"], "transportable"],
-                           [strings["options"]["tools"]["value"]["robot"], "robot"],
-                           [strings["options"]["tools"]["value"]["coin"], "coin"],
-                           [strings["options"]["tools"]["value"]["button"], "button"],
-                           [strings["options"]["tools"]["value"]["number"], "number"],
-                           [strings["options"]["tools"]["value"]["nonspecific"], "nonspecific"],
-                        ]
-                     },
-                     {
-                        "type": "field_dropdown", 
-                        "name": "PARAM_2", 
-                        "options": [
-                           [strings["options"]["tools"]["value"]["colour"], "colour"],
-                           [strings["options"]["tools"]["value"]["value"], "value"],
-                           [strings["options"]["tools"]["value"]["transOrder"], "transOrder"],
-                        ],
-                     },
-                  ],
-               },
-            },
-            {  name: "sensorValue1D", 
-               yieldsValue: true,
-               handler: context.robot.sensorValue,
-               blocklyJson: {
-                  "args0": [
-                     {
-                        "type": "field_dropdown", 
-                        "name": "PARAM_0", 
-                        "options": [
-                           [strings["options"]["tools"]["under"], "under"], // special case handling
-                           [strings["options"]["tools"]["forward"], "0"],
-                           [strings["options"]["move"]["up"], "up"],// special case handling
-                           [strings["options"]["move"]["down"], "down"],// special case handling
-                        ],
-                     },
-                     {
-                        "type": "field_dropdown", 
-                        "name": "PARAM_1", 
-                        "options": [
-                           [strings["options"]["tools"]["value"]["obstacle"], "obstacle"],
-                           [strings["options"]["tools"]["value"]["transportable"], "transportable"],
-                           [strings["options"]["tools"]["value"]["robot"], "robot"],
-                           [strings["options"]["tools"]["value"]["coin"], "coin"],
-                           [strings["options"]["tools"]["value"]["button"], "button"],
-                           [strings["options"]["tools"]["value"]["number"], "number"],
-                           [strings["options"]["tools"]["value"]["nonspecific"], "nonspecific"],
-                        ]
-                     },
-                     {
-                        "type": "field_dropdown", 
-                        "name": "PARAM_2", 
-                        "options": [
-                           [strings["options"]["tools"]["value"]["colour"], "colour"],
-                           [strings["options"]["tools"]["value"]["value"], "value"],
-                           [strings["options"]["tools"]["value"]["transOrder"], "transOrder"],
-                        ],
-                     },
-                  ],
-               },
-            },
-            {  name: "alterValue",
-               blocklyJson: {
-                  "args0": [
-                     {
-                        "type": "field_dropdown", 
-                        "name": "PARAM_0", 
-                        "options": [
-                           [strings["options"]["tools"]["under"], "under"], // special case handling
-                           [strings["options"]["tools"]["forward"], "0"],
-                           [strings["options"]["move"]["right"], "2"],
-                           [strings["options"]["move"]["left"], "-2"],
-                           [strings["options"]["move"]["around"], "4"],
-                        ],
-                     },
-                     {
-                        "type": "field_dropdown", 
-                        "name": "PARAM_1", 
-                        "options": [
-                           [strings["options"]["tools"]["value"]["obstacle"], "obstacle"],
-                           [strings["options"]["tools"]["value"]["transportable"], "transportable"],
-                           [strings["options"]["tools"]["value"]["robot"], "robot"],
-                           [strings["options"]["tools"]["value"]["coin"], "coin"],
-                           [strings["options"]["tools"]["value"]["button"], "button"],
-                           [strings["options"]["tools"]["value"]["number"], "number"],
-                           [strings["options"]["tools"]["value"]["nonspecific"], "nonspecific"],
-                        ]
-                     },
-                     {
-                        "type": "field_dropdown", 
-                        "name": "PARAM_2", 
-                        "options": [
-                           [strings["options"]["tools"]["alter"]["colour"], "colour"],
-                           [strings["options"]["tools"]["alter"]["value"], "value"],
-                           [strings["options"]["tools"]["alter"]["transOrder"], "transOrder"],
-                        ],
-                     },
-                     {
-                        "type": "input_value", 
-                        "name": "PARAM_3", 
-                     },
-                  ],
-               },
-            },
-            {  name: "alterValue1D", 
-               handler: context.robot.alterValue,
-               blocklyJson: {
-                  "args0": [
-                     {
-                        "type": "field_dropdown", 
-                        "name": "PARAM_0", 
-                        "options": [
-                           [strings["options"]["tools"]["under"], "under"], // special case handling
-                           [strings["options"]["tools"]["forward"], "0"],
-                           [strings["options"]["move"]["up"], "up"],// special case handling
-                           [strings["options"]["move"]["down"], "down"],// special case handling
-                        ],
-                     },
-                     {
-                        "type": "field_dropdown", 
-                        "name": "PARAM_1", 
-                        "options": [
-                           [strings["options"]["tools"]["value"]["obstacle"], "obstacle"],
-                           [strings["options"]["tools"]["value"]["transportable"], "transportable"],
-                           [strings["options"]["tools"]["value"]["robot"], "robot"],
-                           [strings["options"]["tools"]["value"]["coin"], "coin"],
-                           [strings["options"]["tools"]["value"]["button"], "button"],
-                           [strings["options"]["tools"]["value"]["number"], "number"],
-                           [strings["options"]["tools"]["value"]["nonspecific"], "nonspecific"],
-                        ]
-                     },
-                     {
-                        "type": "field_dropdown", 
-                        "name": "PARAM_2", 
-                        "options": [
-                           [strings["options"]["tools"]["alter"]["colour"], "colour"],
-                           [strings["options"]["tools"]["alter"]["value"], "value"],
-                           [strings["options"]["tools"]["alter"]["transOrder"], "transOrder"],
-                        ],
-                     },
-                     {
-                        "type": "input_value", 
-                        "name": "PARAM_3", 
-                     },
-                  ],
-               },
-            },
-            {  name: "destroy", 
-               blocklyJson: {
-                  "args0": [
-                     {
-                        "type": "field_dropdown", 
-                        "name": "PARAM_0", 
-                        "options": [
-                           [strings["options"]["tools"]["under"], "under"], // special case handling
-                           [strings["options"]["tools"]["forward"], "0"],
-                           [strings["options"]["move"]["right"], "2"],
-                           [strings["options"]["move"]["left"], "-2"],
-                           [strings["options"]["move"]["around"], "4"],
-                        ],
-                     },
-                     {
-                        "type": "field_dropdown", 
-                        "name": "PARAM_1", 
-                        "options": [
-                           [strings["options"]["tools"]["bool"]["obstacle"], "obstacle"],
-                           [strings["options"]["tools"]["bool"]["transportable"], "transportable"],
-                           [strings["options"]["tools"]["bool"]["robot"], "robot"],
-                           [strings["options"]["tools"]["bool"]["coin"], "coin"],
-                           [strings["options"]["tools"]["bool"]["button"], "button"],
-                           [strings["options"]["tools"]["bool"]["number"], "number"],
-                           [strings["options"]["tools"]["bool"]["colour"], "colour"],
-                           [strings["options"]["tools"]["bool"]["transOrder"], "transOrder"],
-                        ]
-                     },
-                     {
-                        "type": "field_dropdown", 
-                        "name": "PARAM_2", 
-                        "options": [
-                           [strings["options"]["tools"]["bool"]["category"], "category"],
-                           [strings["options"]["tools"]["bool"]["notcategory"], "notcategory"],
-                           [strings["options"]["tools"]["bool"]["has"], "undefined"],
-                        ],
-                     },
-                  ],
-               },
-            },
-            {  name: "destroy1D",
-               handler: context.robot.destroy,
-               blocklyJson: {
-                  "args0": [
-                     {
-                        "type": "field_dropdown", 
-                        "name": "PARAM_0", 
-                        "options": [
-                           [strings["options"]["tools"]["under"], "under"], // special case handling
-                           [strings["options"]["tools"]["forward"], "0"],
-                           [strings["options"]["move"]["up"], "up"],// special case handling
-                           [strings["options"]["move"]["down"], "down"],// special case handling
-                        ],
-                     },
-                     {
-                        "type": "field_dropdown", 
-                        "name": "PARAM_1", 
-                        "options": [
-                           [strings["options"]["tools"]["bool"]["obstacle"], "obstacle"],
-                           [strings["options"]["tools"]["bool"]["transportable"], "transportable"],
-                           [strings["options"]["tools"]["bool"]["robot"], "robot"],
-                           [strings["options"]["tools"]["bool"]["coin"], "coin"],
-                           [strings["options"]["tools"]["bool"]["button"], "button"],
-                           [strings["options"]["tools"]["bool"]["number"], "number"],
-                           [strings["options"]["tools"]["bool"]["colour"], "colour"],
-                           [strings["options"]["tools"]["bool"]["transOrder"], "transOrder"],
-                        ]
-                     },
-                     {
-                        "type": "field_dropdown", 
-                        "name": "PARAM_2", 
-                        "options": [
-                           [strings["options"]["tools"]["bool"]["category"], "category"],
-                           [strings["options"]["tools"]["bool"]["notcategory"], "notcategory"],
-                           [strings["options"]["tools"]["bool"]["has"], "undefined"],
-                        ],
-                     },
-                  ],
-               },
-            },
-            {  name: "create", 
-               blocklyJson: {
-                  "args0": [
-                     {
-                        "type": "field_dropdown", 
-                        "name": "PARAM_0", 
-                        "options": [
-                           [strings["options"]["tools"]["under"], "under"], // special case handling
-                           [strings["options"]["tools"]["forward"], "0"],
-                           [strings["options"]["move"]["right"], "2"],
-                           [strings["options"]["move"]["left"], "-2"],
-                           [strings["options"]["move"]["around"], "4"],
-                        ],
-                     },
-                     {
-                        "type": "field_dropdown", 
-                        "name": "PARAM_1", 
-                        "options": [
-                           [strings["options"]["tools"]["create"]["number"], "number"],
-                           [strings["options"]["tools"]["create"]["paint"], "paint"],
-                           [strings["options"]["tools"]["create"]["obstacle"], "obstacle"],
-                        ]
-                     },
-                     {
-                        "type": "field_dropdown", 
-                        "name": "PARAM_2", 
-                        "options": [
-                           [strings["options"]["tools"]["create"]["value"], "value"],
-                           [strings["options"]["tools"]["create"]["colour"], "colour"],
-                        ],
-                     },
-                     {
-                        "type": "input_value", 
-                        "name": "PARAM_3", 
-                     },
-                  ],
-               },
-               blocklyXml: `
-                  <block type="create">
-                     <field name="PARAM_0">under</field>
-                     <field name="PARAM_1">number</field>
-                     <field name="PARAM_2">value</field>
-                     <value name="PARAM_3">
-                        <shadow type="math_number">
-                           <field name="NUM">0</field>
-                        </shadow>
-                     </value>
-                  </block>
-               `,
-            },
-            {  name: "create1D",
-               handler: context.robot.create,
-               blocklyJson: {
-                  "args0": [
-                     {
-                        "type": "field_dropdown", 
-                        "name": "PARAM_0", 
-                        "options": [
-                           [strings["options"]["tools"]["under"], "under"], // special case handling
-                           [strings["options"]["tools"]["forward"], "0"],
-                           [strings["options"]["tools"]["forwardDown"], "forwardDown"], // special case handling
-                           [strings["options"]["move"]["up"], "up"],// special case handling
-                           [strings["options"]["move"]["down"], "down"],// special case handling
-                        ],
-                     },
-                     {
-                        "type": "field_dropdown", 
-                        "name": "PARAM_1", 
-                        "options": [
-                           [strings["options"]["tools"]["create"]["number"], "number"],
-                           [strings["options"]["tools"]["create"]["paint"], "paint"],
-                           [strings["options"]["tools"]["create"]["obstacle"], "obstacle"],
-                        ]
-                     },
-                     {
-                        "type": "field_dropdown", 
-                        "name": "PARAM_2", 
-                        "options": [
-                           [strings["options"]["tools"]["create"]["value"], "value"],
-                           [strings["options"]["tools"]["create"]["colour"], "colour"],
-                        ],
-                     },
-                     {
-                        "type": "input_value", 
-                        "name": "PARAM_3", 
-                     },
-                  ],
-               },
-               blocklyXml: `
-                  <block type="create1D">
-                     <field name="PARAM_0">under</field>
-                     <field name="PARAM_1">number</field>
-                     <field name="PARAM_2">value</field>
-                     <value name="PARAM_3">
-                        <shadow type="math_number">
-                           <field name="NUM">0</field>
-                        </shadow>
-                     </value>
-                  </block>
-               `,
-            },
-            {  name: "nitems", 
-               yieldsValue: true,
-               blocklyJson: {
-                  "args0": [
-                     {
-                        "type": "field_dropdown", 
-                        "name": "PARAM_0", 
-                        "options": [
-                           [strings["options"]["tools"]["nitems"]["obstacle"], "obstacle"],
-                           [strings["options"]["tools"]["nitems"]["transportable"], "transportable"],
-                           [strings["options"]["tools"]["nitems"]["robot"], "robot"],
-                           [strings["options"]["tools"]["nitems"]["coin"], "coin"],
-                           [strings["options"]["tools"]["nitems"]["button"], "button"],
-                           [strings["options"]["tools"]["nitems"]["number"], "number"],
-                           [strings["options"]["tools"]["nitems"]["colour"], "colour"],
-                           [strings["options"]["tools"]["nitems"]["transOrder"], "transOrder"],
-                        ],
-                     },
-                     {
-                        "type": "field_dropdown", 
-                        "name": "PARAM_1", 
-                        "options": [
-                           [strings["options"]["tools"]["nitems"]["category"], "category"],
-                           [strings["options"]["tools"]["nitems"]["notcategory"], "notcategory"],
-                           [strings["options"]["tools"]["nitems"]["has"], "undefined"],
-                        ],
-                     },
-                  ],
-               },
-            },
-            {  name: "sensorRowCol", 
-               yieldsValue: true,
-               blocklyJson: {
-                  "args0": [
-                     {
-                        "type": "field_dropdown", 
-                        "name": "PARAM_0", 
-                        "options": [
-                           [strings["options"]["tools"]["row"], "row"],
-                           [strings["options"]["tools"]["col"], "col"],
-                        ],
-                     },
-                     {
-                        "type": "field_dropdown", 
-                        "name": "PARAM_1", 
-                        "options": [
-                           [strings["options"]["tools"]["bool"]["obstacle"], "obstacle"],
-                           [strings["options"]["tools"]["bool"]["transportable"], "transportable"],
-                           [strings["options"]["tools"]["bool"]["robot"], "robot"],
-                           [strings["options"]["tools"]["bool"]["coin"], "coin"],
-                           [strings["options"]["tools"]["bool"]["button"], "button"],
-                           [strings["options"]["tools"]["bool"]["number"], "number"],
-                           [strings["options"]["tools"]["bool"]["colour"], "colour"],
-                           [strings["options"]["tools"]["bool"]["transOrder"], "transOrder"],
-                        ],
-                     },
-                     {
-                        "type": "field_dropdown", 
-                        "name": "PARAM_2", 
-                        "options": [
-                           [strings["options"]["tools"]["bool"]["category"], "category"],
-                           [strings["options"]["tools"]["bool"]["notcategory"], "notcategory"],
-                           [strings["options"]["tools"]["bool"]["has"], "undefined"],
-                        ],
-                     },
-                  ],
-               },
-            },
-         ],
-      },
+   var isOutsideGrid = function(row, col) {
+      return ((col < 0) || (row < 0) || (col >= context.nbCols) || (row >= context.nbRows));
    };
-   // add tooltip description to blocks
-   for (var [cat1, cats] of Object.entries(context.customBlocks)){
-      for (var [cat2, blocks] of Object.entries(cats)){
-         for (var block of blocks){
-            // individual block dicts
-            if("blocklyJson" in block) block["blocklyJson"]["tooltip"] = strings["description"][block['name']];
-            else block["blocklyJson"] = { tooltip: strings["description"][block['name']] }; 
+   var delta = [[0,1],[1,0],[0,-1],[-1,0]];
+   var getCoordsInFront = function(dDir) {
+      var item = context.getRobotItem(context.curRobot);
+      var lookDir = (item.dir + dDir + 4) % 4;
+      return {
+         row: item.row + delta[lookDir][0],
+         col: item.col + delta[lookDir][1]
+      };
+   };
+   var getItemsInFront = function(filters) {
+      var coords = getCoordsInFront(0);
+      return context.getItems(coords.row, coords.col, filters);
+   };
+   var nbOfCategoryInFront = function(category) {
+      var itemsInFront = getItemsInFront({category: category});
+      return itemsInFront.length;
+   };
+   var categoryInFront = function(category, count, callback) {
+      var nbOfCategoryFound = nbOfCategoryInFront(category);
+      var result = 0;
+      if (count) {
+         result = nbOfCategoryFound;
+      } else {
+         result = (nbOfCategoryFound > 0);
+      }
+      context.callCallback(callback, result);
+   };
+
+    // positions and dimensions will be set later by updateScale
+    // add backgroundColor, borderColor and noBorders
+    var resetBoard = function() {
+        for(var iRow = 0;iRow < context.nbRows;iRow++) {
+            cells[iRow] = [];
+            for(var iCol = 0;iCol < context.nbCols;iCol++) {
+                cells[iRow][iCol] = paper.rect(0, 0, 10, 10);
+                if(context.tiles[iRow][iCol] == 0)
+                    cells[iRow][iCol].attr({'stroke-width': '0'});
+                if(infos.backgroundColor && context.tiles[iRow][iCol] != 0)
+                    cells[iRow][iCol].attr({'fill': infos.backgroundColor});
+                if(infos.noBorders && context.tiles[iRow][iCol] != 0)
+                    cells[iRow][iCol].attr({'stroke': infos.backgroundColor});
+                if(infos.borderColor && context.tiles[iRow][iCol] != 0)
+                    cells[iRow][iCol].attr({'stroke': infos.borderColor});
+            }
+        }
+        if(infos.showLabels) {
+            for(var iRow = 0;iRow < context.nbRows;iRow++) {
+                rowsLabels[iRow] = paper.text(0, 0, (iRow + 1));
+            }
+            for(var iCol = 0;iCol < context.nbCols;iCol++) {
+                colsLabels[iCol] = paper.text(0, 0, (iCol + 1));
+            }
+        }
+    };
+   var resetItem = function(initItem) {
+      var item = {};
+      context.items.push(item);
+      for (var property in initItem) {
+         item[property] = initItem[property];
+      }
+      var itemType = infos.itemTypes[item.type];
+      item.side = itemType.side;
+      item.category = itemType.category;
+      if (itemType.team != undefined) {
+         item.team = itemType.team;
+      }
+      item.offsetX = 0;
+      if (itemType.offsetX != undefined) {
+         item.offsetX = itemType.offsetX;
+      }
+      item.offsetY = 0;
+      if (itemType.offsetY != undefined) {
+         item.offsetY = itemType.offsetY;
+      }
+      item.nbStates = 1;
+      if (itemType.nbStates != undefined) {
+         item.nbStates = itemType.nbStates;
+      }
+      if (itemType.zOrder != undefined) {
+         item.zOrder = itemType.zOrder;
+      } else {
+         item.zOrder = 0;
+      }
+      if (context.display) {
+         redisplayItem(item);
+      }
+   };
+   var resetItems = function() {
+      context.items = [];
+      var itemTypeByNum = {};
+      for (var type in infos.itemTypes) {
+         var itemType = infos.itemTypes[type];
+         if (itemType.num != undefined) {
+            itemTypeByNum[itemType.num] = type;
          }
       }
-   }
+      for (var iRow = 0; iRow < context.nbRows; iRow++) {
+         for (var iCol = 0; iCol < context.nbCols; iCol++) {
+            var itemTypeNum = context.tiles[iRow][iCol];
+            if (itemTypeByNum[itemTypeNum] != undefined) {
+               resetItem({
+                  row: iRow,
+                  col: iCol,
+                  type: itemTypeByNum[itemTypeNum]
+               });
+            }
+         }
+      }
+      for (var iItem = context.initItems.length - 1; iItem >= 0; iItem--) {
+         resetItem(context.initItems[iItem]);
+      }
+   };
+   var resetItemsZOrder = function(row, col) {
+      var cellItems = [];
+      for (var iItem = context.items.length - 1; iItem >= 0; iItem--) {
+         var item = context.items[iItem];
+         if ((item.row == row) && (item.col == col)) {
+            cellItems.push(item);
+         }
+      }
+      cellItems.sort(function(itemA, itemB) {
+         if (itemA.zOrder < itemB.zOrder) {
+            return -1;
+         }
+         if (itemA.zOrder == itemB.zOrder) {
+            return 0;
+         }
+         return 1;
+      });
+      for (var iItem = 0; iItem < cellItems.length; iItem++) {
+         cellItems[iItem].element.toFront();
+      }
+   };
+   var redisplayItem = function(item) {
+      if (item.element != null) {
+         item.element.remove();
+      }
+      var x = (infos.cellSide * item.col + infos.leftMargin) * scale;
+      var y = (infos.cellSide * item.row + infos.topMargin) * scale;
+      var itemType = infos.itemTypes[item.type];
+      if (itemType.img) {
+         item.element = paper.image(itemType.img, x, y, item.side * item.nbStates * scale, item.side * scale);
+      } else if (itemType.value !== undefined) {
+         item.element = paper.text(x + item.side * scale / 2, y + item.side * scale / 2, itemType.value).attr({"font-size": item.side * scale / 2});
+      }
+      item.element.attr(itemAttributes(item));
+      resetItemsZOrder(item.row, item.col);
+   };
+   var moveRobot = function(newRow, newCol, newDir, callback) {
+      var iRobot = context.curRobot;
+      var item = context.getRobotItem(iRobot);
+      var animate = (item.row != newRow) || (item.col != newCol) || (newDir == item.dir);
+      // If the robot turns and moves at the sime time, we do an instant turn (for now).
+      if ((item.dir != newDir) && ((item.row != newRow) || (item.col != newCol))) {
+         item.dir = newDir;
+         if (context.display) {
+            attr = itemAttributes(item);
+            item.element.attr(attr);
+         }
+      }
+      item.dir = newDir;
+      item.row = newRow;
+      item.col = newCol;
 
 
-   // add and/or override local blocks from task.js
-   if (infos.localBlocks != undefined) {
-      var cblocks = infos.localBlocks(context, strings);
-      replaceDict(cblocks, context.customBlocks);
-   }
+      var collectibles = context.getItems(newRow, newCol, {isCollectible: true});
+      var collected = [];
+      while (collectibles.length > 0) {
+         var collectible = collectibles[0];
+         collected.push(collectible);
+         context.items.splice(collectible.index, 1);
+         collectibles.splice(0, 1);
+         context.nbCollectedItems++;
+      }
+
+      function removeItemsElements(items) {
+         for (var iItem = 0; iItem < items.length; iItem++) {
+             items[iItem].element.remove();
+         }
+      }
+
+      if (context.display) {
+         var attr;
+         if (collected.length > 0) {
+            context.delayFactory.createTimeout("removeItems" + iRobot + "_" + Math.random(), function() {
+               removeItemsElements(collected);
+            }, infos.actionDelay);
+         }
+         if (animate) {
+            attr = itemAttributes(item);
+            context.raphaelFactory.animate("animRobot" + iRobot + "_" + Math.random(), item.element, attr, infos.actionDelay);
+         } else {
+            attr = itemAttributes(item);
+            if (infos.actionDelay > 0) {
+               context.delayFactory.createTimeout("moveRobot" + iRobot + "_" + Math.random(), function() {
+                  item.element.attr(attr);
+               }, infos.actionDelay / 2);
+            } else {
+               item.element.attr(attr);
+            }
+         }
+         $("#nbMoves").html(context.nbMoves);
+      }
+      context.waitDelay(callback);
+   };
+
+   context.getItems = function(row, col, filters) {
+      var listItems = [];
+      for (var iItem = 0; iItem < context.items.length; iItem++) {
+         var item = context.items[iItem];
+         var itemType = infos.itemTypes[item.type];
+         if ((row == undefined) || ((item.row == row) && (item.col == col))) {
+            var accepted = true;
+            for (var property in filters) {
+               var value = filters[property];
+               if ((itemType[property] == undefined) && (value != undefined)) {
+                  accepted = false;
+                  break;
+               }
+               if ((itemType[property] != undefined) && (itemType[property] != value)) {
+                  accepted = false;
+                  break;
+               }
+            }
+            if (accepted) {
+               item.index = iItem;
+               listItems.push(item);
+            }
+         }
+      }
+      return listItems;
+   };
+
+   var checkTileAllowed = function(row, col) {
+      if (isOutsideGrid(row, col) || (context.tiles[row][col] == 0)) {
+         if (infos.ignoreInvalidMoves) {
+            return false;
+         }
+         throw(context.strings.messages.leavesGrid);
+      }
+      var itemsInFront = context.getItems(row, col, {isObstacle: true});
+      if (itemsInFront.length > 0) {
+         if (infos.ignoreInvalidMoves) {
+            return false;
+         }
+         throw(strings.messages.obstacle);
+      }
+      return true;
+   };
+   var itemAttributes = function(item) {
+      var itemType = infos.itemTypes[item.type];
+      var x = (infos.cellSide * item.col + item.offsetX + infos.leftMargin) * scale;
+      var y = (infos.cellSide * item.row - (item.side - infos.cellSide) + item.offsetY + infos.topMargin) * scale;
+      var xClip = x;
+      if (item.dir != undefined) {
+//         var dirToState = [3, 0, 1, 2];
+         var dirToState = [0, 2, 4, 6];
+         x = x - (dirToState[item.dir] * item.side * scale);
+      }
+      var clipRect = "" + xClip + "," + y + "," + (item.side * scale) + "," + (item.side * scale);
+      if (!itemType.img) {
+         x += item.side * scale / 2;
+         y += item.side * scale / 2;
+      }
+      return { x: x, y: y, width: item.side * item.nbStates * scale, height: item.side * scale, "clip-rect": clipRect};
+   };
+
+   context.customBlocks = {
+      robot: {
+         actions: [
+            { name: "paint" },
+            { name: "paintGrey" },
+            { name: "forward" },
+            { name: "turnAround" },
+            { name: "jump" },
+            { name: "down" },
+            { name: "right" },
+            { name: "left" },
+            { name: "east" },
+            { name: "west" },
+            { name: "north" },
+            { name: "south" },
+            { name: "wait" },
+            { name: "pickTransportable" },
+            { name: "dropTransportable" },
+            { name: "writeNumber", params: [null] },
+            { name: "addPlatformAbove",   yieldsValue: false },
+            { name: "addPlatformInFront",   yieldsValue: false },
+			//custom
+			{ name: "pickWithdrawable" },
+			{ name: "pickWithdrawableOptions", 
+				blocklyJson: {
+					"args0": [
+						{
+							"type": "field_dropdown", 
+							"name": "PARAM_0", 
+							"options": [
+								[localLanguageStrings[window.stringsLanguage]["label"]["left_pocket"], "left"],
+								[localLanguageStrings[window.stringsLanguage]["label"]["middle_pocket"], "middle"],
+								[localLanguageStrings[window.stringsLanguage]["label"]["right_pocket"], "right"],
+							]
+						}
+					]
+				}
+			},
+         ],
+         sensors: [
+            { name: "onTransportable",    yieldsValue: true },
+            { name: "onRoundObject",      yieldsValue: true },
+            { name: "onSquareObject",     yieldsValue: true },
+            { name: "onTriangleObject",   yieldsValue: true },
+            { name: "onDottedObject",     yieldsValue: true },
+            { name: "onStripedObject",    yieldsValue: true },
+            { name: "onFullObject",       yieldsValue: true },
+            { name: "onHole",             yieldsValue: true },
+            { name: "transportableShape", yieldsValue: true },
+            { name: "transportableColor", yieldsValue: true },
+            { name: "transportableRed",   yieldsValue: true },
+            { name: "transportableBlue",  yieldsValue: true },
+            { name: "transportableSquare", yieldsValue: true },
+
+            { name: "greenCell",          yieldsValue: true },
+            { name: "brownCell",          yieldsValue: true },
+            { name: "markedCell",         yieldsValue: true },
+
+            { name: "obstacleInFront",    yieldsValue: true },
+            { name: "obstacleRight",      yieldsValue: true },
+            { name: "obstacleLeft",       yieldsValue: true },
+            { name: "obstacleEast",       yieldsValue: true },
+            { name: "obstacleWest",       yieldsValue: true },
+            { name: "obstacleNorth",      yieldsValue: true },
+            { name: "obstacleSouth",      yieldsValue: true },
+
+            { name: "paintInFront",       yieldsValue: true },
+            { name: "paintOnCell",        yieldsValue: true },
+            { name: "paintNorth",         yieldsValue: true },
+            { name: "paintNorthWest",     yieldsValue: true },
+            { name: "paintNorthEast",     yieldsValue: true },
+            { name: "colorUnder",         yieldsValue: true },
+            { name: "numberUnder",        yieldsValue: true },
+            { name: "gridEdgeInFront",    yieldsValue: true },
+            { name: "gridEdgeEast",       yieldsValue: true },
+            { name: "gridEdgeWest",       yieldsValue: true },
+            { name: "gridEdgeAbove",      yieldsValue: true },
+            { name: "gridEdgeBelow",      yieldsValue: true },
+            { name: "platformInFront",    yieldsValue: true },
+            { name: "platformInFrontAndBelow", yieldsValue: true },
+            { name: "platformAbove",      yieldsValue: true },
+            { name: "dir",                yieldsValue: true },
+            { name: "col",                yieldsValue: true },
+            { name: "row",                yieldsValue: true },
+            { name: "onPill",             yieldsValue: true },
+			//custom
+			{ name: "onWithdrawable",    yieldsValue: true },
+			{ name: "onWithdrawableOptions", 
+				blocklyJson: {
+					"args0": [
+						{
+							"type": "field_dropdown", 
+							"name": "PARAM_0", 
+							"options": [
+								[localLanguageStrings[window.stringsLanguage]["label"]["onFork"], "fork"],
+								[localLanguageStrings[window.stringsLanguage]["label"]["onSpoon"], "spoon"],
+								[localLanguageStrings[window.stringsLanguage]["label"]["onKnife"], "knife"],
+							]
+						}
+					]
+				},
+				yieldsValue: true,
+			},
+            { name: "numberOnCell",        yieldsValue: true },
+            { name: "letterUnder",        yieldsValue: true },
+            { name: "letterOnCell",        yieldsValue: true },
+         ]
+      },
+      transport: {
+         sensors: [
+            { name: "number", yieldsValue: true,                     handler: context.transportable_number },
+            { name: "exists", yieldsValue: true,   params: [null],   handler: context.transportable_exists },
+            { name: "trans_row",    yieldsValue: true,   params: [null],   handler: context.transportable_row },
+            { name: "trans_col",    yieldsValue: true,   params: [null],   handler: context.transportable_col }
+         ]
+      },
+      debug: {
+         debug: [
+            { name: "alert", params: [null], handler: context.debug_alert }
+         ]
+      }
+   };
 
    return context;
 };
-
-
-
 //checkEndConditions
 var robotEndConditions = {
-   checkItemExistence: function(context, lastTurn, filters, negfilters={}, exist=true) {
-      context.success = false;
-   
-      var items = context.getItems(undefined, undefined, filters, negfilters);
-      if(exist) {
-         if(items.length > 0){
-            context.success = true;
-            throw(window.languageStrings.messages.success + window.languageStrings.messages.itemsExist);
-         }
-         else if(lastTurn) throw(window.languageStrings.messages.failure + window.languageStrings.messages.itemsDontExist);
-      }
-      else{
-         if(items.length == 0){
-            context.success = true;
-            throw(window.languageStrings.messages.success + window.languageStrings.messages.itemsDontExist);
-         }
-         else if(lastTurn) throw(window.languageStrings.messages.failure + window.languageStrings.messages.itemsExist);
-      }
-   },
-   checkItemCoincidence: function(context, lastTurn, filtersA, filtersB, keys=[], negfiltersA={}, negfiltersB={}) {
-      context.success = false;
-      
-      var itemsA = context.getItems(undefined, undefined, filtersA, negfiltersA);
-      var itemsB = context.getItems(undefined, undefined, filtersB, negfiltersB);
-
-      var check1on2 = function(items1, items2){
-         for(var i = 0; i < items1.length; i++) {
-            var found = false
-            for(var j = 0; j < items2.length; j++) {
-               if((items1[i].row == items2[j].row) && (items1[i].col == items2[j].col)){
-                  found = true;
-                  for(var ik = 0; ik < keys.length; ik++) {
-                     var key = keys[ik];
-                     if(items1[i][key] != items2[j][key]) found = false;
-                  }
-               }
-            }  
-            if(!found) return false;
-         }
-         return true;
-      }
-
-      context.success = (check1on2(itemsA, itemsB) && check1on2(itemsB, itemsA));
-      if(context.success) throw (window.languageStrings.messages.success + window.languageStrings.messages.itemsCoincide);
-      else if(lastTurn) throw (window.languageStrings.messages.failure + window.languageStrings.messages.itemsDontCoincide);
-   },
-   checkCombiner: function(context, lastTurn, checkFunctions) {
-      context.success = false;
-      var nchecks = checkFunctions.length;
-      var solved = true;
-      var msg = "";
-
-      for(var i = 0; i < nchecks; i++) {   
-         try{ 
-            checkFunctions[i](context, lastTurn);
-            // if this goes through, we didnt solve it because its not the last turn!!
-            solved = false;
-         }
-         catch(err){
-            solved = solved && context.success;
-            msg = msg.concat(err);
-         }
-      }
-      context.success = solved;
-
-      if(context.success) throw (msg);
-      else if(lastTurn) throw (msg);
-   },
+	checkMarkersPainted: function(context, lastTurn) {
+		var solved = true;
+		for (var iRow = 0; iRow < context.tiles.length; iRow++) {
+			var row = context.tiles[iRow];
+			for (var iCol = 0; iCol < row.length; iCol++) {
+				var markers = context.getItems(iRow, iCol, {isMarker: true});
+				var paint = context.getItems(iRow, iCol, {isPaint: true});
+				if (paint.length != markers.length) {
+					solved = false;
+				}
+			}
+		}
+		if (solved) {
+			context.success = true;
+			throw(window.languageStrings.messages.successMarkersPainted);
+		}
+		if (lastTurn) {
+			context.success = false;
+			throw(window.languageStrings.messages.failureMarkersPainted);
+		}
+	},
+	checkPickedAllCollectibles: function(context, lastTurn) {
+		var solved = true;
+		for (var iRow = 0; iRow < context.tiles.length; iRow++) {
+			var row = context.tiles[iRow];
+			for (var iCol = 0; iCol < row.length; iCol++) {
+				var collectibles = context.getItems(iRow, iCol, {isCollectible: true});
+				if (collectibles.length != 0) {
+					solved = false;
+				}
+			}
+		}
+		if (solved) {
+			context.success = true;
+			throw(window.languageStrings.messages.successPickedAllCollectibles);
+		}
+		if (lastTurn) {
+			context.success = false;
+			throw(window.languageStrings.messages.failurePickedAllCollectibles);
+		}
+	},
+	checkReachGreenArea: function(context, lastTurn) {
+		var robot = context.getRobotItem(context.curRobot);
+		var paints = context.getItems(robot.row, robot.col, {color: "vert"}); // TODO: internationalize color
+		if (paints.length != 0) {
+			context.success = true;
+			throw(window.languageStrings.messages.successReachGeenArea);
+		}
+		if (lastTurn) {
+			context.success = false;
+			throw(window.languageStrings.messages.failureReachGeenArea);
+		}
+	},
+	checkMarblesInHoles: function(context, lastTurn) {
+		var solved = true;
+		var nbHoles = 0;
+		for (var iRow = 0; iRow < context.tiles.length; iRow++) {
+			var row = context.tiles[iRow];
+			for (var iCol = 0; iCol < row.length; iCol++) {
+				var marbles = context.getItems(iRow, iCol, {category: "marble"});
+				var holes = context.getItems(iRow, iCol, {category: "hole"});
+				nbHoles += holes.length;
+				if (marbles.length != holes.length) {
+					solved = false;
+				}
+			}
+		}
+		if (solved) {
+			context.success = true;
+			if (nbHoles == 1) {
+				throw(window.languageStrings.messages.successOneMarbleInHole);
+			}
+			else {
+				throw(window.languageStrings.messages.successAllMarblesInHoles);
+			}
+		}
+		if (lastTurn) {
+			context.success = false;
+			if (nbHoles == 1) {
+				throw(window.languageStrings.messages.failureOneMarbleInHole);
+			}
+			else {
+				throw(window.languageStrings.messages.failureAllMarblesInHoles);
+			}
+		}
+	},
+	checkPickedAllWithdrawables: function(context, lastTurn) {
+		var solved = true;
+		for (var iRow = 0; iRow < context.tiles.length; iRow++) {
+			var row = context.tiles[iRow];
+			for (var iCol = 0; iCol < row.length; iCol++) {
+				var withdrawables = context.getItems(iRow, iCol, {isWithdrawable: true});
+				if (withdrawables.length != 0) {
+					solved = false;
+				}
+			}
+		}
+		if (solved) {
+			context.success = true;
+			throw(window.languageStrings.messages.successPickedAllWithdrawables);
+		}
+		if (lastTurn) {
+			context.success = false;
+			throw(window.languageStrings.messages.failurePickedAllWithdrawables);
+		}
+	},
 };
-
-
-// grade functions, FUTURE: this need to be tested in a COMPETITION setting!!
-var robotGradeFunctions = {
-   allOrNothing: function(context, message){
-      var rate = 0;
-      if(context.success) rate = 100;
-      return {
-         successRate: rate,
-         message: message,
-      };
-   }
-}
-
 //klic knjižnic
 if(window.quickAlgoLibraries) {
-   quickAlgoLibraries.register('robot', getContext);
-} else {
-   if(!window.quickAlgoLibrariesList) { window.quickAlgoLibrariesList = []; }
-   window.quickAlgoLibrariesList.push(['robot', getContext]);
+	quickAlgoLibraries.register('robot', getContext);
+}
+else {
+	if(!window.quickAlgoLibrariesList) {
+		window.quickAlgoLibrariesList = []; 
+	}
+	window.quickAlgoLibrariesList.push(['robot', getContext]);
 }
