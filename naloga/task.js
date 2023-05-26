@@ -237,8 +237,7 @@ function initTask(subTask) {
 			])
 		},
 		computeGrade: robotGradeFunctions.allOrNothing,
-			
-		// border: 0.,
+
 		border: 0.05,
 		backgroundColour: "pink",
 		// backgroundTile: false,
