@@ -155,4 +155,4 @@ def get_data():
 def start_bottle():
     #Zaženemo bottle
 
-    bottle.run(debug=True, reloader=True)
+    bottle.run(debug=True, reloader=True, host='localhost', port=8081)
