@@ -3,6 +3,8 @@ import json
 import re
 
 def izpisiLanguageStrings(lst:list):
+    '''Language strings'''
+    
     slv = {}
     for par in lst:
         slv.update(par)
@@ -16,6 +18,7 @@ def izpisiLanguageStrings(lst:list):
     return pySlv
 
 def izpisiHideControls(restart = False, saveOrLoad = False, loadBestAnswer = False, speedSlider = False, backToFirst = False, nextStep = False, goToEnd = False):
+    '''Spreminja hide controls - neuporbno pomoje'''
     pySlv = {"hideControls":{}}
     slv = {"restart": restart, "saveOrLoad": saveOrLoad, "loadBestAnswer": loadBestAnswer, "speedSlider": speedSlider, "backToFirst": backToFirst, "nextStep": nextStep, "goToEnd": goToEnd,}
     pySlv["hideControls"] = slv
@@ -26,6 +29,7 @@ def izpisiHideControls(restart = False, saveOrLoad = False, loadBestAnswer = Fal
     return pySlv
 
 def izpisiRandomBulshit1(introMaxHeight = "33%", maxListSize = 100, scrollbars = True, controls = True, scale = 1, actionDelay = 400, blocklyColourTheme = "bwinf", maxInstructions = 0):
+    '''Pazi max instructions!'''
     pySlv = {"introMaxHeight": introMaxHeight,
 		"maxListSize": maxListSize, 
 		"scrollbars": scrollbars,
@@ -40,6 +44,7 @@ def izpisiRandomBulshit1(introMaxHeight = "33%", maxListSize = 100, scrollbars =
     return pySlv
 
 def izpisiStartingExample(str):
+    '''Koda s katero začneš'''
     pySlv = {"startingExample":{}}
     
     #python slovar
@@ -50,6 +55,13 @@ def izpisiStartingExample(str):
     return pySlv
 
 def izpisiIncludeBlocks(gbc = True, robot = ["move"], iclAll = True, whCat = [], sinBl = [], excBl = []):
+    '''Include blocks - kateri delčki se prikažejo. (Dropdown!)'''
+    # gbc - GroupByCategory 
+    # robot - generatedBlocks
+    # iclAll - IncludeAll
+    # whCat - wholeCategories
+    # sinBl - singleBlocks
+    # excBl - excludedBlocks (vse - kater)
     slv = {"groupByCategory": gbc, "generatedBlocks": {"robot": robot}, "standardBlocks": {"includeAll": iclAll, "wholeCategories": whCat, "singleBlocks": sinBl, "excludedBlocks": excBl,},}
     pySlv = {"includeBlocks":{}}
     
@@ -58,6 +70,13 @@ def izpisiIncludeBlocks(gbc = True, robot = ["move"], iclAll = True, whCat = [],
     return pySlv
 
 def izpisiCheckEndCondition(indikator1 = "category", ime1 = "coin", negIndikator1 = "", negIme1 = "", indikatorA = "", imeA = "", indikatorB = "", imeB = "", keys = "", negIndikatorA = "", negImeA = "", negIndikatorB = "", negImeB = ""):
+    # indikator - recimo kategorija (dropdown) lahko je karkoli
+    # ime1 - ime kategorije
+    # negIndikator1 - ali obstaja kakšen objekt, ki ni kategorija kovanec
+    # negime1 - ime kategorije
+    # indikatorA - značilnost objekta po katerem iščemo
+    # imeA - ime značilnosti npr. ime 2
+    # keys - ?
     lst = [indikator1, ime1, negIndikator1, negIme1, indikatorA, imeA, indikatorB, imeB, keys, negIndikatorA, negImeA, negIndikatorB, negImeB]
     
     filters1 = r"{}"
@@ -117,6 +136,8 @@ def izpisiItemTypes(slv: dict):
     return pySlv
 
 def ustvariItemType(num, img = "", zOrder = 0, nbStates = 1, category = "", value = 0):
+    '''Ustvarimo en itemType'''
+    #num je treba dodajati vedno ko kličeš funkcijo
     slv = {}
     
     slv["num"] = num
