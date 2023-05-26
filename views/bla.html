@@ -1,70 +1,83 @@
+
+<!doctype html>
 <html>
-<html>
-<head>
-  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-  <style>
-    #container {
-    position: relative;
-    top: 30px;
-    outline:2px solid #000;
-    font-size: 0;
-    margin:auto;
-    height:480px;
-    width:480px;
-    padding: 0;
-    border: none;
-    }
+   <head>
+		<meta charset="utf-8">	<!-- določimo način kodiranja znakov v besedilu naloge -->
+		<title>normal_example</title> <!-- pod naslov zapišemo ime mape v kateri se nahajo datoteke za posamezno nalogo -->
+		<script>
+			window.stringsLanguage = 'sl'; //izberemo jezik za besedila ukazov in sporočil
+		</script>
+			
+		<!-- Tukaj kličemo knjižnice potrebne za delovanje spletne strani -->
+		<script class="remove" type="text/javascript" src="../static/javascript/_common/modules/pemFioi/importModules-1.5.js" id="import-modules"></script> 
+		<!-- <script class="remove" type="text/javascript" src="../../../../../_common/modules/pemFioi/importModules-1.4-mobileFirst.js" id="import-modules"></script>  -->
+		<!-- <script class="remove" type="text/javascript" src="../../../../_common/modules/pemFioi/importModules-1.5.js" id="import-modules"></script>  -->
+		<link rel = "stylesheet" href = "../static/css/modules/keypad.css" type="text/css" id = "numeric_keypad_css">
+		<link rel="stylesheet" href="../static/css/modules/quickAlgo-mobileFirst.css" type="text/css" id="quickAlgo_css">
+		<link rel="stylesheet" href="../static/css/modules/taskStyles-mobileFirst.css" type="text/css" id="http://www.france-ioi.org/modules/pemFioi/taskStyles-mobileFirst.css">
+		<script class="remove" type="text/javascript">
+			var modulesPath = '../static/javascript/_common/modules/'
+			importModules([
+				'jquery-1.7.1', 'JSON-js', 'raphael-2.2.1', 'beaver-task-2.0', 'jschannel', 'raphaelFactory-1.0', 'delayFactory-1.0', 'simulationFactory-1.0',
+				'platform-pr', 'buttonsAndMessages', 'beav-1.0', 'installationAPI.01', 'miniPlatform',
+				'taskStyles-mobileFirst'
+				// 'taskStyles-0.5'
+			]);
+			importLanguageModules('blockly'); //nastavimo programski jezik Blockly
+		</script>
+			
+		<!-- Tukaj vodimo evidenco o nalogi -->
+		<script class="remove" type="text/javascript">
+			var json = {
+				"id": "",						//url naloge
+				"language": "sl",
+				"version": "sl.01",
+				"authors": "",				//avtor
+				"translators": [],
+				"license": "",
+				"taskPathPrefix": "",
+				"modulesPathPrefix": "",
+				"browserSupport": [],
+				"fullFeedback": true,
+				"minWidth": "auto"
+			};
+		</script>
+			
+		<!-- Pot do grafik -->	
+		<script> var imgPath="/graphics/"; </script>
+		<!-- <script> var imgPath=""; </script> -->
+		<!-- Tukaj uvozimo knjiznico -->	
+		<script class="remove" type="text/javascript" src="../static/javascript/blocklyRobot_lib.js" id="blocklyRobot_lib"></script>
+		<!-- Tukaj kličemo datoteko, kjer definiramo problem naloge -->		
+		<script type="text/javascript" src="../static/javascript/task.js"></script>
 
-    .grid {
-    margin:0;
-    padding:0;
-    border:none;
-    outline:1px solid #000;
-    display:inline-block;
-    }
-  </style>
-</head>
-
-<body>
-
-    <input id="besedilo1" class="form-control" id="stolpec-junak" placeholder="vrstica">
-    <input id="besedilo2" class="form-control" id="stolpec-junak" placeholder="stolpec">
-    <button onclick="refreshGrid()">generiraj polje</button>
-    <div id="container"></div>
+		<script>
+			// initWrapper(initTask, ["easy","medium","hard"], null, true);
+			initWrapper(initTask, null, null, true);
+		</script>
+    </head>
     
-    <br><br>
-    <script>
-        // function that builds a grid in the "container"
-        function createGrid(x, y) {
-            for (var rows = 0; rows < y; rows++) {
-                for (var columns = 0; columns < x; columns++) {
-                    $("#container").append("<div " + "id=" + rows + "." + columns + " class='grid'></div>");
-                };
-            };
-            $(".grid").width(480 / x);
-            $(".grid").height(480 / x);
-        };
-    
-        // function that clears the grid
-        function clearGrid() {
-            $(".grid").remove();
-        };
-    
-        // function that prompts the user to select the number of boxes in a new grid
-        // the function then also creates that new grid
-        function refreshGrid() {
-            var columns = document.getElementById("besedilo1").value;
-            var rows = document.getElementById("besedilo2").value;
-            clearGrid();
-            createGrid(parseInt(columns), parseInt(rows));
-        };
-    // create a 16x16 grid when the page loads
-    // creates a hover effect that changes the color of a square to black when the mouse passes over it, leaving a (pixel) trail through the grid
-    // allows the click of a button to prompt the user to create a new grid
-    $(document).ready(function() {
-        createGrid(2, 2);
-    });
-    </script>
-</body>
-
+	<body onresize="task.displayedSubTask.updateScale()">
+		<div id="task">
+            <h1>Miha in Piki</h1>  <!-- Naslov naloge -->
+			<div id="tabsContainer"></div>
+			<div id="taskContent">
+				<div id="taskIntro"> <!-- Besedilo naloge -->
+					<p>
+						Pravimo, da je pes človeku najboljši prijatelj. Čeprav včasih nagaja, ko se odločimo, da ne bo na povodcu…
+					</p>
+					
+					
+					<div>
+						<p>
+							Miha in Piki trenirata na pasjem poligonu. Najprej mora Miha odpreti vrata Pikiju tako, da stopi na zeleno polje. Nato mora Piki narediti isto za svojega gospodarja. Na oranžnem polju mora Miha imeti Pikija na povodcu.
+						</p>
+					</div>
+				
+				</div>
+				<div id="gridContainer"></div>
+				<div id="blocklyLibContent"></div>
+			</div>
+		</div>
+    </body>
 </html>
