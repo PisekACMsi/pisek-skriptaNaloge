@@ -1,0 +1,16 @@
+info -------------------------------------------------------------------------
+☐  - toDo 
+✅ - Done 
+------------------------------------------------------------------------------
+Tasks:
+------------------------------------------------------------------------------
+
+☐  Povezat globalne spremenjivke v generatorju
+
+☐  Funkcija, ki izbriše language strings
+
+☐  RandomBul1 naj bodo procenti najprej int potem pa string
+
+☐  Najdit path do img v javascript fajlu. Več info na discordu.
+
+------------------------------------------------------------------------------

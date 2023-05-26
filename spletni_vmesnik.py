@@ -16,7 +16,7 @@ def send_img(filename):
 #img 
 @bottle.route('/static/javascript/modules/img/algorea<filename:re:.*\.png>')
 def send_img2(filename):
-    return bottle.static_file(filename, root='static/img')
+    return bottle.static_file(filename, root='static/javascript/modules/img/algorea')
 #html
 @bottle.route('/views/<filename:re:.*\.html>')
 def serve_html(filename):
