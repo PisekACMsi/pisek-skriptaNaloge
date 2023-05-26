@@ -139,7 +139,7 @@ def send_quickAlgo_css(filename):
 
 @bottle.get("/")    
 def home():              
-    return bottle.template("index.html")
+    return bottle.template("naloga.html")
 
 @bottle.post("/") 
 def get_data():
