@@ -4,9 +4,9 @@ import re
 import flatdict
 
 def izpisiLanguageStrings():
-    global slvLS
+    global languageStrings
     pySlv = {"languageStrings":{"sl":{}}}
-    pySlv["languageStrings"]["sl"] = slvLS
+    pySlv["languageStrings"]["sl"] = languageStrings
     
     # jsonStr = json.dumps(pySlv, indent = 5, ensure_ascii=False)
     # jsString = re.sub("\"([^\"]+)\":", r"\1:", jsonStr).replace(r'\"', "")
@@ -30,19 +30,9 @@ def izpisiHideControls(restart = False, saveOrLoad = False, loadBestAnswer = Fal
     # return jsString[1:-1]
     return pySlv
 
-def izpisiRandomBulshit1(introMaxHeight = "33%", maxListSize = 100, scrollbars = True, controls = True, scale = 1, actionDelay = 400, blocklyColourTheme = "bwinf", maxInstructions = 0):
-    pySlv = {"introMaxHeight": introMaxHeight,
-		"maxListSize": maxListSize, 
-		"scrollbars": scrollbars,
-		"zoom": {
-			"controls": controls,
-			"scale": scale,
-			},
-        "actionDelay": actionDelay,				
-		"blocklyColourTheme": blocklyColourTheme,
-		"maxInstructions": maxInstructions
-        }
-    return pySlv
+def izpisiRandomBulshit1():
+    global randomBull1
+    return randomBull1
 
 def izpisiStartingExample():
     global strSE
@@ -132,16 +122,9 @@ def izpisiCheckEndCondition():
     
     return pySlv
 
-def izpisiRandomBulsit2(border = 0, backgroundColour = "white", backgroundTile = "", borderColour = "black", showLabels = True, cellSide = 60, numberOfRobots = 1): 
-    slv = {"border": border,
-    "backgroundColour": backgroundColour,
-    "backgroundTile": backgroundTile,
-    "borderColour": borderColour,
-    "showLabels": showLabels,
-
-    "cellSide": cellSide,	
-    "numberOfRobots": numberOfRobots}
-    return slv
+def izpisiRandomBulsit2(): 
+    global randomBull2
+    return randomBull2
 
 def izpisiItemTypes():
     global itemsIT
@@ -173,12 +156,14 @@ def izbrisiItemType(ime):
 
 def izpisiSubTaskData():
     global matrixExamples, initialisationExamples
+    pySlv = {}
     pyLst = []
 
     for i in range(len(initialisationExamples)):
         pyLst.append({"tiles":izpisiMatriko(matrixExamples[i]), "initItems":initialisationExamples[i]})
 
-    return pyLst
+    pySlv["easy"] = pyLst
+    return pySlv
     
 def izpisiMatriko(matrix):
     return "&#&" + np.array_repr(matrix).replace("array(", "").replace(", dtype=int8)", "") + "&#&"
@@ -223,12 +208,24 @@ def changeMatrixSize(nrows, ncols):
 
 #TE SPREMENLJIVKE SE SPREMINJAJO DIREKTNO S SPLETNE STRANI   KUL?
 #Globalna spremenljivka LANGUAGE STRINGS - shranjuje vse language stringe
-slvLS = {}
+languageStrings = {}
 #primer parametra
 parLS = {"categories": {"actions": "Gibanje"}} #dobljeni parameter s spletne strani, možne parametre najdeš v templateText.txt - to naj bo dropdown z opcijami za obklukat
 
-slvLS = dodajSlovar(slvLS, parLS) # za posodobitev kliči to funkcijo in za drugi paramter uporabi kar pride iz spletne strani
+languageStrings = dodajSlovar(languageStrings, parLS) # za posodobitev kliči to funkcijo in za drugi paramter uporabi kar pride iz spletne strani
 
+# RANDOM BULŠIT 1
+randomBull1 = {"introMaxHeight": "33%",
+    "maxListSize": 100, 
+    "scrollbars": True,
+    "zoom": {
+        "controls": True,
+        "scale": 1,
+        },
+    "actionDelay": 400,				
+    "blocklyColourTheme": "bwinf",
+    "maxInstructions": 0
+    }
 # ZAČETNA POSTAVITEV - na spletni strani naj bo gumb - posodobi začetno postavitev. Samo zamenjaj string
 strSE = ''
 
@@ -253,10 +250,22 @@ typeOptions = set() #imena predmetov, ki so na izbiro za inicializacijo objekta,
 # če je indikator value = opcije za ime = kerakol številka. Mejbi bo treba dtr omejitev
 # če je indikator type = opcije za ime = typeOptions
 # jebeš keys, nerabš
+
+checkEndEveryTurn = True
+ignoreInvalidMoves: False
 # to je default, vpisuj notr kar najdeš v zgornjih opcijah
 endCondition = {"Exist": {"indikator1": "category", "ime1": "coin", "negIndikator1": "", "negIme1": ""},
                 "Coincide": {"indikatorA": "", "imeA": "", "indikatorB": "", "imeB": "", "keys": "", "negIndikatorA": "", "negImeA": "", "negIndikatorB": "", "negImeB": ""}}
 
+#RANDOM BULŠIT 2
+randomBull2 = {"border": 0.02,
+    "backgroundColour": "white",
+    "backgroundTile": "",
+    "borderColour": "black",
+    "showLabels": True,
+    "cellSide": 60,	
+    "numberOfRobots": 1
+    }
 
 #OBJEKTI
 itemsIT = {} # samodejno shranjuje vse iteme
@@ -295,7 +304,9 @@ def ustvariSkripto():
     ulmSlv.update(izpisiRandomBulshit1())
     ulmSlv.update(izpisiIncludeBlocks())
     ulmSlv.update(izpisiStartingExample())
+    ulmSlv.update({"checkEndEveryTurn":True})
     ulmSlv.update(izpisiCheckEndCondition())
+    ulmSlv.update({"ignoreInvalidMoves":False})
     ulmSlv.update(izpisiRandomBulsit2())
     ulmSlv.update(izpisiItemTypes())
 

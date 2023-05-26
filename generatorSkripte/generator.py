@@ -254,6 +254,8 @@ typeOptions = set() #imena predmetov, ki so na izbiro za inicializacijo objekta,
 # če je indikator type = opcije za ime = typeOptions
 # jebeš keys, nerabš
 # to je default, vpisuj notr kar najdeš v zgornjih opcijah
+checkEndEveryTurn = True
+
 endCondition = {"Exist": {"indikator1": "category", "ime1": "coin", "negIndikator1": "", "negIme1": ""},
                 "Coincide": {"indikatorA": "", "imeA": "", "indikatorB": "", "imeB": "", "keys": "", "negIndikatorA": "", "negImeA": "", "negIndikatorB": "", "negImeB": ""}}
 
@@ -295,6 +297,7 @@ def ustvariSkripto():
     ulmSlv.update(izpisiRandomBulshit1())
     ulmSlv.update(izpisiIncludeBlocks())
     ulmSlv.update(izpisiStartingExample())
+    ulmSlv.update({checkEndEveryTurn:True})
     ulmSlv.update(izpisiCheckEndCondition())
     ulmSlv.update(izpisiRandomBulsit2())
     ulmSlv.update(izpisiItemTypes())

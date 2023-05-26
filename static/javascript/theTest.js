@@ -41,13 +41,15 @@ function initTask(subTask) {
      startingExample: {
           blockly: ""
      },
+     checkEndEveryTurn: true,
      checkEndCondition: (context, lastTurn) => { 
 	robotEndConditions.checkCombiner(context, lastTurn, [
 		(context, lastTurn) => { robotEndConditions.checkItemExistence(context, lastTurn, {category: "coin"}, {}, exist=false) },
 		//
 	])
 },
-     border: 0,
+     ignoreInvalidMoves: false,
+     border: 0.02,
      backgroundColour: "white",
      backgroundTile: "",
      borderColour: "black",
@@ -64,31 +66,33 @@ function initTask(subTask) {
           }
      }
 };
-subTask.data = [
-     {
-          tiles: [[1, 1, 1, 1, 1],
+subTask.data = {
+     easy: [
+          {
+               tiles: [[1, 1, 1, 1, 1],
        [1, 1, 1, 1, 1],
        [1, 1, 1, 1, 1],
        [1, 1, 1, 1, 1],
        [1, 1, 1, 1, 1]],
-          initItems: [
-               {
-                    row: 0,
-                    col: 0,
-                    type: "objekt_0",
-                    dir: 0,
-                    value: 0
-               }
-          ]
-     },
-     {
-          tiles: [[1, 1, 1, 1, 1],
+               initItems: [
+                    {
+                         row: 0,
+                         col: 0,
+                         type: "objekt_0",
+                         dir: 0,
+                         value: 0
+                    }
+               ]
+          },
+          {
+               tiles: [[1, 1, 1, 1, 1],
        [1, 1, 1, 1, 1],
        [1, 1, 1, 1, 1],
        [1, 1, 1, 1, 1],
        [1, 1, 1, 1, 1]],
-          initItems: []
-     }
-];
+               initItems: []
+          }
+     ]
+};
 initBlocklySubTask(subTask); 
 }
