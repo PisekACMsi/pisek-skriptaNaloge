@@ -75,9 +75,17 @@ $(document).ready(function () {
 $(document).ready(function() {
   $('#blocks-dropdown').on('changed.bs.select', function(e, clickedIndex, isSelected, previousValue) {
     if (clickedIndex === 0 && isSelected) {
-      $('.selectpicker').selectpicker('selectAll');
+      $('#blocks-dropdown').selectpicker('selectAll');
     } else if (clickedIndex === 0 && !isSelected) {
-      $('.selectpicker').selectpicker('deselectAll');
+      $('#blocks-dropdown').selectpicker('deselectAll');
+    }
+  });
+
+  $('#robot-blocks-dropdown').on('changed.bs.select', function(e, clickedIndex, isSelected, previousValue) {
+    if (clickedIndex === 0 && isSelected) {
+      $('#robot-blocks-dropdown').selectpicker('selectAll');
+    } else if (clickedIndex === 0 && !isSelected) {
+      $('#robot-blocks-dropdown').selectpicker('deselectAll');
     }
   });
 });

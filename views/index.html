@@ -151,7 +151,7 @@
 
               <div class="col-md-12">
                 <img id="slika2" onerror="this.onerror=null; this.remove();"
-                  style="max-width: 200px; max-height: 200px; object-fit: contain;">
+                  style="max-width: 200px; max-height: 200px; object-fit: contain; margin-bottom: 1.5rem;">
               </div>
             </div>
             <!-- To je za generiranje grida, ki ga verjetno ne bova rabila
@@ -179,26 +179,57 @@
             </div>
             <div id="container"></div>
           -->
-            <div class="row">
-              <div class="card">
-                <div class="card-body">
-                  <h6 class="card-title">Izberi katere kategorije naj naloga vsebuje</h6>
-                  <select class="selectpicker" id="blocks-dropdown" multiple data-live-search="true">
-                    <option>Izberi vse</option>
-                    <option>Lists</option>
-                    <option>Variables</option>
-                    <option>Functions</option>
-                    <option>Tools</option>
-                    <option>Logic</option>
-                    <option>Loops</option>
-                    <option>Math</option>
-                    <option>Texts</option>
-                    <option>Colour</option>
-                    <option>Functions</option>
-                  </select>
+            <div class="card">
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-md-6">
+                    <h6 class="card-title">Izberi kategorije za naloga</h6>
+                    <select class="selectpicker" id="blocks-dropdown" multiple data-live-search="true">
+                      <option>Izberi vse</option>
+                      <option>Lists</option>
+                      <option>Variables</option>
+                      <option>Functions</option>
+                      <option>Tools</option>
+                      <option>Logic</option>
+                      <option>Loops</option>
+                      <option>Math</option>
+                      <option>Texts</option>
+                      <option>Colour</option>
+                      <option>Functions</option>
+                    </select>
+                  </div>
+                  <div class="col-md-6">
+                    <h6 class="card-title">Izberi kategorije za robota</h6>
+                    <select class="selectpicker" id="robot-blocks-dropdown" multiple data-live-search="true">
+                      <option>Izberi vse</option>
+                      <option>Move</option>
+                      <option>MoveSimple</option>
+                      <option>Forward</option>
+                      <option>ForwardSimple</option>
+                      <option>Turn</option>
+                      <option>TurnAround</option>
+                      <option>Jump</option>
+                      <option>ChangeRobot</option>
+                      <option>Transport</option>
+                      <option>SensorBool</option>
+                      <option>SensorValue</option>
+                      <option>AlterValue</option>
+                      <option>Destroy</option>
+                      <option>Create</option>
+                      <option>Wait</option>
+                      <option>Nitems</option>
+                      <option>SensorRowCol</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="form-check" style = "margin-top: 20px;">
+                  <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                  <label class="form-check-label" for="exampleCheck1">Grupiraj po kategoriji</label>
                 </div>
               </div>
             </div>
+          
+
             <button class="w-100 btn btn-primary btn-lg" type="submit" style="margin-bottom: 100px;">Generiraj
               nalogo</button>
           </form>
