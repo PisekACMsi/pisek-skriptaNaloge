@@ -226,6 +226,7 @@ randomBull1 = {"introMaxHeight": "33%",
     "blocklyColourTheme": "bwinf",
     "maxInstructions": 0
     }
+# Spreminjava samo maxInstructions!
 # ZAČETNA POSTAVITEV - na spletni strani naj bo gumb - posodobi začetno postavitev. Samo zamenjaj string
 strSE = ''
 
@@ -235,9 +236,9 @@ includeAllIB = False # neki za obklukat
 wholeCategories = {"tools":False, "logic":False, "loops":False, "math":False, "texts":False, "lists":False, "colour":False, "variables":False, "functions":False} # neki za obklukat
 # bloki za robota, na začetku so vsi false, na spletni strani naj bo dropdown za klukat, ko obkljuka spremeni v True
 robotIB = {"move": False, "moveSimple": False, "forward": False, "forwardSimple": False, "turn": False, "turnAround": False, "jump": False, "changeRobot": False, "transport": False, "sensorBool": False, "sensorValue": False, "alterValue": False, "destroy": False, "create": False, "wait": False, "nitems": False, "sensorRowCol": False}
-singleBlocksIB = {}
-excludedBlocksIB = {}
-# moćžnosti "move", "moveSimple", "forward", "forwardSimple", "turn", "turnAround", "jump", "changeRobot", "transport", "sensorBool", "sensorValue", "alterValue", "destroy", "create", "wait", "nitems", "sensorRowCol"
+singleBlocksIB = []
+excludedBlocksIB = []
+# možnosti "move", "moveSimple", "forward", "forwardSimple", "turn", "turnAround", "jump", "changeRobot", "transport", "sensorBool", "sensorValue", "alterValue", "destroy", "create", "wait", "nitems", "sensorRowCol"
 
 # END CONDITIONS
 possibleIdicateors = {'category', 'value', 'type'} # možnosti
@@ -266,6 +267,7 @@ randomBull2 = {"border": 0.02,
     "cellSide": 60,	
     "numberOfRobots": 1
     }
+#numberOfRobots naj bo 1 default
 
 #OBJEKTI
 itemsIT = {} # samodejno shranjuje vse iteme
@@ -326,4 +328,5 @@ def ustvariSkripto():
     fajl.write(theString)
     fajl.close()
 
-ustvariSkripto()
+if __name__ == "__main__":
+    ustvariSkripto()

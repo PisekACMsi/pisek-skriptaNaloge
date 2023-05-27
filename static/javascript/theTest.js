@@ -34,8 +34,8 @@ function initTask(subTask) {
           standardBlocks: {
                includeAll: false,
                wholeCategories: [],
-               singleBlocks: {},
-               excludedBlocks: {}
+               singleBlocks: [],
+               excludedBlocks: []
           }
      },
      startingExample: {

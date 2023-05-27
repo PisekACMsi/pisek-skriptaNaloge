@@ -1,6 +1,5 @@
 import bottle 
-import skripta
-
+import generator
 """Bottle poskrbi, da stran laufa in da so vse stvari povezane med sabo."""
 
 #css 
@@ -16,7 +15,7 @@ def send_img(filename):
 #img 
 @bottle.route('/static/javascript/modules/img/algorea<filename:re:.*\.png>')
 def send_img2(filename):
-    return bottle.static_file(filename, root='static/img')
+    return bottle.static_file(filename, root='static/javascript/modules/img/algorea')
 #html
 @bottle.route('/views/<filename:re:.*\.html>')
 def serve_html(filename):
@@ -137,6 +136,10 @@ def send_quickAlgo(filename):
 def send_quickAlgo_css(filename):
     return bottle.static_file(filename, root='../static/css/modules')
 
+#---------------------------------------------------------------------------------------------------------
+# Samo spodnjo kodo spreminjaj
+#---------------------------------------------------------------------------------------------------------
+
 @bottle.get("/")    
 def home():              
     return bottle.template("index.html")
@@ -147,10 +150,33 @@ def get_data():
     n = bottle.request.forms.get('n')
     bottle.redirect("/login")
 
+@bottle.post("/")
+def add_food():
+    #tukaj dobimo vrednosti iz Bottla
+    bd = bottle.request.forms.getall('blocksDropdown')
+    rbd = bottle.request.forms.getall('robotBlocksDropdown')
+    gbc = bottle.request.forms.getall('groupByCategory')
+
+    #Preverimo ali želimo grupirat po kategorijah
+    if "Izberi vse" in rbd:
+        generator.groupByCategory = True
+    else:
+        generator.groupByCategory = False
+
+    # nastavimo vse vrednosti, ki obstajajo v IB in Categories na true
+    for el in rbd:
+        generator.robotIB[el] = True
+
+    for el in bd:
+        generator.wholeCategories[el] = True
+
+    generator.ustvariSkripto()
+    bottle.redirect("/")
 
 
 
 
+#----------------------------------------------------------------------------------------------------------
 
 def start_bottle():
     #Zaženemo bottle
