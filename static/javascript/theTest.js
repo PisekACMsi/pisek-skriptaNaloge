@@ -27,23 +27,15 @@ function initTask(subTask) {
      blocklyColourTheme: "bwinf",
      maxInstructions: 0,
      includeBlocks: {
-          groupByCategory: false,
+          groupByCategory: true,
           generatedBlocks: {
-               robot: [
-                    "Move",
-                    "MoveSimple",
-                    "Forward"
-               ]
+               robot: []
           },
           standardBlocks: {
                includeAll: false,
-               wholeCategories: [
-                    "Lists",
-                    "Variables",
-                    "Functions"
-               ],
-               singleBlocks: {},
-               excludedBlocks: {}
+               wholeCategories: [],
+               singleBlocks: [],
+               excludedBlocks: []
           }
      },
      startingExample: {
