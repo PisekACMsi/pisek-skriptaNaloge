@@ -6,7 +6,7 @@ Tasks:
 ------------------------------------------------------------------------------
 
 ☐  Povezat globalne spremenjivke v generatorju
-    ☐ Vsaj eno funkcijo
+    ✅ Vsaj eno funkcijo
 
 ☐  Funkcija, ki izbriše language strings
 
