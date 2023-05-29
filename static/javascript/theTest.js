@@ -25,15 +25,20 @@ function initTask(subTask) {
      },
      actionDelay: 400,
      blocklyColourTheme: "bwinf",
-     maxInstructions: 0,
+     maxInstructions: 2,
      includeBlocks: {
-          groupByCategory: true,
+          groupByCategory: false,
           generatedBlocks: {
-               robot: []
+               robot: [
+                    "ForwardSimple"
+               ]
           },
           standardBlocks: {
                includeAll: false,
-               wholeCategories: [],
+               wholeCategories: [
+                    "Lists",
+                    "Loops"
+               ],
                singleBlocks: [],
                excludedBlocks: []
           }
