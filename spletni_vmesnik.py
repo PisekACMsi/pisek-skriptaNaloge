@@ -154,7 +154,7 @@ def home_add():
     gbc = bottle.request.forms.getall('groupByCategory')
 
     # Preverimo ali želimo grupirat po kategorijah
-    if "Izberi vse" in rbd:
+    if len(gbc) > 0:
         generator.groupByCategory = True
     else:
         generator.groupByCategory = False

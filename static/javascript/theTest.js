@@ -25,9 +25,9 @@ function initTask(subTask) {
      },
      actionDelay: 400,
      blocklyColourTheme: "bwinf",
-     maxInstructions: 2,
+     maxInstructions: 33,
      includeBlocks: {
-          groupByCategory: false,
+          groupByCategory: true,
           generatedBlocks: {
                robot: [
                     "move",
