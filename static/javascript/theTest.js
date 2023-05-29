@@ -25,7 +25,7 @@ function initTask(subTask) {
      },
      actionDelay: 400,
      blocklyColourTheme: "bwinf",
-     maxInstructions: 0,
+     maxInstructions: 2,
      includeBlocks: {
           groupByCategory: false,
           generatedBlocks: {

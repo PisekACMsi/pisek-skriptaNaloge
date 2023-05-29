@@ -141,36 +141,27 @@ def send_quickAlgo_css(filename):
 #---------------------------------------------------------------------------------------------------------
 
 @bottle.get("/")    
-def home():              
+def home_get():              
     return bottle.template("index.html")
 
-@bottle.post("/") 
-def get_data():
-    m = bottle.request.forms.get('m')
-    n = bottle.request.forms.get('n')
-    bottle.redirect("/login")
-
 @bottle.post("/")
-def add_background():
-    #bd = bottle.request.forms.getall('backGroundTiles')
-    print("aaaaaaaaaa", bd)
+def home_add():
 
-@bottle.post("/")
-def add_food():
-    #tukaj dobimo vrednosti iz Bottla
+    # Za funkcijo includeBlocks()
+    #-------------------------------------------------------------------
     bd = bottle.request.forms.getall('blocksDropdown')
     rbd = bottle.request.forms.getall('robotBlocksDropdown')
     gbc = bottle.request.forms.getall('groupByCategory')
     print("bbbbbbbbbbbbbbb", bd)
 
 
-    #Preverimo ali želimo grupirat po kategorijah
+    # Preverimo ali želimo grupirat po kategorijah
     if "Izberi vse" in rbd:
         generator.groupByCategory = True
     else:
         generator.groupByCategory = False
 
-    # nastavimo vse vrednosti, ki obstajajo v IB in Categories na true
+    # Nastavimo vse vrednosti, ki obstajajo v IB in Categories na true
     for el in rbd:
         if el != "Izberi vse":
             el= el[0].lower() + el[1:]
@@ -181,6 +172,16 @@ def add_food():
             el= el[0].lower() + el[1:]
             generator.wholeCategories[el] = True
 
+    # Za funkcijo IzpisiHideControls(). Jo bom pustil kar prazno. 
+    #--------------------------------------------------------------------
+
+    # Za randomBull1 bom spremnil samo maxInstructions.
+    # -------------------------------------------------------------------
+    maxIns = int(bottle.request.forms.get('maxInstructions'))
+    generator.randomBull1['maxInstructions'] = maxIns
+
+
+    # Ustvarimo skripto
     generator.ustvariSkripto()
     bottle.redirect("/")
 
