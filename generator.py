@@ -253,7 +253,7 @@ typeOptions = set() #imena predmetov, ki so na izbiro za inicializacijo objekta,
 # jebeš keys, nerabš
 
 checkEndEveryTurn = True
-ignoreInvalidMoves: False
+ignoreInvalidMoves = False
 # to je default, vpisuj notr kar najdeš v zgornjih opcijah
 endCondition = {"Exist": {"indikator1": "category", "ime1": "coin", "negIndikator1": "", "negIme1": ""},
                 "Coincide": {"indikatorA": "", "imeA": "", "indikatorB": "", "imeB": "", "keys": "", "negIndikatorA": "", "negImeA": "", "negIndikatorB": "", "negImeB": ""}}
@@ -328,5 +328,47 @@ def ustvariSkripto():
     fajl.write(theString)
     fajl.close()
 
+def saveVariables():
+    global languageStrings, randomBull1, strSE, groupByCategory, includeAllIB, wholeCategories, robotIB, singleBlocksIB, excludedBlocksIB, possibleCategories, typeOptions, checkEndEveryTurn, ignoreInvalidMoves, endCondition, randomBull2, itemsIT, matrixExamples, initialisationExamples
+    currentState = {"languageStrings":languageStrings, "randomBull1":randomBull1, "strSE":strSE,
+                    "groupByCategory":groupByCategory, "includeAllIB":includeAllIB, "wholeCategories":wholeCategories,
+                    "robotIB":robotIB, "singleBlocksIB":singleBlocksIB, "excludedBlocksIB":excludedBlocksIB,
+                    "possibleCategories":list(possibleCategories), "typeOptions":list(typeOptions), "checkEndEveryTurn":checkEndEveryTurn,
+                    "ignoreInvalidMoves":ignoreInvalidMoves, "endCondition":endCondition, "randomBull2":randomBull2,
+                    "itemsIT":itemsIT, "matrixExamples":str(matrixExamples), "initialisationExamples":initialisationExamples}
+
+    jsonStr = json.dumps(currentState, indent = 5, ensure_ascii=False)
+    jsonFile = open("savedDat.txt", "w")
+    jsonFile.write(jsonStr)
+    jsonFile.close()
+
+def loadVariables():
+    global languageStrings, randomBull1, strSE, groupByCategory, includeAllIB, wholeCategories, robotIB, singleBlocksIB, excludedBlocksIB, possibleCategories, typeOptions, checkEndEveryTurn, ignoreInvalidMoves, endCondition, randomBull2, itemsIT, matrixExamples, initialisationExamples
+
+    jsonFile = open("savedDat.txt", "r")
+    jsonStr = jsonFile.read()
+    pyVar = json.loads(jsonStr)
+    languageStrings = pyVar["languageStrings"]
+    randomBull1 = pyVar["randomBull1"]
+    strSE = pyVar["strSE"]
+    groupByCategory = pyVar["groupByCategory"]
+    includeAllIB = pyVar["includeAllIB"]
+    wholeCategories = pyVar["wholeCategories"]
+    robotIB = pyVar["robotIB"]
+    singleBlocksIB = pyVar["singleBlocksIB"]
+    excludedBlocksIB = pyVar["excludedBlocksIB"]
+    possibleCategories = set(pyVar["possibleCategories"])
+    typeOptions = set(pyVar["typeOptions"])
+    checkEndEveryTurn = pyVar["checkEndEveryTurn"]
+    ignoreInvalidMoves = pyVar["ignoreInvalidMoves"]
+    endCondition = pyVar["endCondition"]
+    randomBull2 = pyVar["randomBull2"]
+    itemsIT = pyVar["itemsIT"]
+    matrixExamples = pyVar["matrixExamples"]
+    initialisationExamples = pyVar["initialisationExamples"]
+
+
+
 if __name__ == "__main__":
-    ustvariSkripto()
+    #ustvariSkripto()
+    saveVariables()

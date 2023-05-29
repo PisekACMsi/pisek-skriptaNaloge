@@ -25,19 +25,16 @@ function initTask(subTask) {
      },
      actionDelay: 400,
      blocklyColourTheme: "bwinf",
-     maxInstructions: 2,
+     maxInstructions: 0,
      includeBlocks: {
-          groupByCategory: false,
+          groupByCategory: true,
           generatedBlocks: {
-               robot: [
-                    "changeRobot"
-               ]
+               robot: []
           },
           standardBlocks: {
                includeAll: false,
                wholeCategories: [
-                    "tools",
-                    "functions"
+                    "tools"
                ],
                singleBlocks: [],
                excludedBlocks: []
