@@ -30,14 +30,37 @@ function initTask(subTask) {
           groupByCategory: false,
           generatedBlocks: {
                robot: [
-                    "ForwardSimple"
+                    "move",
+                    "moveSimple",
+                    "forward",
+                    "forwardSimple",
+                    "turn",
+                    "turnAround",
+                    "jump",
+                    "changeRobot",
+                    "transport",
+                    "sensorBool",
+                    "sensorValue",
+                    "alterValue",
+                    "destroy",
+                    "create",
+                    "wait",
+                    "nitems",
+                    "sensorRowCol"
                ]
           },
           standardBlocks: {
                includeAll: false,
                wholeCategories: [
-                    "Lists",
-                    "Loops"
+                    "tools",
+                    "logic",
+                    "loops",
+                    "math",
+                    "texts",
+                    "lists",
+                    "colour",
+                    "variables",
+                    "functions"
                ],
                singleBlocks: [],
                excludedBlocks: []

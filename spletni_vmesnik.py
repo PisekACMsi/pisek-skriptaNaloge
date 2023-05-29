@@ -161,11 +161,14 @@ def home_add():
 
     # Nastavimo vse vrednosti, ki obstajajo v IB in Categories na true
     for el in rbd:
-        generator.robotIB[el] = True
+        if el != "Izberi vse":
+            el= el[0].lower() + el[1:]
+            generator.robotIB[el] = True
 
     for el in bd:
-        generator.wholeCategories[el] = True
-    #--------------------------------------------------------------------
+        if el != "Izberi vse":
+            el= el[0].lower() + el[1:]
+            generator.wholeCategories[el] = True
 
     # Za funkcijo IzpisiHideControls(). Jo bom pustil kar prazno. 
     #--------------------------------------------------------------------
