@@ -5,65 +5,111 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
   <title>Checkbox and Dropdown</title>
 </head>
 
 <body>
-    <div class="container">
-        <div class="row">
-          <div class="col">
-            <label for="blocks-dropdown">Izberi katere kategorije bo naloga imela</label>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-3">
-            <div class="dropdown">
-              <button class="btn btn-secondary dropdown-toggle" type="button" id="blocks-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Izberi kategorije
-              </button>
-              <div class="dropdown-menu" aria-labelledby="blocks-dropdown">
-                <div class="form-check">
-                  <input class="form-check-input" type="checkbox" id="dropdown-tools" value="tools">
-                  <label class="form-check-label" for="dropdown-tools">Tools</label>
-                </div>
-                <div class="form-check">
-                  <input class="form-check-input" type="checkbox" id="dropdown-logic" value="logic">
-                  <label class="form-check-label" for="dropdown-logic">Logic</label>
-                </div>
-                <div class="form-check">
-                  <input class="form-check-input" type="checkbox" id="dropdown-loops" value="loops">
-                  <label class="form-check-label" for="dropdown-loops">Loops</label>
-                </div>
-                <div class="form-check">
-                  <input class="form-check-input" type="checkbox" id="dropdown-math" value="math">
-                  <label class="form-check-label" for="dropdown-math">Matematika</label>
-                </div>
-                <div class="form-check">
-                  <input class="form-check-input" type="checkbox" id="dropdown-texts" value="texts">
-                  <label class="form-check-label" for="dropdown-texts">Texts</label>
-                </div>
-                <div class="form-check">
-                  <input class="form-check-input" type="checkbox" id="dropdown-lists" value="lists">
-                  <label class="form-check-label" for="dropdown-lists">Lists</label>
-                </div>
-                <div class="form-check">
-                  <input class="form-check-input" type="checkbox" id="dropdown-colour" value="colour">
-                  <label class="form-check-label" for="dropdown-colour">Colour</label>
-                </div>
-                <div class="form-check">
-                  <input class="form-check-input" type="checkbox" id="dropdown-variables" value="variables">
-                  <label class="form-check-label" for="dropdown-variables">Variables</label>
-                </div>
-                <div class="form-check">
-                  <input class="form-check-input" type="checkbox" id="dropdown-functions" value="functions">
-                  <label class="form-check-label" for="dropdown-functions">Functions</label>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+  <div class="row">
+    <div class="col-md-4">
+      <label for="state" class="form-label">Izberi predmet</label>
+      <select id="item" class="form-select" required>
+        <option value="">Izberi...</option>
+        <option>banana</option>
+        <option>blok1</option>
+        <option>blok2</option>
+        <option>blok3</option>
+        <option>blok4</option>
+        <option>cesta_vodoravna</option>
+        <option>cesta_navzgor</option>
+        <option>cesta_ovinek1</option>
+        <option>cesta_ovinek2</option>
+        <option>cesta_ovinek3</option>
+        <option>cesta_ovinek4</option>
+        <option>cev</option>
+        <option>cilj</option>
+        <option>drevo</option>
+        <option>hisa1</option>
+        <option>hisa2</option>
+        <option>hisa3</option>
+        <option>hisa4</option>
+        <option>hisa5</option>
+        <option>igloo1</option>
+        <option>igloo2</option>
+        <option>igloo3</option>
+        <option>kolo1</option>
+        <option>kolo2</option>
+        <option>kolo3</option>
+        <option>kolo4</option>
+        <option>kompas</option>
+        <option>most1</option>
+        <option>most2</option>
+        <option>nogometna_zoga1</option>
+        <option>nogometna_zoga2</option>
+        <option>oblika1</option>
+        <option>oblika2</option>
+        <option>oblika3</option>
+        <option>oblika4</option>
+        <option>oblika5</option>
+        <option>oblika5</option>
+        <option>oblika6</option>
+        <option>oblika7</option>
+        <option>oblika8</option>
+        <option>oblika9</option>
+        <option>oblika10</option>
+        <option>oblika11</option>
+        <option>oblika12</option>
+        <option>oblika13</option>
+        <option>puscica_desno</option>
+        <option>puscica_levo</option>
+        <option>puscica_gor</option>
+        <option>puscica_dol</option>
+        <option>skrinja</option>
+        <option>zoga1</option>
+        <option>zoga2</option>
+
+      </select>
+      <div class="invalid-feedback">
+        Polje ne sme biti prazno
       </div>
-      
+    </div>
+    <div class="col-2">
+      <label for="stolpec-objekt-vrstica" class="form-label"><br></label>
+      <input type="besedilo" class="form-control" id="stolpec-objekt-vrstica" placeholder="vrstica">
+      <div class="invalid-feedback">
+        Polje ne sme biti prazno!
+      </div>
+    </div>
+    <div class="col-2">
+      <label for="stolpec-objekt-stolpec" class="form-label"><br></label>
+      <input type="besedilo" class="form-control" id="stolpec-objekt-stolpec" placeholder="stolpec">
+      <div class="invalid-feedback">
+        Polje ne sme biti prazno!
+      </div>
+    </div>
+    <div class="col-3 align-self-end">
+      <button onclick="izrisi_objekt()" class="btn btn-secondary" type="button">dodaj na grid</button>
+    </div>
+  </div>
+  <div id="0.0" class="grid" style="width: 48px; height: 48px;"></div>
+</div>
+</div>
+  <script>
+    //funkcija doda sliko na neko mesto na gridu
+var newURL_predmet = "";
+$(document).ready(function () {
+  $("#junak").change(function () {
+    var value = $("#junak option:selected");
+    newURL_predmet = "../static/img/characters/" + value.text().split(' ').join('_') + ".png";
+  });
+});
+function izrisi_objekt() {
+  var vrstica_objekt = $("#stolpec-objekt-vrstica").val();
+  var stolpec_objekt = $("#stolpec-objekt-stolpec").val();
+  var newImageElement = $("<img>").attr("src", newURL_predmet);
+  $("#" + vrstica_objekt + "\\." + stolpec_objekt).append(newImageElement);
+}
+  </script>
 </body>
 
 </html>

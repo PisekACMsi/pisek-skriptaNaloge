@@ -1,5 +1,12 @@
+//pot do items
 var newURL_polje = "";
 var newURL_junak = "";
+var newURL_predmet = "";
+
+//velikost slik na gridu
+var velikost_x = 0;
+var velikost_y = 0;
+//funkcija, ki prikaže sliko za glavnega junaka
 $(document).ready(function () {
   $("#junak").change(function () {
     var value = $("#junak option:selected");
@@ -8,6 +15,7 @@ $(document).ready(function () {
   });
 });
 
+//funkcija, ki prikaže sliko za polje in jo izriše na gridu
 $(document).ready(function () {
   $("#polje").change(function () {
     var value = $("#polje option:selected");
@@ -16,19 +24,31 @@ $(document).ready(function () {
     $('.grid img').attr('src', newURL_polje);
   });
 });
+
+//funkcija, ki prikaže sliko za predmet
+$(document).ready(function () {
+  $("#item").change(function () {
+    var value = $("#item option:selected");
+    newURL_predmet = "../static/img/objects/" + value.text().split(' ').join('_') + ".png";
+    $("#slika3").attr("src", newURL_predmet);
+  });
+});
+
 // function that builds a grid in the "container"
 function createGrid(x, y) {
-  for (var rows = 0; rows < y; rows++) {
-    for (var columns = 0; columns < x; columns++) {
-      $("#container").append("<div " + "id=" + rows + "." + columns + " class='grid'><img src = ''></div>");
+  for (var rows = 1; rows <= y; rows++) {
+    for (var columns = 1; columns <= x; columns++) {
+      $("#container").append("<div " + "id=" + rows + "." + columns + " class='grid'><img src = '' onerror='this.onerror=null; this.remove();'></div>");
     };
   };
   $(".grid").width(480 / x);
   $(".grid").height(480 / x);
-  $('.grid img').css({ 'height': 480 / x, 'width': 480 / x });
+  $('.grid img').css({ 'height': 480 / x, 'width': 480 / x, 'position' : 'absolute'});
   $('.grid img').attr('src', newURL_polje);
   var vrstica_junak = $("#vrstica-junak").val();
   var stolpec_junak = $("#stolpec-junak").val();
+  velikost_x = 480 / x;
+  velikost_y = 480 / x;
 
   // Preverimo ali ima junak vnešene parametre za položaj
   if (!isNaN(parseFloat(stolpec_junak)) && isFinite(stolpec_junak) && parseFloat(vrstica_junak) && isFinite(vrstica_junak)) {
@@ -58,18 +78,6 @@ $(document).ready(function () {
   createGrid(2, 2);
 });
 
-//če kliknemo na block-includeAll bomo disablali vse ostale inpute
-$(document).ready(function () {
-  $('#blocks-includeAll').change(function () {
-    if ($(this).is(':checked')) {
-      // Disable all other checkboxes
-      $('input[type="checkbox"]').not(this).prop('disabled', true);
-    } else {
-      // Enable all checkboxes
-      $('input[type="checkbox"]').not(this).prop('disabled', false);
-    }
-  });
-});
 
 //izberimo vse oz. ne
 $(document).ready(function() {
@@ -89,3 +97,31 @@ $(document).ready(function() {
     }
   });
 });
+
+//funkcija doda sliko na neko mesto na gridu
+function izrisi_objekt() {
+  var vrstica_objekt = $("#stolpec-objekt-vrstica").val();
+  var stolpec_objekt = $("#stolpec-objekt-stolpec").val();
+  var newImageElement = $("<img>").attr("src", newURL_predmet);
+  newImageElement.css({
+    "height": velikost_x,
+    "width": velikost_y,
+    "position" : 'absolute'
+  });
+  $("#" + vrstica_objekt + "\\." + stolpec_objekt).append(newImageElement);
+
+  // Preverimo ali ima junak vnešene parametre za položaj
+  if (!isNaN(parseFloat(stolpec_junak)) && isFinite(stolpec_junak) && parseFloat(vrstica_junak) && isFinite(vrstica_junak)) {
+
+  } else {
+    console.log("Input value is not a number");
+  }
+}
+
+//funkcija izbrise zadnji objekt iz polja
+function izbrisi_zadnji_objekt() {
+  var vrstica_objekt = $("#izbrisi-objekt-vrstica").val();
+  var stolpec_objekt = $("#izbrisi-objekt-stolpec").val();
+
+  $("#" + vrstica_objekt + "\\." + stolpec_objekt).find("img").last().remove();
+}
