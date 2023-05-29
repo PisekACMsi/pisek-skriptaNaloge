@@ -364,11 +364,13 @@ def loadVariables():
     endCondition = pyVar["endCondition"]
     randomBull2 = pyVar["randomBull2"]
     itemsIT = pyVar["itemsIT"]
-    matrixExamples = pyVar["matrixExamples"]
+    matrixExamples = np.array(list(pyVar["matrixExamples"]))
     initialisationExamples = pyVar["initialisationExamples"]
 
 
 
 if __name__ == "__main__":
     #ustvariSkripto()
-    saveVariables()
+    #saveVariables()
+    loadVariables()
+    ustvariSkripto()

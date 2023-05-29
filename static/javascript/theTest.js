@@ -25,7 +25,7 @@ function initTask(subTask) {
      },
      actionDelay: 400,
      blocklyColourTheme: "bwinf",
-     maxInstructions: 33,
+     maxInstructions: 0,
      includeBlocks: {
           groupByCategory: true,
           generatedBlocks: {
@@ -71,11 +71,7 @@ function initTask(subTask) {
 subTask.data = {
      easy: [
           {
-               tiles: [[1, 1, 1, 1, 1],
-       [1, 1, 1, 1, 1],
-       [1, 1, 1, 1, 1],
-       [1, 1, 1, 1, 1],
-       [1, 1, 1, 1, 1]],
+               tiles: str_('[', dtype='<U1'),
                initItems: [
                     {
                          row: 0,
@@ -87,11 +83,7 @@ subTask.data = {
                ]
           },
           {
-               tiles: [[1, 1, 1, 1, 1],
-       [1, 1, 1, 1, 1],
-       [1, 1, 1, 1, 1],
-       [1, 1, 1, 1, 1],
-       [1, 1, 1, 1, 1]],
+               tiles: str_('a', dtype='<U1'),
                initItems: []
           }
      ]
