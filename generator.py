@@ -275,7 +275,7 @@ itemID = 2 #se poveča samodejno, odvisen od števila itemov
 # ko uporabnik želi ustvariti nov objekt naj ima možnosti ime, slika, kategorija, vrednost - izbira naj se vpiše v itemSpecifications
 # poleg možnosti naj bosta zraven še gumba ustvari in izbriši ki kličeta funkciji dodajItemType
 
-catIT = {'junak': False, 'ovira': False, 'paket': False, 'gumb': False, 'kovanec': False, 'številka': False} #za obklukat - možnosti kategorij
+catIT = {'robot': False, 'obstacle': False, 'transportable': False, 'button': False, 'coin': False, 'number': False} #za obklukat - možnosti kategorij
 
 # imgIT = ["pisek.png"]
 # zOrderIT #naj bo odvisen od vrstnega reda stvaritve objektov, seprav isti kokritemID

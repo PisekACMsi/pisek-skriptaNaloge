@@ -152,6 +152,8 @@ def home_add():
     bd = bottle.request.forms.getall('blocksDropdown')
     rbd = bottle.request.forms.getall('robotBlocksDropdown')
     gbc = bottle.request.forms.getall('groupByCategory')
+    print("bbbbbbbbbbbbbbb", bd)
+
 
     # Preverimo ali želimo grupirat po kategorijah
     if len(gbc) > 0:
