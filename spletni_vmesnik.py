@@ -151,11 +151,18 @@ def get_data():
     bottle.redirect("/login")
 
 @bottle.post("/")
+def add_background():
+    #bd = bottle.request.forms.getall('backGroundTiles')
+    print("aaaaaaaaaa", bd)
+
+@bottle.post("/")
 def add_food():
     #tukaj dobimo vrednosti iz Bottla
     bd = bottle.request.forms.getall('blocksDropdown')
     rbd = bottle.request.forms.getall('robotBlocksDropdown')
     gbc = bottle.request.forms.getall('groupByCategory')
+    print("bbbbbbbbbbbbbbb", bd)
+
 
     #Preverimo ali želimo grupirat po kategorijah
     if "Izberi vse" in rbd:
