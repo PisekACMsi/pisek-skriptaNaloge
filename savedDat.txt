@@ -1,0 +1,110 @@
+{
+     "languageStrings": {
+          "categories": {
+               "actions": "Gibanje"
+          }
+     },
+     "randomBull1": {
+          "introMaxHeight": "33%",
+          "maxListSize": 100,
+          "scrollbars": true,
+          "zoom": {
+               "controls": true,
+               "scale": 1
+          },
+          "actionDelay": 400,
+          "blocklyColourTheme": "bwinf",
+          "maxInstructions": 0
+     },
+     "strSE": "",
+     "groupByCategory": true,
+     "includeAllIB": false,
+     "wholeCategories": {
+          "tools": true,
+          "logic": false,
+          "loops": false,
+          "math": false,
+          "texts": false,
+          "lists": false,
+          "colour": false,
+          "variables": false,
+          "functions": false
+     },
+     "robotIB": {
+          "move": false,
+          "moveSimple": false,
+          "forward": false,
+          "forwardSimple": false,
+          "turn": false,
+          "turnAround": false,
+          "jump": false,
+          "changeRobot": false,
+          "transport": false,
+          "sensorBool": false,
+          "sensorValue": false,
+          "alterValue": false,
+          "destroy": false,
+          "create": false,
+          "wait": false,
+          "nitems": false,
+          "sensorRowCol": false
+     },
+     "singleBlocksIB": [],
+     "excludedBlocksIB": [],
+     "possibleCategories": [],
+     "typeOptions": [
+          "objekt_0"
+     ],
+     "checkEndEveryTurn": true,
+     "ignoreInvalidMoves": false,
+     "endCondition": {
+          "Exist": {
+               "indikator1": "category",
+               "ime1": "coin",
+               "negIndikator1": "",
+               "negIme1": ""
+          },
+          "Coincide": {
+               "indikatorA": "",
+               "imeA": "",
+               "indikatorB": "",
+               "imeB": "",
+               "keys": "",
+               "negIndikatorA": "",
+               "negImeA": "",
+               "negIndikatorB": "",
+               "negImeB": ""
+          }
+     },
+     "randomBull2": {
+          "border": 0.02,
+          "backgroundColour": "white",
+          "backgroundTile": "",
+          "borderColour": "black",
+          "showLabels": true,
+          "cellSide": 60,
+          "numberOfRobots": 1
+     },
+     "itemsIT": {
+          "objekt_0": {
+               "num": 2,
+               "img": "",
+               "zOrder": 2,
+               "category": [],
+               "value": 0
+          }
+     },
+     "matrixExamples": "[array([[1, 1, 1, 1, 1],\n       [1, 1, 1, 1, 1],\n       [1, 1, 1, 1, 1],\n       [1, 1, 1, 1, 1],\n       [1, 1, 1, 1, 1]], dtype=int8), array([[1, 1, 1, 1, 1],\n       [1, 1, 1, 1, 1],\n       [1, 1, 1, 1, 1],\n       [1, 1, 1, 1, 1],\n       [1, 1, 1, 1, 1]], dtype=int8)]",
+     "initialisationExamples": [
+          [
+               {
+                    "row": 0,
+                    "col": 0,
+                    "type": "objekt_0",
+                    "dir": 0,
+                    "value": 0
+               }
+          ],
+          []
+     ]
+}
