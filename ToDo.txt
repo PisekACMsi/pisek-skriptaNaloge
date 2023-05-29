@@ -14,6 +14,10 @@ Tasks:
 
 ☐  Shranjevanje napredka
 
-☐  Najdit path do img v javascript fajlu. Več info na discordu.
+☐  Najdit path do img v javascript fajlu. Več info na discordu
+
+☐  Vpis ItemTypes
+
+☐  Popravi, da bosta na gridu hkrati lahko naenkrat samo po 1 tip slike
 
 ------------------------------------------------------------------------------
