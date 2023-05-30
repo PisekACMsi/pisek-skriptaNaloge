@@ -125,37 +125,6 @@
                       <img id="slika1" onerror="this.onerror=null; this.remove();"
                         style="max-width: 100%; max-height: 100%; object-fit: contain;">
                     </div>
-
-                    <div class="col-md-6">
-                      <label for="state" class="form-label">Izberi površino</label>
-                      <select id="polje" class="form-select" id="state" required>
-                        <option value="">Izberi...</option>
-                        <option>asfalt</option>
-                        <option>trava</option>
-                        <option>kamni</option>
-                        <option>lava</option>
-                        <option>morje</option>
-                        <option>vesolje</option>
-                        <option>zemlja</option>
-                        <option>crna</option>
-                        <option>modra</option>
-                        <option>rdeca</option>
-                        <option>rjava</option>
-                        <option>siva</option>
-                        <option>svetlo zelena</option>
-                        <option>zelena</option>
-                        <option>turkizna</option>
-
-                      </select>
-                      <div class="invalid-feedback">
-                        Polje ne sme biti prazno
-                      </div>
-                    </div>
-
-                    <div class="col-md-12">
-                      <img id="slika2" onerror="this.onerror=null; this.remove();"
-                        style="max-width: 200px; max-height: 200px; object-fit: contain; margin-bottom: 1.5rem;">
-                    </div>
                   </div>
                 </div>
               </div>
@@ -249,6 +218,59 @@
                     </div>
                   </div>
                   <div id="container"></div>
+                  <div class = "row" style = "margin-bottom: 2rem;">
+                  <div class="col-md-4">
+                    <label for="state" class="form-label">Izberi površino</label>
+                    <select id="polje" class="form-select" id="state" required>
+                      <option value="">Izberi...</option>
+                      <option>asfalt</option>
+                      <option>trava</option>
+                      <option>kamni</option>
+                      <option>lava</option>
+                      <option>morje</option>
+                      <option>vesolje</option>
+                      <option>zemlja</option>
+                      <option>crna</option>
+                      <option>modra</option>
+                      <option>rdeca</option>
+                      <option>rjava</option>
+                      <option>siva</option>
+                      <option>svetlo zelena</option>
+                      <option>zelena</option>
+                      <option>turkizna</option>
+
+                    </select>
+                    <div class="invalid-feedback">
+                      Polje ne sme biti prazno
+                    </div>
+                  </div>
+
+                  <div class="col-2">
+                    <label for="stolpec-objekt-vrstica" class="form-label"><br></label>
+                    <input type="besedilo" class="form-control" id="povrsina-vrstica" placeholder="vrstica">
+                    <div class="invalid-feedback">
+                      Polje ne sme biti prazno!
+                    </div>
+                  </div>
+                  <div class="col-2">
+                    <label for="stolpec-objekt-stolpec" class="form-label"><br></label>
+                    <input type="besedilo" class="form-control" id="povrsina-stolpec" placeholder="stolpec">
+                    <div class="invalid-feedback">
+                      Polje ne sme biti prazno!
+                    </div>
+                  </div>
+                  <div class="col-3 align-self-end">
+                    <button onclick="izrisi_objekt('polje')" class="btn btn-secondary" type="button">dodaj na grid</button>
+                  </div>
+                </div>
+                <div class = "row">
+                <div class="col-md-12">
+                  <img id="slika2" onerror="this.onerror=null; this.remove();"
+                    style="max-width: 200px; max-height: 200px; object-fit: contain; margin-bottom: 1.5rem;">
+                </div>
+              </div>
+
+
 
                   <div class="row">
                     <div class="col-md-4">
@@ -328,12 +350,11 @@
                       </div>
                     </div>
                     <div class="col-3 align-self-end">
-                      <button onclick="izrisi_objekt()" class="btn btn-secondary" type="button">dodaj na grid</button>
+                      <button onclick="izrisi_objekt('objekt')" class="btn btn-secondary" type="button">dodaj na grid</button>
                     </div>
                   </div>
                   <div class="row" style="margin-bottom: 2rem;">
-                    <div class="col-md-4">
-                        
+                    <div class="col-md-4"> 
                     </div>
                   </div>
                   <div class="col-md-12">
@@ -341,6 +362,8 @@
                     style="max-width: 200px; max-height: 200px; object-fit: contain; margin-bottom: 1.5rem;">
                   </div>
                   
+
+
                   <label class="form-label">Izbriši zadnji predmet</label>
                   <div class="row">
                     <div class="col-2">
