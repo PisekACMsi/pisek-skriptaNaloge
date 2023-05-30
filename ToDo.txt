@@ -16,4 +16,5 @@ Tasks:
 
 ☐  Najdit path do img v javascript fajlu. Več info na discordu.
 
+☐ Update matrix ko dodaš nov itemtype
 ------------------------------------------------------------------------------
