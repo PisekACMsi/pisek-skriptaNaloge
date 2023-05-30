@@ -22,7 +22,6 @@
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.bundle.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
 
-
 </head>
 
 <body class="bg-light">
@@ -48,7 +47,7 @@
                     <div class="col-12">
                       <label for="naslov" class="form-label">Naslov naloge</label>
                       <div class="input-group has-validation">
-                        <input type="text" class="form-control" id="naslov" placeholder="Miha in Piki" required>
+                        <input type="text" class="form-control" id="naslov" placeholder="Miha in Piki">
                         <div class="invalid-feedback">
                           Polje ne sme biti prazno!
                         </div>
@@ -76,7 +75,7 @@
 
                     <div class="col-md-6">
                       <label for="junak" class="form-label">Izberi junaka</label>
-                      <select id="junak" class="form-select" required>
+                      <select id="junak" class="form-select">
                         <option value="">Izberi...</option>
                         <option>avto</option>
                         <option>gasilec</option>
@@ -221,7 +220,7 @@
                   <div class = "row" style = "margin-bottom: 2rem;">
                   <div class="col-md-4">
                     <label for="state" class="form-label">Izberi površino</label>
-                    <select id="polje" class="form-select" id="state" required>
+                    <select id="polje" class="form-select" id="state" >
                       <option value="">Izberi...</option>
                       <option>asfalt</option>
                       <option>trava</option>
@@ -275,7 +274,7 @@
                   <div class="row">
                     <div class="col-md-4">
                       <label for="item" class="form-label">Izberi predmet</label>
-                      <select id="item" class="form-select" required>
+                      <select id="item" class="form-select">
                         <option value="">Izberi...</option>
                         <option>banana</option>
                         <option>blok1</option>
@@ -382,21 +381,18 @@
                       <button onclick="izbrisi_zadnji_objekt()" class="btn btn-secondary" type="button">izbriši</button>
                     </div>
                   </div>
-                  
-
-
                 </div>
               </div>
 
 
 
-              <button class="w-100 btn btn-primary btn-lg" type="submit" style="margin-bottom: 100px;">Generiraj
+              <button class="w-100 btn btn-primary btn-lg" style="margin-bottom: 100px;" hx-post="/" hx-swap="none" onclick="osvezi('pisek-iframe')">Generiraj
                 nalogo</button>
             </form>
           </div>
           <br>
           <!--Tukaj prikažem spletno stran za Piška-->
-          <iframe src="/views/naloga.html" onload="this.width=screen.width;this.height=screen.height;"></iframe>
+          <iframe src="/views/naloga.html" id = "pisek-iframe" onload="this.width=screen.width;this.height=screen.height;"></iframe>
         </div>
       </main>
 
@@ -404,6 +400,7 @@
         <p class="mb-1">&copy; 2023 Pišek</p>
       </footer>
     </div>
+    <script src="https://unpkg.com/htmx.org@1.9.2"></script>
     <script src="../static/javascript/bootstrap.bundle.min.js"></script>
     <script src="../static/javascript/form-validation.js"></script>
 

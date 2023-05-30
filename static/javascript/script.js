@@ -117,3 +117,8 @@ function izbrisi_zadnji_objekt() {
 
   $("#" + vrstica_objekt + "\\." + stolpec_objekt).find("img").last().remove();
 }
+
+//funkcija osveži iframe
+function osvezi(id){
+  document.getElementById(id).contentWindow.location.reload();
+}

@@ -372,5 +372,5 @@ def loadVariables():
 if __name__ == "__main__":
     #ustvariSkripto()
     #saveVariables()
-    loadVariables()
+    #loadVariables()
     ustvariSkripto()
