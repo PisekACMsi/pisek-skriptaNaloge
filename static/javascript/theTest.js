@@ -33,9 +33,7 @@ function initTask(subTask) {
           },
           standardBlocks: {
                includeAll: false,
-               wholeCategories: [
-                    "tools"
-               ],
+               wholeCategories: [],
                singleBlocks: [],
                excludedBlocks: []
           }
@@ -71,7 +69,11 @@ function initTask(subTask) {
 subTask.data = {
      easy: [
           {
-               tiles: str_('[', dtype='<U1'),
+               tiles: [[1, 1, 1, 1, 1],
+       [1, 1, 1, 1, 1],
+       [1, 1, 1, 1, 1],
+       [1, 1, 1, 1, 1],
+       [1, 1, 1, 1, 1]],
                initItems: [
                     {
                          row: 0,
@@ -83,7 +85,11 @@ subTask.data = {
                ]
           },
           {
-               tiles: str_('a', dtype='<U1'),
+               tiles: [[1, 1, 1, 1, 1],
+       [1, 1, 1, 1, 1],
+       [1, 1, 1, 1, 1],
+       [1, 1, 1, 1, 1],
+       [1, 1, 1, 1, 1]],
                initItems: []
           }
      ]

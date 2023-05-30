@@ -158,7 +158,6 @@ def izpisiSubTaskData():
     global matrixExamples, initialisationExamples
     pySlv = {}
     pyLst = []
-
     for i in range(len(initialisationExamples)):
         pyLst.append({"tiles":izpisiMatriko(matrixExamples[i]), "initItems":initialisationExamples[i]})
 
@@ -233,7 +232,7 @@ strSE = ''
 # INCLUDE BLOCKS
 groupByCategory = True # neki za obklukat
 includeAllIB = False # neki za obklukat
-wholeCategories = {"tools":True, "logic":False, "loops":False, "math":False, "texts":False, "lists":False, "colour":False, "variables":False, "functions":False} # neki za obklukat
+wholeCategories = {"tools":False, "logic":False, "loops":False, "math":False, "texts":False, "lists":False, "colour":False, "variables":False, "functions":False} # neki za obklukat
 # bloki za robota, na začetku so vsi false, na spletni strani naj bo dropdown za klukat, ko obkljuka spremeni v True
 robotIB = {"move": False, "moveSimple": False, "forward": False, "forwardSimple": False, "turn": False, "turnAround": False, "jump": False, "changeRobot": False, "transport": False, "sensorBool": False, "sensorValue": False, "alterValue": False, "destroy": False, "create": False, "wait": False, "nitems": False, "sensorRowCol": False}
 singleBlocksIB = []
@@ -295,10 +294,8 @@ initialisationExamples = [[]]
 # type nujno!!! izberi it typeOptions
 inicialisationOptions = {"row":0, "col":0, "type":list(typeOptions)[0], "dir": 0, "value": 0}
 addMatrix(mmm, nnn) #dodaj test. Naj se izvede ob zagonu
-
 addInicialisation() # kliči da dodaš ityem v initialisationExamples
 addExample() #kliči če želiš dodati dodaten primer
-
 def ustvariSkripto():
     ulmSlv = {}
     ulmSlv.update(izpisiLanguageStrings())
@@ -311,7 +308,6 @@ def ustvariSkripto():
     ulmSlv.update({"ignoreInvalidMoves":False})
     ulmSlv.update(izpisiRandomBulsit2())
     ulmSlv.update(izpisiItemTypes())
-
     jsonStr = json.dumps(ulmSlv, indent = 5, ensure_ascii=False)
     jsString1 = re.sub("\"([^\"]+)\":", r"\1:", jsonStr).replace(r'\"', "")
     jsString1 = jsString1.replace("\"&#&", "").replace("&#&\"", "").replace("\\\\", "\"").replace("\\n", "\n").replace("\\t", "\t")
@@ -364,7 +360,8 @@ def loadVariables():
     endCondition = pyVar["endCondition"]
     randomBull2 = pyVar["randomBull2"]
     itemsIT = pyVar["itemsIT"]
-    matrixExamples = np.array(list(pyVar["matrixExamples"]))
+    matrixExamples = pyVar["matrixExamples"]
+    print(matrixExamples)
     initialisationExamples = pyVar["initialisationExamples"]
 
 
@@ -372,5 +369,5 @@ def loadVariables():
 if __name__ == "__main__":
     #ustvariSkripto()
     #saveVariables()
-    loadVariables()
+    #loadVariables()
     ustvariSkripto()
