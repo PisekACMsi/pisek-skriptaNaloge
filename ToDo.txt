@@ -22,4 +22,5 @@ Tasks:
 
 ☐  V polje in predmeti dodam kategorijo, vrednost to potem daš v itemSpecifications
 
+☐ Update matrix ko dodaš nov itemtype
 ------------------------------------------------------------------------------
