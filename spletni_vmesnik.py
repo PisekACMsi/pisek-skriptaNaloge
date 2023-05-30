@@ -16,6 +16,7 @@ def send_img(filename):
 @bottle.route('/static/javascript/modules/img/algorea<filename:re:.*\.png>')
 def send_img2(filename):
     return bottle.static_file(filename, root='static/javascript/modules/img/algorea')
+
 #html
 @bottle.route('/views/<filename:re:.*\.html>')
 def serve_html(filename):
@@ -152,7 +153,6 @@ def home_add():
     bd = bottle.request.forms.getall('blocksDropdown')
     rbd = bottle.request.forms.getall('robotBlocksDropdown')
     gbc = bottle.request.forms.getall('groupByCategory')
-    print("bbbbbbbbbbbbbbb", bd)
 
 
     # Preverimo ali želimo grupirat po kategorijah
@@ -177,7 +177,7 @@ def home_add():
 
     # Za randomBull1 bom spremnil samo maxInstructions.
     # -------------------------------------------------------------------
-    maxIns = int(bottle.request.forms.get('maxInstructions'))
+    maxIns = int(bottle.request.forms.get('maxInstructions')) 
     generator.randomBull1['maxInstructions'] = maxIns
 
 
