@@ -20,4 +20,6 @@ Tasks:
 
 ☐  Popravi, da bosta na gridu hkrati lahko naenkrat samo po 1 tip slike
 
+☐  V polje in predmeti dodam kategorijo, vrednost to potem daš v itemSpecifications
+
 ------------------------------------------------------------------------------
