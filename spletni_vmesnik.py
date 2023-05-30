@@ -150,11 +150,12 @@ def home_add():
 
     # Za funkcijo includeBlocks()
     #-------------------------------------------------------------------
+
     bd = bottle.request.forms.getall('blocksDropdown')
     rbd = bottle.request.forms.getall('robotBlocksDropdown')
     gbc = bottle.request.forms.getall('groupByCategory')
 
-
+    print(gbc)
     # Preverimo ali želimo grupirat po kategorijah
     if len(gbc) > 0:
         generator.groupByCategory = True
@@ -184,8 +185,6 @@ def home_add():
     # Ustvarimo skripto
     generator.ustvariSkripto()
     bottle.redirect("/")
-
-
 
 
 #----------------------------------------------------------------------------------------------------------

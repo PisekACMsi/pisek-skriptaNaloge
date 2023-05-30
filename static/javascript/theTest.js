@@ -25,15 +25,43 @@ function initTask(subTask) {
      },
      actionDelay: 400,
      blocklyColourTheme: "bwinf",
-     maxInstructions: 0,
+     maxInstructions: 111,
      includeBlocks: {
           groupByCategory: true,
           generatedBlocks: {
-               robot: []
+               robot: [
+                    "move",
+                    "moveSimple",
+                    "forward",
+                    "forwardSimple",
+                    "turn",
+                    "turnAround",
+                    "jump",
+                    "changeRobot",
+                    "transport",
+                    "sensorBool",
+                    "sensorValue",
+                    "alterValue",
+                    "destroy",
+                    "create",
+                    "wait",
+                    "nitems",
+                    "sensorRowCol"
+               ]
           },
           standardBlocks: {
                includeAll: false,
-               wholeCategories: [],
+               wholeCategories: [
+                    "tools",
+                    "logic",
+                    "loops",
+                    "math",
+                    "texts",
+                    "lists",
+                    "colour",
+                    "variables",
+                    "functions"
+               ],
                singleBlocks: [],
                excludedBlocks: []
           }
