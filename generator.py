@@ -165,12 +165,13 @@ def izpisiSubTaskData():
     return pySlv
     
 def izpisiMatriko(matrix):
-    return "&#&" + np.array_repr(matrix).replace("array(", "").replace(", dtype=int8)", "") + "&#&"
+    #matrix = np.array(matrix)
+    return "&#&" + str(matrix).replace("],", "], \n") + "&#&"
 
 
 def addMatrix(mmm, nnn):
     global matrixExamples, aktivenPrimer
-    matrixExamples[aktivenPrimer] = np.ones((nnn,mmm), dtype = np.int8)
+    matrixExamples[aktivenPrimer] = [[1 for i in range(mmm)] for j in range(nnn)]
 
 def addInicialisation():
     global initialisationExamples, aktivenPrimer, inicialisationOptions
@@ -331,8 +332,7 @@ def saveVariables():
                     "robotIB":robotIB, "singleBlocksIB":singleBlocksIB, "excludedBlocksIB":excludedBlocksIB,
                     "possibleCategories":list(possibleCategories), "typeOptions":list(typeOptions), "checkEndEveryTurn":checkEndEveryTurn,
                     "ignoreInvalidMoves":ignoreInvalidMoves, "endCondition":endCondition, "randomBull2":randomBull2,
-                    "itemsIT":itemsIT, "matrixExamples":str(matrixExamples), "initialisationExamples":initialisationExamples}
-
+                    "itemsIT":itemsIT, "matrixExamples":"&&&".join(map(str,matrixExamples)), "initialisationExamples":initialisationExamples}
     jsonStr = json.dumps(currentState, indent = 5, ensure_ascii=False)
     jsonFile = open("savedDat.txt", "w")
     jsonFile.write(jsonStr)
@@ -360,7 +360,7 @@ def loadVariables():
     endCondition = pyVar["endCondition"]
     randomBull2 = pyVar["randomBull2"]
     itemsIT = pyVar["itemsIT"]
-    matrixExamples = pyVar["matrixExamples"]
+    matrixExamples = pyVar["matrixExamples"].split("&&&")
     print(matrixExamples)
     initialisationExamples = pyVar["initialisationExamples"]
 
@@ -368,6 +368,6 @@ def loadVariables():
 
 if __name__ == "__main__":
     #ustvariSkripto()
-    #saveVariables()
-    #loadVariables()
+    saveVariables()
+    loadVariables()
     ustvariSkripto()

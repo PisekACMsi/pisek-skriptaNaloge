@@ -20,7 +20,7 @@
      "groupByCategory": true,
      "includeAllIB": false,
      "wholeCategories": {
-          "tools": true,
+          "tools": false,
           "logic": false,
           "loops": false,
           "math": false,
@@ -94,7 +94,7 @@
                "value": 0
           }
      },
-     "matrixExamples": "[array([[1, 1, 1, 1, 1],\n       [1, 1, 1, 1, 1],\n       [1, 1, 1, 1, 1],\n       [1, 1, 1, 1, 1],\n       [1, 1, 1, 1, 1]], dtype=int8), array([[1, 1, 1, 1, 1],\n       [1, 1, 1, 1, 1],\n       [1, 1, 1, 1, 1],\n       [1, 1, 1, 1, 1],\n       [1, 1, 1, 1, 1]], dtype=int8)]",
+     "matrixExamples": "[[1, 1, 1, 1, 1], [1, 1, 1, 1, 1], [1, 1, 1, 1, 1], [1, 1, 1, 1, 1], [1, 1, 1, 1, 1]]&&&[[1, 1, 1, 1, 1], [1, 1, 1, 1, 1], [1, 1, 1, 1, 1], [1, 1, 1, 1, 1], [1, 1, 1, 1, 1]]",
      "initialisationExamples": [
           [
                {
