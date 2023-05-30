@@ -158,7 +158,6 @@ def izpisiSubTaskData():
     global matrixExamples, initialisationExamples
     pySlv = {}
     pyLst = []
-
     for i in range(len(initialisationExamples)):
         pyLst.append({"tiles":izpisiMatriko(matrixExamples[i]), "initItems":initialisationExamples[i]})
 
@@ -166,12 +165,13 @@ def izpisiSubTaskData():
     return pySlv
     
 def izpisiMatriko(matrix):
-    return "&#&" + np.array_repr(matrix).replace("array(", "").replace(", dtype=int8)", "") + "&#&"
+    #matrix = np.array(matrix)
+    return "&#&" + str(matrix).replace("],", "], \n") + "&#&"
 
 
 def addMatrix(mmm, nnn):
     global matrixExamples, aktivenPrimer
-    matrixExamples[aktivenPrimer] = np.ones((nnn,mmm), dtype = np.int8)
+    matrixExamples[aktivenPrimer] = [[1 for i in range(mmm)] for j in range(nnn)]
 
 def addInicialisation():
     global initialisationExamples, aktivenPrimer, inicialisationOptions
@@ -233,7 +233,7 @@ strSE = ''
 # INCLUDE BLOCKS
 groupByCategory = True # neki za obklukat
 includeAllIB = False # neki za obklukat
-wholeCategories = {"tools":True, "logic":False, "loops":False, "math":False, "texts":False, "lists":False, "colour":False, "variables":False, "functions":False} # neki za obklukat
+wholeCategories = {"tools":False, "logic":False, "loops":False, "math":False, "texts":False, "lists":False, "colour":False, "variables":False, "functions":False} # neki za obklukat
 # bloki za robota, na začetku so vsi false, na spletni strani naj bo dropdown za klukat, ko obkljuka spremeni v True
 robotIB = {"move": False, "moveSimple": False, "forward": False, "forwardSimple": False, "turn": False, "turnAround": False, "jump": False, "changeRobot": False, "transport": False, "sensorBool": False, "sensorValue": False, "alterValue": False, "destroy": False, "create": False, "wait": False, "nitems": False, "sensorRowCol": False}
 singleBlocksIB = []
@@ -295,10 +295,8 @@ initialisationExamples = [[]]
 # type nujno!!! izberi it typeOptions
 inicialisationOptions = {"row":0, "col":0, "type":list(typeOptions)[0], "dir": 0, "value": 0}
 addMatrix(mmm, nnn) #dodaj test. Naj se izvede ob zagonu
-
 addInicialisation() # kliči da dodaš ityem v initialisationExamples
 addExample() #kliči če želiš dodati dodaten primer
-
 def ustvariSkripto():
     ulmSlv = {}
     ulmSlv.update(izpisiLanguageStrings())
@@ -311,7 +309,6 @@ def ustvariSkripto():
     ulmSlv.update({"ignoreInvalidMoves":False})
     ulmSlv.update(izpisiRandomBulsit2())
     ulmSlv.update(izpisiItemTypes())
-
     jsonStr = json.dumps(ulmSlv, indent = 5, ensure_ascii=False)
     jsString1 = re.sub("\"([^\"]+)\":", r"\1:", jsonStr).replace(r'\"', "")
     jsString1 = jsString1.replace("\"&#&", "").replace("&#&\"", "").replace("\\\\", "\"").replace("\\n", "\n").replace("\\t", "\t")
@@ -335,8 +332,7 @@ def saveVariables():
                     "robotIB":robotIB, "singleBlocksIB":singleBlocksIB, "excludedBlocksIB":excludedBlocksIB,
                     "possibleCategories":list(possibleCategories), "typeOptions":list(typeOptions), "checkEndEveryTurn":checkEndEveryTurn,
                     "ignoreInvalidMoves":ignoreInvalidMoves, "endCondition":endCondition, "randomBull2":randomBull2,
-                    "itemsIT":itemsIT, "matrixExamples":str(matrixExamples), "initialisationExamples":initialisationExamples}
-
+                    "itemsIT":itemsIT, "matrixExamples":"&&&".join(map(str,matrixExamples)), "initialisationExamples":initialisationExamples}
     jsonStr = json.dumps(currentState, indent = 5, ensure_ascii=False)
     jsonFile = open("savedDat.txt", "w")
     jsonFile.write(jsonStr)
@@ -364,7 +360,8 @@ def loadVariables():
     endCondition = pyVar["endCondition"]
     randomBull2 = pyVar["randomBull2"]
     itemsIT = pyVar["itemsIT"]
-    matrixExamples = np.array(list(pyVar["matrixExamples"]))
+    matrixExamples = pyVar["matrixExamples"].split("&&&")
+    print(matrixExamples)
     initialisationExamples = pyVar["initialisationExamples"]
 
 
