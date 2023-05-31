@@ -324,12 +324,16 @@
 
               <div class="card" style="margin-bottom: 2rem;">
                 <div class="card-body">
-                  <h3>Polje in predmeti</h3>
+                  <h3>Predmeti</h3>
 
                   
                   <div class = "row" style = "margin-bottom: 2rem;">
+                    <div class="col-md-6 mb-3">
+                      <label for="imeB">Ime</label>
+                      <input class="selectpicker" id="itemName" name="itemName"></input>
+                    </div>
                     <div class="col-md-4">
-                      <label for="state" class="form-label">Izberi površino</label>
+                      <label for="state" class="form-label">Izberi sliko</label>
                       <select id="polje" class="form-select" id="state" >
                         <option value="">Izberi...</option>
                         <option>asfalt</option>
@@ -353,25 +357,52 @@
                         Polje ne sme biti prazno
                       </div>
                     </div>
+                    <div class="col-md-4">
+                      <label for="state" class="form-label">Izberi kategorijo</label>
+                      <select id="polje" class="form-select" id="state" name="itemCategory">
+                        <option value="">Izberi...</option>
+                        <option>robot</option>
+                        <option>coin</option>
+                        <option>transportable</option>
 
-                  <div class="col-2">
-                    <label for="stolpec-objekt-vrstica" class="form-label"><br></label>
-                    <input type="besedilo" class="form-control" id="povrsina-vrstica" placeholder="vrstica">
-                    <div class="invalid-feedback">
-                      Polje ne sme biti prazno!
+                      </select>
+                      <div class="invalid-feedback">
+                        Polje ne sme biti prazno
+                      </div>
+                    </div>
+
+                    <div class="col-3">
+                      <input type="text" class="form-control" id="polje-vrstica" name="typeRow" placeholder="vrstica" value = "5">
+                      <div class="invalid-feedback">
+                        Polje ne sme biti prazno!
+                      </div>
+                    </div>
+                  
+                    <div class="col-3">
+                      <input type="text" class="form-control" id="polje-stolpec" name="typeCOl" placeholder="stolpec" value = "5">
+                      <div class="invalid-feedback">
+                        Polje ne sme biti prazno!
+                      </div>
+                    </div>
+
+                    <div class="col-2">
+                      <label for="stolpec-objekt-vrstica" class="form-label"><br></label>
+                      <input type="besedilo" class="form-control" id="povrsina-vrstica" placeholder="vrstica">
+                      <div class="invalid-feedback">
+                        Polje ne sme biti prazno!
+                      </div>
+                    </div>
+                    <div class="col-2">
+                      <label for="stolpec-objekt-stolpec" class="form-label"><br></label>
+                      <input type="besedilo" class="form-control" id="povrsina-stolpec" placeholder="stolpec">
+                      <div class="invalid-feedback">
+                        Polje ne sme biti prazno!
+                      </div>
+                    </div>
+                    <div class="col-3 align-self-end">
+                      <button onclick="izrisi_objekt('polje')" class="btn btn-secondary" type="button">dodaj na grid</button>
                     </div>
                   </div>
-                  <div class="col-2">
-                    <label for="stolpec-objekt-stolpec" class="form-label"><br></label>
-                    <input type="besedilo" class="form-control" id="povrsina-stolpec" placeholder="stolpec">
-                    <div class="invalid-feedback">
-                      Polje ne sme biti prazno!
-                    </div>
-                  </div>
-                  <div class="col-3 align-self-end">
-                    <button onclick="izrisi_objekt('polje')" class="btn btn-secondary" type="button">dodaj na grid</button>
-                  </div>
-                </div>
                 <div class = "row">
                 <div class="col-md-12">
                   <img id="slika2" onerror="this.onerror=null; this.remove();"
@@ -381,123 +412,10 @@
 
 
 
-                  <div class="row">
-                    <div class="col-md-4">
-                      <label for="item" class="form-label">Izberi predmet</label>
-                      <select id="item" class="form-select">
-                        <option value="">Izberi...</option>
-                        <option>banana</option>
-                        <option>blok1</option>
-                        <option>blok2</option>
-                        <option>blok3</option>
-                        <option>blok4</option>
-                        <option>cesta_vodoravna</option>
-                        <option>cesta_navzgor</option>
-                        <option>cesta_ovinek1</option>
-                        <option>cesta_ovinek2</option>
-                        <option>cesta_ovinek3</option>
-                        <option>cesta_ovinek4</option>
-                        <option>cev</option>
-                        <option>cilj</option>
-                        <option>drevo</option>
-                        <option>hisa1</option>
-                        <option>hisa2</option>
-                        <option>hisa3</option>
-                        <option>hisa4</option>
-                        <option>hisa5</option>
-                        <option>igloo1</option>
-                        <option>igloo2</option>
-                        <option>igloo3</option>
-                        <option>kolo1</option>
-                        <option>kolo2</option>
-                        <option>kolo3</option>
-                        <option>kolo4</option>
-                        <option>kompas</option>
-                        <option>most1</option>
-                        <option>most2</option>
-                        <option>nogometna_zoga1</option>
-                        <option>nogometna_zoga2</option>
-                        <option>oblika1</option>
-                        <option>oblika2</option>
-                        <option>oblika3</option>
-                        <option>oblika4</option>
-                        <option>oblika5</option>
-                        <option>oblika5</option>
-                        <option>oblika6</option>
-                        <option>oblika7</option>
-                        <option>oblika8</option>
-                        <option>oblika9</option>
-                        <option>oblika10</option>
-                        <option>oblika11</option>
-                        <option>oblika12</option>
-                        <option>oblika13</option>
-                        <option>puscica_desno</option>
-                        <option>puscica_levo</option>
-                        <option>puscica_gor</option>
-                        <option>puscica_dol</option>
-                        <option>skrinja</option>
-                        <option>zoga1</option>
-                        <option>zoga2</option>
-
-                      </select>
-                      <div class="invalid-feedback">
-                        Polje ne sme biti prazno
-                      </div>
-                    </div>
-                    <div class="col-2">
-                      <label for="stolpec-objekt-vrstica" class="form-label"><br></label>
-                      <input type="besedilo" class="form-control" id="stolpec-objekt-vrstica" placeholder="vrstica">
-                      <div class="invalid-feedback">
-                        Polje ne sme biti prazno!
-                      </div>
-                    </div>
-                    <div class="col-2">
-                      <label for="stolpec-objekt-stolpec" class="form-label"><br></label>
-                      <input type="besedilo" class="form-control" id="stolpec-objekt-stolpec" placeholder="stolpec">
-                      <div class="invalid-feedback">
-                        Polje ne sme biti prazno!
-                      </div>
-                    </div>
-                    <div class="col-3 align-self-end">
-                      <button onclick="izrisi_objekt('objekt')" class="btn btn-secondary" type="button">dodaj na grid</button>
-                    </div>
-                  </div>
-                  <div class="row" style="margin-bottom: 2rem;">
-                    <div class="col-md-4"> 
-                    </div>
-                  </div>
-                  <div class="col-md-12">
-                    <img id="slika3" onerror="this.onerror=null; this.remove();"
-                    style="max-width: 200px; max-height: 200px; object-fit: contain; margin-bottom: 1.5rem;">
-                  </div>
-                  
-
-
-                  <label class="form-label">Izbriši zadnji predmet</label>
-                  <div class="row">
-                    <div class="col-2">
-                      <input type="text" class="form-control" id="izbrisi-objekt-vrstica" placeholder="vrstica">
-                      <div class="invalid-feedback">
-                        Polje ne sme biti prazno!
-                      </div>
-                    </div>
-                    <div class="col-2">
-                      <input type="text" class="form-control" id="izbrisi-objekt-stolpec" placeholder="stolpec">
-                      <div class="invalid-feedback">
-                        Polje ne sme biti prazno!
-                      </div>
-                    </div>
-                    <div class="col-3">
-                      <button onclick="izbrisi_zadnji_objekt()" class="btn btn-secondary" type="button">izbriši</button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-
 
               <button class="w-100 btn btn-primary btn-lg" style="margin-bottom: 100px;" hx-post="/" hx-swap="none" onclick="osvezi('pisek-iframe')">Generiraj
-                nalogo</button>
+                nalogo
+              </button>
             </form>
             
           </div>
