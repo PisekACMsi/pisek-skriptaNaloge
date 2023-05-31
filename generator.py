@@ -82,12 +82,16 @@ def izpisiCheckEndCondition():
     negImeB = endCondition["Coincide"]["negImeB"]
 
     lst = [indikator1, ime1, negIndikator1, negIme1, indikatorA, imeA, indikatorB, imeB, keys, negIndikatorA, negImeA, negIndikatorB, negImeB]
+    for i in range(len(lst)):
+        if lst[i] == None:
+            lst[i] = ""
     
     filters1 = r"{}"
     negFilters1 = r"{}"
     filtersA = r"{}"
     filtersB = r"{}"
-    keys = r"{}"
+    keys = r"[]"
+    
     negFiltersA = r"{}"
     negFiltersB = r"{}"
 
@@ -108,11 +112,11 @@ def izpisiCheckEndCondition():
             filtersA = "{%s: \\%s\\}"%(lst[4], lst[5])
         if lst[6] and lst[7]:
             filtersB = "{%s: \\%s\\}"%(lst[6], lst[7])
-        keys = lst[8]
         if lst[9] and lst[10]:
             negFiltersA = "{%s: \\%s\\}"%(lst[9], lst[10])
         if lst[11] and lst[12]:
             negFiltersB = "{%s: \\%s\\}"%(lst[11], lst[12])
+        
         endCond2 = "robotEndConditions.checkItemCoincidence(context, lastTurn, filtersA, filtersB, keys, negFiltersA, negFiltersB)".replace("filtersA", filtersA).replace("filtersB", filtersB).replace("keys", keys).replace("negFiltersA", negFiltersA).replace("negFiltersB", negFiltersB)
         funkcija2 = "(context, lastTurn) => { %s }"%(endCond2)
 
@@ -255,8 +259,8 @@ typeOptions = set() #imena predmetov, ki so na izbiro za inicializacijo objekta,
 checkEndEveryTurn = True
 ignoreInvalidMoves = False
 # to je default, vpisuj notr kar najdeš v zgornjih opcijah
-endCondition = {"Exist": {"indikator1": "category", "ime1": "coin", "negIndikator1": "", "negIme1": ""},
-                "Coincide": {"indikatorA": "", "imeA": "", "indikatorB": "", "imeB": "", "keys": "", "negIndikatorA": "", "negImeA": "", "negIndikatorB": "", "negImeB": ""}}
+endCondition = {"Exist": {"indikator1": "category", "ime1": "coin", "negIndikator1": None, "negIme1": None},
+                "Coincide": {"indikatorA": None, "imeA": None, "indikatorB": None, "imeB": None, "keys": None, "negIndikatorA": None, "negImeA": None, "negIndikatorB": None, "negImeB": None}}
 
 #RANDOM BULŠIT 2
 randomBull2 = {"border": 0.02,
