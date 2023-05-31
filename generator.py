@@ -150,7 +150,7 @@ def dodajItemType():
     ime = itemSpecifications.pop("name")
     itemsIT[ime] = itemSpecifications
     typeOptions.add(ime)
-    itemSpecifications = {"name":"objekt_{}".format(itemID-2), "num": itemID, "img":"", "zOrder":itemID, "category":catIT, "value":0}
+    itemSpecifications = {"name":"objekt_{}".format(itemID-2), "num": itemID, "img":"", "zOrder":itemID, "category":catIT, "value":0} #nazaj na default
 
 def izbrisiItemType(ime):
     global itemsIT, itemID, typeOptions, possibleCategories
@@ -286,7 +286,7 @@ catIT = {'robot': False, 'obstacle': False, 'transportable': False, 'button': Fa
 # nbStatesIT = 8 odvisen le od robota
 
 #globalna spremenljivka trenutnih nastavitev za nov item, po ustvarjenju itema se resetira na default vrednosti
-itemSpecifications = {"name":"objekt_{}".format(itemID-2), "num": itemID, "img":"", "zOrder":itemID, "category":catIT, "value":0}
+itemSpecifications = {"name":"objekt_{}".format(itemID-2), "num": itemID, "img":"", "zOrder":itemID, "category":catIT, "value":0, "row":0, "col":0}
 dodajItemType() #kliče naj se z gumbom ustvari
 
 #MREŽA
