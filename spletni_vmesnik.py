@@ -155,13 +155,9 @@ def home_add():
     # Za funkcijo includeBlocks()
     #-------------------------------------------------------------------
 
-    bd = app.request.forms.getall('blocksDropdown')
-    rbd = app.request.forms.getall('robotBlocksDropdown')
-    gbc = app.request.forms.getall('groupByCategory')
-    backGroundColor = app.request.forms.get('backGroundSelector')
-    borderColor = app.request.forms.get('borderSelector')
-    borderWidth = app.request.forms.get('borderWidth')
-    
+    bd = bottle.request.forms.getall('blocksDropdown')
+    rbd = bottle.request.forms.getall('robotBlocksDropdown')
+    gbc = bottle.request.forms.getall('groupByCategory')
 
     # Preverimo ali želimo grupirat po kategorijah
     if len(gbc) > 0:
@@ -180,6 +176,41 @@ def home_add():
             el= el[0].lower() + el[1:]
             generator.wholeCategories[el] = True
 
+    #OZADJE
+    backGroundColor = bottle.request.forms.get('backGroundSelector')
+    borderColor = bottle.request.forms.get('borderSelector')
+    borderWidth = bottle.request.forms.get('borderWidth')
+    backgroundImage = bottle.request.forms.get('backgroundImage')
+    showLabels = bottle.request.forms.get('showLabels')
+    generator.randomBull2["backgroundColour"] = backGroundColor
+    generator.randomBull2["borderColour"] = borderColor
+    generator.randomBull2["border"] = float(borderWidth)
+    generator.randomBull2["backgroundTile"] = backgroundImage + ".png"
+    
+    if showLabels == "on":
+        showLabels = True
+    else:
+        showLabels = False
+    generator.randomBull2["showLabels"] = showLabels
+
+    #END CONDITION
+    indikator1 = bottle.request.forms.get("indikator1") 
+    ime1 = bottle.request.forms.get("ime1") 
+    indikatorA = bottle.request.forms.get("indikatorA") 
+    indikatorB = bottle.request.forms.get("indikatorB") 
+    imeA = bottle.request.forms.get("imeA")
+    imeB = bottle.request.forms.get("imeB")
+    
+    generator.endCondition["Exist"]["indikator1"] = indikator1
+    generator.endCondition["Exist"]["ime1"] = ime1
+    generator.endCondition["Coincide"]["indikatorA"] = indikatorA
+    generator.endCondition["Coincide"]["indikatorB"] = indikatorB
+    generator.endCondition["Coincide"]["imeA"] = imeA
+    generator.endCondition["Coincide"]["imeB"] = imeB
+
+
+
+    
     # Za funkcijo IzpisiHideControls(). Jo bom pustil kar prazno. 
     #--------------------------------------------------------------------
 
