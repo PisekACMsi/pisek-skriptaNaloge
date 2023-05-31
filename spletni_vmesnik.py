@@ -155,9 +155,9 @@ def home_add():
     # Za funkcijo includeBlocks()
     #-------------------------------------------------------------------
 
-    bd = bottle.request.forms.getall('blocksDropdown')
-    rbd = bottle.request.forms.getall('robotBlocksDropdown')
-    gbc = bottle.request.forms.getall('groupByCategory')
+    bd = app.request.forms.getall('blocksDropdown')
+    rbd = app.request.forms.getall('robotBlocksDropdown')
+    gbc = app.request.forms.getall('groupByCategory')
 
     # Preverimo ali želimo grupirat po kategorijah
     if len(gbc) > 0:
@@ -177,11 +177,11 @@ def home_add():
             generator.wholeCategories[el] = True
 
     #OZADJE
-    backGroundColor = bottle.request.forms.get('backGroundSelector')
-    borderColor = bottle.request.forms.get('borderSelector')
-    borderWidth = bottle.request.forms.get('borderWidth')
-    backgroundImage = bottle.request.forms.get('backgroundImage')
-    showLabels = bottle.request.forms.get('showLabels')
+    backGroundColor = app.request.forms.get('backGroundSelector')
+    borderColor = app.request.forms.get('borderSelector')
+    borderWidth = app.request.forms.get('borderWidth')
+    backgroundImage = app.request.forms.get('backgroundImage')
+    showLabels = app.request.forms.get('showLabels')
     generator.randomBull2["backgroundColour"] = backGroundColor
     generator.randomBull2["borderColour"] = borderColor
     generator.randomBull2["border"] = float(borderWidth)
@@ -194,12 +194,12 @@ def home_add():
     generator.randomBull2["showLabels"] = showLabels
 
     #END CONDITION
-    indikator1 = bottle.request.forms.get("indikator1") 
-    ime1 = bottle.request.forms.get("ime1") 
-    indikatorA = bottle.request.forms.get("indikatorA") 
-    indikatorB = bottle.request.forms.get("indikatorB") 
-    imeA = bottle.request.forms.get("imeA")
-    imeB = bottle.request.forms.get("imeB")
+    indikator1 = app.request.forms.get("indikator1") 
+    ime1 = app.request.forms.get("ime1") 
+    indikatorA = app.request.forms.get("indikatorA") 
+    indikatorB = app.request.forms.get("indikatorB") 
+    imeA = app.request.forms.get("imeA")
+    imeB = app.request.forms.get("imeB")
     
     generator.endCondition["Exist"]["indikator1"] = indikator1
     generator.endCondition["Exist"]["ime1"] = ime1
