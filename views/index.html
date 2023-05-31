@@ -191,6 +191,55 @@
                   </div>
                 </div>
               </div>
+              
+              <div class="card" style="margin-bottom: 2rem;">
+                <div class="card-body">
+                  <h3>Ozadje</h3>
+                  <div class="row">
+                    <div class="col-md-6 mb-3">
+                      <label for="blocks-dropdown">Izberi barvo ozadja</label>
+                      <input type="color"  id="backGroundSelector"  name="backGroundSelector">
+                    </div>
+                    <div class="col-md-6 mb-3">
+                      <label for="blocks-dropdown">Izberi barvo meje</label>
+                      <input type="color"  id="border-selector"  name="borderSelector">
+                    </div>
+                    <div class="col-md-12">
+                      <label for="robot-blocks-dropdown">Izberi debelino meje</label>
+                        <input type="number" class="form-control" id="borderWidth" placeholder="število"
+                          name="borderWidth">
+                    </div>
+                    <div class="col-md-4">
+                      <label for="state" class="form-label">Izberi sliko ozadja</label>
+                      <select id="polje" class="form-select" id="state" name="">
+                        <option value="">Izberi...</option>
+                        <option>asfalt</option>
+                        <option>trava</option>
+                        <option>kamni</option>
+                        <option>lava</option>
+                        <option>morje</option>
+                        <option>vesolje</option>
+                        <option>zemlja</option>
+                        <option>crna</option>
+                        <option>modra</option>
+                        <option>rdeca</option>
+                        <option>rjava</option>
+                        <option>siva</option>
+                        <option>svetlo zelena</option>
+                        <option>zelena</option>
+                        <option>turkizna</option>
+                      </select>
+                      <div class="invalid-feedback">
+                        Polje ne sme biti prazno
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-check mb-3">
+                    <input type="checkbox" class="form-check-input" id="showLabels" name="showLabels">
+                    <label class="form-check-label" for="showLabels">Prikaži oznake</label>
+                  </div>
+                </div>
+              </div>
               <div class="card" style="margin-bottom: 2rem;">
                 <div class="card-body">
                   <h3>Polje in predmeti</h3>
@@ -218,31 +267,31 @@
                   </div>
                   <div id="container"></div>
                   <div class = "row" style = "margin-bottom: 2rem;">
-                  <div class="col-md-4">
-                    <label for="state" class="form-label">Izberi površino</label>
-                    <select id="polje" class="form-select" id="state" >
-                      <option value="">Izberi...</option>
-                      <option>asfalt</option>
-                      <option>trava</option>
-                      <option>kamni</option>
-                      <option>lava</option>
-                      <option>morje</option>
-                      <option>vesolje</option>
-                      <option>zemlja</option>
-                      <option>crna</option>
-                      <option>modra</option>
-                      <option>rdeca</option>
-                      <option>rjava</option>
-                      <option>siva</option>
-                      <option>svetlo zelena</option>
-                      <option>zelena</option>
-                      <option>turkizna</option>
+                    <div class="col-md-4">
+                      <label for="state" class="form-label">Izberi površino</label>
+                      <select id="polje" class="form-select" id="state" >
+                        <option value="">Izberi...</option>
+                        <option>asfalt</option>
+                        <option>trava</option>
+                        <option>kamni</option>
+                        <option>lava</option>
+                        <option>morje</option>
+                        <option>vesolje</option>
+                        <option>zemlja</option>
+                        <option>crna</option>
+                        <option>modra</option>
+                        <option>rdeca</option>
+                        <option>rjava</option>
+                        <option>siva</option>
+                        <option>svetlo zelena</option>
+                        <option>zelena</option>
+                        <option>turkizna</option>
 
-                    </select>
-                    <div class="invalid-feedback">
-                      Polje ne sme biti prazno
+                      </select>
+                      <div class="invalid-feedback">
+                        Polje ne sme biti prazno
+                      </div>
                     </div>
-                  </div>
 
                   <div class="col-2">
                     <label for="stolpec-objekt-vrstica" class="form-label"><br></label>

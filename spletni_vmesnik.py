@@ -154,8 +154,11 @@ def home_add():
     bd = bottle.request.forms.getall('blocksDropdown')
     rbd = bottle.request.forms.getall('robotBlocksDropdown')
     gbc = bottle.request.forms.getall('groupByCategory')
+    backGroundColor = bottle.request.forms.get('backGroundSelector')
+    borderColor = bottle.request.forms.get('borderSelector')
+    borderWidth = bottle.request.forms.get('borderWidth')
+    
 
-    print(gbc)
     # Preverimo ali želimo grupirat po kategorijah
     if len(gbc) > 0:
         generator.groupByCategory = True
