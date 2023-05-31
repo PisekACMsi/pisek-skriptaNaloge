@@ -42,7 +42,7 @@ function createGrid(x, y) {
   };
   $(".grid").width(480 / x);
   $(".grid").height(480 / x);
-  $('.grid img').css({ 'height': 480 / x, 'width': 480 / x, 'position' : 'absolute'});
+  $('.grid img').css({ 'height': 480 / x, 'width': 480 / x, 'position': 'absolute' });
   $('.grid img').attr('src', newURL_polje);
   var vrstica_junak = $("#vrstica-junak").val();
   var stolpec_junak = $("#stolpec-junak").val();
@@ -72,8 +72,8 @@ $(document).ready(function () {
 
 
 //izberimo vse oz. ne
-$(document).ready(function() {
-  $('#blocks-dropdown').on('changed.bs.select', function(e, clickedIndex, isSelected, previousValue) {
+$(document).ready(function () {
+  $('#blocks-dropdown').on('changed.bs.select', function (e, clickedIndex, isSelected, previousValue) {
     if (clickedIndex === 0 && isSelected) {
       $('#blocks-dropdown').selectpicker('selectAll');
     } else if (clickedIndex === 0 && !isSelected) {
@@ -81,7 +81,7 @@ $(document).ready(function() {
     }
   });
 
-  $('#robot-blocks-dropdown').on('changed.bs.select', function(e, clickedIndex, isSelected, previousValue) {
+  $('#robot-blocks-dropdown').on('changed.bs.select', function (e, clickedIndex, isSelected, previousValue) {
     if (clickedIndex === 0 && isSelected) {
       $('#robot-blocks-dropdown').selectpicker('selectAll');
     } else if (clickedIndex === 0 && !isSelected) {
@@ -92,12 +92,12 @@ $(document).ready(function() {
 
 //funkcija doda sliko na neko mesto na gridu
 function izrisi_objekt(tip) {
-  if (tip == 'objekt'){
+  if (tip == 'objekt') {
     var vrstica_objekt = $("#stolpec-objekt-vrstica").val();
     var stolpec_objekt = $("#stolpec-objekt-stolpec").val();
     var newImageElement = $("<img>").attr("src", newURL_predmet);
   }
-  else{
+  else {
     var vrstica_objekt = $("#povrsina-vrstica").val();
     var stolpec_objekt = $("#povrsina-stolpec").val();
     var newImageElement = $("<img>").attr("src", newURL_polje);
@@ -105,7 +105,7 @@ function izrisi_objekt(tip) {
   newImageElement.css({
     "height": velikost_x,
     "width": velikost_y,
-    "position" : 'absolute'
+    "position": 'absolute'
   });
   $("#" + vrstica_objekt + "\\." + stolpec_objekt).append(newImageElement);
 }
@@ -119,6 +119,6 @@ function izbrisi_zadnji_objekt() {
 }
 
 //funkcija osveži iframe
-function osvezi(id){
+function osvezi(id) {
   document.getElementById(id).contentWindow.location.reload();
 }
