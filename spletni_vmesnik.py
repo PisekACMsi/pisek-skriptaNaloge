@@ -1,36 +1,40 @@
-import bottle 
+from bottle import Bottle, run, template, static_file
 import generator
+
+# app je zdj Bottle
+app = Bottle()
+
 """Bottle poskrbi, da stran laufa in da so vse stvari povezane med sabo."""
 
 #css 
-@bottle.route('/static/css/<filename:re:.*\.css>')
+@app.route('/static/css/<filename:re:.*\.css>')
 def send_css(filename):
-    return bottle.static_file(filename, root='static/css')
+    return static_file(filename, root='static/css')
 
 #img
-@bottle.route('/static/img/<filename:re:.*\.png>')
+@app.route('/static/img/<filename:re:.*\.png>')
 def send_img(filename):
-    return bottle.static_file(filename, root='static/img')
+    return static_file(filename, root='static/img')
 
 #img 
-@bottle.route('/static/javascript/modules/img/algorea<filename:re:.*\.png>')
+@app.route('/static/javascript/modules/img/algorea<filename:re:.*\.png>')
 def send_img2(filename):
-    return bottle.static_file(filename, root='static/javascript/modules/img/algorea')
+    return static_file(filename, root='static/javascript/modules/img/algorea')
 
 #html
-@bottle.route('/views/<filename:re:.*\.html>')
+@app.route('/views/<filename:re:.*\.html>')
 def serve_html(filename):
-    return bottle.static_file(filename, root='views')
+    return static_file(filename, root='views')
 
 #javascript
-@bottle.route('/static/javascript/<filename:re:.*\.js>')
+@app.route('/static/javascript/<filename:re:.*\.js>')
 def send_javascript(filename):
-    return bottle.static_file(filename, root='static/javascript')
+    return static_file(filename, root='static/javascript')
 
 #javascript robotlib
-@bottle.route('/naloga/<filename:re:.*\.js>')
+@app.route('/naloga/<filename:re:.*\.js>')
 def send_file_js(filename):
-    return bottle.static_file(filename, root='naloga')
+    return static_file(filename, root='naloga')
 
 #knjižnica v modules 
 #raphaelFactory-1.0
@@ -38,87 +42,87 @@ def send_file_js(filename):
 #simulationFactory-1.0
 #beav-1.0
 #beaver-task-2.0 
-@bottle.route('../static/javascript/_common/<filename:re:.*\.js>')
+@app.route('../static/javascript/_common/<filename:re:.*\.js>')
 def send_lib_js(filename):
-    return bottle.static_file(filename, root='../../Pisek/pisek-git/_common/modules/pemFioi')
+    return static_file(filename, root='../../Pisek/pisek-git/_common/modules/pemFioi')
 
 # jquery-1.7.1 
-@bottle.route('../static/javascript/_common/modules/ext/jquery/<filename:re:.*\.js>')
+@app.route('../static/javascript/_common/modules/ext/jquery/<filename:re:.*\.js>')
 def send_jquery(filename):
-    return bottle.static_file(filename, root='../../Pisek/pisek-git/_common/modules/ext/jquery')
+    return static_file(filename, root='../../Pisek/pisek-git/_common/modules/ext/jquery')
 
 #JSON-js 
-@bottle.route('../static/javascript/_common/modules/ext/json/<filename:re:.*\.js>')
+@app.route('../static/javascript/_common/modules/ext/json/<filename:re:.*\.js>')
 def send_json(filename):
-    return bottle.static_file(filename, root='../../Pisek/pisek-git/_common/modules/ext/json')
+    return static_file(filename, root='../../Pisek/pisek-git/_common/modules/ext/json')
 
 #raphael-2.2.1 
-@bottle.route('../static/javascript/_common/modules/ext/raphael/2.2.1/<filename:re:.*\.js>')
+@app.route('../static/javascript/_common/modules/ext/raphael/2.2.1/<filename:re:.*\.js>')
 def send_raphael(filename):
-    return bottle.static_file(filename, root='../../Pisek/pisek-git/_common/modules/ext/raphael/2.2.1')
+    return static_file(filename, root='../../Pisek/pisek-git/_common/modules/ext/raphael/2.2.1')
 
 #jschannel 
-@bottle.route('../static/javascript/_common/modules/ext/jschannel/<filename:re:.*\.js>')
+@app.route('../static/javascript/_common/modules/ext/jschannel/<filename:re:.*\.js>')
 def send_jschannel(filename):
-    return bottle.static_file(filename, root='../../Pisek/pisek-git/_common/modules/ext/jschannel')
+    return static_file(filename, root='../../Pisek/pisek-git/_common/modules/ext/jschannel')
 
 #platform-pr 
-@bottle.route('../static/javascript/_common/modules/integrationAPI.01/official/<filename:re:.*\.js>')
+@app.route('../static/javascript/_common/modules/integrationAPI.01/official/<filename:re:.*\.js>')
 def send_platformpr(filename):
-    return bottle.static_file(filename, root='../../Pisek/pisek-git/_common/modules/integrationAPI.01/official')
+    return static_file(filename, root='../../Pisek/pisek-git/_common/modules/integrationAPI.01/official')
 
 #buttonsAndMessages 
-@bottle.route('../static/javascript/_common/modules/integrationAPI.01/installationAPI.01/pemFioi/<filename:re:.*\.js>')
+@app.route('../static/javascript/_common/modules/integrationAPI.01/installationAPI.01/pemFioi/<filename:re:.*\.js>')
 def send_buttonsAndMessages(filename):
-    return bottle.static_file(filename, root='../../Pisek/pisek-git/_common/modules/integrationAPI.01/installationAPI.01/pemFioi')
+    return static_file(filename, root='../../Pisek/pisek-git/_common/modules/integrationAPI.01/installationAPI.01/pemFioi')
 
 #installationAPI.01
-@bottle.route('../static/javascript/_common/modules/integrationAPI.01/installationAPI.01/pemFioi/<filename:re:.*\.js>')
+@app.route('../static/javascript/_common/modules/integrationAPI.01/installationAPI.01/pemFioi/<filename:re:.*\.js>')
 def send_installationAPI(filename):
-    return bottle.static_file(filename, root='../../Pisek/pisek-git/_common/modules/integrationAPI.01/installationAPI.01/pemFioi')
+    return static_file(filename, root='../../Pisek/pisek-git/_common/modules/integrationAPI.01/installationAPI.01/pemFioi')
 
 #miniPlatform
-@bottle.route('../static/javascript/_common/modules/integrationAPI.01/official/<filename:re:.*\.js>')
+@app.route('../static/javascript/_common/modules/integrationAPI.01/official/<filename:re:.*\.js>')
 def send_miniPlatform(filename):
-    return bottle.static_file(filename, root='../../Pisek/pisek-git/_common/modules/integrationAPI.01/official')
+    return static_file(filename, root='../../Pisek/pisek-git/_common/modules/integrationAPI.01/official')
 
 #-----------------------------------------------------------------------------------------------
 #Blockly knjižnica
 #-----------------------------------------------------------------------------------------------
 
 #acorn
-@bottle.route('../static/javascript/_common/modules/ext/js-interpreter/<filename:re:.*\.js>')
+@app.route('../static/javascript/_common/modules/ext/js-interpreter/<filename:re:.*\.js>')
 def send_acorn(filename):
-    return bottle.static_file(filename, root='../../Pisek/pisek-git/_common/modules/ext/js-interpreter')
+    return static_file(filename, root='../../Pisek/pisek-git/_common/modules/ext/js-interpreter')
 
 #acorn-walk
-@bottle.route('../static/javascript/_common/modules/ext/acorn/<filename:re:.*\.js>')
+@app.route('../static/javascript/_common/modules/ext/acorn/<filename:re:.*\.js>')
 def send_acornWalk(filename):
-    return bottle.static_file(filename, root='../../Pisek/pisek-git/_common/modules/ext/acorn')
+    return static_file(filename, root='../../Pisek/pisek-git/_common/modules/ext/acorn')
 
 #interpreter
-@bottle.route('../static/javascript/_common/modules/ext/js-interpreter/<filename:re:.*\.js>')
+@app.route('../static/javascript/_common/modules/ext/js-interpreter/<filename:re:.*\.js>')
 def send_interpreter(filename):
-    return bottle.static_file(filename, root='../../Pisek/pisek-git/_common/modules/ext/js-interpreter/')
+    return static_file(filename, root='../../Pisek/pisek-git/_common/modules/ext/js-interpreter/')
 
 #blockly
 #blockly_blocks
 #blockly_javascript
 #blockly_python
 #blockly_ + strLang (blockly_sl)
-@bottle.route('../static/javascript/_common/modules/ext/blockly/<filename:re:.*\.js>')
+@app.route('../static/javascript/_common/modules/ext/blockly/<filename:re:.*\.js>')
 def send_blockly(filename):
-    return bottle.static_file(filename, root='../../Pisek/pisek-git/_common/modules/ext/blockly')
+    return static_file(filename, root='../../Pisek/pisek-git/_common/modules/ext/blockly')
 
 #blockly_fioi
-@bottle.route('../static/javascript/_common/modules/ext/blockly-fioi/<filename:re:.*\.js>')
+@app.route('../static/javascript/_common/modules/ext/blockly-fioi/<filename:re:.*\.js>')
 def send_blockly_fioi(filename):
-    return bottle.static_file(filename, root='../../Pisek/pisek-git/_common/modules/ext/blockly-fioi')
+    return static_file(filename, root='../../Pisek/pisek-git/_common/modules/ext/blockly-fioi')
 
 #numeric_keypad
-@bottle.route('../static/javascript/_common/modules/pemFioi/shared/numeric_keypad/<filename:re:.*\.js>')
+@app.route('../static/javascript/_common/modules/pemFioi/shared/numeric_keypad/<filename:re:.*\.js>')
 def send_numeric_keypad(filename):
-    return bottle.static_file(filename, root='../../Pisek/pisek-git/_common/modules/pemFioi/shared/numeric_keypad')
+    return static_file(filename, root='../../Pisek/pisek-git/_common/modules/pemFioi/shared/numeric_keypad')
 
 #quickAlgo_i18n
 #quickAlgo_interface
@@ -128,32 +132,32 @@ def send_numeric_keypad(filename):
 #quickAlgo_blockly_runner
 #quickAlgo_subtask
 #quickAlgo_context
-@bottle.route('../static/javascript/_common/modules/pemFioi/quickAlgo/<filename:re:.*\.js>')
+@app.route('../static/javascript/_common/modules/pemFioi/quickAlgo/<filename:re:.*\.js>')
 def send_quickAlgo(filename):
-    return bottle.static_file(filename, root='../../Pisek/pisek-git/_common/modules/pemFioi/quickAlgo')
+    return static_file(filename, root='../../Pisek/pisek-git/_common/modules/pemFioi/quickAlgo')
 
 #quickAlgo_css
-@bottle.route('../static/css/modules/<filename:re:.*\.css>')
+@app.route('../static/css/modules/<filename:re:.*\.css>')
 def send_quickAlgo_css(filename):
-    return bottle.static_file(filename, root='../static/css/modules')
+    return static_file(filename, root='../static/css/modules')
 
 #---------------------------------------------------------------------------------------------------------
 # Samo spodnjo kodo spreminjaj
 #---------------------------------------------------------------------------------------------------------
 
-@bottle.get("/")    
+@app.get("/")    
 def home_get():              
-    return bottle.template("index.html")
+    return template("index.html")
 
-@bottle.post("/")
+@app.post("/")
 def home_add():
 
     # Za funkcijo includeBlocks()
     #-------------------------------------------------------------------
 
-    bd = bottle.request.forms.getall('blocksDropdown')
-    rbd = bottle.request.forms.getall('robotBlocksDropdown')
-    gbc = bottle.request.forms.getall('groupByCategory')
+    bd = app.request.forms.getall('blocksDropdown')
+    rbd = app.request.forms.getall('robotBlocksDropdown')
+    gbc = app.request.forms.getall('groupByCategory')
 
     # Preverimo ali želimo grupirat po kategorijah
     if len(gbc) > 0:
@@ -173,11 +177,11 @@ def home_add():
             generator.wholeCategories[el] = True
 
     #OZADJE
-    backGroundColor = bottle.request.forms.get('backGroundSelector')
-    borderColor = bottle.request.forms.get('borderSelector')
-    borderWidth = bottle.request.forms.get('borderWidth')
-    backgroundImage = bottle.request.forms.get('backgroundImage')
-    showLabels = bottle.request.forms.get('showLabels')
+    backGroundColor = app.request.forms.get('backGroundSelector')
+    borderColor = app.request.forms.get('borderSelector')
+    borderWidth = app.request.forms.get('borderWidth')
+    backgroundImage = app.request.forms.get('backgroundImage')
+    showLabels = app.request.forms.get('showLabels')
     generator.randomBull2["backgroundColour"] = backGroundColor
     generator.randomBull2["borderColour"] = borderColor
     generator.randomBull2["border"] = float(borderWidth)
@@ -190,12 +194,12 @@ def home_add():
     generator.randomBull2["showLabels"] = showLabels
 
     #END CONDITION
-    indikator1 = bottle.request.forms.get("indikator1") 
-    ime1 = bottle.request.forms.get("ime1") 
-    indikatorA = bottle.request.forms.get("indikatorA") 
-    indikatorB = bottle.request.forms.get("indikatorB") 
-    imeA = bottle.request.forms.get("imeA")
-    imeB = bottle.request.forms.get("imeB")
+    indikator1 = app.request.forms.get("indikator1") 
+    ime1 = app.request.forms.get("ime1") 
+    indikatorA = app.request.forms.get("indikatorA") 
+    indikatorB = app.request.forms.get("indikatorB") 
+    imeA = app.request.forms.get("imeA")
+    imeB = app.request.forms.get("imeB")
     
     generator.endCondition["Exist"]["indikator1"] = indikator1
     generator.endCondition["Exist"]["ime1"] = ime1
@@ -212,18 +216,17 @@ def home_add():
 
     # Za randomBull1 bom spremnil samo maxInstructions.
     # -------------------------------------------------------------------
-    maxIns = int(bottle.request.forms.get('maxInstructions')) 
+    maxIns = int(app.request.forms.get('maxInstructions')) 
     generator.randomBull1['maxInstructions'] = maxIns
 
 
     # Ustvarimo skripto
     generator.ustvariSkripto()
-    bottle.redirect("/")
+    app.redirect("/")
 
 
 #----------------------------------------------------------------------------------------------------------
 
 def start_bottle():
     #Zaženemo bottle
-
-    bottle.run(debug=True, reloader=True, host='localhost', port=8081)
+    run(app, host='localhost', port=8080, debug=True)
