@@ -229,4 +229,4 @@ def home_add():
 
 def start_bottle():
     #Zaženemo bottle
-    run(app, host='localhost', port=8080, debug=True)
+    run(app, host='localhost', port=8081, debug=True)
