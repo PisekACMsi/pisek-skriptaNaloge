@@ -238,6 +238,24 @@
                     <input type="checkbox" class="form-check-input" id="showLabels" name="showLabels">
                     <label class="form-check-label" for="showLabels">Prikaži oznake</label>
                   </div>
+                  <div class="row">
+                    <div class="col-12">
+                      <label for="email" class="form-label">Velikost mreže</label>
+                    </div>
+                    <div class="col-3">
+                      <input type="text" class="form-control" id="polje-vrstica" name="sizeRow" placeholder="vrstica" value = "5">
+                      <div class="invalid-feedback">
+                        Polje ne sme biti prazno!
+                      </div>
+                    </div>
+                  
+                    <div class="col-3">
+                      <input type="text" class="form-control" id="polje-stolpec" name="sizeCol" placeholder="stolpec" value = "5">
+                      <div class="invalid-feedback">
+                        Polje ne sme biti prazno!
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
 
@@ -304,28 +322,8 @@
               <div class="card" style="margin-bottom: 2rem;">
                 <div class="card-body">
                   <h3>Polje in predmeti</h3>
-                  <div class="row">
-                    <div class="col-12">
-                      <label for="email" class="form-label">Generiraj grid</label>
-                    </div>
-                    <div class="col-3">
-                      <input type="text" class="form-control" id="polje-vrstica" placeholder="vrstica">
-                      <div class="invalid-feedback">
-                        Polje ne sme biti prazno!
-                      </div>
-                    </div>
+
                   
-                    <div class="col-3">
-                      <input type="text" class="form-control" id="polje-stolpec" placeholder="stolpec">
-                      <div class="invalid-feedback">
-                        Polje ne sme biti prazno!
-                      </div>
-                    </div>
-                  
-                    <div class="col-4 align-self-end">
-                      <button onclick="refreshGrid()" class="btn btn-secondary" type="button">generiraj</button>
-                    </div>
-                  </div>
                   <div class = "row" style = "margin-bottom: 2rem;">
                     <div class="col-md-4">
                       <label for="state" class="form-label">Izberi površino</label>

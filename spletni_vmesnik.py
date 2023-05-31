@@ -182,10 +182,14 @@ def home_add():
     borderWidth = app.request.forms.get('borderWidth')
     backgroundImage = app.request.forms.get('backgroundImage')
     showLabels = app.request.forms.get('showLabels')
+    sizeRows = app.request.forms.get('sizeRow')
+    sizeCols = app.request.forms.get('sizeCol')
     generator.randomBull2["backgroundColour"] = backGroundColor
     generator.randomBull2["borderColour"] = borderColor
     generator.randomBull2["border"] = float(borderWidth)
     generator.randomBull2["backgroundTile"] = backgroundImage + ".png"
+    generator.mmm = sizeRows
+    generator.nnn= sizeCols
     
     if showLabels == "on":
         showLabels = True
