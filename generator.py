@@ -237,7 +237,7 @@ def dodajItemType():
     col = itemSpecifications["col"]
     
     #getItemTypes()
-    #itemsIT[ime] = itemSpecifications
+    itemsIT[ime] = itemSpecifications
     #matrixExamples[aktivenPrimer][row][col] = itemSpecifications["num"]
     #saveItemTypes()
 
