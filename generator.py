@@ -137,7 +137,7 @@ def izpisiItemTypes():
     return pySlv
 
 def dodajItemType():
-    global itemsIT, itemID, typeOptions, possibleCategories, itemSpecifications
+    global itemsIT, itemID, typeOptions, possibleCategories, itemSpecifications, matrixExamples, aktivenPrimer
     itemID += 1
     cats = itemSpecifications["category"]
     catsTrue = []
@@ -148,9 +148,17 @@ def dodajItemType():
     
     itemSpecifications["category"] = catsTrue
     ime = itemSpecifications.pop("name")
+    
+    row = itemSpecifications["row"]
+    col = itemSpecifications["col"]
+    getItemTypes()
     itemsIT[ime] = itemSpecifications
+    matrixExamples[aktivenPrimer][row][col] = itemSpecifications["num"]
+    saveItemTypes()
+
+
     typeOptions.add(ime)
-    itemSpecifications = {"name":"objekt_{}".format(itemID-2), "num": itemID, "img":"", "zOrder":itemID, "category":catIT, "value":0} #nazaj na default
+    itemSpecifications = {"name":"objekt_{}".format(itemID-2), "num": itemID, "img":"", "zOrder":itemID, "category":catIT, "value":0, "row":0, "col":0} #nazaj na default
 
 def izbrisiItemType(ime):
     global itemsIT, itemID, typeOptions, possibleCategories
@@ -329,6 +337,25 @@ def ustvariSkripto():
     fajl.write(theString)
     fajl.close()
 
+def saveItemTypes():
+    global itemsIT, matrixExamples
+    currentState = {"itemsIT":itemsIT, "matrixExamples":"&&&".join(map(str,matrixExamples))}
+    jsonStr = json.dumps(currentState, indent = 5, ensure_ascii=False)
+    jsonFile = open("savedItemTypes.txt", "w")
+    jsonFile.write(jsonStr)
+    jsonFile.close()
+
+def getItemTypes():
+    global itemsIT, matrixExamples
+
+    jsonFile = open("savedItemTypes.txt", "r")
+    jsonStr = jsonFile.read()
+    pyVar = json.loads(jsonStr)
+
+    itemsIT = pyVar["itemsIT"]
+    matrixExamples = pyVar["matrixExamples"].split("&&&")
+
+
 def saveVariables():
     global languageStrings, randomBull1, strSE, groupByCategory, includeAllIB, wholeCategories, robotIB, singleBlocksIB, excludedBlocksIB, possibleCategories, typeOptions, checkEndEveryTurn, ignoreInvalidMoves, endCondition, randomBull2, itemsIT, matrixExamples, initialisationExamples
     currentState = {"languageStrings":languageStrings, "randomBull1":randomBull1, "strSE":strSE,
@@ -366,6 +393,8 @@ def loadVariables():
     itemsIT = pyVar["itemsIT"]
     matrixExamples = pyVar["matrixExamples"].split("&&&")
     initialisationExamples = pyVar["initialisationExamples"]
+
+
 
 
 
