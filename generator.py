@@ -3,6 +3,90 @@ import json
 import re
 import flatdict
 
+def ustvariSkripto():
+    ulmSlv = {}
+    ulmSlv.update(izpisiLanguageStrings())
+    ulmSlv.update(izpisiHideControls())
+    ulmSlv.update(izpisiRandomBulshit1())
+    ulmSlv.update(izpisiIncludeBlocks())
+    ulmSlv.update(izpisiStartingExample())
+    ulmSlv.update({"checkEndEveryTurn":True})
+    ulmSlv.update(izpisiCheckEndCondition())
+    ulmSlv.update({"ignoreInvalidMoves":False})
+    ulmSlv.update(izpisiRandomBulsit2())
+    ulmSlv.update(izpisiItemTypes())
+    jsonStr = json.dumps(ulmSlv, indent = 5, ensure_ascii=False)
+    jsString1 = re.sub("\"([^\"]+)\":", r"\1:", jsonStr).replace(r'\"', "")
+    jsString1 = jsString1.replace("\"&#&", "").replace("&#&\"", "").replace("\\\\", "\"").replace("\\n", "\n").replace("\\t", "\t")
+    str1 = "subTask.gridInfos = {};".format(jsString1)
+
+    subTaskData = izpisiSubTaskData()
+    jsonStr = json.dumps(subTaskData, indent = 5, ensure_ascii=False)
+    jsString2 = re.sub("\"([^\"]+)\":", r"\1:", jsonStr).replace(r'\"', "").replace("\"&#&", "").replace("&#&\"", "")
+    jsString2 = jsString2.replace("\\n", "\n")
+    str2 = "subTask.data = {};".format(jsString2)
+
+    theString = "function initTask(subTask) {{\n {0}\n{1}\ninitBlocklySubTask(subTask); \n}}".format(str1, str2)
+    fajl = open("static/javascript/theTest.js", "w", encoding = "utf-8")
+    fajl.write(theString)
+    fajl.close()
+
+def saveItemTypes():
+    global itemsIT, matrixExamples
+    currentState = {"itemsIT":itemsIT, "matrixExamples":"&&&".join(map(str,matrixExamples))}
+    jsonStr = json.dumps(currentState, indent = 5, ensure_ascii=False)
+    jsonFile = open("savedItemTypes.txt", "w")
+    jsonFile.write(jsonStr)
+    jsonFile.close()
+
+def getItemTypes():
+    global itemsIT, matrixExamples
+
+    jsonFile = open("savedItemTypes.txt", "r")
+    jsonStr = jsonFile.read()
+    pyVar = json.loads(jsonStr)
+
+    itemsIT = pyVar["itemsIT"]
+    matrixExamples = pyVar["matrixExamples"].split("&&&")
+
+
+def saveVariables():
+    global languageStrings, randomBull1, strSE, groupByCategory, includeAllIB, wholeCategories, robotIB, singleBlocksIB, excludedBlocksIB, possibleCategories, typeOptions, checkEndEveryTurn, ignoreInvalidMoves, endCondition, randomBull2, itemsIT, matrixExamples, initialisationExamples
+    currentState = {"languageStrings":languageStrings, "randomBull1":randomBull1, "strSE":strSE,
+                    "groupByCategory":groupByCategory, "includeAllIB":includeAllIB, "wholeCategories":wholeCategories,
+                    "robotIB":robotIB, "singleBlocksIB":singleBlocksIB, "excludedBlocksIB":excludedBlocksIB,
+                    "possibleCategories":list(possibleCategories), "typeOptions":list(typeOptions), "checkEndEveryTurn":checkEndEveryTurn,
+                    "ignoreInvalidMoves":ignoreInvalidMoves, "endCondition":endCondition, "randomBull2":randomBull2,
+                    "itemsIT":itemsIT, "matrixExamples":"&&&".join(map(str,matrixExamples)), "initialisationExamples":initialisationExamples}
+    jsonStr = json.dumps(currentState, indent = 5, ensure_ascii=False)
+    jsonFile = open("savedDat.txt", "w")
+    jsonFile.write(jsonStr)
+    jsonFile.close()
+
+def loadVariables():
+    global languageStrings, randomBull1, strSE, groupByCategory, includeAllIB, wholeCategories, robotIB, singleBlocksIB, excludedBlocksIB, possibleCategories, typeOptions, checkEndEveryTurn, ignoreInvalidMoves, endCondition, randomBull2, itemsIT, matrixExamples, initialisationExamples
+
+    jsonFile = open("savedDat.txt", "r")
+    jsonStr = jsonFile.read()
+    pyVar = json.loads(jsonStr)
+    languageStrings = pyVar["languageStrings"]
+    randomBull1 = pyVar["randomBull1"]
+    strSE = pyVar["strSE"]
+    groupByCategory = pyVar["groupByCategory"]
+    includeAllIB = pyVar["includeAllIB"]
+    wholeCategories = pyVar["wholeCategories"]
+    robotIB = pyVar["robotIB"]
+    singleBlocksIB = pyVar["singleBlocksIB"]
+    excludedBlocksIB = pyVar["excludedBlocksIB"]
+    possibleCategories = set(pyVar["possibleCategories"])
+    typeOptions = set(pyVar["typeOptions"])
+    checkEndEveryTurn = pyVar["checkEndEveryTurn"]
+    ignoreInvalidMoves = pyVar["ignoreInvalidMoves"]
+    endCondition = pyVar["endCondition"]
+    randomBull2 = pyVar["randomBull2"]
+    itemsIT = pyVar["itemsIT"]
+    matrixExamples = pyVar["matrixExamples"].split("&&&")
+    initialisationExamples = pyVar["initialisationExamples"]
 def izpisiLanguageStrings():
     global languageStrings
     pySlv = {"languageStrings":{"sl":{}}}
