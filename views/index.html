@@ -182,7 +182,7 @@
                       <label for="maxInstructions">Izberi koliko delčkov je na voljo</label>
                       <div class="col-md-6">
                         <input type="number" class="form-control" id="maxInstructions" placeholder="število"
-                          name="maxInstructions">
+                          name="maxInstructions" value="666">
                         <div class="invalid-feedback">
                           Polje ne sme biti prazno!
                         </div>
@@ -207,13 +207,13 @@
                     <div class="col-md-12">
                       <label for="robot-blocks-dropdown">Izberi debelino meje</label>
                         <input type="number" class="form-control" id="borderWidth" placeholder="število"
-                          name="borderWidth">
+                          name="borderWidth" value="0.02">
                     </div>
                     <div class="col-md-4">
                       <label for="state" class="form-label">Izberi sliko ozadja</label>
                       <select id="polje" class="form-select" id="state" name="backgroundImage">
                         <option value="">Izberi...</option>
-                        <option>asfalt</option>
+                        <option selected="selected">asfalt</option>
                         <option>trava</option>
                         <option>kamni</option>
                         <option>lava</option>
@@ -240,6 +240,67 @@
                   </div>
                 </div>
               </div>
+
+              <div class="card" style="margin-bottom: 2rem;">
+                <div class="card-body">
+                  <h3>Pogoj za zmago</h3>
+                  <h5>Preveri obstoj predmetov</h5>
+                  <div class="row">
+                    <div class="col-md-6 mb-3">
+                      <label for="indikator1">Indikator</label><br>
+                      <select class="selectpicker" id="indikator1" multiple
+                        name="indikator1">
+                        <option selected="selected">category</option>
+                      </select>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                      <label for="ime1">Vrsta indikatorja</label>
+                      <select class="selectpicker" id="ime1" multiple
+                        name="ime1">
+                        <option selected="selected">coin</option>
+                        <option>transportable</option>
+                        <option>robot</option>
+                      </select>
+                    </div>
+                  </div>
+                  <h5>Preveri ujemanje predmetov</h5>
+                  <div class="row">
+                    <div class="col-md-6 mb-3">
+                      <label for="indikatorA">Indikator A</label><br>
+                      <select class="selectpicker" id="indikatorA" multiple
+                        name="indikatorA">
+                        <option selected="selected">category</option>
+                      </select>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                      <label for="imeA">Vrsta indikatorja A</label>
+                      <select class="selectpicker" id="imeA" multiple
+                        name="imeA">
+                        <option selected="selected">coin</option>
+                        <option>transportable</option>
+                        <option>robot</option>
+                      </select>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                      <label for="indikatorB">Indikator B</label><br>
+                      <select class="selectpicker" id="indikatorB" multiple
+                        name="indikatorB">
+                        <option selected="selected">category</option>
+                      </select>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                      <label for="imeB">Vrsta indikatorja B</label>
+                      <select class="selectpicker" id="imeB" multiple
+                        name="imeB">
+                        <option selected="selected">coin</option>
+                        <option>transportable</option>
+                        <option>robot</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
               <div class="card" style="margin-bottom: 2rem;">
                 <div class="card-body">
                   <h3>Polje in predmeti</h3>

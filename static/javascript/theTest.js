@@ -25,7 +25,7 @@ function initTask(subTask) {
      },
      actionDelay: 400,
      blocklyColourTheme: "bwinf",
-     maxInstructions: 555,
+     maxInstructions: 666,
      includeBlocks: {
           groupByCategory: false,
           generatedBlocks: {
@@ -45,15 +45,15 @@ function initTask(subTask) {
      checkEndCondition: (context, lastTurn) => { 
 	robotEndConditions.checkCombiner(context, lastTurn, [
 		(context, lastTurn) => { robotEndConditions.checkItemExistence(context, lastTurn, {category: "coin"}, {}, exist=false) },
-		//
+		(context, lastTurn) => { robotEndConditions.checkItemCoincidence(context, lastTurn, {category: "coin"}, {category: "coin"}, [], {}, {}) }
 	])
 },
      ignoreInvalidMoves: false,
-     border: 0.033,
-     backgroundColour: "#679216",
-     backgroundTile: "trava.png",
-     borderColour: "#652f2f",
-     showLabels: true,
+     border: 0.02,
+     backgroundColour: "#000000",
+     backgroundTile: "asfalt.png",
+     borderColour: "#000000",
+     showLabels: false,
      cellSide: 60,
      numberOfRobots: 1,
      itemTypes: {
