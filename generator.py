@@ -361,7 +361,6 @@ def loadVariables():
     randomBull2 = pyVar["randomBull2"]
     itemsIT = pyVar["itemsIT"]
     matrixExamples = pyVar["matrixExamples"].split("&&&")
-    print(matrixExamples)
     initialisationExamples = pyVar["initialisationExamples"]
 
 
