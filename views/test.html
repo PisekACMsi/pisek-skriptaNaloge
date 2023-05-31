@@ -1,39 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <style>
-    div#container
-{
-    width:840px;
-    height:317px;
-    overflow:hidden;     /* if you don't want a scrollbar, set to hidden */
-    overflow-x:hidden;   /* hides horizontal scrollbar on newer browsers */
-
-    /* resize and min-height are optional, allows user to resize viewable area */
-    -webkit-resize:vertical; 
-    -moz-resize:vertical;
-    resize:vertical;
-    min-height:500px;
-}
-
-iframe#embed
-{
-    width:100%;       /* set this to approximate width of entire page you're embedding */
-    height:200%;      /* determines where the bottom of the page cuts off */
-    margin-left:-300px; /* clipping left side of page */
-    margin-top:0px;  /* clipping top of page */
-    overflow:hidden;
-
-    /* resize seems to inherit in at least Firefox */
-    -webkit-resize:none;
-    -moz-resize:none;
-    resize:none;
-}
-    </style>
 </head>
 <body>
-  <div id="container">
-    <iframe id="embed" src="naloga.html"></iframe>
-</div>
+  <iframe src="naloga.html" id = "pisek-iframe" onload="this.width=screen.width;this.height=screen.height;"></iframe>
 </body>
 </html>
