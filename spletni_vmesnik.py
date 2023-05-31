@@ -154,10 +154,6 @@ def home_add():
     bd = bottle.request.forms.getall('blocksDropdown')
     rbd = bottle.request.forms.getall('robotBlocksDropdown')
     gbc = bottle.request.forms.getall('groupByCategory')
-    backGroundColor = bottle.request.forms.get('backGroundSelector')
-    borderColor = bottle.request.forms.get('borderSelector')
-    borderWidth = bottle.request.forms.get('borderWidth')
-    
 
     # Preverimo ali želimo grupirat po kategorijah
     if len(gbc) > 0:
@@ -175,6 +171,24 @@ def home_add():
         if el != "Izberi vse":
             el= el[0].lower() + el[1:]
             generator.wholeCategories[el] = True
+
+    #OZADJE
+    backGroundColor = bottle.request.forms.get('backGroundSelector')
+    borderColor = bottle.request.forms.get('borderSelector')
+    borderWidth = bottle.request.forms.get('borderWidth')
+    backgroundImage = bottle.request.forms.get('backgroundImage')
+    showLabels = bottle.request.forms.get('showLabels')
+    print("SLIKA", backgroundImage)
+    generator.randomBull2["backgroundColour"] = backGroundColor
+    generator.randomBull2["borderColour"] = borderColor
+    generator.randomBull2["border"] = float(borderWidth)
+    generator.randomBull2["backgroundTile"] = backgroundImage + ".png"
+    
+    if showLabels == "on":
+        showLabels = True
+    else:
+        showLabels = False
+    generator.randomBull2["showLabels"] = showLabels
 
     # Za funkcijo IzpisiHideControls(). Jo bom pustil kar prazno. 
     #--------------------------------------------------------------------

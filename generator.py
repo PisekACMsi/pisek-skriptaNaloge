@@ -298,6 +298,7 @@ addMatrix(mmm, nnn) #dodaj test. Naj se izvede ob zagonu
 addInicialisation() # kliči da dodaš ityem v initialisationExamples
 addExample() #kliči če želiš dodati dodaten primer
 def ustvariSkripto():
+    print("AAAAAAAAAAA", randomBull2)
     ulmSlv = {}
     ulmSlv.update(izpisiLanguageStrings())
     ulmSlv.update(izpisiHideControls())

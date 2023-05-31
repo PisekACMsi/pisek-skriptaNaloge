@@ -25,7 +25,7 @@ function initTask(subTask) {
      },
      actionDelay: 400,
      blocklyColourTheme: "bwinf",
-     maxInstructions: 44,
+     maxInstructions: 555,
      includeBlocks: {
           groupByCategory: false,
           generatedBlocks: {
@@ -49,10 +49,10 @@ function initTask(subTask) {
 	])
 },
      ignoreInvalidMoves: false,
-     border: 0.02,
-     backgroundColour: "#b80000",
-     backgroundTile: "",
-     borderColour: "black",
+     border: 0.033,
+     backgroundColour: "#679216",
+     backgroundTile: "trava.png",
+     borderColour: "#652f2f",
      showLabels: true,
      cellSide: 60,
      numberOfRobots: 1,
