@@ -27,9 +27,11 @@ function initTask(subTask) {
      blocklyColourTheme: "bwinf",
      maxInstructions: 666,
      includeBlocks: {
-          groupByCategory: false,
+          groupByCategory: true,
           generatedBlocks: {
-               robot: []
+               robot: [
+                    "move"
+               ]
           },
           standardBlocks: {
                includeAll: false,
@@ -41,7 +43,7 @@ function initTask(subTask) {
      startingExample: {
           blockly: ""
      },
-     checkEndEveryTurn: true,
+     checkEndEveryTurn: false,
      checkEndCondition: (context, lastTurn) => { 
 	robotEndConditions.checkCombiner(context, lastTurn, [
 		(context, lastTurn) => { robotEndConditions.checkItemExistence(context, lastTurn, {category: "coin"}, {}, exist=false) },
@@ -56,7 +58,22 @@ function initTask(subTask) {
      showLabels: false,
      cellSide: 60,
      numberOfRobots: 1,
-     itemTypes: {}
+     itemTypes: {
+          robot0: {
+               num: 2,
+               img: "vesolje.png",
+               zOrder: 2,
+               category: [
+                    {
+                         "robot": true
+                    }
+               ],
+               value: 0,
+               row: 1,
+               col: 1,
+               nbStates: 8
+          }
+     }
 };
 subTask.data = {
      easy: [
@@ -66,7 +83,15 @@ subTask.data = {
  [1, 1, 1, 1, 1], 
  [1, 1, 1, 1, 1], 
  [1, 1, 1, 1, 1]],
-               initItems: []
+               initItems: [
+                    {
+                         row: 1,
+                         col: 1,
+                         type: "robot0",
+                         dir: 0,
+                         value: 0
+                    }
+               ]
           }
      ]
 };

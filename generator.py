@@ -224,30 +224,39 @@ def izpisiItemTypes():
     return pySlv
 
 def dodajItemType():
-    global itemsIT, itemID, typeOptions, possibleCategories, itemSpecifications, matrixExamples, aktivenPrimer
+    global itemsIT, itemID, typeOptions, possibleCategories, itemSpecifications, matrixExamples, aktivenPrimer, catIT
     ime = itemSpecifications.pop("name")
     if ime == "":
         return
     itemID += 1
-    cats = itemSpecifications["category"]
     catsTrue = []
-    for cat in cats.keys():
-        if cats[cat]:
+    aliJeRobot = False
+    for cat in catIT.keys():
+        if catIT[cat]:
+            if cat == "robot":
+                aliJeRobot = True
             catsTrue.append({"\"%s\""%cat:True})
             possibleCategories.add(cat)
-    
     itemSpecifications["category"] = catsTrue
-    
     
     row = itemSpecifications["row"]
     col = itemSpecifications["col"]
     
     #getItemTypes()
+    if not aliJeRobot:
+        matrixExamples[aktivenPrimer][row][col] = itemSpecifications["num"]
+    else:
+        itemSpecifications["nbStates"] = 8
+
     itemsIT[ime] = itemSpecifications
-    matrixExamples[aktivenPrimer][row][col] = itemSpecifications["num"]
-    print("RRRRRRR", itemSpecifications["category"])
-    if "robot" in itemSpecifications["category"]:
-        addInicialisation({"row":row, "col":col, "type":ime, "dir": 0, "value": 0})
+
+
+    print(itemSpecifications["category"])
+    # inicializacija
+    if aliJeRobot:
+        if ime not in list(alreadyInitialized):
+            addInicialisation({"row":row, "col":col, "type":ime, "dir": 0, "value": 0})
+            alreadyInitialized.add(ime)
 
     catIT = {'robot': False, 'obstacle': False, 'transportable': False, 'button': False, 'coin': False, 'number': False}
     
@@ -324,7 +333,7 @@ def ustvariSkripto():
     ulmSlv.update(izpisiRandomBulshit1())
     ulmSlv.update(izpisiIncludeBlocks())
     ulmSlv.update(izpisiStartingExample())
-    ulmSlv.update({"checkEndEveryTurn":True})
+    ulmSlv.update({"checkEndEveryTurn":False})
     ulmSlv.update(izpisiCheckEndCondition())
     ulmSlv.update({"ignoreInvalidMoves":False})
     ulmSlv.update(izpisiRandomBulsit2())
@@ -479,7 +488,7 @@ catIT = {'robot': False, 'obstacle': False, 'transportable': False, 'button': Fa
 # nbStatesIT = 8 odvisen le od robota
 
 #globalna spremenljivka trenutnih nastavitev za nov item, po ustvarjenju itema se resetira na default vrednosti
-itemSpecifications = {"name":"", "num": itemID, "img":"", "zOrder":itemID, "category":catIT.copy(), "value":0, "row":0, "col":0}
+itemSpecifications = {"name":"", "num": itemID, "img":"", "zOrder":itemID, "category":{}, "value":0, "row":0, "col":0}
 
 #MREŽA
 #GLOBAL
@@ -490,6 +499,8 @@ matrixExamples = [[]] #seznam matrik - lahko da je več testov
 initialisationExamples = [[]]
 addMatrix(mmm, nnn)
 globalka = 0
+
+alreadyInitialized = set()
 # type nujno!!! izberi it typeOptions
 #inicialisationOptions = {"row":0, "col":0, "type":list(typeOptions)[0], "dir": 0, "value": 0}
 
