@@ -148,7 +148,7 @@ def home_get():
 
 @bottle.post("/") 
 def home_add():
-
+    print("AAAAAAAAAAAAAAAAAAA")
     # Za funkcijo includeBlocks()
     #-------------------------------------------------------------------
 
@@ -185,8 +185,8 @@ def home_add():
     generator.randomBull2["borderColour"] = borderColor
     generator.randomBull2["border"] = float(borderWidth)
     generator.randomBull2["backgroundTile"] = backgroundImage + ".png"
-    generator.mmm = sizeRows
-    generator.nnn= sizeCols
+    generator.mmm = int(sizeRows)
+    generator.nnn= int(sizeCols)
     
     if showLabels == "on":
         showLabels = True
@@ -201,7 +201,6 @@ def home_add():
     indikatorB = bottle.request.forms.get("indikatorB") 
     imeA = bottle.request.forms.get("imeA")
     imeB = bottle.request.forms.get("imeB")
-    
     generator.endCondition["Exist"]["indikator1"] = indikator1
     generator.endCondition["Exist"]["ime1"] = ime1
     generator.endCondition["Coincide"]["indikatorA"] = indikatorA
@@ -209,9 +208,19 @@ def home_add():
     generator.endCondition["Coincide"]["imeA"] = imeA
     generator.endCondition["Coincide"]["imeB"] = imeB
 
-
-
-    
+    #ITEMTYPE
+    itemRow = bottle.request.forms.get("coordRow") 
+    itemCol = bottle.request.forms.get("coordCol")
+    itemCategory = bottle.request.forms.get("itemCategory") 
+    itemImage = bottle.request.forms.get("itemImage") 
+    itemName = bottle.request.forms.get("itemName")
+    generator.itemSpecifications["name"] = itemName
+    generator.itemSpecifications["img"] = itemImage + ".png"
+    generator.catIT[itemCategory] = True
+    generator.itemSpecifications["row"] = int(itemRow)
+    generator.itemSpecifications["col"] = int(itemCol)
+    print("GGGGGGGGGG", generator.globalka)
+    generator.globalka += 1
     # Za funkcijo IzpisiHideControls(). Jo bom pustil kar prazno. 
     #--------------------------------------------------------------------
 

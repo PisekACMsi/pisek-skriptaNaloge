@@ -27,7 +27,7 @@ function initTask(subTask) {
      blocklyColourTheme: "bwinf",
      maxInstructions: 666,
      includeBlocks: {
-          groupByCategory: true,
+          groupByCategory: false,
           generatedBlocks: {
                robot: [
                     "move",
@@ -84,36 +84,10 @@ function initTask(subTask) {
      showLabels: false,
      cellSide: 60,
      numberOfRobots: 1,
-     itemTypes: {
-          objekt_0: {
-               num: 2,
-               img: "",
-               zOrder: 2,
-               category: [],
-               value: 0,
-               row: 0,
-               col: 0
-          }
-     }
+     itemTypes: {}
 };
 subTask.data = {
      easy: [
-          {
-               tiles: [[1, 1, 1, 1, 1], 
- [1, 1, 1, 1, 1], 
- [1, 1, 1, 1, 1], 
- [1, 1, 1, 1, 1], 
- [1, 1, 1, 1, 1]],
-               initItems: [
-                    {
-                         row: 0,
-                         col: 0,
-                         type: "objekt_0",
-                         dir: 0,
-                         value: 0
-                    }
-               ]
-          },
           {
                tiles: [[1, 1, 1, 1, 1], 
  [1, 1, 1, 1, 1], 
