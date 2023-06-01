@@ -27,41 +27,13 @@ function initTask(subTask) {
      blocklyColourTheme: "bwinf",
      maxInstructions: 666,
      includeBlocks: {
-          groupByCategory: true,
+          groupByCategory: false,
           generatedBlocks: {
-               robot: [
-                    "move",
-                    "moveSimple",
-                    "forward",
-                    "forwardSimple",
-                    "turn",
-                    "turnAround",
-                    "jump",
-                    "changeRobot",
-                    "transport",
-                    "sensorBool",
-                    "sensorValue",
-                    "alterValue",
-                    "destroy",
-                    "create",
-                    "wait",
-                    "nitems",
-                    "sensorRowCol"
-               ]
+               robot: []
           },
           standardBlocks: {
                includeAll: false,
-               wholeCategories: [
-                    "tools",
-                    "logic",
-                    "loops",
-                    "math",
-                    "texts",
-                    "lists",
-                    "colour",
-                    "variables",
-                    "functions"
-               ],
+               wholeCategories: [],
                singleBlocks: [],
                excludedBlocks: []
           }
@@ -79,29 +51,19 @@ function initTask(subTask) {
      ignoreInvalidMoves: false,
      border: 0.02,
      backgroundColour: "#000000",
-     backgroundTile: "asfalt.png",
+     backgroundTile: ".png",
      borderColour: "#000000",
      showLabels: false,
      cellSide: 60,
      numberOfRobots: 1,
-     itemTypes: {
-          22: {
-               num: 2,
-               img: "trava.png",
-               zOrder: 2,
-               category: [],
-               value: 0,
-               row: 2,
-               col: 2
-          }
-     }
+     itemTypes: {}
 };
 subTask.data = {
      easy: [
           {
                tiles: [[1, 1, 1, 1, 1], 
  [1, 1, 1, 1, 1], 
- [1, 1, 2, 1, 1], 
+ [1, 1, 1, 1, 1], 
  [1, 1, 1, 1, 1], 
  [1, 1, 1, 1, 1]],
                initItems: []
