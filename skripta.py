@@ -104,3 +104,14 @@ def naredi_matriko(n, m):
 
     return "[" + shifted_matrix_string.strip() + "\n" + 39 * " " + "]"
 
+import os
+#preberemo imena slik
+def preberi_vsa_imena_slik(mapa):
+    folder_path = "static/img/" + mapa
+    file_names = []
+    for filename in os.listdir(folder_path):
+        filename = filename.split('.')[0]
+        filename = filename.replace('_', ' ')
+        file_names.append(filename)
+    return file_names
+

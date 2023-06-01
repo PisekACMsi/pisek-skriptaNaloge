@@ -30,12 +30,38 @@ function initTask(subTask) {
           groupByCategory: true,
           generatedBlocks: {
                robot: [
-                    "move"
+                    "move",
+                    "moveSimple",
+                    "forward",
+                    "forwardSimple",
+                    "turn",
+                    "turnAround",
+                    "jump",
+                    "changeRobot",
+                    "transport",
+                    "sensorBool",
+                    "sensorValue",
+                    "alterValue",
+                    "destroy",
+                    "create",
+                    "wait",
+                    "nitems",
+                    "sensorRowCol"
                ]
           },
           standardBlocks: {
                includeAll: false,
-               wholeCategories: [],
+               wholeCategories: [
+                    "tools",
+                    "logic",
+                    "loops",
+                    "math",
+                    "texts",
+                    "lists",
+                    "colour",
+                    "variables",
+                    "functions"
+               ],
                singleBlocks: [],
                excludedBlocks: []
           }
@@ -58,29 +84,14 @@ function initTask(subTask) {
      showLabels: false,
      cellSide: 60,
      numberOfRobots: 1,
-     itemTypes: {
-          robot0: {
-               num: 2,
-               img: "vesolje.png",
-               zOrder: 2,
-               category: [
-                    {
-                         "robot": true
-                    }
-               ],
-               value: 0,
-               row: 1,
-               col: 1,
-               nbStates: 8
-          }
-     }
+     itemTypes: {}
 };
 subTask.data = {
      easy: [
           {
                tiles: [[1, 1, 1, 1, 1], 
  [1, 1, 1, 1, 1], 
- [1, 1, 1, 1, 1], 
+ [1, 1, 2, 1, 1], 
  [1, 1, 1, 1, 1], 
  [1, 1, 1, 1, 1]],
                initItems: [

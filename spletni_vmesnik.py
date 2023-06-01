@@ -1,5 +1,6 @@
 import bottle 
 import generator
+import skripta
 
 """Bottle poskrbi, da stran laufa in da so vse stvari povezane med sabo."""
 
@@ -143,8 +144,13 @@ def send_quickAlgo_css(filename):
 #---------------------------------------------------------------------------------------------------------
 
 @bottle.get("/") 
-def home_get():              
-    return bottle.template("index.html")
+def home_get():  
+    tile_names = skripta.preberi_vsa_imena_slik("tiles") 
+    character_names = skripta.preberi_vsa_imena_slik("characters")  
+    objects = skripta.preberi_vsa_imena_slik("objects")
+    print(character_names)  
+    print(tile_names)       
+    return bottle.template("index.html", tile_names=tile_names, character_names=character_names, objects=objects)
 
 @bottle.post("/") 
 def home_add():

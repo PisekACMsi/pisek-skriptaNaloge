@@ -80,26 +80,9 @@
                       <label for="junak" class="form-label">Izberi junaka</label>
                       <select id="junak" class="form-select">
                         <option value="">Izberi...</option>
-                        <option>avto</option>
-                        <option>gasilec</option>
-                        <option>gasilski avto</option>
-                        <option>zelen gasilski avto</option>
-                        <option>zelen robot</option>
-                        <option>rdec robot</option>
-                        <option>cebela</option>
-                        <option>mis</option>
-                        <option>Marta</option>
-                        <option>Marta in piki</option>
-                        <option>Marta slascicarka</option>
-                        <option>Kekec</option>
-                        <option>Pisek</option>
-                        <option>astronavt in cebelica</option>
-                        <option>gusarska ladja</option>
-                        <option>tovornjak4</option>
-                        <option>tabornik na kolesu</option>
-                        <option>plesalec</option>
-                        <option>plesalka</option>
-                        <option>tabornik na sankah</option>
+                        % for ch in character_names:
+                        <option>{{ch}}</option>
+                        % end
 
                       </select>
                       <div class="invalid-feedback">
@@ -216,21 +199,9 @@
                       <label for="state" class="form-label">Izberi sliko ozadja</label>
                       <select id="polje" class="form-select" id="state" name="backgroundImage">
                         <option value="">Izberi...</option>
-                        <option selected="selected">asfalt</option>
-                        <option>trava</option>
-                        <option>kamni</option>
-                        <option>lava</option>
-                        <option>morje</option>
-                        <option>vesolje</option>
-                        <option>zemlja</option>
-                        <option>crna</option>
-                        <option>modra</option>
-                        <option>rdeca</option>
-                        <option>rjava</option>
-                        <option>siva</option>
-                        <option>svetlo zelena</option>
-                        <option>zelena</option>
-                        <option>turkizna</option>
+                        % for tile in tile_names:
+                        <option>{{tile}}</option>
+                        %end
                       </select>
                       <div class="invalid-feedback">
                         Polje ne sme biti prazno
@@ -330,21 +301,9 @@
                       <label for="state" class="form-label" >Izberi sliko</label>
                       <select id="polje" class="form-select" id="state" name="itemImage">
                         <option value="">Izberi...</option>
-                        <option>asfalt</option>
-                        <option>trava</option>
-                        <option>kamni</option>
-                        <option>lava</option>
-                        <option>morje</option>
-                        <option selected="selected">vesolje</option>
-                        <option>zemlja</option>
-                        <option>crna</option>
-                        <option>modra</option>
-                        <option>rdeca</option>
-                        <option>rjava</option>
-                        <option>siva</option>
-                        <option>svetlo zelena</option>
-                        <option>zelena</option>
-                        <option>turkizna</option>
+                        % for object in objects:
+                          <option>{{object}}</option>
+                        %end
 
                       </select>
                       <div class="invalid-feedback">
