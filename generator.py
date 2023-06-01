@@ -237,7 +237,7 @@ def dodajItemType():
                 aliJeRobot = True
             catsTrue.append({"\"%s\""%cat:True})
             possibleCategories.add(cat)
-    itemSpecifications["category"] = catsTrue
+    itemSpecifications["category"] = catsTrue[0]
     
     row = itemSpecifications["row"]
     col = itemSpecifications["col"]

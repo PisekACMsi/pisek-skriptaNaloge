@@ -30,38 +30,12 @@ function initTask(subTask) {
           groupByCategory: true,
           generatedBlocks: {
                robot: [
-                    "move",
-                    "moveSimple",
-                    "forward",
-                    "forwardSimple",
-                    "turn",
-                    "turnAround",
-                    "jump",
-                    "changeRobot",
-                    "transport",
-                    "sensorBool",
-                    "sensorValue",
-                    "alterValue",
-                    "destroy",
-                    "create",
-                    "wait",
-                    "nitems",
-                    "sensorRowCol"
+                    "move"
                ]
           },
           standardBlocks: {
                includeAll: false,
-               wholeCategories: [
-                    "tools",
-                    "logic",
-                    "loops",
-                    "math",
-                    "texts",
-                    "lists",
-                    "colour",
-                    "variables",
-                    "functions"
-               ],
+               wholeCategories: [],
                singleBlocks: [],
                excludedBlocks: []
           }
@@ -79,19 +53,43 @@ function initTask(subTask) {
      ignoreInvalidMoves: false,
      border: 0.02,
      backgroundColour: "#000000",
-     backgroundTile: "asfalt.png",
+     backgroundTile: "lava.png",
      borderColour: "#000000",
      showLabels: false,
      cellSide: 60,
      numberOfRobots: 1,
-     itemTypes: {}
+     itemTypes: {
+          robot0: {
+               num: 3,
+               img: "banana.png",
+               zOrder: 3,
+               category: {
+                    "robot": true
+               },
+               value: 0,
+               row: 1,
+               col: 1,
+               nbStates: 8
+          },
+          coin: {
+               num: 4,
+               img: "drevo.png",
+               zOrder: 4,
+               category: {
+                    "coin": true
+               },
+               value: 0,
+               row: 2,
+               col: 2
+          }
+     }
 };
 subTask.data = {
      easy: [
           {
                tiles: [[1, 1, 1, 1, 1], 
  [1, 1, 1, 1, 1], 
- [1, 1, 2, 1, 1], 
+ [1, 1, 4, 1, 1], 
  [1, 1, 1, 1, 1], 
  [1, 1, 1, 1, 1]],
                initItems: [

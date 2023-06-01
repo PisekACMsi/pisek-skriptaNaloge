@@ -146,7 +146,7 @@ def send_quickAlgo_css(filename):
 @bottle.get("/") 
 def home_get():  
     tile_names = skripta.preberi_vsa_imena_slik("tiles") 
-    character_names = skripta.preberi_vsa_imena_slik("characters")  
+    character_names = skripta.preberi_vsa_imena_slik("characters")
     objects = skripta.preberi_vsa_imena_slik("objects")
     print(character_names)  
     print(tile_names)       
