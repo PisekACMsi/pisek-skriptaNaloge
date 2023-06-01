@@ -41,7 +41,7 @@ function initTask(subTask) {
      startingExample: {
           blockly: ""
      },
-     checkEndEveryTurn: true,
+     checkEndEveryTurn: false,
      checkEndCondition: (context, lastTurn) => { 
 	robotEndConditions.checkCombiner(context, lastTurn, [
 		(context, lastTurn) => { robotEndConditions.checkItemExistence(context, lastTurn, {category: "coin"}, {}, exist=false) },
@@ -66,7 +66,15 @@ subTask.data = {
  [1, 1, 1, 1, 1], 
  [1, 1, 1, 1, 1], 
  [1, 1, 1, 1, 1]],
-               initItems: []
+               initItems: [
+                    {
+                         row: 1,
+                         col: 1,
+                         type: "robot0",
+                         dir: 0,
+                         value: 0
+                    }
+               ]
           }
      ]
 };
