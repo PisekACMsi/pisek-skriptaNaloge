@@ -25,15 +25,43 @@ function initTask(subTask) {
      },
      actionDelay: 400,
      blocklyColourTheme: "bwinf",
-     maxInstructions: 0,
+     maxInstructions: 666,
      includeBlocks: {
           groupByCategory: true,
           generatedBlocks: {
-               robot: []
+               robot: [
+                    "move",
+                    "moveSimple",
+                    "forward",
+                    "forwardSimple",
+                    "turn",
+                    "turnAround",
+                    "jump",
+                    "changeRobot",
+                    "transport",
+                    "sensorBool",
+                    "sensorValue",
+                    "alterValue",
+                    "destroy",
+                    "create",
+                    "wait",
+                    "nitems",
+                    "sensorRowCol"
+               ]
           },
           standardBlocks: {
                includeAll: false,
-               wholeCategories: [],
+               wholeCategories: [
+                    "tools",
+                    "logic",
+                    "loops",
+                    "math",
+                    "texts",
+                    "lists",
+                    "colour",
+                    "variables",
+                    "functions"
+               ],
                singleBlocks: [],
                excludedBlocks: []
           }
@@ -45,15 +73,15 @@ function initTask(subTask) {
      checkEndCondition: (context, lastTurn) => { 
 	robotEndConditions.checkCombiner(context, lastTurn, [
 		(context, lastTurn) => { robotEndConditions.checkItemExistence(context, lastTurn, {category: "coin"}, {}, exist=false) },
-		//
+		(context, lastTurn) => { robotEndConditions.checkItemCoincidence(context, lastTurn, {category: "coin"}, {category: "coin"}, [], {}, {}) }
 	])
 },
      ignoreInvalidMoves: false,
      border: 0.02,
-     backgroundColour: "white",
-     backgroundTile: "",
-     borderColour: "black",
-     showLabels: true,
+     backgroundColour: "#000000",
+     backgroundTile: "asfalt.png",
+     borderColour: "#000000",
+     showLabels: false,
      cellSide: 60,
      numberOfRobots: 1,
      itemTypes: {
