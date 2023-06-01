@@ -269,15 +269,13 @@
                   <div class="row">
                     <div class="col-md-6 mb-3">
                       <label for="indikator1">Indikator</label><br>
-                      <select class="selectpicker" id="indikator1" multiple
-                        name="indikator1">
+                      <select class="selectpicker" id="indikator1" name="indikator1">
                         <option selected="selected">category</option>
                       </select>
                     </div>
                     <div class="col-md-6 mb-3">
                       <label for="ime1">Vrsta indikatorja</label>
-                      <select class="selectpicker" id="ime1" multiple
-                        name="ime1">
+                      <select class="selectpicker" id="ime1" name="ime1">
                         <option selected="selected">coin</option>
                         <option>transportable</option>
                         <option>robot</option>
@@ -288,15 +286,13 @@
                   <div class="row">
                     <div class="col-md-6 mb-3">
                       <label for="indikatorA">Indikator A</label><br>
-                      <select class="selectpicker" id="indikatorA" multiple
-                        name="indikatorA">
+                      <select class="selectpicker" id="indikatorA" name="indikatorA">
                         <option selected="selected">category</option>
                       </select>
                     </div>
                     <div class="col-md-6 mb-3">
                       <label for="imeA">Vrsta indikatorja A</label>
-                      <select class="selectpicker" id="imeA" multiple
-                        name="imeA">
+                      <select class="selectpicker" id="imeA" name="imeA">
                         <option selected="selected">coin</option>
                         <option>transportable</option>
                         <option>robot</option>
@@ -304,15 +300,13 @@
                     </div>
                     <div class="col-md-6 mb-3">
                       <label for="indikatorB">Indikator B</label><br>
-                      <select class="selectpicker" id="indikatorB" multiple
-                        name="indikatorB">
+                      <select class="selectpicker" id="indikatorB" name="indikatorB">
                         <option selected="selected">category</option>
                       </select>
                     </div>
                     <div class="col-md-6 mb-3">
                       <label for="imeB">Vrsta indikatorja B</label>
-                      <select class="selectpicker" id="imeB" multiple
-                        name="imeB">
+                      <select class="selectpicker" id="imeB" name="imeB">
                         <option selected="selected">coin</option>
                         <option>transportable</option>
                         <option>robot</option>
@@ -328,13 +322,13 @@
 
                   
                   <div class = "row" style = "margin-bottom: 2rem;">
-                    <div class="col-md-6 mb-3">
+                    <div class="col-md-3 mb-3">
                       <label for="imeB">Ime</label>
-                      <input class="selectpicker" id="itemName" name="itemName"></input>
+                      <input class="form-control" id="itemName" name="itemName"></input>
                     </div>
                     <div class="col-md-4">
-                      <label for="state" class="form-label">Izberi sliko</label>
-                      <select id="polje" class="form-select" id="state" >
+                      <label for="state" class="form-label" >Izberi sliko</label>
+                      <select id="polje" class="form-select" id="state" name="itemImage">
                         <option value="">Izberi...</option>
                         <option>asfalt</option>
                         <option>trava</option>
@@ -364,40 +358,31 @@
                         <option>robot</option>
                         <option>coin</option>
                         <option>transportable</option>
-
                       </select>
                       <div class="invalid-feedback">
                         Polje ne sme biti prazno
                       </div>
                     </div>
+                  </div>
+                  <div class = "row" style = "margin-bottom: 2rem;">
+                    <div class="row">
+                      <div class="col-3">
+                        <label for="email" class="form-label">Koordinata x</label>
+                        <input type="text" class="form-control" id="polje-vrstica" name="coordRow" placeholder="vrstica" value = "5">
+                        <div class="invalid-feedback">
+                          Polje ne sme biti prazno!
+                        </div>
+                      </div>
 
-                    <div class="col-3">
-                      <input type="text" class="form-control" id="polje-vrstica" name="typeRow" placeholder="vrstica" value = "5">
-                      <div class="invalid-feedback">
-                        Polje ne sme biti prazno!
+                      <div class="col-3">
+                        <label for="email" class="form-label">Koordinata y</label>
+                        <input type="text" class="form-control" id="polje-vrstica" name="coordCol" placeholder="vrstica" value = "5">
+                        <div class="invalid-feedback">
+                          Polje ne sme biti prazno!
+                        </div>
                       </div>
-                    </div>
-                  
-                    <div class="col-3">
-                      <input type="text" class="form-control" id="polje-stolpec" name="typeCOl" placeholder="stolpec" value = "5">
-                      <div class="invalid-feedback">
-                        Polje ne sme biti prazno!
-                      </div>
-                    </div>
-
-                    <div class="col-2">
-                      <label for="stolpec-objekt-vrstica" class="form-label"><br></label>
-                      <input type="besedilo" class="form-control" id="povrsina-vrstica" placeholder="vrstica">
-                      <div class="invalid-feedback">
-                        Polje ne sme biti prazno!
-                      </div>
-                    </div>
-                    <div class="col-2">
-                      <label for="stolpec-objekt-stolpec" class="form-label"><br></label>
-                      <input type="besedilo" class="form-control" id="povrsina-stolpec" placeholder="stolpec">
-                      <div class="invalid-feedback">
-                        Polje ne sme biti prazno!
-                      </div>
+                    
+                     
                     </div>
                     <div class="col-3 align-self-end">
                       <button onclick="izrisi_objekt('polje')" class="btn btn-secondary" type="button">dodaj na grid</button>
@@ -409,9 +394,6 @@
                     style="max-width: 200px; max-height: 200px; object-fit: contain; margin-bottom: 1.5rem;">
                 </div>
               </div>
-
-
-
 
               <button class="w-100 btn btn-primary btn-lg" style="margin-bottom: 100px;" hx-post="/" hx-swap="none" onclick="osvezi('pisek-iframe')">Generiraj
                 nalogo

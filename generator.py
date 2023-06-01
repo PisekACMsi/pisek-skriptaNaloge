@@ -204,9 +204,11 @@ def izpisiCheckEndCondition():
         endCond2 = "robotEndConditions.checkItemCoincidence(context, lastTurn, filtersA, filtersB, keys, negFiltersA, negFiltersB)".replace("filtersA", filtersA).replace("filtersB", filtersB).replace("keys", keys).replace("negFiltersA", negFiltersA).replace("negFiltersB", negFiltersB)
         funkcija2 = "(context, lastTurn) => { %s }"%(endCond2)
 
-    template = open("./generatorSkripte/endConditionTemplate.txt", "r").read()
+    openFile = open("./generatorSkripte/endConditionTemplate.txt", "r")
+    template = openFile.read()
     template = "&#&" + template.replace("funkcija1", funkcija1).replace("funkcija2", funkcija2) + "&#&"
     pySlv = {"checkEndCondition": template}
+    openFile.close()
     
     return pySlv
 
@@ -216,12 +218,16 @@ def izpisiRandomBulsit2():
 
 def izpisiItemTypes():
     global itemsIT
+    dodajItemType() #kliče naj se z gumbom ustvari
     pySlv = {"itemTypes":{}}
     pySlv["itemTypes"] = itemsIT
     return pySlv
 
 def dodajItemType():
     global itemsIT, itemID, typeOptions, possibleCategories, itemSpecifications, matrixExamples, aktivenPrimer
+    ime = itemSpecifications.pop("name")
+    if ime == "":
+        return
     itemID += 1
     cats = itemSpecifications["category"]
     catsTrue = []
@@ -231,30 +237,38 @@ def dodajItemType():
             possibleCategories.add(cat)
     
     itemSpecifications["category"] = catsTrue
-    ime = itemSpecifications.pop("name")
+    
     
     row = itemSpecifications["row"]
     col = itemSpecifications["col"]
     
     #getItemTypes()
     itemsIT[ime] = itemSpecifications
-    #matrixExamples[aktivenPrimer][row][col] = itemSpecifications["num"]
+    matrixExamples[aktivenPrimer][row][col] = itemSpecifications["num"]
+    print("RRRRRRR", itemSpecifications["category"])
+    if "robot" in itemSpecifications["category"]:
+        addInicialisation({"row":row, "col":col, "type":ime, "dir": 0, "value": 0})
+
+    catIT = {'robot': False, 'obstacle': False, 'transportable': False, 'button': False, 'coin': False, 'number': False}
+    
     #saveItemTypes()
 
 
     typeOptions.add(ime)
-    itemSpecifications = {"name":"objekt_{}".format(itemID-2), "num": itemID, "img":"", "zOrder":itemID, "category":catIT, "value":0, "row":0, "col":0} #nazaj na default
+    itemSpecifications = {"name":"", "num": itemID, "img":"", "zOrder":itemID, "category":catIT, "value":0, "row":0, "col":0} #nazaj na default
 
 def izbrisiItemType(ime):
     global itemsIT, itemID, typeOptions, possibleCategories
+    
     itemID -= 1
     typeOptions.pop(ime)
     itemsIT.pop(ime)
 
 def izpisiSubTaskData():
-    global matrixExamples, initialisationExamples
+    global matrixExamples, initialisationExamples, mmm, nnn
     pySlv = {}
     pyLst = []
+    print("Aktivni", aktivenPrimer)
     for i in range(len(initialisationExamples)):
         pyLst.append({"tiles":izpisiMatriko(matrixExamples[i]), "initItems":initialisationExamples[i]})
 
@@ -270,9 +284,9 @@ def addMatrix(mmm, nnn):
     global matrixExamples, aktivenPrimer
     matrixExamples[aktivenPrimer] = [[1 for i in range(mmm)] for j in range(nnn)]
 
-def addInicialisation():
-    global initialisationExamples, aktivenPrimer, inicialisationOptions
-    initialisationExamples[aktivenPrimer].append(inicialisationOptions)
+def addInicialisation(initSlv):
+    global initialisationExamples, aktivenPrimer
+    initialisationExamples[aktivenPrimer].append(initSlv)
 
 def addExample():
     global initialisationExamples, aktivenPrimer, mmm, nnn
@@ -303,6 +317,7 @@ def changeMatrixSize(nrows, ncols):
         mat2[:rr, ::] = mat[::, :ncols]
 
 def ustvariSkripto():
+    print("Pršlo je do skripte")
     ulmSlv = {}
     ulmSlv.update(izpisiLanguageStrings())
     ulmSlv.update(izpisiHideControls())
@@ -464,8 +479,7 @@ catIT = {'robot': False, 'obstacle': False, 'transportable': False, 'button': Fa
 # nbStatesIT = 8 odvisen le od robota
 
 #globalna spremenljivka trenutnih nastavitev za nov item, po ustvarjenju itema se resetira na default vrednosti
-itemSpecifications = {"name":"objekt_{}".format(itemID-2), "num": itemID, "img":"", "zOrder":itemID, "category":catIT, "value":0, "row":0, "col":0}
-dodajItemType() #kliče naj se z gumbom ustvari
+itemSpecifications = {"name":"", "num": itemID, "img":"", "zOrder":itemID, "category":catIT.copy(), "value":0, "row":0, "col":0}
 
 #MREŽA
 #GLOBAL
@@ -474,11 +488,10 @@ mmm = 5
 nnn = 5
 matrixExamples = [[]] #seznam matrik - lahko da je več testov
 initialisationExamples = [[]]
+addMatrix(mmm, nnn)
+globalka = 0
 # type nujno!!! izberi it typeOptions
-inicialisationOptions = {"row":0, "col":0, "type":list(typeOptions)[0], "dir": 0, "value": 0}
-addMatrix(mmm, nnn) #dodaj test. Naj se izvede ob zagonu
-addInicialisation() # kliči da dodaš ityem v initialisationExamples
-addExample() #kliči če želiš dodati dodaten primer
+#inicialisationOptions = {"row":0, "col":0, "type":list(typeOptions)[0], "dir": 0, "value": 0}
 
 if __name__ == "__main__":
     #ustvariSkripto()
