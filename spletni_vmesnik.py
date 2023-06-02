@@ -147,9 +147,7 @@ def send_quickAlgo_css(filename):
 def home_get():  
     tile_names = skripta.preberi_vsa_imena_slik("tiles") 
     character_names = skripta.preberi_vsa_imena_slik("characters")
-    objects = skripta.preberi_vsa_imena_slik("objects")
-    print(character_names)  
-    print(tile_names)       
+    objects = skripta.preberi_vsa_imena_slik("objects")     
     return bottle.template("index.html", tile_names=tile_names, character_names=character_names, objects=objects)
 
 @bottle.post("/") 
@@ -214,18 +212,6 @@ def home_add():
     generator.endCondition["Coincide"]["imeA"] = imeA
     generator.endCondition["Coincide"]["imeB"] = imeB
 
-    #ITEMTYPE
-    itemRow = bottle.request.forms.get("coordRow") 
-    itemCol = bottle.request.forms.get("coordCol")
-    itemCategory = bottle.request.forms.get("itemCategory") 
-    itemImage = bottle.request.forms.get("itemImage") 
-    itemName = bottle.request.forms.get("itemName")
-    generator.itemSpecifications["name"] = itemName
-    generator.itemSpecifications["img"] = itemImage + ".png"
-    generator.catIT[itemCategory] = True
-    generator.itemSpecifications["row"] = int(itemRow)
-    generator.itemSpecifications["col"] = int(itemCol)
-    print("GGGGGGGGGG", generator.globalka)
     generator.globalka += 1
     # Za funkcijo IzpisiHideControls(). Jo bom pustil kar prazno. 
     #--------------------------------------------------------------------
@@ -240,9 +226,23 @@ def home_add():
     generator.ustvariSkripto()
     bottle.redirect("/")
 
-
+@bottle.post("/a") 
+def dodajItem():
+    #ITEMTYPE
+    itemRow = bottle.request.forms.get("coordRow") 
+    itemCol = bottle.request.forms.get("coordCol")
+    itemCategory = bottle.request.forms.get("itemCategory") 
+    itemImage = bottle.request.forms.get("itemImage") 
+    itemName = bottle.request.forms.get("itemName")
+    generator.itemSpecifications["name"] = itemName
+    generator.itemSpecifications["img"] = itemImage + ".png"
+    generator.catIT[itemCategory] = True
+    generator.itemSpecifications["row"] = int(itemRow)
+    generator.itemSpecifications["col"] = int(itemCol)
+    generator.dodajItemType() #kliče naj se z gumbom ustvari
+    
 #----------------------------------------------------------------------------------------------------------
 
 def start_bottle():
     #Zaženemo bottle
-    bottle.run(host='localhost', port=8081, debug=True)
+    bottle.run(host='localhost', port=8082, debug=True)

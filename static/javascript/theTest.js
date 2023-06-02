@@ -27,7 +27,7 @@ function initTask(subTask) {
      blocklyColourTheme: "bwinf",
      maxInstructions: 666,
      includeBlocks: {
-          groupByCategory: false,
+          groupByCategory: true,
           generatedBlocks: {
                robot: [
                     "move"
@@ -53,16 +53,16 @@ function initTask(subTask) {
      ignoreInvalidMoves: false,
      border: 0.02,
      backgroundColour: "#000000",
-     backgroundTile: "lava.png",
+     backgroundTile: "trava.png",
      borderColour: "#000000",
      showLabels: false,
      cellSide: 60,
      numberOfRobots: 1,
      itemTypes: {
           robot0: {
-               num: 3,
-               img: "banana.png",
-               zOrder: 3,
+               num: 2,
+               img: "cev.png",
+               zOrder: 2,
                category: {
                     "robot": true
                },
@@ -70,17 +70,6 @@ function initTask(subTask) {
                row: 1,
                col: 1,
                nbStates: 8
-          },
-          coin: {
-               num: 4,
-               img: "drevo.png",
-               zOrder: 4,
-               category: {
-                    "coin": true
-               },
-               value: 0,
-               row: 2,
-               col: 2
           }
      }
 };
@@ -89,7 +78,7 @@ subTask.data = {
           {
                tiles: [[1, 1, 1, 1, 1], 
  [1, 1, 1, 1, 1], 
- [1, 1, 4, 1, 1], 
+ [1, 1, 1, 1, 1], 
  [1, 1, 1, 1, 1], 
  [1, 1, 1, 1, 1]],
                initItems: [

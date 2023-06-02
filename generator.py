@@ -218,7 +218,6 @@ def izpisiRandomBulsit2():
 
 def izpisiItemTypes():
     global itemsIT
-    dodajItemType() #kliče naj se z gumbom ustvari
     pySlv = {"itemTypes":{}}
     pySlv["itemTypes"] = itemsIT
     return pySlv
@@ -249,9 +248,6 @@ def dodajItemType():
         itemSpecifications["nbStates"] = 8
 
     itemsIT[ime] = itemSpecifications
-
-
-    print(itemSpecifications["category"])
     # inicializacija
     if aliJeRobot:
         if ime not in list(alreadyInitialized):
