@@ -5,7 +5,7 @@ info -------------------------------------------------------------------------
 Tasks:
 ------------------------------------------------------------------------------
 
-☐  Povezat globalne spremenjivke v generatorju
+✅  Povezat globalne spremenjivke v generatorju
     ✅ Vsaj eno funkcijo
 
 ☐  Funkcija, ki izbriše language strings
@@ -16,11 +16,14 @@ Tasks:
 
 ☐  Najdit path do img v javascript fajlu. Več info na discordu
 
-☐  Vpis ItemTypes
-
-☐  Popravi, da bosta na gridu hkrati lahko naenkrat samo po 1 tip slike
+✅  Vpis ItemTypes
 
 ☐  V polje in predmeti dodam kategorijo, vrednost to potem daš v itemSpecifications
 
-☐  Update matrix ko dodaš nov itemtype
+✅  Update matrix ko dodaš nov itemtype
+
+☐  mozno naj bo dodati le enega robota
+
+☐  
+
 ------------------------------------------------------------------------------

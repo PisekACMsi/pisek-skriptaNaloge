@@ -53,45 +53,54 @@ function initTask(subTask) {
      ignoreInvalidMoves: false,
      border: 0.02,
      backgroundColour: "#000000",
-     backgroundTile: ".png",
+     backgroundTile: "crna.png",
      borderColour: "#000000",
      showLabels: false,
      cellSide: 60,
      numberOfRobots: 1,
      itemTypes: {
-          ovira: {
-               num: 9,
-               img: "banana.png",
-               zOrder: 9,
-               category: {
-                    "coin": true
-               },
-               value: 0
-          },
           robot0: {
-               num: 4,
-               img: "cebela.png",
-               zOrder: 4,
+               img: "avto.png",
+               zOrder: 10,
                category: {
                     "robot": true
                },
                value: 0,
                nbStates: 9
+          },
+          ovira: {
+               num: 3,
+               img: "drevo.png",
+               zOrder: 3,
+               category: {
+                    "obstacle": true
+               },
+               value: 0,
+               nbStates: 1
+          },
+          ovi: {
+               num: 4,
+               img: "drevo.png",
+               zOrder: 5,
+               category: {
+                    "obstacle": true
+               },
+               value: 0
           }
      }
 };
 subTask.data = {
      easy: [
           {
-               tiles: [[1, 9, 9, 9, 1], 
- [1, 7, 7, 7, 1], 
- [1, 5, 1, 3, 1], 
- [1, 5, 1, 1, 3], 
+               tiles: [[4, 1, 1, 1, 1], 
+ [1, 1, 1, 1, 1], 
+ [1, 1, 1, 1, 1], 
+ [1, 1, 1, 1, 1], 
  [1, 1, 1, 1, 1]],
                initItems: [
                     {
-                         row: 0,
-                         col: 0,
+                         row: 1,
+                         col: 1,
                          type: "robot0",
                          dir: 0,
                          value: 0

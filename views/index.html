@@ -199,7 +199,7 @@
                       <label for="state" class="form-label">Izberi sliko ozadja</label>
                       <select id="backgroundImage" class="form-select" name="backgroundImage">
                         <option value="">Izberi...</option>
-                        
+                        <option selected="selected">crna</option>
                         % for tile in tile_names:
                         <option>{{tile}}</option>
                         %end
@@ -406,11 +406,19 @@
                   {{ime}}: img = {{itemTypes[ime]["img"]}}, category = {{list(itemTypes[ime]["category"].keys())[0]}}, 
                   row={{itemTypes[ime]["row"]}}, col={{itemTypes[ime]["col"]}}<br>
                   %end
-                  <button class="btn btn-secondary" type="button" hx-swap="none">Izbriši</button>
                   <div class="row">
                     <div class="col-3">
+                      <h6>Ime za izbris</h6>
+                      <input type="text" class="form-control" id="polje-vrstica" name="delName" placeholder="vrstica" value = "">
+                      <div class="invalid-feedback">
+                        Polje ne sme biti prazno!
+                      </div>
+                    </div>
+                    <div class="col-3 align-self-end">
+                      <button class="btn btn-secondary" type="button" hx-post="/d" hx-swap="none">Izbriši</button>
                     </div>
                   </div>
+
 
                 <div class="col-md-12">
                   <img id="slika2" src="" onerror="this.onerror=null; this.remove();"

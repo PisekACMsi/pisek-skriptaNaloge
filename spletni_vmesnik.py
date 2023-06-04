@@ -263,9 +263,17 @@ def dodajItem():
     generator.itemSpecifications["nbStates"] = int(nbStates)
     generator.addRobot() #kliče naj se z gumbom ustvari
     bottle.redirect("/")
+
+@bottle.post("/d") 
+def deleteItem():
+    deleteItem = bottle.request.forms.get("delName")
+    generator.deleteItemType(deleteItem)
+    print("IZBRISAL ITEM TYPE")
+    bottle.redirect("/")
     
 #----------------------------------------------------------------------------------------------------------
 
 def start_bottle():
+    generator.ustvariSkripto()
     #Zaženemo bottle
-    bottle.run(host='localhost', port=8082, debug=True)
+    bottle.run(host='localhost', port=8081, debug=True)

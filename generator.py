@@ -222,12 +222,10 @@ def izpisiItemTypes():
     for nameKey in itemsIT.keys():
         kopija[nameKey] = {}
         for k in itemsIT[nameKey].keys():
-            print("kkkk", k)
-            if k == "row" or k == "col":
+            if (k == "row" or k == "col") or (k == "num" and nameKey == "robot0"):
                 continue
             else:
                 kopija[nameKey][k] = itemsIT[nameKey][k]
-    print("aaaaaaaaaaaaaaaa", kopija)
     pySlv = {"itemTypes":kopija}
     
     return pySlv
@@ -237,7 +235,8 @@ def dodajItemType():
     ime = itemSpecifications.pop("name")
     if ime == "":
         return
-    itemID += 1
+    if ime not in list(itemsIT.keys()):
+        itemID += 1
     catsTrue = []
     for cat in catIT.keys():
         if catIT[cat]:
@@ -248,6 +247,7 @@ def dodajItemType():
     rows = itemSpecifications["row"]
     cols = itemSpecifications["col"]
 
+    itemSpecifications["num"] = len(list(itemsIT.keys()))+2
     for i in range(len(rows)):
         matrixExamples[aktivenPrimer][rows[i]][cols[i]] = itemSpecifications["num"]
     itemsIT[ime] = itemSpecifications
@@ -268,7 +268,7 @@ def addRobot():
         return
     itemID += 1
     itemSpecifications["category"] = {"\"robot\"":True}
-    
+    itemSpecifications["zOrder"] = 10
     row = itemSpecifications["row"]
     col = itemSpecifications["col"]
 
@@ -285,12 +285,13 @@ def addRobot():
     typeOptions.add(ime)
     itemSpecifications = {"name":"", "num": itemID, "img":"", "zOrder":itemID, "category":catIT, "value":0, "nbStates":1,"row":0, "col":0} #nazaj na default
 
-def izbrisiItemType(ime):
+def deleteItemType(ime):
     global itemsIT, itemID, typeOptions, possibleCategories
     
     itemID -= 1
-    typeOptions.pop(ime)
+    typeOptions.remove(ime)
     itemsIT.pop(ime)
+    removeInicialisation(ime)
 
 def izpisiSubTaskData():
     global matrixExamples, initialisationExamples, mmm, nnn
@@ -513,7 +514,7 @@ catIT = {'robot': False, 'obstacle': False, 'transportable': False, 'button': Fa
 # nbStatesIT = 8 odvisen le od robota
 
 #globalna spremenljivka trenutnih nastavitev za nov item, po ustvarjenju itema se resetira na default vrednosti
-itemSpecifications = {"name":"", "num": itemID, "img":"", "zOrder":itemID, "category":{}, "value":0, "nbStates":8,"row":[0], "col":[0]}
+itemSpecifications = {"name":"", "num": 2, "img":"", "zOrder":2, "category":{}, "value":0, "nbStates":8,"row":[0], "col":[0]}
 
 #MREŽA
 #GLOBAL
