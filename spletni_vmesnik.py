@@ -144,11 +144,14 @@ def send_quickAlgo_css(filename):
 #---------------------------------------------------------------------------------------------------------
 
 @bottle.get("/") 
-def home_get():  
+def home_get():
+    print("SLIKEEEEEE")
     tile_names = skripta.preberi_vsa_imena_slik("tiles") 
     character_names = skripta.preberi_vsa_imena_slik("characters")
-    objects = skripta.preberi_vsa_imena_slik("objects")     
-    return bottle.template("index.html", tile_names=tile_names, character_names=character_names, objects=objects)
+    objects = skripta.preberi_vsa_imena_slik("objects")
+    itemTypes = generator.itemsIT
+    print("ITEM TYPES:", itemTypes)
+    return bottle.template("index.html", tile_names=tile_names, character_names=character_names, objects=objects, itemTypes=itemTypes)
 
 @bottle.post("/") 
 def home_add():
@@ -229,6 +232,7 @@ def home_add():
 @bottle.post("/a") 
 def dodajItem():
     #ITEMTYPE
+    print("DOAL ITEM TYPE")
     itemRow = bottle.request.forms.get("coordRow") 
     itemCol = bottle.request.forms.get("coordCol")
     itemCategory = bottle.request.forms.get("itemCategory") 
@@ -240,6 +244,7 @@ def dodajItem():
     generator.itemSpecifications["row"] = int(itemRow)
     generator.itemSpecifications["col"] = int(itemCol)
     generator.dodajItemType() #kliče naj se z gumbom ustvari
+    bottle.redirect("/")
     
 #----------------------------------------------------------------------------------------------------------
 

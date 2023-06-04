@@ -199,6 +199,7 @@
                       <label for="state" class="form-label">Izberi sliko ozadja</label>
                       <select id="backgroundImage" class="form-select" name="backgroundImage">
                         <option value="">Izberi...</option>
+                        
                         % for tile in tile_names:
                         <option>{{tile}}</option>
                         %end
@@ -297,6 +298,7 @@
                       <label for="imeB">Ime</label>
                       <input class="form-control" id="itemName" name="itemName" value="robot0"></input>
                     </div>
+                    
                     <div class="col-md-4">
                       <label for="state" class="form-label" >Izberi sliko</label>
                       <select id="polje" class="form-select" name="itemImage">
@@ -347,6 +349,18 @@
                       <button class="btn btn-secondary" type="button" hx-post="/a" hx-swap="none">dodaj na grid</button>
                     </div>
                   </div>
+
+                  <h4>Dodani Predmeti</h4>
+                  %for ime in itemTypes.keys():
+                  {{ime}}: img = {{itemTypes[ime]["img"]}}, category = {{list(itemTypes[ime]["category"].keys())[0]}}, 
+                  row={{itemTypes[ime]["row"]}}, col={{itemTypes[ime]["col"]}}<br>
+                  %end
+                  <button class="btn btn-secondary" type="button" hx-swap="none">Izbriši</button>
+                  <div class="row">
+                    <div class="col-3">
+                    </div>
+                  </div>
+
                 <div class="col-md-12">
                   <img id="slika2" src="" onerror="this.onerror=null; this.remove();"
                     style="max-width: 200px; max-height: 200px; object-fit: contain; margin-bottom: 1.5rem;">

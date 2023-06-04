@@ -53,7 +53,7 @@ function initTask(subTask) {
      ignoreInvalidMoves: false,
      border: 0.02,
      backgroundColour: "#000000",
-     backgroundTile: "trava.png",
+     backgroundTile: ".png",
      borderColour: "#000000",
      showLabels: false,
      cellSide: 60,
@@ -61,7 +61,7 @@ function initTask(subTask) {
      itemTypes: {
           robot0: {
                num: 2,
-               img: "cev.png",
+               img: "drevo.png",
                zOrder: 2,
                category: {
                     "robot": true
@@ -70,6 +70,17 @@ function initTask(subTask) {
                row: 1,
                col: 1,
                nbStates: 8
+          },
+          objekt: {
+               num: 4,
+               img: "cilj.png",
+               zOrder: 4,
+               category: {
+                    "coin": true
+               },
+               value: 0,
+               row: 3,
+               col: 1
           }
      }
 };
@@ -79,13 +90,20 @@ subTask.data = {
                tiles: [[1, 1, 1, 1, 1], 
  [1, 1, 1, 1, 1], 
  [1, 1, 1, 1, 1], 
- [1, 1, 1, 1, 1], 
+ [1, 4, 1, 1, 1], 
  [1, 1, 1, 1, 1]],
                initItems: [
                     {
                          row: 1,
                          col: 1,
                          type: "robot0",
+                         dir: 0,
+                         value: 0
+                    },
+                    {
+                         row: 3,
+                         col: 1,
+                         type: "objekt",
                          dir: 0,
                          value: 0
                     }
