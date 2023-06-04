@@ -150,7 +150,7 @@ def home_get():
     character_names = skripta.preberi_vsa_imena_slik("characters")
     objects = skripta.preberi_vsa_imena_slik("objects")
     itemTypes = generator.itemsIT
-    print("ITEM TYPES:", itemTypes)
+    #print("ITEM TYPES:", itemTypes)
     return bottle.template("index.html", tile_names=tile_names, character_names=character_names, objects=objects, itemTypes=itemTypes)
 
 @bottle.post("/") 
@@ -229,10 +229,10 @@ def home_add():
     generator.ustvariSkripto()
     bottle.redirect("/")
 
-@bottle.post("/a") 
+@bottle.post("/p") 
 def dodajItem():
     #ITEMTYPE
-    print("DOAL ITEM TYPE")
+    print("DODAL ITEM TYPE")
     itemRow = bottle.request.forms.get("coordRow") 
     itemCol = bottle.request.forms.get("coordCol")
     itemCategory = bottle.request.forms.get("itemCategory") 
@@ -244,6 +244,24 @@ def dodajItem():
     generator.itemSpecifications["row"] = int(itemRow)
     generator.itemSpecifications["col"] = int(itemCol)
     generator.dodajItemType() #kliče naj se z gumbom ustvari
+    bottle.redirect("/")
+
+@bottle.post("/r") 
+def dodajItem():
+    #ITEMTYPE
+    print("DODAJAM ROBOTA SERVER BRRRRRRR")
+    itemRow = bottle.request.forms.get("coordRowR") 
+    itemCol = bottle.request.forms.get("coordColR")
+    itemCategory = "robot"
+    itemImage = bottle.request.forms.get("itemImageR")
+    nbStates = bottle.request.forms.get("nbStatesR")
+    generator.itemSpecifications["name"] = "robot0"
+    generator.itemSpecifications["img"] = itemImage + ".png"
+    generator.catIT[itemCategory] = True
+    generator.itemSpecifications["row"] = int(itemRow)
+    generator.itemSpecifications["col"] = int(itemCol)
+    generator.itemSpecifications["nbStates"] = int(nbStates)
+    generator.addRobot() #kliče naj se z gumbom ustvari
     bottle.redirect("/")
     
 #----------------------------------------------------------------------------------------------------------

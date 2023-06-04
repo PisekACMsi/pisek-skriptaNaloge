@@ -60,27 +60,16 @@ function initTask(subTask) {
      numberOfRobots: 1,
      itemTypes: {
           robot0: {
-               num: 2,
-               img: "drevo.png",
-               zOrder: 2,
+               num: 5,
+               img: "gasilec.png",
+               zOrder: 5,
                category: {
                     "robot": true
                },
                value: 0,
-               row: 1,
-               col: 1,
-               nbStates: 8
-          },
-          objekt: {
-               num: 4,
-               img: "cilj.png",
-               zOrder: 4,
-               category: {
-                    "coin": true
-               },
-               value: 0,
+               nbStates: 1,
                row: 3,
-               col: 1
+               col: 2
           }
      }
 };
@@ -90,20 +79,13 @@ subTask.data = {
                tiles: [[1, 1, 1, 1, 1], 
  [1, 1, 1, 1, 1], 
  [1, 1, 1, 1, 1], 
- [1, 4, 1, 1, 1], 
+ [1, 1, 1, 1, 1], 
  [1, 1, 1, 1, 1]],
                initItems: [
                     {
-                         row: 1,
-                         col: 1,
-                         type: "robot0",
-                         dir: 0,
-                         value: 0
-                    },
-                    {
                          row: 3,
-                         col: 1,
-                         type: "objekt",
+                         col: 2,
+                         type: "robot0",
                          dir: 0,
                          value: 0
                     }

@@ -290,13 +290,60 @@
 
               <div class="card" style="margin-bottom: 2rem;">
                 <div class="card-body">
-                  <h3>Predmeti</h3>
+                  <h3>Objekti</h3>
 
+                  <h4>Robot</h4>
+                  <div class = "row" style = "margin-bottom: 2rem;">
+                    
+                    <div class="col-md-4">
+                      <label for="state" class="form-label" >Izberi sliko</label>
+                      <select id="polje" class="form-select" name="itemImageR">
+                        <option value="">Izberi...</option>
+                        % for charName in character_names:
+                          <option>{{charName}}</option>
+                        %end
+
+                      </select>
+                      <div class="invalid-feedback">
+                        Polje ne sme biti prazno
+                      </div>
+                    </div>
+                    <div class="col-3">
+                      <label for="email" class="form-label">Število smeri</label>
+                      <input type="text" class="form-control" id="polje-vrstica" name="nbStatesR" placeholder="vrstica" value = "1">
+                      <div class="invalid-feedback">
+                        Polje ne sme biti prazno!
+                      </div>
+                    </div>
+                  </div>
+
+                    <div class="row">
+                     
+                      <div class="col-3">
+                        <label for="email" class="form-label">Koordinata x</label>
+                        <input type="text" class="form-control" id="polje-vrstica" name="coordColR" placeholder="vrstica" value = "1">
+                        <div class="invalid-feedback">
+                          Polje ne sme biti prazno!
+                        </div>
+                      </div>
+
+                      <div class="col-3">
+                        <label for="email" class="form-label">Koordinata y</label>
+                        <input type="text" class="form-control" id="polje-vrstica" name="coordRowR" placeholder="vrstica" value = "1">
+                        <div class="invalid-feedback">
+                          Polje ne sme biti prazno!
+                        </div>
+                      </div>
+                      <div class="col-3 align-self-end">
+                        <button class="btn btn-secondary" type="button" hx-post="/r" hx-swap="none">dodaj na grid</button>
+                      </div>
+                    </div>
                   
+                  <h4>Predmet</h4>
                   <div class = "row" style = "margin-bottom: 2rem;">
                     <div class="col-md-3 mb-3">
                       <label for="imeB">Ime</label>
-                      <input class="form-control" id="itemName" name="itemName" value="robot0"></input>
+                      <input class="form-control" id="itemName" name="itemName" value="ovira"></input>
                     </div>
                     
                     <div class="col-md-4">
@@ -316,15 +363,16 @@
                       <label for="state" class="form-label">Izberi kategorijo</label>
                       <select id="itemCategory" class="form-select" name="itemCategory">
                         <option value="">Izberi...</option>
-                        <option selected="selected">robot</option>
                         <option>coin</option>
                         <option>transportable</option>
+                        <option selected="selected">obstacle</option>
                       </select>
                       <div class="invalid-feedback">
                         Polje ne sme biti prazno
                       </div>
                     </div>
                   </div>
+
                   <div class = "row" style = "margin-bottom: 2rem;">
                     <div class="row">
                       <div class="col-3">
@@ -342,11 +390,9 @@
                           Polje ne sme biti prazno!
                         </div>
                       </div>
-                    
-                     
-                    </div>
-                    <div class="col-3 align-self-end">
-                      <button class="btn btn-secondary" type="button" hx-post="/a" hx-swap="none">dodaj na grid</button>
+                      <div class="col-3 align-self-end">
+                        <button class="btn btn-secondary" type="button" hx-post="/p" hx-swap="none">dodaj na grid</button>
+                      </div>
                     </div>
                   </div>
 

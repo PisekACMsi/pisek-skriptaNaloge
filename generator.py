@@ -262,6 +262,30 @@ def dodajItemType():
     typeOptions.add(ime)
     itemSpecifications = {"name":"", "num": itemID, "img":"", "zOrder":itemID, "category":catIT, "value":0, "row":0, "col":0} #nazaj na default
 
+def addRobot():
+    global itemsIT, itemID, typeOptions, possibleCategories, itemSpecifications, matrixExamples, aktivenPrimer, catIT
+    ime = itemSpecifications.pop("name")
+    if ime == "":
+        return
+    itemID += 1
+    itemSpecifications["category"] = {"\"robot\"":True}
+    
+    row = itemSpecifications["row"]
+    col = itemSpecifications["col"]
+
+    itemsIT[ime] = itemSpecifications
+    
+    # inicializacija
+    removeInicialisation(ime)
+    addInicialisation({"row":row, "col":col, "type":ime, "dir": 0, "value": 0})
+    alreadyInitialized.add(ime)
+
+    catIT = {'robot': False, 'obstacle': False, 'transportable': False, 'button': False, 'coin': False, 'number': False}
+    
+    #saveItemTypes()
+    typeOptions.add(ime)
+    itemSpecifications = {"name":"", "num": itemID, "img":"", "zOrder":itemID, "category":catIT, "value":0, "nbStates":1,"row":0, "col":0} #nazaj na default
+
 def izbrisiItemType(ime):
     global itemsIT, itemID, typeOptions, possibleCategories
     
@@ -292,6 +316,12 @@ def addMatrix(mmm, nnn):
 def addInicialisation(initSlv):
     global initialisationExamples, aktivenPrimer
     initialisationExamples[aktivenPrimer].append(initSlv)
+
+def removeInicialisation(name):
+    for i in range(len(initialisationExamples[aktivenPrimer])):
+        if initialisationExamples[aktivenPrimer][i]["type"] == name:
+            initialisationExamples[aktivenPrimer] = initialisationExamples[aktivenPrimer][:i] + initialisationExamples[aktivenPrimer][i+1:]
+
 
 def addExample():
     global initialisationExamples, aktivenPrimer, mmm, nnn
@@ -484,7 +514,7 @@ catIT = {'robot': False, 'obstacle': False, 'transportable': False, 'button': Fa
 # nbStatesIT = 8 odvisen le od robota
 
 #globalna spremenljivka trenutnih nastavitev za nov item, po ustvarjenju itema se resetira na default vrednosti
-itemSpecifications = {"name":"", "num": itemID, "img":"", "zOrder":itemID, "category":{}, "value":0, "row":0, "col":0}
+itemSpecifications = {"name":"", "num": itemID, "img":"", "zOrder":itemID, "category":{}, "value":0, "nbStates":8,"row":0, "col":0}
 
 #MREŽA
 #GLOBAL
