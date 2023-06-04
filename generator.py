@@ -218,8 +218,18 @@ def izpisiRandomBulsit2():
 
 def izpisiItemTypes():
     global itemsIT
-    pySlv = {"itemTypes":{}}
-    pySlv["itemTypes"] = itemsIT
+    kopija = {}
+    for nameKey in itemsIT.keys():
+        kopija[nameKey] = {}
+        for k in itemsIT[nameKey].keys():
+            print("kkkk", k)
+            if k == "row" or k == "col":
+                continue
+            else:
+                kopija[nameKey][k] = itemsIT[nameKey][k]
+    print("aaaaaaaaaaaaaaaa", kopija)
+    pySlv = {"itemTypes":kopija}
+    
     return pySlv
 
 def dodajItemType():
@@ -229,38 +239,27 @@ def dodajItemType():
         return
     itemID += 1
     catsTrue = []
-    aliJeRobot = False
     for cat in catIT.keys():
         if catIT[cat]:
-            if cat == "robot":
-                aliJeRobot = True
             catsTrue.append({"\"%s\""%cat:True})
             possibleCategories.add(cat)
     itemSpecifications["category"] = catsTrue[0]
     
-    row = itemSpecifications["row"]
-    col = itemSpecifications["col"]
-    
-    #getItemTypes()
-    if not aliJeRobot:
-        matrixExamples[aktivenPrimer][row][col] = itemSpecifications["num"]
-    else:
-        itemSpecifications["nbStates"] = 8
+    rows = itemSpecifications["row"]
+    cols = itemSpecifications["col"]
 
+    for i in range(len(rows)):
+        matrixExamples[aktivenPrimer][rows[i]][cols[i]] = itemSpecifications["num"]
     itemsIT[ime] = itemSpecifications
-    # inicializacija
-    if aliJeRobot:
-        if ime not in list(alreadyInitialized):
-            addInicialisation({"row":row, "col":col, "type":ime, "dir": 0, "value": 0})
-            alreadyInitialized.add(ime)
-
+    itemsIT[ime]
+    itemsIT[ime]
     catIT = {'robot': False, 'obstacle': False, 'transportable': False, 'button': False, 'coin': False, 'number': False}
     
     #saveItemTypes()
 
 
     typeOptions.add(ime)
-    itemSpecifications = {"name":"", "num": itemID, "img":"", "zOrder":itemID, "category":catIT, "value":0, "row":0, "col":0} #nazaj na default
+    itemSpecifications = {"name":"", "num": itemID, "img":"", "zOrder":itemID, "category":catIT, "value":0, "row":[0], "col":[0]} #nazaj na default
 
 def addRobot():
     global itemsIT, itemID, typeOptions, possibleCategories, itemSpecifications, matrixExamples, aktivenPrimer, catIT
@@ -514,7 +513,7 @@ catIT = {'robot': False, 'obstacle': False, 'transportable': False, 'button': Fa
 # nbStatesIT = 8 odvisen le od robota
 
 #globalna spremenljivka trenutnih nastavitev za nov item, po ustvarjenju itema se resetira na default vrednosti
-itemSpecifications = {"name":"", "num": itemID, "img":"", "zOrder":itemID, "category":{}, "value":0, "nbStates":8,"row":0, "col":0}
+itemSpecifications = {"name":"", "num": itemID, "img":"", "zOrder":itemID, "category":{}, "value":0, "nbStates":8,"row":[0], "col":[0]}
 
 #MREŽA
 #GLOBAL

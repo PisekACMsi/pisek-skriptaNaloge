@@ -47,7 +47,7 @@ function initTask(subTask) {
      checkEndCondition: (context, lastTurn) => { 
 	robotEndConditions.checkCombiner(context, lastTurn, [
 		(context, lastTurn) => { robotEndConditions.checkItemExistence(context, lastTurn, {category: "coin"}, {}, exist=false) },
-		(context, lastTurn) => { robotEndConditions.checkItemCoincidence(context, lastTurn, {category: "coin"}, {category: "coin"}, [], {}, {}) }
+		//
 	])
 },
      ignoreInvalidMoves: false,
@@ -59,32 +59,39 @@ function initTask(subTask) {
      cellSide: 60,
      numberOfRobots: 1,
      itemTypes: {
+          ovira: {
+               num: 9,
+               img: "banana.png",
+               zOrder: 9,
+               category: {
+                    "coin": true
+               },
+               value: 0
+          },
           robot0: {
-               num: 5,
-               img: "gasilec.png",
-               zOrder: 5,
+               num: 4,
+               img: "cebela.png",
+               zOrder: 4,
                category: {
                     "robot": true
                },
                value: 0,
-               nbStates: 1,
-               row: 3,
-               col: 2
+               nbStates: 9
           }
      }
 };
 subTask.data = {
      easy: [
           {
-               tiles: [[1, 1, 1, 1, 1], 
- [1, 1, 1, 1, 1], 
- [1, 1, 1, 1, 1], 
- [1, 1, 1, 1, 1], 
+               tiles: [[1, 9, 9, 9, 1], 
+ [1, 7, 7, 7, 1], 
+ [1, 5, 1, 3, 1], 
+ [1, 5, 1, 1, 3], 
  [1, 1, 1, 1, 1]],
                initItems: [
                     {
-                         row: 3,
-                         col: 2,
+                         row: 0,
+                         col: 0,
                          type: "robot0",
                          dir: 0,
                          value: 0

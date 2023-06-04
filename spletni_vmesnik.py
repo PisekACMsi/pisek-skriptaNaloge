@@ -241,8 +241,8 @@ def dodajItem():
     generator.itemSpecifications["name"] = itemName
     generator.itemSpecifications["img"] = itemImage + ".png"
     generator.catIT[itemCategory] = True
-    generator.itemSpecifications["row"] = int(itemRow)
-    generator.itemSpecifications["col"] = int(itemCol)
+    generator.itemSpecifications["row"] = [int(i) for i in itemRow.split(",")]
+    generator.itemSpecifications["col"] = [int(i) for i in itemCol.split(",")]
     generator.dodajItemType() #kliče naj se z gumbom ustvari
     bottle.redirect("/")
 
