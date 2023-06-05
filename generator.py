@@ -87,22 +87,28 @@ def loadVariables():
     itemsIT = pyVar["itemsIT"]
     matrixExamples = pyVar["matrixExamples"].split("&&&")
     initialisationExamples = pyVar["initialisationExamples"]
+
 def izpisiLanguageStrings():
-    global languageStrings
+    global languageStringsLS
     pySlv = {"languageStrings":{"sl":{}}}
-    pySlv["languageStrings"]["sl"] = languageStrings
+    pySlv["languageStrings"]["sl"] = languageStringsLS
     
     # jsonStr = json.dumps(pySlv, indent = 5, ensure_ascii=False)
     # jsString = re.sub("\"([^\"]+)\":", r"\1:", jsonStr).replace(r'\"', "")
     # return jsString[1:-1]
     return pySlv
 
-def dodajSlovar(slv1, slv2):
-    f1 = flatdict.FlatDict(slv1)
-    f2 = flatdict.FlatDict(slv2)
+def dodajSlovar(id, text):
+    global languageStringsValues, languageStringsKeys, languageStringsLS
+    languageStringsValues[id] = text
+    slv1  =languageStringsLS.copy()
+    f1 = flatdict.FlatDict(slv1, delimiter=".")
+    pot = languageStringsKeys[id]
+    f2 = flatdict.FlatDict({pot:text})
 
     f1[f2.keys()[0]] = f2.values()[0]
-    return f1.as_dict()
+    languageStringsLS = f1.as_dict()
+    print(languageStringsLS)
 
 def izpisiHideControls(restart = False, saveOrLoad = False, loadBestAnswer = False, speedSlider = False, backToFirst = False, nextStep = False, goToEnd = False):
     pySlv = {"hideControls":{}}
@@ -352,7 +358,7 @@ def changeMatrixSize(nrows, ncols):
         mat2[:rr, ::] = mat[::, :ncols]
 
 def ustvariSkripto():
-    print("Pršlo je do skripte")
+    print("USTVARJAM SKRIPTO")
     ulmSlv = {}
     ulmSlv.update(izpisiLanguageStrings())
     ulmSlv.update(izpisiHideControls())
@@ -437,14 +443,23 @@ def loadVariables():
     matrixExamples = pyVar["matrixExamples"].split("&&&")
     initialisationExamples = pyVar["initialisationExamples"]
 
+fajlLS = open('imenaDelckov.txt', "r", encoding = ("utf-8"))
+# returns JSON object as 
+# a dictionary
+languageStringsSlv = json.load(fajlLS)["sl"]
+# # Closing file
+fajlLS.close()
+languageStringsSlvFlat  = flatdict.FlatDict(languageStringsSlv, delimiter=".")
+languageStringsKeys = [key for key in languageStringsSlvFlat.keys()]
+
+languageStringsKeyWord = [key.split(".")[-1] for key in languageStringsSlvFlat.keys()]
+languageStringsValues = languageStringsSlvFlat.values()
 
 #TE SPREMENLJIVKE SE SPREMINJAJO DIREKTNO S SPLETNE STRANI   KUL?
 #Globalna spremenljivka LANGUAGE STRINGS - shranjuje vse language stringe
-languageStrings = {}
-#primer parametra
-parLS = {"categories": {"actions": "Gibanje"}} #dobljeni parameter s spletne strani, možne parametre najdeš v templateText.txt - to naj bo dropdown z opcijami za obklukat
+languageStringsLS = {}
 
-languageStrings = dodajSlovar(languageStrings, parLS) # za posodobitev kliči to funkcijo in za drugi paramter uporabi kar pride iz spletne strani
+# languageStrings = dodajSlovar(idLS, txtLS) # za posodobitev kliči to funkcijo in za drugi paramter uporabi kar pride iz spletne strani
 
 # RANDOM BULŠIT 1
 randomBull1 = {"introMaxHeight": "33%",

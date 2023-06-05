@@ -122,3 +122,8 @@ function izbrisi_zadnji_objekt() {
 function osvezi(id) {
   document.getElementById(id).contentWindow.location.reload();
 }
+
+//osveži iteme
+function refreshDiv(divId) {
+  $('#' + divId).load('http://localhost/index.html #' + divId);
+}

@@ -175,6 +175,38 @@
                       </div>
                     </div>
                   </div>
+                  <div class="row">
+                    <div class="col-md-12">
+                      Imena delčkov
+                      <select class="form-select">
+                        %for i in range(len(languageStrings[1])):
+                        <option>{{i}}. {{languageStrings[0][i]}} : {{languageStrings[1][i]}}</option>
+                        %end
+                      </select>
+
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-2">
+                      <label for="email" class="form-label">Id teksta</label>
+                    </div>
+                    <div class="col-3">
+                      <input type="text" class="form-control" id="polje-vrstica" name="languageStringId" placeholder="vrstica" value = "0">
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-2">
+                      <label for="email" class="form-label">Tekst</label>
+                    </div>
+                    <div class="col-6">
+                      <input type="text" class="form-control" id="polje-vrstica" name="languageString" placeholder="vrstica">
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-3 align-self-end">
+                      <button class="btn btn-secondary" type="button" hx-post="/l" hx-swap="none">Posodobi text</button>
+                    </div>
+                  </div>
                 </div>
               </div>
               
@@ -396,16 +428,18 @@
                         </div>
                       </div>
                       <div class="col-3 align-self-end">
-                        <button class="btn btn-secondary" type="button" hx-post="/p" hx-swap="none">dodaj na grid</button>
+                        <button class="btn btn-secondary" type="button" hx-post="/p" hx-swap="none" onclick="refreshDiv('scene')">dodaj na grid</button>
                       </div>
                     </div>
                   </div>
-
                   <h4>Dodani Predmeti</h4>
-                  %for ime in itemTypes.keys():
-                  {{ime}}: img = {{itemTypes[ime]["img"]}}, category = {{list(itemTypes[ime]["category"].keys())[0]}}, 
-                  row={{itemTypes[ime]["row"]}}, col={{itemTypes[ime]["col"]}}<br>
-                  %end
+                  <div id = "scene">
+                    
+                    %for ime in itemTypes.keys():
+                    {{ime}}: img = {{itemTypes[ime]["img"]}}, category = {{list(itemTypes[ime]["category"].keys())[0]}}, 
+                    row={{itemTypes[ime]["row"]}}, col={{itemTypes[ime]["col"]}}<br>
+                    %end
+                  </div>
                   <div class="row">
                     <div class="col-3">
                       <h6>Ime za izbris</h6>
@@ -415,7 +449,7 @@
                       </div>
                     </div>
                     <div class="col-3 align-self-end">
-                      <button class="btn btn-secondary" type="button" hx-post="/d" hx-swap="none">Izbriši</button>
+                      <button class="btn btn-secondary" type="button" hx-post="/d" hx-swap="none" onclick="osvezi('scene')">Izbriši</button>
                     </div>
                   </div>
 
@@ -425,7 +459,7 @@
                     style="max-width: 200px; max-height: 200px; object-fit: contain; margin-bottom: 1.5rem;">
                 </div>
 
-              <button class="w-100 btn btn-primary btn-lg" style="margin-bottom: 100px;" hx-post="/" hx-swap="none" onclick="osvezi('pisek-iframe')">Generiraj
+              <button class="w-100 btn btn-primary btn-lg" style="margin-bottom: 100px;" hx-post="/" hx-swap="none">Generiraj
                 nalogo
               </button>
             </form>

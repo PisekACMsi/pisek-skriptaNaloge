@@ -1,6 +1,8 @@
 import bottle 
 import generator
 import skripta
+import json
+import flatdict
 
 """Bottle poskrbi, da stran laufa in da so vse stvari povezane med sabo."""
 
@@ -150,8 +152,10 @@ def home_get():
     character_names = skripta.preberi_vsa_imena_slik("characters")
     objects = skripta.preberi_vsa_imena_slik("objects")
     itemTypes = generator.itemsIT
-    #print("ITEM TYPES:", itemTypes)
-    return bottle.template("index.html", tile_names=tile_names, character_names=character_names, objects=objects, itemTypes=itemTypes)
+    
+    languageStringsKeys = generator.languageStringsKeyWord
+    languageStringsValues = generator.languageStringsValues
+    return bottle.template("index.html", tile_names=tile_names, character_names=character_names, objects=objects, itemTypes=itemTypes, languageStrings = [languageStringsKeys, languageStringsValues])
 
 @bottle.post("/") 
 def home_add():
@@ -269,6 +273,14 @@ def deleteItem():
     deleteItem = bottle.request.forms.get("delName")
     generator.deleteItemType(deleteItem)
     print("IZBRISAL ITEM TYPE")
+    bottle.redirect("/")
+
+@bottle.post("/l") 
+def deleteItem():
+    lsId = int(bottle.request.forms.get("languageStringId"))
+    ls = bottle.request.forms.get("languageString")
+    generator.dodajSlovar(lsId, ls)
+    print("POSODOBIL LANGUAGE STRINGS")
     bottle.redirect("/")
     
 #----------------------------------------------------------------------------------------------------------

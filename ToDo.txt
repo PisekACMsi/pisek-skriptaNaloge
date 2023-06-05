@@ -22,8 +22,10 @@ Tasks:
 
 ✅  Update matrix ko dodaš nov itemtype
 
-☐  mozno naj bo dodati le enega robota
+✅  mozno naj bo dodati le enega robota
 
-☐  
+☐  Language strings go brrrrrrrrr
+
+☐ Refreshej minipage, dodani predmeti
 
 ------------------------------------------------------------------------------

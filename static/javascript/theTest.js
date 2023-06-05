@@ -2,8 +2,9 @@ function initTask(subTask) {
  subTask.gridInfos = {
      languageStrings: {
           sl: {
-               categories: {
-                    actions: "Gibanje"
+               startingBlockName: "bbbb",
+               label: {
+                    move: "pojsi tjaa %1 %2"
                }
           }
      },
@@ -58,54 +59,17 @@ function initTask(subTask) {
      showLabels: false,
      cellSide: 60,
      numberOfRobots: 1,
-     itemTypes: {
-          robot0: {
-               img: "avto.png",
-               zOrder: 10,
-               category: {
-                    "robot": true
-               },
-               value: 0,
-               nbStates: 9
-          },
-          ovira: {
-               num: 3,
-               img: "drevo.png",
-               zOrder: 3,
-               category: {
-                    "obstacle": true
-               },
-               value: 0,
-               nbStates: 1
-          },
-          ovi: {
-               num: 4,
-               img: "drevo.png",
-               zOrder: 5,
-               category: {
-                    "obstacle": true
-               },
-               value: 0
-          }
-     }
+     itemTypes: {}
 };
 subTask.data = {
      easy: [
           {
-               tiles: [[4, 1, 1, 1, 1], 
+               tiles: [[1, 1, 1, 1, 1], 
  [1, 1, 1, 1, 1], 
  [1, 1, 1, 1, 1], 
  [1, 1, 1, 1, 1], 
  [1, 1, 1, 1, 1]],
-               initItems: [
-                    {
-                         row: 1,
-                         col: 1,
-                         type: "robot0",
-                         dir: 0,
-                         value: 0
-                    }
-               ]
+               initItems: []
           }
      ]
 };
