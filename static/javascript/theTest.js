@@ -1,12 +1,7 @@
 function initTask(subTask) {
  subTask.gridInfos = {
      languageStrings: {
-          sl: {
-               startingBlockName: "bbbb",
-               label: {
-                    move: "pojsi tjaa %1 %2"
-               }
-          }
+          sl: {}
      },
      hideControls: {
           restart: false,
@@ -26,13 +21,11 @@ function initTask(subTask) {
      },
      actionDelay: 400,
      blocklyColourTheme: "bwinf",
-     maxInstructions: 666,
+     maxInstructions: 0,
      includeBlocks: {
           groupByCategory: true,
           generatedBlocks: {
-               robot: [
-                    "move"
-               ]
+               robot: []
           },
           standardBlocks: {
                includeAll: false,
@@ -53,10 +46,10 @@ function initTask(subTask) {
 },
      ignoreInvalidMoves: false,
      border: 0.02,
-     backgroundColour: "#000000",
-     backgroundTile: "crna.png",
-     borderColour: "#000000",
-     showLabels: false,
+     backgroundColour: "white",
+     backgroundTile: "",
+     borderColour: "black",
+     showLabels: true,
      cellSide: 60,
      numberOfRobots: 1,
      itemTypes: {}

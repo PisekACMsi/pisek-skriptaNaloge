@@ -127,3 +127,18 @@ function osvezi(id) {
 function refreshDiv(divId) {
   $('#' + divId).load('http://localhost/index.html #' + divId);
 }
+
+function refreshScene() {
+          // Perform your logic to generate the updated content
+  $.ajax({
+  url: '/updateItemTypes',  // Replace with the appropriate server route
+  type: 'POST',
+  data: {/* Data to update itemTypes */},
+  success: function(response) {
+      // Update the content of the 'scene' div with the new HTML response
+      $('#scene').html(response);
+  },
+
+// Update the content of the 'scene' div
+})
+  }

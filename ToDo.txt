@@ -8,7 +8,7 @@ Tasks:
 ✅  Povezat globalne spremenjivke v generatorju
     ✅ Vsaj eno funkcijo
 
-☐  Funkcija, ki izbriše language strings
+☐  Funkcija, ki ponastavi language strings
 
 ☐  RandomBul1 naj bodo procenti najprej int potem pa string
 
@@ -24,8 +24,12 @@ Tasks:
 
 ✅  mozno naj bo dodati le enega robota
 
-☐  Language strings go brrrrrrrrr
+✅  Language strings go brrrrrrrrr
 
 ☐ Refreshej minipage, dodani predmeti
+
+☐ Možnost spremembe velikosti mreže
+
+☐ Pri izbrisu itema, pohendlej neveljavne vnose
 
 ------------------------------------------------------------------------------

@@ -3,7 +3,7 @@ import generator
 import skripta
 import json
 import flatdict
-
+test = 0
 """Bottle poskrbi, da stran laufa in da so vse stvari povezane med sabo."""
 
 #css 
@@ -147,7 +147,8 @@ def send_quickAlgo_css(filename):
 
 @bottle.get("/") 
 def home_get():
-    print("SLIKEEEEEE")
+    global test
+    print("POSODOBIL HTML BI PU PIP")
     tile_names = skripta.preberi_vsa_imena_slik("tiles") 
     character_names = skripta.preberi_vsa_imena_slik("characters")
     objects = skripta.preberi_vsa_imena_slik("objects")
@@ -155,11 +156,12 @@ def home_get():
     
     languageStringsKeys = generator.languageStringsKeyWord
     languageStringsValues = generator.languageStringsValues
-    return bottle.template("index.html", tile_names=tile_names, character_names=character_names, objects=objects, itemTypes=itemTypes, languageStrings = [languageStringsKeys, languageStringsValues])
+    test += 1
+    return bottle.template("index.html", tile_names=tile_names, character_names=character_names, objects=objects, itemTypes=itemTypes, languageStrings = [languageStringsKeys, languageStringsValues], test=test)
 
 @bottle.post("/") 
 def home_add():
-    print("AAAAAAAAAAAAAAAAAAA")
+    print("USTVARJAM SKRIPTO")
     # Za funkcijo includeBlocks()
     #-------------------------------------------------------------------
 
@@ -236,11 +238,12 @@ def home_add():
 @bottle.post("/p") 
 def dodajItem():
     #ITEMTYPE
-    print("DODAL ITEM TYPE")
+    print("DODAL ITEM TYPE, DELAM KOT ZAMORC")
     itemRow = bottle.request.forms.get("coordRow") 
     itemCol = bottle.request.forms.get("coordCol")
     itemCategory = bottle.request.forms.get("itemCategory") 
     itemImage = bottle.request.forms.get("itemImage") 
+    print("IMAGE", itemImage)
     itemName = bottle.request.forms.get("itemName")
     generator.itemSpecifications["name"] = itemName
     generator.itemSpecifications["img"] = itemImage + ".png"
@@ -270,22 +273,37 @@ def dodajItem():
 
 @bottle.post("/d") 
 def deleteItem():
+    print("BRIŠEM ITEM GRRRRRRR")
     deleteItem = bottle.request.forms.get("delName")
     generator.deleteItemType(deleteItem)
     print("IZBRISAL ITEM TYPE")
     bottle.redirect("/")
 
 @bottle.post("/l") 
-def deleteItem():
+def deleteLanguage():
+    print("BRIŠEM LANGUAGE DONDE ESTA BLIBLIOTEKA")
     lsId = int(bottle.request.forms.get("languageStringId"))
     ls = bottle.request.forms.get("languageString")
     generator.dodajSlovar(lsId, ls)
     print("POSODOBIL LANGUAGE STRINGS")
     bottle.redirect("/")
+
+@bottle.post('/updateItemTypes')
+def update_item_types():
+    itemTypes = generator.itemsIT
+    returnHtml = ""
+    for ime in itemTypes.keys():
+        returnHtml += "ime: {}, img = {}, category = {}, row={}, col={} <br>".format(ime, itemTypes[ime]["img"], list(itemTypes[ime]["category"].keys())[0], itemTypes[ime]["row"], itemTypes[ime]["col"])
+    # Generate the updated HTML content using a Bottle template
+    
+    # Return the updated HTML as a response
+    return returnHtml
+
     
 #----------------------------------------------------------------------------------------------------------
 
 def start_bottle():
+    print("ZAGANJAM BOTTLE")
     generator.ustvariSkripto()
     #Zaženemo bottle
     bottle.run(host='localhost', port=8081, debug=True)

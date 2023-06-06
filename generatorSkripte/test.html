@@ -1,0 +1,4 @@
+%for ime in itemTypes.keys():
+{{ime}}: img = {{itemTypes[ime]["img"]}}, category = {{list(itemTypes[ime]["category"].keys())[0]}}, 
+row={{itemTypes[ime]["row"]}}, col={{itemTypes[ime]["col"]}}<br>
+%end

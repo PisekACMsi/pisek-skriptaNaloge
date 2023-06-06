@@ -428,18 +428,15 @@
                         </div>
                       </div>
                       <div class="col-3 align-self-end">
-                        <button class="btn btn-secondary" type="button" hx-post="/p" hx-swap="none" onclick="refreshDiv('scene')">dodaj na grid</button>
+                        <button class="btn btn-secondary" type="button" hx-swap="none"  hx-post="/p" onclick="refreshScene()">dodaj na grid</button>
                       </div>
                     </div>
                   </div>
                   <h4>Dodani Predmeti</h4>
-                  <div id = "scene">
-                    
-                    %for ime in itemTypes.keys():
-                    {{ime}}: img = {{itemTypes[ime]["img"]}}, category = {{list(itemTypes[ime]["category"].keys())[0]}}, 
-                    row={{itemTypes[ime]["row"]}}, col={{itemTypes[ime]["col"]}}<br>
-                    %end
+                  <div src="views/index.html" id = "scene">
+                    Ni dodanih itemov
                   </div>
+                  
                   <div class="row">
                     <div class="col-3">
                       <h6>Ime za izbris</h6>
@@ -459,7 +456,7 @@
                     style="max-width: 200px; max-height: 200px; object-fit: contain; margin-bottom: 1.5rem;">
                 </div>
 
-              <button class="w-100 btn btn-primary btn-lg" style="margin-bottom: 100px;" hx-post="/" hx-swap="none">Generiraj
+              <button class="w-100 btn btn-primary btn-lg" style="margin-bottom: 100px;" onclick="osvezi('pisek-iframe')" hx-post="/" hx-swap="none">Generiraj
                 nalogo
               </button>
             </form>
