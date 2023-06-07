@@ -164,6 +164,21 @@ def home_add():
     print("USTVARJAM SKRIPTO")
     # Za funkcijo includeBlocks()
     #-------------------------------------------------------------------
+    htmlFajl = open("./views/nalogaTemplate.txt", "r", encoding="utf-8")
+    htmlString = htmlFajl.read()
+    htmlFajl.close()
+
+    titleHtml = bottle.request.forms.get('exerciseTitle')
+    
+    text1Html = bottle.request.forms.get('exerciseText')
+    print("TITLE", text1Html)
+    text2Html = bottle.request.forms.get('exerciseText2')
+
+    htmlString = htmlString.replace("$#$Naslov$#$", titleHtml).replace("$#$Text1$#$", text1Html).replace("$#$Text2$#$", text2Html)
+    htmlFajlOut = open("./views/naloga.html", "w", encoding = "utf-8")
+    htmlFajlOut.write(htmlString)
+    htmlFajlOut.close()
+
 
     bd = bottle.request.forms.getall('blocksDropdown')
     rbd = bottle.request.forms.getall('robotBlocksDropdown')
@@ -265,8 +280,8 @@ def dodajItem():
     generator.itemSpecifications["name"] = "robot0"
     generator.itemSpecifications["img"] = itemImage + ".png"
     generator.catIT[itemCategory] = True
-    generator.itemSpecifications["row"] = int(itemRow)
-    generator.itemSpecifications["col"] = int(itemCol)
+    generator.itemSpecifications["row"] = [int(itemRow)]
+    generator.itemSpecifications["col"] = [int(itemCol)]
     generator.itemSpecifications["nbStates"] = int(nbStates)
     generator.addRobot() #kliče naj se z gumbom ustvari
     bottle.redirect("/")

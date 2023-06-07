@@ -59,18 +59,18 @@
     
 	<body onresize="task.displayedSubTask.updateScale()">
 		<div id="task">
-            <h1>aaaaa</h1>  <!-- Naslov naloge -->
+            <h1>$#$Naslov$#$</h1>  <!-- Naslov naloge -->
 			<div id="tabsContainer"></div>
 			<div id="taskContent">
 				<div id="taskIntro"> <!-- Besedilo naloge -->
 					<p>
-						dsddsfdgdfgs
+						$#$Text1$#$
 					</p>
 					
 					
 					<div>
 						<p>
-							lÄhgfEWDSRGFVREDWSAG
+							$#$Text2$#$
 						</p>
 					</div>
 				

@@ -21,11 +21,13 @@ function initTask(subTask) {
      },
      actionDelay: 400,
      blocklyColourTheme: "bwinf",
-     maxInstructions: 0,
+     maxInstructions: 666,
      includeBlocks: {
           groupByCategory: true,
           generatedBlocks: {
-               robot: []
+               robot: [
+                    "move"
+               ]
           },
           standardBlocks: {
                includeAll: false,
@@ -46,10 +48,10 @@ function initTask(subTask) {
 },
      ignoreInvalidMoves: false,
      border: 0.02,
-     backgroundColour: "white",
-     backgroundTile: "",
-     borderColour: "black",
-     showLabels: true,
+     backgroundColour: "#000000",
+     backgroundTile: "asfalt.png",
+     borderColour: "#000000",
+     showLabels: false,
      cellSide: 60,
      numberOfRobots: 1,
      itemTypes: {}

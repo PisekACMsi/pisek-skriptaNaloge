@@ -254,11 +254,11 @@ def dodajItemType():
     cols = itemSpecifications["col"]
 
     itemSpecifications["num"] = len(list(itemsIT.keys()))+2
-    for i in range(len(rows)):
-        matrixExamples[aktivenPrimer][rows[i]][cols[i]] = itemSpecifications["num"]
+
     itemsIT[ime] = itemSpecifications
     itemsIT[ime]
     itemsIT[ime]
+    updateMatrix()
     catIT = {'robot': False, 'obstacle': False, 'transportable': False, 'button': False, 'coin': False, 'number': False}
     
     #saveItemTypes()
@@ -266,6 +266,18 @@ def dodajItemType():
 
     typeOptions.add(ime)
     itemSpecifications = {"name":"", "num": itemID, "img":"", "zOrder":itemID, "category":catIT, "value":0, "row":[0], "col":[0]} #nazaj na default
+
+def updateMatrix():
+    global itemsIT, matrixExamples, aktivenPrimer
+    for key in itemsIT.keys():
+        item = itemsIT[key]
+        rows = item["row"]
+        cols = item["col"]
+        sizey = len(matrixExamples[aktivenPrimer])
+        sizex = len(matrixExamples[aktivenPrimer][0])
+        for i in range(len(rows)):
+            if rows[i] < sizex and cols[i] < sizey:
+                matrixExamples[aktivenPrimer][cols[i]][rows[i]] = item["num"]
 
 def addRobot():
     global itemsIT, itemID, typeOptions, possibleCategories, itemSpecifications, matrixExamples, aktivenPrimer, catIT
@@ -275,8 +287,8 @@ def addRobot():
     itemID += 1
     itemSpecifications["category"] = {"\"robot\"":True}
     itemSpecifications["zOrder"] = 10
-    row = itemSpecifications["row"]
-    col = itemSpecifications["col"]
+    row = itemSpecifications["row"][0]
+    col = itemSpecifications["col"][0]
 
     itemsIT[ime] = itemSpecifications
     
@@ -289,24 +301,26 @@ def addRobot():
     
     #saveItemTypes()
     typeOptions.add(ime)
-    itemSpecifications = {"name":"", "num": itemID, "img":"", "zOrder":itemID, "category":catIT, "value":0, "nbStates":1,"row":0, "col":0} #nazaj na default
+    itemSpecifications = {"name":"", "num": itemID, "img":"", "zOrder":itemID, "category":catIT, "value":0, "nbStates":1,"row":[0], "col":[0]} #nazaj na default
 
 def deleteItemType(ime):
     global itemsIT, itemID, typeOptions, possibleCategories
     
     itemID -= 1
-    typeOptions.remove(ime)
-    itemsIT.pop(ime)
+    if ime in list(itemsIT.keys()):
+        typeOptions.remove(ime)
+        itemsIT.pop(ime)
     removeInicialisation(ime)
 
 def izpisiSubTaskData():
     global matrixExamples, initialisationExamples, mmm, nnn
+    changeMatrixSize()
     pySlv = {}
     pyLst = []
-    print("Aktivni", aktivenPrimer)
     for i in range(len(initialisationExamples)):
         pyLst.append({"tiles":izpisiMatriko(matrixExamples[i]), "initItems":initialisationExamples[i]})
 
+    
     pySlv["easy"] = pyLst
     return pySlv
     
@@ -340,22 +354,27 @@ def changeMatrixValues(row, col, value):
     global matrixExamples, aktivenPrimer
     matrixExamples[aktivenPrimer][row][col] = value
 
-def changeMatrixSize(nrows, ncols):
-    global matrixExamples, aktivenPrimer
+def changeMatrixSize():
+    global matrixExamples, aktivenPrimer, nnn, mmm
     mat = matrixExamples[aktivenPrimer]
     rr = len(mat)
     cc = len(mat[0])
     # upam da se mat obnaša klokr referenca ne kokr solo matrika
-    mat2 = np.ones((nrows, ncols))
-    if (rr > nrows and cc > ncols):
-        mat = mat[:nrows, :ncols]
-    elif (rr < nrows and cc < ncols):
+    mat = np.array(mat)
+    mat2 = np.ones((nnn, mmm), dtype=np.int8)
+    if (rr > nnn and cc > mmm):
+        mat = mat[:nnn, :mmm]
+    elif (rr < nnn and cc < mmm):
         mat2[:rr, :cc] = mat
         mat = mat2
-    elif (rr > nrows and cc < ncols):
-        mat2[::, :cc] = mat[:nrows, ::]
-    elif (rr < nrows and cc > ncols):
-        mat2[:rr, ::] = mat[::, :ncols]
+    elif (rr > nnn and cc < mmm):
+        mat2[::, :cc] = mat[:nnn, ::]
+        mat = mat2
+    elif (rr < nnn and cc > mmm):
+        mat2[:rr, ::] = mat[::, :mmm]
+        mat = mat2
+    matrixExamples[aktivenPrimer] = [[mat[j][i] for i in range(mmm)] for j in range(nnn)]
+    updateMatrix()
 
 def ustvariSkripto():
     print("USTVARJAM SKRIPTO")

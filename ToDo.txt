@@ -28,8 +28,8 @@ Tasks:
 
 ☐ Refreshej minipage, dodani predmeti
 
-☐ Možnost spremembe velikosti mreže
+✅ Možnost spremembe velikosti mreže
 
-☐ Pri izbrisu itema, pohendlej neveljavne vnose
+✅ Pri izbrisu itema, pohendlej neveljavne vnose
 
 ------------------------------------------------------------------------------
