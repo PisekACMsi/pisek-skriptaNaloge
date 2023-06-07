@@ -3,6 +3,7 @@ import generator
 import skripta
 import json
 import flatdict
+import urllib.parse
 test = 0
 """Bottle poskrbi, da stran laufa in da so vse stvari povezane med sabo."""
 
@@ -168,11 +169,9 @@ def home_add():
     htmlString = htmlFajl.read()
     htmlFajl.close()
 
-    titleHtml = bottle.request.forms.get('exerciseTitle')
-    
-    text1Html = bottle.request.forms.get('exerciseText')
-    print("TITLE", text1Html)
-    text2Html = bottle.request.forms.get('exerciseText2')
+    titleHtml = bottle.request.forms.getunicode('exerciseTitle')
+    text1Html = bottle.request.forms.getunicode('exerciseText')
+    text2Html = bottle.request.forms.getunicode('exerciseText2')
 
     htmlString = htmlString.replace("$#$Naslov$#$", titleHtml).replace("$#$Text1$#$", text1Html).replace("$#$Text2$#$", text2Html)
     htmlFajlOut = open("./views/naloga.html", "w", encoding = "utf-8")
