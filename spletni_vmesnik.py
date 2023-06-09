@@ -260,11 +260,12 @@ def dodajItem():
     print("IMAGE", itemImage)
     itemName = bottle.request.forms.get("itemName")
     generator.itemSpecifications["name"] = itemName
-    generator.itemSpecifications["img"] = itemImage + ".png"
+    generator.itemSpecifications["img"] = itemImage.replace(" ", "_") + ".png"
     generator.catIT[itemCategory] = True
     generator.itemSpecifications["row"] = [int(i) for i in itemRow.split(",")]
     generator.itemSpecifications["col"] = [int(i) for i in itemCol.split(",")]
     generator.dodajItemType() #kliče naj se z gumbom ustvari
+    generator.ustvariSkripto()
     bottle.redirect("/")
 
 @bottle.post("/r") 
@@ -277,12 +278,13 @@ def dodajItem():
     itemImage = bottle.request.forms.get("itemImageR")
     nbStates = bottle.request.forms.get("nbStatesR")
     generator.itemSpecifications["name"] = "robot0"
-    generator.itemSpecifications["img"] = itemImage + ".png"
+    generator.itemSpecifications["img"] = itemImage.replace(" ", "_") + ".png"
     generator.catIT[itemCategory] = True
     generator.itemSpecifications["row"] = [int(itemRow)]
     generator.itemSpecifications["col"] = [int(itemCol)]
     generator.itemSpecifications["nbStates"] = int(nbStates)
     generator.addRobot() #kliče naj se z gumbom ustvari
+    generator.ustvariSkripto()
     bottle.redirect("/")
 
 @bottle.post("/d") 
@@ -291,6 +293,7 @@ def deleteItem():
     deleteItem = bottle.request.forms.get("delName")
     generator.deleteItemType(deleteItem)
     print("IZBRISAL ITEM TYPE")
+    generator.ustvariSkripto()
     bottle.redirect("/")
 
 @bottle.post("/l") 
@@ -300,6 +303,7 @@ def deleteLanguage():
     ls = bottle.request.forms.get("languageString")
     generator.dodajSlovar(lsId, ls)
     print("POSODOBIL LANGUAGE STRINGS")
+    generator.ustvariSkripto()
     bottle.redirect("/")
 
 @bottle.post('/updateItemTypes')
@@ -309,10 +313,16 @@ def update_item_types():
     for ime in itemTypes.keys():
         returnHtml += "ime: {}, img = {}, category = {}, row={}, col={} <br>".format(ime, itemTypes[ime]["img"], list(itemTypes[ime]["category"].keys())[0], itemTypes[ime]["row"], itemTypes[ime]["col"])
     # Generate the updated HTML content using a Bottle template
-    
+    generator.ustvariSkripto()
     # Return the updated HTML as a response
     return returnHtml
 
+#pobrišemo Test file
+import os
+@bottle.post('/remove')
+def remove():
+    generator.resetVariables()
+    generator.ustvariSkripto()
     
 #----------------------------------------------------------------------------------------------------------
 

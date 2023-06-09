@@ -21,13 +21,11 @@ function initTask(subTask) {
      },
      actionDelay: 400,
      blocklyColourTheme: "bwinf",
-     maxInstructions: 666,
+     maxInstructions: 0,
      includeBlocks: {
           groupByCategory: true,
           generatedBlocks: {
-               robot: [
-                    "move"
-               ]
+               robot: []
           },
           standardBlocks: {
                includeAll: false,
@@ -48,12 +46,42 @@ function initTask(subTask) {
 },
      ignoreInvalidMoves: false,
      border: 0.02,
-     backgroundColour: "#000000",
-     backgroundTile: "asfalt.png",
-     borderColour: "#000000",
-     showLabels: false,
+     backgroundColour: "white",
+     backgroundTile: "",
+     borderColour: "black",
+     showLabels: true,
      cellSide: 60,
      numberOfRobots: 1,
+     itemTypes: {
+          robot0: {
+               img: "cebela.png",
+               zOrder: 10,
+               category: {
+                    "robot": true
+               },
+               value: 0,
+               nbStates: 8
+          },
+          ovira: {
+               num: 4,
+               img: "hisa2.png",
+               zOrder: 8,
+               category: {
+                    "transportable": true
+               },
+               value: 0,
+               nbStates: 1
+          },
+          bb: {
+               num: 5,
+               img: "hisa2.png",
+               zOrder: 9,
+               category: {
+                    "transportable": true
+               },
+               value: 0
+          }
+     }
      itemTypes: {
           ovira: {
                num: 3,
@@ -70,11 +98,19 @@ subTask.data = {
      easy: [
           {
                tiles: [[1, 1, 1, 1, 1], 
- [1, 1, 1, 2, 1], 
- [1, 1, 3, 1, 1], 
- [1, 3, 1, 1, 1], 
+ [1, 1, 1, 1, 1], 
+ [1, 1, 1, 1, 1], 
+ [1, 1, 1, 1, 1], 
  [1, 1, 1, 1, 1]],
-               initItems: []
+               initItems: [
+                    {
+                         row: 1,
+                         col: 1,
+                         type: "robot0",
+                         dir: 0,
+                         value: 0
+                    }
+               ]
           }
      ]
 };

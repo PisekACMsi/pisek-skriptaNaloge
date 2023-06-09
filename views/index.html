@@ -340,7 +340,7 @@
                         </div>
                       </div>
                       <div class="col-3 align-self-end">
-                        <button class="btn btn-secondary" type="button" hx-post="/r" hx-swap="none" onclick="refreshScene()">dodaj na grid</button>
+                        <button class="btn btn-secondary" type="button" hx-post="/r" hx-swap="none" hx-target="body" onclick="osvezi('pisek-iframe')">dodaj na grid</button>
                       </div>
                     </div>
                   
@@ -396,7 +396,7 @@
                         </div>
                       </div>
                       <div class="col-3 align-self-end">
-                        <button class="btn btn-secondary" type="button" hx-swap="none"  hx-post="/p" onclick="refreshScene()">dodaj na grid</button>
+                        <button class="btn btn-secondary" type="button" hx-swap="none"  hx-post="/p" hx-target="body" onclick="osvezi('pisek-iframe'); refreshScene();">dodaj na grid</button>
                       </div>
                     </div>
                   </div>
@@ -414,7 +414,7 @@
                       </div>
                     </div>
                     <div class="col-3 align-self-end">
-                      <button class="btn btn-secondary" type="button" hx-post="/d" hx-swap="none" onclick="refreshScene()">Izbriši</button>
+                      <button class="btn btn-secondary" type="button" hx-post="/d" hx-swap="none" hx-target="body" onclick="osvezi('pisek-iframe')">Izbriši</button>
                     </div>
                   </div>
 
@@ -427,6 +427,7 @@
               <button class="w-100 btn btn-primary btn-lg" style="margin-bottom: 100px;" onclick="osvezi('pisek-iframe')" hx-post="/" hx-swap="none">Generiraj
                 nalogo
               </button>
+              <button class="btn btn-secondary" type="button" hx-swap="none"  hx-post="/remove" hx-target="body" onclick="osvezi('pisek-iframe');">Pobriši</button>
             </form>
             
           </div>
