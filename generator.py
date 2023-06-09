@@ -462,6 +462,109 @@ def loadVariables():
     matrixExamples = pyVar["matrixExamples"].split("&&&")
     initialisationExamples = pyVar["initialisationExamples"]
 
+def resetVariables():
+    global languageStrings, languageStringsKeys, languageStringsKeyWord, languageStringsValues, languageStringsLS, randomBull1, strSE, groupByCategory, includeAllIB, wholeCategories, robotIB, singleBlocksIB, excludedBlocksIB, possibleCategories, typeOptions, checkEndEveryTurn, ignoreInvalidMoves, endCondition, randomBull2, itemsIT, matrixExamples, initialisationExamples
+
+    fajlLS = open('imenaDelckov.txt', "r", encoding = ("utf-8"))
+    # returns JSON object as 
+    # a dictionary
+    languageStringsSlv = json.load(fajlLS)["sl"]
+    # # Closing file
+    fajlLS.close()
+    languageStringsSlvFlat  = flatdict.FlatDict(languageStringsSlv, delimiter=".")
+    languageStringsKeys = [key for key in languageStringsSlvFlat.keys()]
+
+    languageStringsKeyWord = [key.split(".")[-1] for key in languageStringsSlvFlat.keys()]
+    languageStringsValues = languageStringsSlvFlat.values()
+
+    #TE SPREMENLJIVKE SE SPREMINJAJO DIREKTNO S SPLETNE STRANI   KUL?
+    #Globalna spremenljivka LANGUAGE STRINGS - shranjuje vse language stringe
+    languageStringsLS = {}
+
+    # languageStrings = dodajSlovar(idLS, txtLS) # za posodobitev kliči to funkcijo in za drugi paramter uporabi kar pride iz spletne strani
+
+    # RANDOM BULŠIT 1
+    randomBull1 = {"introMaxHeight": "33%",
+        "maxListSize": 100, 
+        "scrollbars": True,
+        "zoom": {
+            "controls": True,
+            "scale": 1,
+            },
+        "actionDelay": 400,				
+        "blocklyColourTheme": "bwinf",
+        "maxInstructions": 0
+        }
+    # Spreminjava samo maxInstructions!
+    # ZAČETNA POSTAVITEV - na spletni strani naj bo gumb - posodobi začetno postavitev. Samo zamenjaj string
+    strSE = ''
+
+    # INCLUDE BLOCKS
+    groupByCategory = True # neki za obklukat
+    includeAllIB = False # neki za obklukat
+    wholeCategories = {"tools":False, "logic":False, "loops":False, "math":False, "texts":False, "lists":False, "colour":False, "variables":False, "functions":False} # neki za obklukat
+    # bloki za robota, na začetku so vsi false, na spletni strani naj bo dropdown za klukat, ko obkljuka spremeni v True
+    robotIB = {"move": False, "moveSimple": False, "forward": False, "forwardSimple": False, "turn": False, "turnAround": False, "jump": False, "changeRobot": False, "transport": False, "sensorBool": False, "sensorValue": False, "alterValue": False, "destroy": False, "create": False, "wait": False, "nitems": False, "sensorRowCol": False}
+    singleBlocksIB = []
+    excludedBlocksIB = []
+    # možnosti "move", "moveSimple", "forward", "forwardSimple", "turn", "turnAround", "jump", "changeRobot", "transport", "sensorBool", "sensorValue", "alterValue", "destroy", "create", "wait", "nitems", "sensorRowCol"
+
+    # END CONDITIONS
+    possibleIdicateors = {'category', 'value', 'type'} # možnosti
+
+    possibleCategories = set() # updejta se samodejno pri ustvarjenju objektov
+    typeOptions = set() #imena predmetov, ki so na izbiro za inicializacijo objekta, dodajajo se avtomatsko s klicanjem funkcije dodajItemType.
+    # opcije za indikator = possibleIdicateors
+    # odvisno od izbranega indikatorja so odvisna tudi imena
+    # če je indikator category = opcije za ime = possibleCategories
+    # če je indikator value = opcije za ime = kerakol številka. Mejbi bo treba dtr omejitev
+    # če je indikator type = opcije za ime = typeOptions
+    # jebeš keys, nerabš
+
+    checkEndEveryTurn = True
+    ignoreInvalidMoves = False
+    # to je default, vpisuj notr kar najdeš v zgornjih opcijah
+    endCondition = {"Exist": {"indikator1": "category", "ime1": "coin", "negIndikator1": None, "negIme1": None},
+                    "Coincide": {"indikatorA": None, "imeA": None, "indikatorB": None, "imeB": None, "keys": None, "negIndikatorA": None, "negImeA": None, "negIndikatorB": None, "negImeB": None}}
+
+    #RANDOM BULŠIT 2
+    randomBull2 = {"border": 0.02,
+        "backgroundColour": "white",
+        "backgroundTile": "",
+        "borderColour": "black",
+        "showLabels": True,
+        "cellSide": 60,	
+        "numberOfRobots": 1
+        }
+    #numberOfRobots naj bo 1 default
+
+    #OBJEKTI
+    itemsIT = {} # samodejno shranjuje vse iteme
+    itemID = 2 #se poveča samodejno, odvisen od števila itemov
+    # ko uporabnik želi ustvariti nov objekt naj ima možnosti ime, slika, kategorija, vrednost - izbira naj se vpiše v itemSpecifications
+    # poleg možnosti naj bosta zraven še gumba ustvari in izbriši ki kličeta funkciji dodajItemType
+
+    catIT = {'robot': False, 'obstacle': False, 'transportable': False, 'button': False, 'coin': False, 'number': False} #za obklukat - možnosti kategorij
+
+    # imgIT = ["pisek.png"]
+    # zOrderIT #naj bo odvisen od vrstnega reda stvaritve objektov, seprav isti kokritemID
+    # nbStatesIT = 8 odvisen le od robota
+
+    #globalna spremenljivka trenutnih nastavitev za nov item, po ustvarjenju itema se resetira na default vrednosti
+    itemSpecifications = {"name":"", "num": 2, "img":"", "zOrder":2, "category":{}, "value":0, "nbStates":8,"row":[0], "col":[0]}
+
+    #MREŽA
+    #GLOBAL
+    aktivenPrimer = 0 # če imaš več primerov, Id katerega trenutno editiraš
+    mmm = 5
+    nnn = 5
+    matrixExamples = [[]] #seznam matrik - lahko da je več testov
+    initialisationExamples = [[]]
+    addMatrix(mmm, nnn)
+    globalka = 0
+
+    alreadyInitialized = set()
+
 fajlLS = open('imenaDelckov.txt', "r", encoding = ("utf-8"))
 # returns JSON object as 
 # a dictionary
