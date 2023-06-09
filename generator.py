@@ -275,6 +275,10 @@ def updateMatrix():
         cols = item["col"]
         sizey = len(matrixExamples[aktivenPrimer])
         sizex = len(matrixExamples[aktivenPrimer][0])
+        for i in range(sizex):
+            for j in range(sizey):
+                if matrixExamples[aktivenPrimer][j][i] == item["num"]:
+                    matrixExamples[aktivenPrimer][j][i] = 1
         for i in range(len(rows)):
             if rows[i] < sizex and cols[i] < sizey:
                 matrixExamples[aktivenPrimer][cols[i]][rows[i]] = item["num"]
