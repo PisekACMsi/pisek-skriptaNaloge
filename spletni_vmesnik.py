@@ -280,8 +280,8 @@ def dodajItem():
     generator.itemSpecifications["name"] = "robot0"
     generator.itemSpecifications["img"] = itemImage.replace(" ", "_") + ".png"
     generator.catIT[itemCategory] = True
-    generator.itemSpecifications["row"] = [int(itemRow)]
-    generator.itemSpecifications["col"] = [int(itemCol)]
+    generator.itemSpecifications["row"] = [int(itemRow.split(",")[0])]
+    generator.itemSpecifications["col"] = [int(itemRow.split(",")[0])]
     generator.itemSpecifications["nbStates"] = int(nbStates)
     generator.addRobot() #kliče naj se z gumbom ustvari
     generator.ustvariSkripto()
@@ -312,22 +312,22 @@ def update_item_types():
     returnHtml = ""
     for ime in itemTypes.keys():
         returnHtml += "ime: {}, img = {}, category = {}, row={}, col={} <br>".format(ime, itemTypes[ime]["img"], list(itemTypes[ime]["category"].keys())[0], itemTypes[ime]["row"], itemTypes[ime]["col"])
+    print("Hello item types: ", returnHtml)
     # Generate the updated HTML content using a Bottle template
     generator.ustvariSkripto()
     # Return the updated HTML as a response
     return returnHtml
 
-#pobrišemo Test file
-import os
-@bottle.post('/remove')
-def remove():
+@bottle.post('/reset')
+def update_item_types():
     generator.resetVariables()
-    generator.ustvariSkripto()
-    
+    bottle.redirect("/")
+
 #----------------------------------------------------------------------------------------------------------
 
 def start_bottle():
     print("ZAGANJAM BOTTLE")
+    generator.resetVariables()
     generator.ustvariSkripto()
     #Zaženemo bottle
     bottle.run(host='localhost', port=8081, debug=True)

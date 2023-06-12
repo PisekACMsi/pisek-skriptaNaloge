@@ -28,8 +28,18 @@ Tasks:
 
 ☐ Refreshej minipage, dodani predmeti
 
+☐ refreshaj language strings
+
 ✅ Možnost spremembe velikosti mreže
 
 ✅ Pri izbrisu itema, pohendlej neveljavne vnose
+
+☐ Dodaj ostale kategorije
+
+☐ Možnost dodajanja svoje kategorije
+
+☐ Robot naj ima samo eno koordinato
+
+✅ Default stanje
 
 ------------------------------------------------------------------------------
