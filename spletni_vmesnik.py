@@ -264,6 +264,28 @@ def dodajItem():
     generator.ustvariSkripto()
     bottle.redirect("/")
 
+@bottle.post("/defaultItem")
+def addDefaultItems():
+    itemCategory = bottle.request.forms.get("defaultItemCategory")
+    itemImage= bottle.request.forms.get("defaultItemImage")
+    generator.createDefaultItem(itemCategory, itemImage)
+    generator.ustvariSkripto()
+    bottle.redirect("/")
+
+@bottle.post("/defaultNumber")
+def addDefaultNumber():
+    itemNum= bottle.request.forms.get("defaultItemNumber")
+    generator.createDefaultNumber(itemNum)
+    generator.ustvariSkripto()
+    bottle.redirect("/")
+
+@bottle.post("/defaultItemColor")
+def addDefaultColor():
+    itemCol= bottle.request.forms.get("defaultItemColor")
+    generator.createDefaultColor(itemCol)
+    generator.ustvariSkripto()
+    bottle.redirect("/")
+
 @bottle.post("/addToMatrix")
 def addToMatrix():
     print("DODAJAM NA MATRIKO AAAAAAAAAAAAAAAA")
@@ -283,8 +305,6 @@ def addToMatrix():
     generator.removeItemTypeFromMatrix(itemName, itemRow, itemCol)
     generator.ustvariSkripto()
     bottle.redirect("/")
-
-
 
 @bottle.post("/r") 
 def dodajItem():
@@ -328,7 +348,12 @@ def update_item_types():
     itemTypes = generator.itemsIT
     returnHtml = ""
     for ime in itemTypes.keys():
-        returnHtml += "ime: {}, img = {}, category = {}, row={}, col={} <br>".format(ime, itemTypes[ime]["img"], list(itemTypes[ime]["category"].keys())[0], itemTypes[ime]["row"], itemTypes[ime]["col"])
+        if "number" in ime:
+            returnHtml += "ime: {}, value = {}, category = {}, row={}, col={} <br>".format(ime, itemTypes[ime]["value"], list(itemTypes[ime]["category"].keys())[0], itemTypes[ime]["row"], itemTypes[ime]["col"])
+        elif "color" in ime:
+            returnHtml += "ime: {}, color = {},  row={}, col={} <br>".format(ime, itemTypes[ime]["colour"], itemTypes[ime]["row"], itemTypes[ime]["col"])
+        else:  
+            returnHtml += "ime: {}, img = {}, category = {}, row={}, col={} <br>".format(ime, itemTypes[ime]["img"], list(itemTypes[ime]["category"].keys())[0], itemTypes[ime]["row"], itemTypes[ime]["col"])
     print("Hello item types: ", returnHtml)
     # Generate the updated HTML content using a Bottle template
     generator.ustvariSkripto()

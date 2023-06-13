@@ -253,7 +253,6 @@ def dodajItemType():
     itemSpecifications["num"] = len(list(itemsIT.keys()))+2
 
     itemsIT[ime] = itemSpecifications
-    itemsIT[ime]
     catIT = {'robot': False, 'obstacle': False, 'transportable': False, 'button': False, 'coin': False, 'number': False}
     
     #saveItemTypes()
@@ -262,11 +261,54 @@ def dodajItemType():
     typeOptions.add(ime)
     itemSpecifications = {"name":"", "num": itemID, "img":"", "zOrder":itemID, "category":catIT, "value":0, "row":[], "col":[]} #nazaj na default
 
+def createDefaultItem(itemCategory, itemImage):
+    global itemsIT, itemID, typeOptions, possibleCategories, itemSpecifications, matrixExamples, aktivenPrimer, catIT
+    itemNameId = 0
+    for itemName in itemsIT.keys():
+        if itemCategory in itemName:
+            itemNameId += 1
+    ime = itemCategory + str(itemNameId)
+    itemSpec = {"num": 2, "img":"", "zOrder":2, "category":{}, "value":0,"row":[], "col":[]}
+    
+    itemSpec["category"] = {"\"%s\""%itemCategory:True}
+    itemSpec["num"] = len(list(itemsIT.keys()))+2
+    itemSpec["img"] = itemImage + ".png"
+    itemsIT[ime] = itemSpec
+    typeOptions.add(ime)
+
+def createDefaultNumber(itemValue):
+    global itemsIT, itemID, typeOptions, possibleCategories, itemSpecifications, matrixExamples, aktivenPrimer, catIT
+    itemCategory = "number"
+    ime = itemCategory + itemValue
+    itemSpec = {"zOrder":2, "category":{}, "value":0, "row":[], "col":[]}
+    
+    itemSpec["category"] = {"\"%s\""%itemCategory:True}
+    itemSpec["value"] = itemValue
+    itemSpec["num"] = len(list(itemsIT.keys()))+2
+    itemsIT[ime] = itemSpec
+    typeOptions.add(ime)
+
+def createDefaultColor(itemCol):
+    global itemsIT, itemID, typeOptions, possibleCategories, itemSpecifications, matrixExamples, aktivenPrimer, catIT
+    itemCategory = "color"
+    itemNameId = 0
+    for itemName in itemsIT.keys():
+        if itemCategory in itemName:
+            itemNameId += 1
+    ime = itemCategory + str(itemNameId)
+    itemSpec = {"zOrder":2, "value":0, "row":[], "col":[]}
+    
+    itemSpec["colour"] = itemCol
+    itemSpec["num"] = len(list(itemsIT.keys()))+2
+    itemsIT[ime] = itemSpec
+    typeOptions.add(ime)
+
 def addItemTypeToMatrix(itemName, itemRow, itemCol):
     global itemsIT
-    itemsIT[itemName]["row"].append(itemRow)
-    itemsIT[itemName]["col"].append(itemCol)
-    updateMatrix()
+    if itemRow not in itemsIT[itemName]["row"] or itemCol not in itemsIT[itemName]["col"]:
+        itemsIT[itemName]["row"].append(itemRow)
+        itemsIT[itemName]["col"].append(itemCol)
+        updateMatrix()
 
 def removeItemTypeFromMatrix(itemName, itemRow, itemCol):
     global itemsIT

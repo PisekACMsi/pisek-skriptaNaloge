@@ -53,23 +53,25 @@ function initTask(subTask) {
      cellSide: 60,
      numberOfRobots: 1,
      itemTypes: {
-          ovira: {
-               num: 2,
-               img: "banana.png",
+          color0: {
                zOrder: 2,
-               category: {
-                    "obstacle": true
-               },
                value: 0,
-               nbStates: 8
+               colour: "green",
+               num: 2
+          },
+          color1: {
+               zOrder: 2,
+               value: 0,
+               colour: "green",
+               num: 3
           }
      }
 };
 subTask.data = {
      easy: [
           {
-               tiles: [[1, 1, 1, 1, 1], 
- [1, 1, 1, 1, 1], 
+               tiles: [[2, 2, 1, 1, 1], 
+ [1, 2, 1, 1, 1], 
  [1, 1, 1, 1, 1], 
  [1, 1, 1, 1, 1], 
  [1, 1, 1, 1, 1]],

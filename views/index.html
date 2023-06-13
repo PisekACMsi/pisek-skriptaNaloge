@@ -334,7 +334,66 @@
                       </div>
                     </div>
                   
-                  <h4>Predmet</h4>
+                    <h4>Ustvari objekt</h4>
+                    <div class = "row" style = "margin-bottom: 0,5rem;">
+                      <div class="col-3">
+                        <label for="imeB">Tip predmeta</label>
+                        <select id="polje" class="form-select" name="defaultItemCategory">
+                            <option selected="selected">obstacle</option>
+                            <option>transportable</option>
+                            <option>coin</option>
+                        </select>
+                      </div>
+                      <div class="col-3">
+                        <label for="obstacleImage">Slika</label>
+                        <select id="polje" class="form-select" name="defaultItemImage">
+                          <option value="">Izberi...</option>
+                          % for object in objects:
+                            <option>{{object}}</option>
+                          %end
+                        </select>
+                      </div>
+                      <div class="col-3 align-self-end">
+                        <button class="btn btn-secondary" type="button" hx-post="/defaultItem" hx-swap="none" hx-target="body" onclick="osvezi('pisek-iframe');refreshScene()">Ustvari objekt</button>
+                      </div>
+
+                      <div class = "row" style = "margin-bottom: 2rem;">
+                        <div class="col-3">
+                          <label for="imeB">Tip predmeta</label>
+                          <select id="polje" class="form-select">
+                              <option selected="selected">Število</option>
+                          </select>
+                        </div>
+                        <div class="col-3">
+                          <label for="obstacleImage">Vrednost</label>
+                          <input class="form-control" id="itemName" name="defaultItemNumber" value="0"></input>
+                        </div>
+                        <div class="col-3 align-self-end">
+                          <button class="btn btn-secondary" type="button" hx-post="/defaultNumber" hx-swap="none" hx-target="body" onclick="osvezi('pisek-iframe');refreshScene()">Ustvari Število</button>
+                        </div>
+
+                        <div class = "row" style = "margin-bottom: 1rem;">
+                          <div class="col-3" style = "margin-bottom: 0,5rem;">
+                            <label for="imeB">Tip predmeta</label>
+                            <select id="polje" class="form-select">
+                                <option selected="selected">Barva</option>
+                            </select>
+                          </div>
+                          <div class="col-3">
+                            <label for="itemColorSelector">Vrednost</label>
+                            <select id="polje" class="form-select" name="defaultItemColor">
+                              <option selected="selected">green</option>
+                              <option>red</option>
+                              <option>blue</option>
+                          </select>
+                          </div>
+                          <div class="col-3 align-self-end">
+                            <button class="btn btn-secondary" type="button" hx-post="/defaultItemColor" hx-swap="none" hx-target="body" onclick="osvezi('pisek-iframe');refreshScene()">Ustvari barvo</button>
+                          </div>
+                      
+                    </div>
+
+                  <h4>Ustvari svoj objekt</h4>
                   <div class = "row" style = "margin-bottom: 2rem;">
                     <div class="col-md-3 mb-3">
                       <label for="imeB">Ime</label>
@@ -370,7 +429,8 @@
                       <button class="btn btn-secondary" type="button" hx-swap="none" hx-post="/p" hx-target="body" onclick="refreshScene();">Ustvari predmet</button>
                     </div>
                   </div>
-
+                  
+                  <h4>Dodaj na mrežo</h4>
                   <div class = "row" style = "margin-bottom: 2rem;">
                     <div class="col-3">
                       <label class="form-label">Ime objekta</label>
@@ -380,7 +440,7 @@
                       </div>
                     </div>
                     <div class="col-2">
-                      <label for="email" class="form-label">Koordinata x</label>
+                      <label for="email" class="form-label">Koord. X</label>
                       <input type="text" class="form-control" id="polje-vrstica" name="coordRow" placeholder="vrstica" value = "0">
                       <div class="invalid-feedback">
                         Polje ne sme biti prazno!
@@ -388,7 +448,7 @@
                     </div>
 
                     <div class="col-2">
-                      <label for="email" class="form-label">Koordinata y</label>
+                      <label for="email" class="form-label">Koord. Y</label>
                       <input type="text" class="form-control" id="polje-vrstica" name="coordCol" placeholder="vrstica" value = "0">
                       <div class="invalid-feedback">
                         Polje ne sme biti prazno!
