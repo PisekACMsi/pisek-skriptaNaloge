@@ -46,10 +46,9 @@ Tasks:
 
 ☐ Custom kategorije
 
-☐ Barve, Stevilke
-
 ✅ Definiraj predmet dodaj na grid ločeno
 
-☐ Default predmeti
+✅ Default predmeti
+    ✅ Barve, Stevilke
 
 ------------------------------------------------------------------------------

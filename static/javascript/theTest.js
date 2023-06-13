@@ -21,16 +21,32 @@ function initTask(subTask) {
      },
      actionDelay: 400,
      blocklyColourTheme: "bwinf",
-     maxInstructions: 0,
+     maxInstructions: 666,
      includeBlocks: {
           groupByCategory: true,
           generatedBlocks: {
-               robot: []
+               robot: [
+                    "move",
+                    "sensorBool",
+                    "sensorValue"
+               ]
           },
           standardBlocks: {
                includeAll: false,
-               wholeCategories: [],
-               singleBlocks: [],
+               wholeCategories: [
+                    "tools",
+                    "logic",
+                    "loops",
+                    "math",
+                    "texts",
+                    "lists",
+                    "colour",
+                    "variables",
+                    "functions"
+               ],
+               singleBlocks: [
+                    "math_arithmetic"
+               ],
                excludedBlocks: []
           }
      },
@@ -46,32 +62,19 @@ function initTask(subTask) {
 },
      ignoreInvalidMoves: false,
      border: 0.02,
-     backgroundColour: "white",
-     backgroundTile: "",
-     borderColour: "black",
-     showLabels: true,
+     backgroundColour: "#000000",
+     backgroundTile: "asfalt.png",
+     borderColour: "#000000",
+     showLabels: false,
      cellSide: 60,
      numberOfRobots: 1,
-     itemTypes: {
-          color0: {
-               zOrder: 2,
-               value: 0,
-               colour: "green",
-               num: 2
-          },
-          color1: {
-               zOrder: 2,
-               value: 0,
-               colour: "green",
-               num: 3
-          }
-     }
+     itemTypes: {}
 };
 subTask.data = {
      easy: [
           {
-               tiles: [[2, 2, 1, 1, 1], 
- [1, 2, 1, 1, 1], 
+               tiles: [[1, 1, 1, 1, 1], 
+ [1, 1, 1, 1, 1], 
  [1, 1, 1, 1, 1], 
  [1, 1, 1, 1, 1], 
  [1, 1, 1, 1, 1]],

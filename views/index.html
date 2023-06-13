@@ -86,8 +86,8 @@
                 <div class="card-body">
                   <h3>Delčki</h3>
                   <div class="row">
-                    <div class="col-md-6 mb-3">
-                      <label for="blocks-dropdown">Izberi kateri delčki bodo v nalogi</label>
+                    <div class="col-md-4 mb-3">
+                      <label for="blocks-dropdown">Kategorije delčkov</label>
                       <select class="selectpicker" id="blocks-dropdown" multiple data-live-search="true"
                         name="blocksDropdown">
                         <option>Izberi vse</option>
@@ -102,8 +102,8 @@
                         <option>Colour</option>
                       </select>
                     </div>
-                    <div class="col-md-6 mb-3">
-                      <label for="robot-blocks-dropdown">Izberi funkcionalnosti robota</label>
+                    <div class="col-md-4 mb-3">
+                      <label for="robot-blocks-dropdown">Premikanje robota</label>
                       <select class="selectpicker" id="robot-blocks-dropdown" multiple data-live-search="true"
                         name="robotBlocksDropdown">
                         <option>Izberi vse</option>
@@ -124,6 +124,34 @@
                         <option>Wait</option>
                         <option>Nitems</option>
                         <option>SensorRowCol</option>
+                      </select>
+                    </div>
+                    
+                    <div class="col-md-4 mb-3">
+                      <label for="robot-blocks-dropdown">Posamezni delčki</label>
+                      <select class="selectpicker" id="robot-blocks-dropdown" multiple data-live-search="true"
+                        name="robotSingleBlocksDropdown">
+                        <option>Izberi vse</option>
+                        <option>math_arithmetic</option>
+                        <option>math_number</option>
+                        <option>controls_repeat_ext</option>
+                        <option>variables_get</option>
+                        <option>controls_whileUntil</option>
+                        <option>math_single</option>
+                        <option>math_number</option>
+                        <option>variables_set</option>
+                        <option>math_number_property</option>
+                        <option>math_number</option>
+                        <option>controls_for</option>
+                        <option>math_round</option>
+                        <option>math_modulo</option>
+                        <option>controls_flow_statements</option>
+                        <option>procedures_defreturn</option>
+                        <option>procedures_defnoreturn</option>
+                        <option>math_change</option>
+                        <option>procedures_ifreturn</option>
+                        <option>procedures_callnoreturn</option>
+                        <option>procedures_callreturn</option>
                       </select>
                     </div>
                   </div>
@@ -429,7 +457,10 @@
                       <button class="btn btn-secondary" type="button" hx-swap="none" hx-post="/p" hx-target="body" onclick="refreshScene();">Ustvari predmet</button>
                     </div>
                   </div>
-                  
+                  <h4>Dodani Predmeti</h4>
+                  <div src="views/index.html" id = "scene">
+                    Ni dodanih itemov
+                  </div>
                   <h4>Dodaj na mrežo</h4>
                   <div class = "row" style = "margin-bottom: 2rem;">
                     <div class="col-3">
@@ -461,10 +492,6 @@
                       <button class="btn btn-secondary" type="button" hx-swap="none" hx-post="/removeFromMatrix" hx-target="body" onclick="osvezi('pisek-iframe'); refreshScene();">Odstrani</button>
                     </div>
                   </div>
-                  <h4>Dodani Predmeti</h4>
-                  <div src="views/index.html" id = "scene">
-                    Ni dodanih itemov
-                  </div>
                   
                   <div class="row">
                     <div class="col-3">
@@ -475,7 +502,7 @@
                       </div>
                     </div>
                     <div class="col-3 align-self-end">
-                      <button class="btn btn-secondary" type="button" hx-post="/d" hx-swap="none" hx-target="body" onclick="osvezi('pisek-iframe')">Izbriši</button>
+                      <button class="btn btn-secondary" type="button" hx-post="/d" hx-swap="none" hx-target="body" onclick="osvezi('pisek-iframe'); refreshScene();">Izbriši</button>
                     </div>
                   </div>
 

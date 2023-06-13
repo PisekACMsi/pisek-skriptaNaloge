@@ -136,18 +136,22 @@ def izpisiStartingExample():
     return pySlv
 
 def izpisiIncludeBlocks():
-    global groupByCategory, includeAllIB, wholeCategories, robotIB, singleBlocksIB, excludedBlocksIB
+    global groupByCategory, includeAllIB, wholeCategoriesIB, robotIB, singleBlocksIB, excludedBlocksIB
     
     robotList = []
     wholeCategoriesList = []
+    singleBlocksList = []
     for key in robotIB.keys():
         if robotIB[key]:
             robotList.append(key)
-    for key in wholeCategories.keys():
-        if wholeCategories[key]:
+    for key in wholeCategoriesIB.keys():
+        if wholeCategoriesIB[key]:
             wholeCategoriesList.append(key)
+    for key in singleBlocksIB.keys():
+        if singleBlocksIB[key]:
+            singleBlocksList.append(key)
 
-    slv = {"groupByCategory": groupByCategory, "generatedBlocks": {"robot": robotList}, "standardBlocks": {"includeAll": includeAllIB, "wholeCategories": wholeCategoriesList, "singleBlocks": singleBlocksIB, "excludedBlocks": excludedBlocksIB,},}
+    slv = {"groupByCategory": groupByCategory, "generatedBlocks": {"robot": robotList}, "standardBlocks": {"includeAll": includeAllIB, "wholeCategories": wholeCategoriesList, "singleBlocks": singleBlocksList, "excludedBlocks": excludedBlocksIB,},}
     pySlv = {"includeBlocks":{}}
     
     pySlv["includeBlocks"] = slv
@@ -517,7 +521,7 @@ def loadVariables():
     initialisationExamples = pyVar["initialisationExamples"]
 
 def resetVariables():
-    global languageStrings, languageStringsKeys, languageStringsKeyWord, languageStringsValues, languageStringsLS, possibleIdicateors, randomBull1, strSE, groupByCategory, includeAllIB, wholeCategories, robotIB, singleBlocksIB, excludedBlocksIB, possibleCategories, typeOptions, checkEndEveryTurn, ignoreInvalidMoves, endCondition, randomBull2, itemsIT, matrixExamples, initialisationExamples, itemID, catIT, aktivenPrimer, itemSpecifications, alreadyInitialized, mmm, nnn, globalka
+    global languageStrings, languageStringsKeys, languageStringsKeyWord, languageStringsValues, languageStringsLS, possibleIdicateors, randomBull1, strSE, groupByCategory, includeAllIB, wholeCategoriesIB, robotIB, singleBlocksIB, excludedBlocksIB, possibleCategories, typeOptions, checkEndEveryTurn, ignoreInvalidMoves, endCondition, randomBull2, itemsIT, matrixExamples, initialisationExamples, itemID, catIT, aktivenPrimer, itemSpecifications, alreadyInitialized, mmm, nnn, globalka
 
     fajlLS = open('imenaDelckov.txt', "r", encoding = ("utf-8"))
     # returns JSON object as 
@@ -556,10 +560,10 @@ def resetVariables():
     # INCLUDE BLOCKS
     groupByCategory = True # neki za obklukat
     includeAllIB = False # neki za obklukat
-    wholeCategories = {"tools":False, "logic":False, "loops":False, "math":False, "texts":False, "lists":False, "colour":False, "variables":False, "functions":False} # neki za obklukat
+    wholeCategoriesIB = {"tools":False, "logic":False, "loops":False, "math":False, "texts":False, "lists":False, "colour":False, "variables":False, "functions":False} # neki za obklukat
     # bloki za robota, na začetku so vsi false, na spletni strani naj bo dropdown za klukat, ko obkljuka spremeni v True
     robotIB = {"move": False, "moveSimple": False, "forward": False, "forwardSimple": False, "turn": False, "turnAround": False, "jump": False, "changeRobot": False, "transport": False, "sensorBool": False, "sensorValue": False, "alterValue": False, "destroy": False, "create": False, "wait": False, "nitems": False, "sensorRowCol": False}
-    singleBlocksIB = []
+    singleBlocksIB = {"robot_start": False, "math_arithmetic": False, "math_number": False, "math_number": False, "controls_repeat_ext": False, "math_number": False, "math_number": False, "variables_get": False, "controls_whileUntil": False, "math_single": False, "math_number": False, "variables_set": False, "math_number_property": False, "math_number": False, "controls_for": False, "math_number": False, "math_number": False, "math_number": False, "math_round": False, "math_number": False, "math_modulo": False, "math_number": False, "math_number": False, "controls_flow_statements": False, "procedures_defreturn": False, "procedures_defnoreturn": False, "math_change": False, "math_number": False, "procedures_ifreturn": False, "procedures_callnoreturn": False, "procedures_callreturn": False}
     excludedBlocksIB = []
     # možnosti "move", "moveSimple", "forward", "forwardSimple", "turn", "turnAround", "jump", "changeRobot", "transport", "sensorBool", "sensorValue", "alterValue", "destroy", "create", "wait", "nitems", "sensorRowCol"
 

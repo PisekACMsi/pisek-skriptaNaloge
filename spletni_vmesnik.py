@@ -181,6 +181,7 @@ def home_add():
 
     bd = bottle.request.forms.getall('blocksDropdown')
     rbd = bottle.request.forms.getall('robotBlocksDropdown')
+    rsbd = bottle.request.forms.getall('robotSingleBlocksDropdown')
     gbc = bottle.request.forms.getall('groupByCategory')
 
     # Preverimo ali želimo grupirat po kategorijah
@@ -195,10 +196,15 @@ def home_add():
             el= el[0].lower() + el[1:]
             generator.robotIB[el] = True
 
+    for el in rsbd:
+        if el != "Izberi vse":
+            el= el[0].lower() + el[1:]
+            generator.singleBlocksIB[el] = True
+
     for el in bd:
         if el != "Izberi vse":
             el= el[0].lower() + el[1:]
-            generator.wholeCategories[el] = True
+            generator.wholeCategoriesIB[el] = True
 
     #OZADJE
     backGroundColor = bottle.request.forms.get('backGroundSelector')
