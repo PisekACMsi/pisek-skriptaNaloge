@@ -53,44 +53,15 @@ function initTask(subTask) {
      cellSide: 60,
      numberOfRobots: 1,
      itemTypes: {
-          robot0: {
-               img: "cebela.png",
-               zOrder: 10,
-               category: {
-                    "robot": true
-               },
-               value: 0,
-               nbStates: 8
-          },
           ovira: {
-               num: 4,
-               img: "hisa2.png",
-               zOrder: 8,
-               category: {
-                    "transportable": true
-               },
-               value: 0,
-               nbStates: 1
-          },
-          bb: {
-               num: 5,
-               img: "hisa2.png",
-               zOrder: 9,
-               category: {
-                    "transportable": true
-               },
-               value: 0
-          }
-     }
-     itemTypes: {
-          ovira: {
-               num: 3,
+               num: 2,
                img: "banana.png",
-               zOrder: 3,
+               zOrder: 2,
                category: {
                     "obstacle": true
                },
-               value: 0
+               value: 0,
+               nbStates: 8
           }
      }
 };
@@ -102,15 +73,7 @@ subTask.data = {
  [1, 1, 1, 1, 1], 
  [1, 1, 1, 1, 1], 
  [1, 1, 1, 1, 1]],
-               initItems: [
-                    {
-                         row: 1,
-                         col: 1,
-                         type: "robot0",
-                         dir: 0,
-                         value: 0
-                    }
-               ]
+               initItems: []
           }
      ]
 };

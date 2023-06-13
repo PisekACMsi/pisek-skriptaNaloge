@@ -128,6 +128,10 @@ function refreshDiv(divId) {
   $('#' + divId).load('http://localhost/index.html #' + divId);
 }
 
+function funkcija(){
+  $.post("/p");
+}
+
 function refreshScene() {
           // Perform your logic to generate the updated content
   $.ajax({

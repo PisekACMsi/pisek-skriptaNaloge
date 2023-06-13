@@ -249,23 +249,31 @@ def dodajItemType():
             catsTrue.append({"\"%s\""%cat:True})
             possibleCategories.add(cat)
     itemSpecifications["category"] = catsTrue[0]
-    
-    rows = itemSpecifications["row"]
-    cols = itemSpecifications["col"]
 
     itemSpecifications["num"] = len(list(itemsIT.keys()))+2
 
     itemsIT[ime] = itemSpecifications
     itemsIT[ime]
-    itemsIT[ime]
-    updateMatrix()
     catIT = {'robot': False, 'obstacle': False, 'transportable': False, 'button': False, 'coin': False, 'number': False}
     
     #saveItemTypes()
 
 
     typeOptions.add(ime)
-    itemSpecifications = {"name":"", "num": itemID, "img":"", "zOrder":itemID, "category":catIT, "value":0, "row":[0], "col":[0]} #nazaj na default
+    itemSpecifications = {"name":"", "num": itemID, "img":"", "zOrder":itemID, "category":catIT, "value":0, "row":[], "col":[]} #nazaj na default
+
+def addItemTypeToMatrix(itemName, itemRow, itemCol):
+    global itemsIT
+    itemsIT[itemName]["row"].append(itemRow)
+    itemsIT[itemName]["col"].append(itemCol)
+    updateMatrix()
+
+def removeItemTypeFromMatrix(itemName, itemRow, itemCol):
+    global itemsIT
+    if itemRow in itemsIT[itemName]["row"] and itemCol in itemsIT[itemName]["col"]:
+        itemsIT[itemName]["row"].remove(itemRow)
+        itemsIT[itemName]["col"].remove(itemCol)
+        updateMatrix()
 
 def updateMatrix():
     global itemsIT, matrixExamples, aktivenPrimer
@@ -555,7 +563,7 @@ def resetVariables():
     # nbStatesIT = 8 odvisen le od robota
 
     #globalna spremenljivka trenutnih nastavitev za nov item, po ustvarjenju itema se resetira na default vrednosti
-    itemSpecifications = {"name":"", "num": 2, "img":"", "zOrder":2, "category":{}, "value":0, "nbStates":8,"row":[0], "col":[0]}
+    itemSpecifications = {"name":"", "num": 2, "img":"", "zOrder":2, "category":{}, "value":0, "nbStates":8,"row":[], "col":[]}
 
     #MREŽA
     #GLOBAL

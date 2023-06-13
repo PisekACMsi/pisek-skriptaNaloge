@@ -313,34 +313,24 @@
                         Polje ne sme biti prazno
                       </div>
                     </div>
-                    <div class="col-3">
-                      <label for="email" class="form-label">Število smeri</label>
-                      <input type="text" class="form-control" id="polje-vrstica" name="nbStatesR" placeholder="vrstica" value = "1">
-                      <div class="invalid-feedback">
-                        Polje ne sme biti prazno!
-                      </div>
-                    </div>
-                  </div>
-
-                    <div class="row">
                      
-                      <div class="col-3">
+                      <div class="col-2">
                         <label for="email" class="form-label">Koordinata x</label>
-                        <input type="text" class="form-control" id="polje-vrstica" name="coordColR" placeholder="vrstica" value = "1">
+                        <input type="text" class="form-control" id="polje-vrstica" name="coordColR" placeholder="vrstica" value = "0">
                         <div class="invalid-feedback">
                           Polje ne sme biti prazno!
                         </div>
                       </div>
 
-                      <div class="col-3">
+                      <div class="col-2">
                         <label for="email" class="form-label">Koordinata y</label>
-                        <input type="text" class="form-control" id="polje-vrstica" name="coordRowR" placeholder="vrstica" value = "1">
+                        <input type="text" class="form-control" id="polje-vrstica" name="coordRowR" placeholder="vrstica" value = "0">
                         <div class="invalid-feedback">
                           Polje ne sme biti prazno!
                         </div>
                       </div>
                       <div class="col-3 align-self-end">
-                        <button class="btn btn-secondary" type="button" hx-post="/r" hx-swap="none" hx-target="body" onclick="osvezi('pisek-iframe')">dodaj na grid</button>
+                        <button class="btn btn-secondary" type="button" hx-post="/r" hx-swap="none" hx-target="body" onclick="osvezi('pisek-iframe')">Ustvari robota</button>
                       </div>
                     </div>
                   
@@ -376,28 +366,39 @@
                         Polje ne sme biti prazno
                       </div>
                     </div>
+                    <div class="col-2 align-self-end">
+                      <button class="btn btn-secondary" type="button" hx-swap="none" hx-post="/p" hx-target="body" onclick="refreshScene();">Ustvari predmet</button>
+                    </div>
                   </div>
 
                   <div class = "row" style = "margin-bottom: 2rem;">
-                    <div class="row">
-                      <div class="col-3">
-                        <label for="email" class="form-label">Koordinata x</label>
-                        <input type="text" class="form-control" id="polje-vrstica" name="coordRow" placeholder="vrstica" value = "0">
-                        <div class="invalid-feedback">
-                          Polje ne sme biti prazno!
-                        </div>
+                    <div class="col-3">
+                      <label class="form-label">Ime objekta</label>
+                      <input type="text" class="form-control" id="polje-vrstica" name="itemNameCoord" placeholder="ime">
+                      <div class="invalid-feedback">
+                        Polje ne sme biti prazno!
                       </div>
+                    </div>
+                    <div class="col-2">
+                      <label for="email" class="form-label">Koordinata x</label>
+                      <input type="text" class="form-control" id="polje-vrstica" name="coordRow" placeholder="vrstica" value = "0">
+                      <div class="invalid-feedback">
+                        Polje ne sme biti prazno!
+                      </div>
+                    </div>
 
-                      <div class="col-3">
-                        <label for="email" class="form-label">Koordinata y</label>
-                        <input type="text" class="form-control" id="polje-vrstica" name="coordCol" placeholder="vrstica" value = "0">
-                        <div class="invalid-feedback">
-                          Polje ne sme biti prazno!
-                        </div>
+                    <div class="col-2">
+                      <label for="email" class="form-label">Koordinata y</label>
+                      <input type="text" class="form-control" id="polje-vrstica" name="coordCol" placeholder="vrstica" value = "0">
+                      <div class="invalid-feedback">
+                        Polje ne sme biti prazno!
                       </div>
-                      <div class="col-3 align-self-end">
-                        <button class="btn btn-secondary" type="button" hx-swap="none"  hx-post="/p" hx-target="body" onclick="osvezi('pisek-iframe'); refreshScene();">dodaj na grid</button>
-                      </div>
+                    </div>
+                    <div class="col-2 align-self-end">
+                      <button class="btn btn-secondary" type="button" hx-swap="none" hx-post="/addToMatrix" hx-target="body" onclick="osvezi('pisek-iframe'); refreshScene();">Dodaj</button>
+                    </div>
+                    <div class="col-2 align-self-end">
+                      <button class="btn btn-secondary" type="button" hx-swap="none" hx-post="/removeFromMatrix" hx-target="body" onclick="osvezi('pisek-iframe'); refreshScene();">Odstrani</button>
                     </div>
                   </div>
                   <h4>Dodani Predmeti</h4>
@@ -426,6 +427,8 @@
 
               <button class="w-100 btn btn-primary btn-lg" style="margin-bottom: 100px;" onclick="osvezi('pisek-iframe')" hx-post="/" hx-swap="none">Generiraj
                 nalogo
+              </button>
+              <button class="w-100 btn btn-primary btn-lg" style="margin-bottom: 100px;" onclick="osvezi('pisek-iframe')" hx-post="/reset" hx-swap="none">Ponastavi nalogo
               </button>
               <button class="btn btn-secondary" type="button" hx-swap="none"  hx-post="/remove" hx-target="body" onclick="osvezi('pisek-iframe');">Pobriši</button>
             </form>

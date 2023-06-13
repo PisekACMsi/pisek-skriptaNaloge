@@ -253,20 +253,38 @@ def home_add():
 def dodajItem():
     #ITEMTYPE
     print("DODAL ITEM TYPE, DELAM KOT ZAMORC")
-    itemRow = bottle.request.forms.get("coordRow") 
-    itemCol = bottle.request.forms.get("coordCol")
     itemCategory = bottle.request.forms.get("itemCategory") 
-    itemImage = bottle.request.forms.get("itemImage") 
+    itemImage = bottle.request.forms.get("itemImage")
     print("IMAGE", itemImage)
     itemName = bottle.request.forms.get("itemName")
     generator.itemSpecifications["name"] = itemName
     generator.itemSpecifications["img"] = itemImage.replace(" ", "_") + ".png"
     generator.catIT[itemCategory] = True
-    generator.itemSpecifications["row"] = [int(i) for i in itemRow.split(",")]
-    generator.itemSpecifications["col"] = [int(i) for i in itemCol.split(",")]
     generator.dodajItemType() #kliče naj se z gumbom ustvari
     generator.ustvariSkripto()
     bottle.redirect("/")
+
+@bottle.post("/addToMatrix")
+def addToMatrix():
+    print("DODAJAM NA MATRIKO AAAAAAAAAAAAAAAA")
+    itemName = bottle.request.forms.get("itemNameCoord")
+    itemRow = int(bottle.request.forms.get("coordRow") )
+    itemCol = int(bottle.request.forms.get("coordCol"))
+    generator.addItemTypeToMatrix(itemName, itemRow, itemCol)
+    generator.ustvariSkripto()
+    bottle.redirect("/")
+
+@bottle.post("/removeFromMatrix")
+def addToMatrix():
+    print("DODAJAM NA MATRIKO AAAAAAAAAAAAAAAA")
+    itemName = bottle.request.forms.get("itemNameCoord")
+    itemRow = int(bottle.request.forms.get("coordRow") )
+    itemCol = int(bottle.request.forms.get("coordCol"))
+    generator.removeItemTypeFromMatrix(itemName, itemRow, itemCol)
+    generator.ustvariSkripto()
+    bottle.redirect("/")
+
+
 
 @bottle.post("/r") 
 def dodajItem():
@@ -276,13 +294,12 @@ def dodajItem():
     itemCol = bottle.request.forms.get("coordColR")
     itemCategory = "robot"
     itemImage = bottle.request.forms.get("itemImageR")
-    nbStates = bottle.request.forms.get("nbStatesR")
     generator.itemSpecifications["name"] = "robot0"
     generator.itemSpecifications["img"] = itemImage.replace(" ", "_") + ".png"
     generator.catIT[itemCategory] = True
     generator.itemSpecifications["row"] = [int(itemRow.split(",")[0])]
-    generator.itemSpecifications["col"] = [int(itemRow.split(",")[0])]
-    generator.itemSpecifications["nbStates"] = int(nbStates)
+    generator.itemSpecifications["col"] = [int(itemCol.split(",")[0])]
+    generator.itemSpecifications["nbStates"] = 9
     generator.addRobot() #kliče naj se z gumbom ustvari
     generator.ustvariSkripto()
     bottle.redirect("/")
