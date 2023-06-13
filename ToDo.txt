@@ -42,7 +42,8 @@ Tasks:
 
 ✅ Default stanje
 
-☐ Dodaj izbiro posameznih delčkov
+✅ Dodaj izbiro posameznih delčkov
+    ☐ Opcija izberi vse
 
 ☐ Custom kategorije
 

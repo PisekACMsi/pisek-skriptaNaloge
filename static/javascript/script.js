@@ -88,6 +88,14 @@ $(document).ready(function () {
       $('#robot-blocks-dropdown').selectpicker('deselectAll');
     }
   });
+
+  $('#robot-single-blocks-dropdown').on('changed.bs.select', function (e, clickedIndex, isSelected, previousValue) {
+    if (clickedIndex === 0 && isSelected) {
+      $('#robot-single-blocks-dropdown').selectpicker('selectAll');
+    } else if (clickedIndex === 0 && !isSelected) {
+      $('#robot-single-blocks-dropdown').selectpicker('deselectAll');
+    }
+  });
 });
 
 //funkcija doda sliko na neko mesto na gridu
