@@ -515,16 +515,11 @@
               <button class="w-100 btn btn-primary btn-lg" style="margin-bottom: 100px;" onclick="osvezi('pisek-iframe')" hx-post="/" hx-swap="none">Generiraj
                 nalogo
               </button>
-              <button class="w-100 btn btn-primary btn-lg" style="margin-bottom: 100px;" onclick="osvezi('pisek-iframe')" hx-post="/reset" hx-swap="none">Ponastavi nalogo
-              </button>
-              <button class="btn btn-secondary" type="button" hx-swap="none"  hx-post="/remove" hx-target="body" onclick="osvezi('pisek-iframe');">Pobriši</button>
+              <button class="w-100 btn btn-primary btn-lg" style="margin-bottom: 100px;" onclick="osvezi('pisek-iframe')" hx-post="/reset" hx-swap="none">Ponastavi nalogo</button>
             </form>
-            
           </div>
-          <br>
-          <!--Tukaj prikažem spletno stran za Piška-->
-          <iframe src="views/naloga.html" id = "pisek-iframe" onload="this.width=screen.width;this.height=screen.height;"></iframe>
         </div>
+        <iframe src="views/naloga.html" id = "pisek-iframe" onload="this.width=screen.width;this.height=screen.height;"></iframe>
         
       </main>
 

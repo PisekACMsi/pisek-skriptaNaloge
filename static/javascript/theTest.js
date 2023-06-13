@@ -21,32 +21,16 @@ function initTask(subTask) {
      },
      actionDelay: 400,
      blocklyColourTheme: "bwinf",
-     maxInstructions: 666,
+     maxInstructions: 0,
      includeBlocks: {
           groupByCategory: true,
           generatedBlocks: {
-               robot: [
-                    "move",
-                    "sensorBool",
-                    "sensorValue"
-               ]
+               robot: []
           },
           standardBlocks: {
                includeAll: false,
-               wholeCategories: [
-                    "tools",
-                    "logic",
-                    "loops",
-                    "math",
-                    "texts",
-                    "lists",
-                    "colour",
-                    "variables",
-                    "functions"
-               ],
-               singleBlocks: [
-                    "math_arithmetic"
-               ],
+               wholeCategories: [],
+               singleBlocks: [],
                excludedBlocks: []
           }
      },
@@ -62,10 +46,10 @@ function initTask(subTask) {
 },
      ignoreInvalidMoves: false,
      border: 0.02,
-     backgroundColour: "#000000",
-     backgroundTile: "asfalt.png",
-     borderColour: "#000000",
-     showLabels: false,
+     backgroundColour: "white",
+     backgroundTile: "",
+     borderColour: "black",
+     showLabels: true,
      cellSide: 60,
      numberOfRobots: 1,
      itemTypes: {}
