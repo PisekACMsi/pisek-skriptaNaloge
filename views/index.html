@@ -29,7 +29,7 @@
 
 <body class="bg-light">
   <form method="POST" action="/">
-    <script src="../static/javascript/script.js"></script>
+    
     <div class="container">
       <main>
         <div class="py-5 text-center">
@@ -135,11 +135,9 @@
                         <option>math_arithmetic</option>
                         <option>math_number</option>
                         <option>controls_repeat_ext</option>
-                        <option>variables_get</option>
                         <option>controls_whileUntil</option>
                         <option>math_single</option>
                         <option>math_number</option>
-                        <option>variables_set</option>
                         <option>math_number_property</option>
                         <option>math_number</option>
                         <option>controls_for</option>
@@ -148,10 +146,6 @@
                         <option>controls_flow_statements</option>
                         <option>procedures_defreturn</option>
                         <option>procedures_defnoreturn</option>
-                        <option>math_change</option>
-                        <option>procedures_ifreturn</option>
-                        <option>procedures_callnoreturn</option>
-                        <option>procedures_callreturn</option>
                       </select>
                     </div>
                   </div>
@@ -174,7 +168,7 @@
                   <div class="row">
                     <div class="col-md-12">
                       Imena delčkov
-                      <select class="form-select">
+                      <select class="form-select" id="select-LS" name="imenaDelckov">
                         %for i in range(len(languageStrings[1])):
                         <option>{{i}}. {{languageStrings[0][i]}} : {{languageStrings[1][i]}}</option>
                         %end
@@ -187,7 +181,7 @@
                       <label for="email" class="form-label">Id teksta</label>
                     </div>
                     <div class="col-3">
-                      <input type="text" class="form-control" id="polje-vrstica" name="languageStringId" placeholder="vrstica" value = "0">
+                      <input type="text" class="form-control" id="id-LS" name="languageStringId" placeholder="vrstica" value = "0">
                     </div>
                   </div>
                   <div class="row">
@@ -195,12 +189,12 @@
                       <label for="email" class="form-label">Tekst</label>
                     </div>
                     <div class="col-6">
-                      <input type="text" class="form-control" id="polje-vrstica" name="languageString" placeholder="vrstica">
+                      <input type="text" class="form-control" id="text-LS" name="languageString" placeholder="vrstica">
                     </div>
                   </div>
                   <div class="row">
                     <div class="col-3 align-self-end">
-                      <button class="btn btn-secondary" type="button" hx-post="/l" hx-swap="none">Posodobi text</button>
+                      <button id="button-update-language-strings" class="btn btn-secondary" type="button" hx-swap="none">Posodobi text</button>
                     </div>
                   </div>
                 </div>
@@ -358,7 +352,7 @@
                         </div>
                       </div>
                       <div class="col-3 align-self-end">
-                        <button class="btn btn-secondary" type="button" hx-post="/r" hx-swap="none" hx-target="body" onclick="osvezi('pisek-iframe')">Ustvari robota</button>
+                        <button class="btn btn-secondary" type="button" hx-post="/r" hx-swap="none" hx-target="body" onclick="osvezi('pisek-iframe');refreshScene()">Ustvari robota</button>
                       </div>
                     </div>
                   
@@ -519,7 +513,8 @@
             </form>
           </div>
         </div>
-        <iframe src="views/naloga.html" id = "pisek-iframe" onload="this.width=screen.width;this.height=screen.height;"></iframe>
+        <script src="../static/javascript/script.js"></script>
+        <!-- <iframe src="views/naloga.html" id = "pisek-iframe" onload="this.width=screen.width;this.height=screen.height;"></iframe> -->
         
       </main>
 

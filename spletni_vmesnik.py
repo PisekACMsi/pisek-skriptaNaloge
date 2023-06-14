@@ -339,15 +339,22 @@ def deleteItem():
     generator.ustvariSkripto()
     bottle.redirect("/")
 
-@bottle.post("/l") 
+@bottle.post("/ls") 
 def deleteLanguage():
     print("BRIŠEM LANGUAGE DONDE ESTA BLIBLIOTEKA")
-    lsId = int(bottle.request.forms.get("languageStringId"))
-    ls = bottle.request.forms.get("languageString")
+    lsId = int(bottle.request.forms.get("idLS"))
+    ls = bottle.request.forms.get("textLS")
     generator.dodajSlovar(lsId, ls)
     print("POSODOBIL LANGUAGE STRINGS")
     generator.ustvariSkripto()
-    bottle.redirect("/")
+
+    languageStringsKeys = generator.languageStringsKeyWord
+    languageStringsValues = generator.languageStringsValues
+
+    htmlStr = ""
+    for i in range(len(languageStringsKeys)):
+        htmlStr += "<option>{}. {} : {}</option> <br>".format(i, languageStringsKeys[i], languageStringsValues[i])
+    return htmlStr
 
 @bottle.post('/updateItemTypes')
 def update_item_types():

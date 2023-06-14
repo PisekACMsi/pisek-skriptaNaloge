@@ -1,7 +1,12 @@
 function initTask(subTask) {
  subTask.gridInfos = {
      languageStrings: {
-          sl: {}
+          sl: {
+               startingBlockName: "dsfsdfds",
+               categories: {
+                    tools: "dsfsdfdsbvbcbv"
+               }
+          }
      },
      hideControls: {
           restart: false,

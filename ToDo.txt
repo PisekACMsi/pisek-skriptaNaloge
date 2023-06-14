@@ -36,6 +36,8 @@ Tasks:
 
 ☐ Dodaj ostale kategorije
 
+☐ A res rabm redirect na koncu vsake scene zato k mi vrača response k ga nerabm v svojmu lajfu
+
 ☐ Možnost dodajanja svoje kategorije
 
 ☐ Robot naj ima samo eno koordinato
@@ -43,7 +45,7 @@ Tasks:
 ✅ Default stanje
 
 ✅ Dodaj izbiro posameznih delčkov
-    ☐ Opcija izberi vse
+    ✅ Opcija izberi vse
 
 ☐ Custom kategorije
 
