@@ -43,6 +43,7 @@ Tasks:
 ☐ Robot naj ima samo eno koordinato
 
 ✅ Default stanje
+    ☐ Odpravi možnost podvojenih objektov
 
 ✅ Dodaj izbiro posameznih delčkov
     ✅ Opcija izberi vse

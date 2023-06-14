@@ -324,7 +324,7 @@
                     
                     <div class="col-md-4">
                       <label for="state" class="form-label" >Izberi sliko</label>
-                      <select id="polje" class="form-select" name="itemImageR">
+                      <select id="robot-image" class="form-select" name="itemImageR">
                         <option value="">Izberi...</option>
                         % for charName in character_names:
                           <option>{{charName}}</option>
@@ -338,7 +338,7 @@
                      
                       <div class="col-2">
                         <label for="email" class="form-label">Koordinata x</label>
-                        <input type="text" class="form-control" id="polje-vrstica" name="coordColR" placeholder="vrstica" value = "0">
+                        <input type="text" class="form-control" id="robot-coord-x" name="coordColR" placeholder="vrstica" value = "0">
                         <div class="invalid-feedback">
                           Polje ne sme biti prazno!
                         </div>
@@ -346,13 +346,13 @@
 
                       <div class="col-2">
                         <label for="email" class="form-label">Koordinata y</label>
-                        <input type="text" class="form-control" id="polje-vrstica" name="coordRowR" placeholder="vrstica" value = "0">
+                        <input type="text" class="form-control" id="robot-coord-y" name="coordRowR" placeholder="vrstica" value = "0">
                         <div class="invalid-feedback">
                           Polje ne sme biti prazno!
                         </div>
                       </div>
                       <div class="col-3 align-self-end">
-                        <button class="btn btn-secondary" type="button" hx-post="/r" hx-swap="none" hx-target="body" onclick="osvezi('pisek-iframe');refreshScene()">Ustvari robota</button>
+                        <button class="btn btn-secondary" type="button" hx-swap="none" hx-target="body" onclick="refreshScene('addRobot')">Ustvari robota</button>
                       </div>
                     </div>
                   
@@ -360,7 +360,7 @@
                     <div class = "row" style = "margin-bottom: 0,5rem;">
                       <div class="col-3">
                         <label for="imeB">Tip predmeta</label>
-                        <select id="polje" class="form-select" name="defaultItemCategory">
+                        <select id="default-item-category" class="form-select" name="defaultItemCategory">
                             <option selected="selected">obstacle</option>
                             <option>transportable</option>
                             <option>coin</option>
@@ -368,7 +368,7 @@
                       </div>
                       <div class="col-3">
                         <label for="obstacleImage">Slika</label>
-                        <select id="polje" class="form-select" name="defaultItemImage">
+                        <select id="default-item-image" class="form-select" name="defaultItemImage">
                           <option value="">Izberi...</option>
                           % for object in objects:
                             <option>{{object}}</option>
@@ -376,7 +376,7 @@
                         </select>
                       </div>
                       <div class="col-3 align-self-end">
-                        <button class="btn btn-secondary" type="button" hx-post="/defaultItem" hx-swap="none" hx-target="body" onclick="osvezi('pisek-iframe');refreshScene()">Ustvari objekt</button>
+                        <button class="btn btn-secondary" type="button" hx-swap="none" hx-target="body" onclick="refreshScene('defaultItem')">Ustvari objekt</button>
                       </div>
 
                       <div class = "row" style = "margin-bottom: 2rem;">
@@ -388,10 +388,10 @@
                         </div>
                         <div class="col-3">
                           <label for="obstacleImage">Vrednost</label>
-                          <input class="form-control" id="itemName" name="defaultItemNumber" value="0"></input>
+                          <input class="form-control" id="default-item-number" name="defaultItemNumber" value="0"></input>
                         </div>
                         <div class="col-3 align-self-end">
-                          <button class="btn btn-secondary" type="button" hx-post="/defaultNumber" hx-swap="none" hx-target="body" onclick="osvezi('pisek-iframe');refreshScene()">Ustvari Število</button>
+                          <button class="btn btn-secondary" type="button" hx-post="/defaultNumber" hx-swap="none" hx-target="body" onclick="refreshScene('defaultNumber')">Ustvari Število</button>
                         </div>
 
                         <div class = "row" style = "margin-bottom: 1rem;">
@@ -403,14 +403,14 @@
                           </div>
                           <div class="col-3">
                             <label for="itemColorSelector">Vrednost</label>
-                            <select id="polje" class="form-select" name="defaultItemColor">
+                            <select id="default-item-color" class="form-select" name="defaultItemColor">
                               <option selected="selected">green</option>
                               <option>red</option>
                               <option>blue</option>
                           </select>
                           </div>
                           <div class="col-3 align-self-end">
-                            <button class="btn btn-secondary" type="button" hx-post="/defaultItemColor" hx-swap="none" hx-target="body" onclick="osvezi('pisek-iframe');refreshScene()">Ustvari barvo</button>
+                            <button class="btn btn-secondary" type="button" hx-swap="none" hx-target="body" onclick="refreshScene('defaultColor')">Ustvari barvo</button>
                           </div>
                       
                     </div>
@@ -514,7 +514,7 @@
           </div>
         </div>
         <script src="../static/javascript/script.js"></script>
-        <!-- <iframe src="views/naloga.html" id = "pisek-iframe" onload="this.width=screen.width;this.height=screen.height;"></iframe> -->
+        <iframe src="views/naloga.html" id = "pisek-iframe" onload="this.width=screen.width;this.height=screen.height;"></iframe>
         
       </main>
 

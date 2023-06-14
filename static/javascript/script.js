@@ -140,19 +140,50 @@ function funkcija(){
   $.post("/p");
 }
 
-function refreshScene() {
+function refreshScene(path) {
           // Perform your logic to generate the updated content
-  $.ajax({
-  url: '/updateItemTypes',  // Replace with the appropriate server route
-  type: 'POST',
-  data: {/* Data to update itemTypes */},
-  success: function(response) {
-      // Update the content of the 'scene' div with the new HTML response
-      $('#scene').html(response);
-  },
 
-// Update the content of the 'scene' div
+  if (path == "addRobot"){
+    var dict = {
+      "coordRowR": document.getElementById('robot-coord-y').value,
+      "coordColR": document.getElementById('robot-coord-x').value,
+      "itemImageR": document.getElementById('robot-image').value
+    }
+  }
+  else if (path == "defaultItem"){
+    var dict = {
+    "defaultItemCategory": document.getElementById('default-item-category').value,
+    "defaultItemImage": document.getElementById('default-item-image').value
+    }
+  }
+  else if (path == "defaultNumber"){
+    var dict = {
+    "defaultItemNumber": document.getElementById('default-item-number').value,
+    }
+  }
+  else if (path == "defaultColor"){
+    var dict = {
+    "defaultItemColor": document.getElementById('default-item-color').value,
+    
+    }
+  }
+  
+  $.ajax({
+  url: "\\" + path,  // Replace with the appropriate server route
+  type: 'POST',
+  data: dict,
+  success: function(response) {
+  },
+});
+$.ajax({
+  url: "/updateItemTypes",  // Replace with the appropriate server route
+  type: 'GET',
+  data: {},
+  success: function(response) {
+    $('#scene').html(response);
+  },
 })
+
   }
   
 const button = document.getElementById('button-update-language-strings');

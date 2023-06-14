@@ -276,6 +276,7 @@ def addDefaultItems():
     itemImage= bottle.request.forms.get("defaultItemImage")
     generator.createDefaultItem(itemCategory, itemImage)
     generator.ustvariSkripto()
+    print("Dodal default: ", itemCategory)
     bottle.redirect("/")
 
 @bottle.post("/defaultNumber")
@@ -285,9 +286,10 @@ def addDefaultNumber():
     generator.ustvariSkripto()
     bottle.redirect("/")
 
-@bottle.post("/defaultItemColor")
+@bottle.post("/defaultColor")
 def addDefaultColor():
     itemCol= bottle.request.forms.get("defaultItemColor")
+    print("COLOR: ", itemCol)
     generator.createDefaultColor(itemCol)
     generator.ustvariSkripto()
     bottle.redirect("/")
@@ -312,10 +314,9 @@ def addToMatrix():
     generator.ustvariSkripto()
     bottle.redirect("/")
 
-@bottle.post("/r") 
+@bottle.post("/addRobot") 
 def dodajItem():
     #ITEMTYPE
-    print("DODAJAM ROBOTA SERVER BRRRRRRR")
     itemRow = bottle.request.forms.get("coordRowR") 
     itemCol = bottle.request.forms.get("coordColR")
     itemCategory = "robot"
@@ -326,8 +327,9 @@ def dodajItem():
     generator.itemSpecifications["row"] = [int(itemRow.split(",")[0])]
     generator.itemSpecifications["col"] = [int(itemCol.split(",")[0])]
     generator.itemSpecifications["nbStates"] = 9
-    generator.addRobot() #kliče naj se z gumbom ustvari
+    generator.addRobot()
     generator.ustvariSkripto()
+    print("DODAJAM ROBOTA SERVER BRRRRRRR")
     bottle.redirect("/")
 
 @bottle.post("/d") 
@@ -356,7 +358,7 @@ def deleteLanguage():
         htmlStr += "<option>{}. {} : {}</option> <br>".format(i, languageStringsKeys[i], languageStringsValues[i])
     return htmlStr
 
-@bottle.post('/updateItemTypes')
+@bottle.get("/updateItemTypes") 
 def update_item_types():
     itemTypes = generator.itemsIT
     returnHtml = ""
@@ -367,9 +369,7 @@ def update_item_types():
             returnHtml += "ime: {}, color = {},  row={}, col={} <br>".format(ime, itemTypes[ime]["colour"], itemTypes[ime]["row"], itemTypes[ime]["col"])
         else:  
             returnHtml += "ime: {}, img = {}, category = {}, row={}, col={} <br>".format(ime, itemTypes[ime]["img"], list(itemTypes[ime]["category"].keys())[0], itemTypes[ime]["row"], itemTypes[ime]["col"])
-    print("Hello item types: ", returnHtml)
     # Generate the updated HTML content using a Bottle template
-    generator.ustvariSkripto()
     # Return the updated HTML as a response
     return returnHtml
 
