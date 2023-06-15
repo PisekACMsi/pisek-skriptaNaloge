@@ -255,7 +255,7 @@ def home_add():
     generator.ustvariSkripto()
     bottle.redirect("/")
 
-@bottle.post("/p") 
+@bottle.post("/customObject") 
 def dodajItem():
     #ITEMTYPE
     print("DODAL ITEM TYPE, DELAM KOT ZAMORC")
@@ -297,9 +297,9 @@ def addDefaultColor():
 @bottle.post("/addToMatrix")
 def addToMatrix():
     print("DODAJAM NA MATRIKO AAAAAAAAAAAAAAAA")
-    itemName = bottle.request.forms.get("itemNameCoord")
-    itemRow = int(bottle.request.forms.get("coordRow") )
-    itemCol = int(bottle.request.forms.get("coordCol"))
+    itemName = bottle.request.forms.get("itemName")
+    itemRow = int(bottle.request.forms.get("itemRow") )
+    itemCol = int(bottle.request.forms.get("itemCol"))
     generator.addItemTypeToMatrix(itemName, itemRow, itemCol)
     generator.ustvariSkripto()
     bottle.redirect("/")
@@ -307,9 +307,9 @@ def addToMatrix():
 @bottle.post("/removeFromMatrix")
 def addToMatrix():
     print("DODAJAM NA MATRIKO AAAAAAAAAAAAAAAA")
-    itemName = bottle.request.forms.get("itemNameCoord")
-    itemRow = int(bottle.request.forms.get("coordRow") )
-    itemCol = int(bottle.request.forms.get("coordCol"))
+    itemName = bottle.request.forms.get("itemName")
+    itemRow = int(bottle.request.forms.get("itemRow") )
+    itemCol = int(bottle.request.forms.get("itemCol"))
     generator.removeItemTypeFromMatrix(itemName, itemRow, itemCol)
     generator.ustvariSkripto()
     bottle.redirect("/")
@@ -332,7 +332,7 @@ def dodajItem():
     print("DODAJAM ROBOTA SERVER BRRRRRRR")
     bottle.redirect("/")
 
-@bottle.post("/d") 
+@bottle.post("/removeItem") 
 def deleteItem():
     print("BRIŠEM ITEM GRRRRRRR")
     deleteItem = bottle.request.forms.get("delName")
@@ -372,6 +372,22 @@ def update_item_types():
     # Generate the updated HTML content using a Bottle template
     # Return the updated HTML as a response
     return returnHtml
+
+@bottle.post("/updateItemTypeOptions") 
+def update_item_types():
+    itemTypesNames = list(generator.typeOptions)
+    selected = bottle.request.forms.get("selected")
+    html = ""
+    for name in itemTypesNames:
+        print("SELECTED, ", selected)
+        if name == selected:
+            html += "<option " + "selected=" + selected + ">" + str(name) + "</option> <br>"
+        else:
+            html += "<option>" + str(name) + "</option> <br>"
+    return html
+
+
+
 
 @bottle.post('/reset')
 def update_item_types():

@@ -194,7 +194,7 @@
                   </div>
                   <div class="row">
                     <div class="col-3 align-self-end">
-                      <button id="button-update-language-strings" class="btn btn-secondary" type="button" hx-swap="none">Posodobi text</button>
+                      <button id="button-update-language-strings" class="btn btn-secondary" type="button" hx-swap="none" onclick="updateLangugaeStrings()">Posodobi text</button>
                     </div>
                   </div>
                 </div>
@@ -419,12 +419,12 @@
                   <div class = "row" style = "margin-bottom: 2rem;">
                     <div class="col-md-3 mb-3">
                       <label for="imeB">Ime</label>
-                      <input class="form-control" id="itemName" name="itemName" value="ovira"></input>
+                      <input class="form-control" id="custom-item-name" name="customItemName" value="ovira"></input>
                     </div>
                     
                     <div class="col-md-4">
                       <label for="state" class="form-label" >Izberi sliko</label>
-                      <select id="polje" class="form-select" name="itemImage">
+                      <select id="custom-item-image" class="form-select" name="customItemImage">
                         <option value="">Izberi...</option>
                         % for object in objects:
                           <option>{{object}}</option>
@@ -437,7 +437,7 @@
                     </div>
                     <div class="col-md-4">
                       <label for="state" class="form-label">Izberi kategorijo</label>
-                      <select id="itemCategory" class="form-select" name="itemCategory">
+                      <select id="custom-item-category" class="form-select" name="customItemCategory">
                         <option value="">Izberi...</option>
                         <option>coin</option>
                         <option>transportable</option>
@@ -448,7 +448,7 @@
                       </div>
                     </div>
                     <div class="col-2 align-self-end">
-                      <button class="btn btn-secondary" type="button" hx-swap="none" hx-post="/p" hx-target="body" onclick="refreshScene();">Ustvari predmet</button>
+                      <button class="btn btn-secondary" type="button" hx-swap="none" hx-target="body" onclick="refreshScene('customObject');">Ustvari predmet</button>
                     </div>
                   </div>
                   <h4>Dodani Predmeti</h4>
@@ -459,14 +459,15 @@
                   <div class = "row" style = "margin-bottom: 2rem;">
                     <div class="col-3">
                       <label class="form-label">Ime objekta</label>
-                      <input type="text" class="form-control" id="polje-vrstica" name="itemNameCoord" placeholder="ime">
+                      <select id="added-item-to-matrix" class="form-select">
+                      </select>
                       <div class="invalid-feedback">
                         Polje ne sme biti prazno!
                       </div>
                     </div>
                     <div class="col-2">
                       <label for="email" class="form-label">Koord. X</label>
-                      <input type="text" class="form-control" id="polje-vrstica" name="coordRow" placeholder="vrstica" value = "0">
+                      <input type="text" class="form-control" id="add-coord-row" name="coordRow" placeholder="vrstica" value = "0">
                       <div class="invalid-feedback">
                         Polje ne sme biti prazno!
                       </div>
@@ -474,29 +475,29 @@
 
                     <div class="col-2">
                       <label for="email" class="form-label">Koord. Y</label>
-                      <input type="text" class="form-control" id="polje-vrstica" name="coordCol" placeholder="vrstica" value = "0">
+                      <input type="text" class="form-control" id="add-coord-col" name="coordCol" placeholder="vrstica" value = "0">
                       <div class="invalid-feedback">
                         Polje ne sme biti prazno!
                       </div>
                     </div>
                     <div class="col-2 align-self-end">
-                      <button class="btn btn-secondary" type="button" hx-swap="none" hx-post="/addToMatrix" hx-target="body" onclick="osvezi('pisek-iframe'); refreshScene();">Dodaj</button>
+                      <button class="btn btn-secondary" type="button" hx-swap="none" hx-target="body" onclick="refreshScene('addToMatrix');">Dodaj</button>
                     </div>
                     <div class="col-2 align-self-end">
-                      <button class="btn btn-secondary" type="button" hx-swap="none" hx-post="/removeFromMatrix" hx-target="body" onclick="osvezi('pisek-iframe'); refreshScene();">Odstrani</button>
+                      <button class="btn btn-secondary" type="button" hx-swap="none" hx-target="body" onclick="refreshScene('removeFromMatrix');">Odstrani</button>
                     </div>
                   </div>
                   
                   <div class="row">
                     <div class="col-3">
                       <h6>Ime za izbris</h6>
-                      <input type="text" class="form-control" id="polje-vrstica" name="delName" placeholder="vrstica" value = "">
+                      <select id="remove-item-name" class="form-select"></select>
                       <div class="invalid-feedback">
                         Polje ne sme biti prazno!
                       </div>
                     </div>
                     <div class="col-3 align-self-end">
-                      <button class="btn btn-secondary" type="button" hx-post="/d" hx-swap="none" hx-target="body" onclick="osvezi('pisek-iframe'); refreshScene();">Izbriši</button>
+                      <button class="btn btn-secondary" type="button" hx-swap="none" hx-target="body" onclick="refreshScene('removeItem');">Izbriši</button>
                     </div>
                   </div>
 

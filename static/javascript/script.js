@@ -152,22 +152,48 @@ function refreshScene(path) {
   }
   else if (path == "defaultItem"){
     var dict = {
-    "defaultItemCategory": document.getElementById('default-item-category').value,
-    "defaultItemImage": document.getElementById('default-item-image').value
+      "defaultItemCategory": document.getElementById('default-item-category').value,
+      "defaultItemImage": document.getElementById('default-item-image').value
     }
   }
   else if (path == "defaultNumber"){
     var dict = {
-    "defaultItemNumber": document.getElementById('default-item-number').value,
+      "defaultItemNumber": document.getElementById('default-item-number').value,
     }
   }
   else if (path == "defaultColor"){
     var dict = {
-    "defaultItemColor": document.getElementById('default-item-color').value,
+      "defaultItemColor": document.getElementById('default-item-color').value,
     
     }
   }
-  
+  else if (path == "customObject"){
+    var dict = {
+      "itemCategory": document.getElementById('custom-item-category').value,
+      "itemImage": document.getElementById('custom-item-image').value,
+      "itemName": document.getElementById('custom-item-name').value,
+    }
+  }
+  else if (path == "addToMatrix"){
+    var dict = {
+      "itemName": document.getElementById('added-item-to-matrix').value,
+      "itemRow": document.getElementById('add-coord-row').value,
+      "itemCol": document.getElementById('add-coord-col').value,
+    }
+  }
+  else if (path == "removeFromMatrix"){
+    var dict = {
+      "itemName": document.getElementById('added-item-to-matrix').value,
+      "itemRow": document.getElementById('add-coord-row').value,
+      "itemCol": document.getElementById('add-coord-col').value,
+    }
+  }
+  else if (path == "removeItem"){
+    var dict = {
+      "delName": document.getElementById('remove-item-name').value,
+    }
+  }
+
   $.ajax({
   url: "\\" + path,  // Replace with the appropriate server route
   type: 'POST',
@@ -182,12 +208,22 @@ $.ajax({
   success: function(response) {
     $('#scene').html(response);
   },
-})
-
+});
+$.ajax({
+  url: "/updateItemTypeOptions",  // Replace with the appropriate server route
+  type: 'POST',
+  data: {
+    "selected": document.getElementById('added-item-to-matrix').value,
+  },
+  success: function(response) {
+    $('#added-item-to-matrix').html(response);
+    $('#remove-item-name').html(response);
+  },
+});
+  osvezi('pisek-iframe');
   }
   
-const button = document.getElementById('button-update-language-strings');
-button.addEventListener('click', function() {
+function updateLangugaeStrings() {
   var idLS = document.getElementById('id-LS').value;
   var textLS = document.getElementById('text-LS').value;
   $.ajax({
@@ -206,7 +242,7 @@ button.addEventListener('click', function() {
       console.error('Error:', error);
     }
   });
-});
+};
   
   
   

@@ -270,12 +270,13 @@ def createDefaultItem(itemCategory, itemImage):
     itemNameId = 0
     for itemName in itemsIT.keys():
         if itemCategory in itemName:
-            itemNameId += 1
+            if itemImage != itemsIT[itemName]["img"][:-4]:
+                itemNameId += 1
     ime = itemCategory + str(itemNameId)
     itemSpec = {"num": 2, "img":"", "zOrder":2, "category":{}, "value":0,"row":[], "col":[]}
     
     itemSpec["category"] = {"\"%s\""%itemCategory:True}
-    itemSpec["num"] = len(list(itemsIT.keys()))+2
+    itemSpec["num"] = len(list(typeOptions))+2
     itemSpec["img"] = itemImage + ".png"
     itemsIT[ime] = itemSpec
     typeOptions.add(ime)
@@ -298,7 +299,8 @@ def createDefaultColor(itemCol):
     itemNameId = 0
     for itemName in itemsIT.keys():
         if itemCategory in itemName:
-            itemNameId += 1
+            if itemCol != itemsIT[itemName]["colour"]:
+                itemNameId += 1
     ime = itemCategory + str(itemNameId)
     itemSpec = {"zOrder":2, "value":0, "row":[], "col":[]}
     
@@ -323,16 +325,16 @@ def removeItemTypeFromMatrix(itemName, itemRow, itemCol):
 
 def updateMatrix():
     global itemsIT, matrixExamples, aktivenPrimer
+    sizey = len(matrixExamples[aktivenPrimer])
+    sizex = len(matrixExamples[aktivenPrimer][0])
+    for i in range(sizex):
+        for j in range(sizey):
+            matrixExamples[aktivenPrimer][j][i] = 1
     for key in itemsIT.keys():
         item = itemsIT[key]
         rows = item["row"]
         cols = item["col"]
-        sizey = len(matrixExamples[aktivenPrimer])
-        sizex = len(matrixExamples[aktivenPrimer][0])
-        for i in range(sizex):
-            for j in range(sizey):
-                if matrixExamples[aktivenPrimer][j][i] == item["num"]:
-                    matrixExamples[aktivenPrimer][j][i] = 1
+        
         for i in range(len(rows)):
             if rows[i] < sizex and cols[i] < sizey:
                 matrixExamples[aktivenPrimer][cols[i]][rows[i]] = item["num"]
@@ -362,13 +364,15 @@ def addRobot():
     itemSpecifications = {"name":"", "num": itemID, "img":"", "zOrder":itemID, "category":catIT, "value":0, "nbStates":1,"row":[0], "col":[0]} #nazaj na default
 
 def deleteItemType(ime):
-    global itemsIT, itemID, typeOptions, possibleCategories
+    global itemsIT, itemID, typeOptions, possibleCategories, matrixExamples
     
     itemID -= 1
     if ime in list(itemsIT.keys()):
         typeOptions.remove(ime)
         itemsIT.pop(ime)
     removeInicialisation(ime)
+    updateMatrix()
+
 
 def izpisiSubTaskData():
     global matrixExamples, initialisationExamples, mmm, nnn

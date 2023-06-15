@@ -21,13 +21,11 @@ function initTask(subTask) {
      },
      actionDelay: 400,
      blocklyColourTheme: "bwinf",
-     maxInstructions: 666,
+     maxInstructions: 0,
      includeBlocks: {
           groupByCategory: true,
           generatedBlocks: {
-               robot: [
-                    "move"
-               ]
+               robot: []
           },
           standardBlocks: {
                includeAll: false,
@@ -48,58 +46,21 @@ function initTask(subTask) {
 },
      ignoreInvalidMoves: false,
      border: 0.02,
-     backgroundColour: "#000000",
-     backgroundTile: "asfalt.png",
-     borderColour: "#000000",
-     showLabels: false,
+     backgroundColour: "white",
+     backgroundTile: "",
+     borderColour: "black",
+     showLabels: true,
      cellSide: 60,
      numberOfRobots: 1,
      itemTypes: {
-          robot0: {
-               img: "avto.png",
-               zOrder: 10,
-               category: {
-                    "robot": true
-               },
-               value: 0,
-               nbStates: 9
-          },
           obstacle0: {
-               num: 3,
+               num: 2,
                img: "banana.png",
                zOrder: 2,
                category: {
                     "obstacle": true
                },
                value: 0
-          },
-          number0: {
-               zOrder: 2,
-               category: {
-                    "number": true
-               },
-               value: "0",
-               num: 5
-          },
-          number2: {
-               zOrder: 2,
-               category: {
-                    "number": true
-               },
-               value: "2",
-               num: 6
-          },
-          color0: {
-               zOrder: 2,
-               value: 0,
-               colour: "green",
-               num: 6
-          },
-          color1: {
-               zOrder: 2,
-               value: 0,
-               colour: "red",
-               num: 7
           }
      }
 };
@@ -107,19 +68,11 @@ subTask.data = {
      easy: [
           {
                tiles: [[2, 1, 1, 1, 1], 
- [1, 5, 3, 1, 1], 
- [1, 1, 2, 1, 1], 
- [1, 1, 1, 6, 7], 
- [1, 1, 3, 1, 3]],
-               initItems: [
-                    {
-                         row: 0,
-                         col: 0,
-                         type: "robot0",
-                         dir: 0,
-                         value: 0
-                    }
-               ]
+ [1, 1, 1, 1, 1], 
+ [1, 1, 1, 1, 1], 
+ [1, 1, 1, 1, 1], 
+ [1, 1, 1, 1, 1]],
+               initItems: []
           }
      ]
 };

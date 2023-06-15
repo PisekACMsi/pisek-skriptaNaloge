@@ -18,7 +18,7 @@ Tasks:
 
 ✅  Vpis ItemTypes
 
-☐  V polje in predmeti dodam kategorijo, vrednost to potem daš v itemSpecifications
+✅  V polje in predmeti dodam kategorijo, vrednost to potem daš v itemSpecifications
 
 ✅  Update matrix ko dodaš nov itemtype
 
@@ -26,9 +26,9 @@ Tasks:
 
 ✅  Language strings go brrrrrrrrr
 
-☐ Refreshej minipage, dodani predmeti
+✅ Refreshej minipage, dodani predmeti
 
-☐ refreshaj language strings
+✅ refreshaj language strings
 
 ✅ Možnost spremembe velikosti mreže
 
@@ -43,7 +43,10 @@ Tasks:
 ☐ Robot naj ima samo eno koordinato
 
 ✅ Default stanje
-    ☐ Odpravi možnost podvojenih objektov
+    ✅ Odpravi možnost podvojenih objektov
+    ✅ Dropdown za dodajanje predmetov na mrežo
+
+☐ Posodobi sezname imen dodanih objektov v htmlju ob refreshu
 
 ✅ Dodaj izbiro posameznih delčkov
     ✅ Opcija izberi vse
