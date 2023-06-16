@@ -157,8 +157,15 @@ def home_get():
     
     languageStringsKeys = generator.languageStringsKeyWord
     languageStringsValues = generator.languageStringsValues
-    test += 1
-    return bottle.template("index.html", tile_names=tile_names, character_names=character_names, objects=objects, itemTypes=itemTypes, languageStrings = [languageStringsKeys, languageStringsValues], test=test)
+    
+    scene = generator.createItemTypesHtmlString()
+
+    htmlListTypes = generator.updateItemTypesHtmlString()
+
+    customItemCategories = generator.updateCategoryOptionsHtmlString()
+
+    buttonNames = generator.updateButtonHtmlString()
+    return bottle.template("index.html", tile_names=tile_names, character_names=character_names, objects=objects, itemTypes=itemTypes, languageStrings = [languageStringsKeys, languageStringsValues], scene=scene, htmlListTypes=htmlListTypes, customItemCategories=customItemCategories, buttonNames=buttonNames)
 
 @bottle.post("/") 
 def home_add():
@@ -259,13 +266,23 @@ def home_add():
 def dodajItem():
     #ITEMTYPE
     print("DODAL ITEM TYPE, DELAM KOT ZAMORC")
-    itemCategory = bottle.request.forms.get("itemCategory") 
-    itemImage = bottle.request.forms.get("itemImage")
-    print("IMAGE", itemImage)
     itemName = bottle.request.forms.get("itemName")
+    itemCategorys = json.loads(bottle.request.forms.get("itemCategory"))
+    itemImages = json.loads(bottle.request.forms.get("itemImage"))
+    itemValue = bottle.request.forms.get("itemValue")
+    zOrder = bottle.request.forms.get("itemZOrder")
+    buttonId = int(bottle.request.forms.get("buttonId"))
+    itemColors = json.loads(bottle.request.forms.get("itemColor"))
     generator.itemSpecifications["name"] = itemName
-    generator.itemSpecifications["img"] = itemImage.replace(" ", "_") + ".png"
-    generator.catIT[itemCategory] = True
+    generator.itemSpecifications["img"] = itemImages
+    generator.itemSpecifications["value"] = itemValue
+    generator.itemSpecifications["zOrder"] = zOrder
+    generator.itemSpecifications["color"] = itemColors
+    generator.itemSpecifications["id"] = buttonId
+    
+    for cat in itemCategorys:
+        generator.catIT[cat] = True
+    
     generator.dodajItemType() #kliče naj se z gumbom ustvari
     generator.ustvariSkripto()
     bottle.redirect("/")
@@ -289,8 +306,15 @@ def addDefaultNumber():
 @bottle.post("/defaultColor")
 def addDefaultColor():
     itemCol= bottle.request.forms.get("defaultItemColor")
-    print("COLOR: ", itemCol)
     generator.createDefaultColor(itemCol)
+    generator.ustvariSkripto()
+    bottle.redirect("/")
+
+@bottle.post("/defaultButton")
+def addDefaultButton():
+    buttonOn = bottle.request.forms.get("defaultButtonImageOn")
+    buttonOff = bottle.request.forms.get("defaultButtonImageOff")
+    generator.createDefaultButton(buttonOn, buttonOff)
     generator.ustvariSkripto()
     bottle.redirect("/")
 
@@ -332,6 +356,13 @@ def dodajItem():
     print("DODAJAM ROBOTA SERVER BRRRRRRR")
     bottle.redirect("/")
 
+@bottle.post("/createNewCategory")
+def createNewCategory():
+    print("CREATE NEW CATEGORY")
+    category = bottle.request.forms.get("category")
+    generator.catIT[category] = False
+    return generator.updateCategoryOptionsHtmlString()
+
 @bottle.post("/removeItem") 
 def deleteItem():
     print("BRIŠEM ITEM GRRRRRRR")
@@ -360,39 +391,23 @@ def deleteLanguage():
 
 @bottle.get("/updateItemTypes") 
 def update_item_types():
-    itemTypes = generator.itemsIT
-    returnHtml = ""
-    for ime in itemTypes.keys():
-        if "number" in ime:
-            returnHtml += "ime: {}, value = {}, category = {}, row={}, col={} <br>".format(ime, itemTypes[ime]["value"], list(itemTypes[ime]["category"].keys())[0], itemTypes[ime]["row"], itemTypes[ime]["col"])
-        elif "color" in ime:
-            returnHtml += "ime: {}, color = {},  row={}, col={} <br>".format(ime, itemTypes[ime]["colour"], itemTypes[ime]["row"], itemTypes[ime]["col"])
-        else:  
-            returnHtml += "ime: {}, img = {}, category = {}, row={}, col={} <br>".format(ime, itemTypes[ime]["img"], list(itemTypes[ime]["category"].keys())[0], itemTypes[ime]["row"], itemTypes[ime]["col"])
-    # Generate the updated HTML content using a Bottle template
-    # Return the updated HTML as a response
-    return returnHtml
+    return generator.createItemTypesHtmlString()
 
 @bottle.post("/updateItemTypeOptions") 
 def update_item_types():
-    itemTypesNames = list(generator.typeOptions)
-    selected = bottle.request.forms.get("selected")
-    html = ""
-    for name in itemTypesNames:
-        print("SELECTED, ", selected)
-        if name == selected:
-            html += "<option " + "selected=" + selected + ">" + str(name) + "</option> <br>"
-        else:
-            html += "<option>" + str(name) + "</option> <br>"
-    return html
+    return generator.updateItemTypesHtmlString()
 
-
-
-
-@bottle.post('/reset')
+@bottle.get("/updateButtons") 
 def update_item_types():
+    print("GUMBI: ", generator.updateButtonHtmlString())
+    return generator.updateButtonHtmlString()
+
+@bottle.post("/resetFile")
+def update_item_types():
+    print("RESETIRAM WOOOOOOOOOOOOOOOOOOO")
     generator.resetVariables()
-    bottle.redirect("/")
+    generator.ustvariSkripto()
+    return home_get()
 
 #----------------------------------------------------------------------------------------------------------
 

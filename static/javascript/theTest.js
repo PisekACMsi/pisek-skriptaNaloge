@@ -40,7 +40,7 @@ function initTask(subTask) {
      checkEndEveryTurn: false,
      checkEndCondition: (context, lastTurn) => { 
 	robotEndConditions.checkCombiner(context, lastTurn, [
-		(context, lastTurn) => { robotEndConditions.checkItemExistence(context, lastTurn, {category: "coin"}, {}, exist=false) },
+		//,
 		//
 	])
 },
@@ -53,21 +53,42 @@ function initTask(subTask) {
      cellSide: 60,
      numberOfRobots: 1,
      itemTypes: {
-          obstacle0: {
-               num: 2,
-               img: "banana.png",
-               zOrder: 2,
+          button_0: {
+               img: [
+                    "Azure",
+                    "Azure"
+               ],
+               num: 3,
+               zOrder: 3,
+               value: 0,
+               id: 0
+          },
+          Ime: {
+               num: 4,
+               img: [
+                    "banana.png",
+                    "blok1.png"
+               ],
+               zOrder: "2",
                category: {
-                    "obstacle": true
+                    "obstacle": true,
+                    "transportable": true
                },
-               value: 0
+               value: "0",
+               nbStates: 8,
+               color: [
+                    "Azure",
+                    "Black",
+                    "Blue"
+               ],
+               id: 0
           }
      }
 };
 subTask.data = {
      easy: [
           {
-               tiles: [[2, 1, 1, 1, 1], 
+               tiles: [[1, 1, 1, 1, 1], 
  [1, 1, 1, 1, 1], 
  [1, 1, 1, 1, 1], 
  [1, 1, 1, 1, 1], 

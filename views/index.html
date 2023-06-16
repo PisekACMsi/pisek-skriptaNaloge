@@ -267,13 +267,11 @@
                         <option selected="selected">category</option>
                       </select>
                     </div>
-                    <div class="col-md-6 mb-3">
+                    <div class="col-md-3 mb-3">
                       <label for="ime1">Vrsta indikatorja</label>
-                      <select class="selectpicker" id="ime1" name="ime1">
-                        <option value="">Izberi...</option>
-                        <option selected="selected">coin</option>
-                        <option>transportable</option>
-                        <option>robot</option>
+                      <select class="form-select" id="ime1" name="ime1">
+                        <option selected="selected" value="">Ne preverjaj</option>
+                        <option>coin</option>
                       </select>
                     </div>
                   </div>
@@ -282,33 +280,27 @@
                     <div class="col-md-6 mb-3">
                       <label for="indikatorA">Indikator A</label><br>
                       <select class="selectpicker" id="indikatorA" name="indikatorA">
-                        <option value="">Izberi...</option>
-                        <option >category</option>
+                        <option selected="selected">type</option>
                       </select>
                     </div>
-                    <div class="col-md-6 mb-3">
-                      <label for="imeA">Vrsta indikatorja A</label>
-                      <select class="selectpicker" id="imeA" name="imeA">
-                        <option value="">Izberi...</option>
-                        <option>coin</option>
-                        <option>transportable</option>
-                        <option>robot</option>
+                    <div class="col-md-3 mb-3">
+                      <label for="ime-indikatorja-A">Ime objekta A</label> <br>
+                      <select class="form-select" id="coincide-label-A" name="imeA">
+                        <option value="">Ne preverjaj</option>
+                        {{! htmlListTypes}}
                       </select>
                     </div>
                     <div class="col-md-6 mb-3">
                       <label for="indikatorB">Indikator B</label><br>
-                      <select class="selectpicker" id="indikatorB" name="indikatorB">
-                        <option value="">Izberi...</option>
-                        <option>category</option>
+                      <select class="selectpicker" id="name-type-B" name="indikatorB">
+                        <option selected="selected">type</option>
                       </select>
                     </div>
-                    <div class="col-md-6 mb-3">
-                      <label for="imeB">Vrsta indikatorja B</label>
-                      <select class="selectpicker" id="imeB" name="imeB">
-                        <option value="">Izberi...</option>
-                        <option>coin</option>
-                        <option>transportable</option>
-                        <option>robot</option>
+                    <div class="col-md-3 mb-3">
+                      <label for="ime-indikatorja-B">Ime objekta B</label><br>
+                      <select class="form-select" id="coincide-label-B" name="imeB">
+                        <option value="">Ne preverjaj</option>
+                        {{! htmlListTypes}}
                       </select>
                     </div>
                   </div>
@@ -404,62 +396,140 @@
                           <div class="col-3">
                             <label for="itemColorSelector">Vrednost</label>
                             <select id="default-item-color" class="form-select" name="defaultItemColor">
-                              <option selected="selected">green</option>
-                              <option>red</option>
-                              <option>blue</option>
+                              <option>Azure</option>
+                              <option>Black</option>
+                              <option>Blue</option>
+                              <option>Brown</option>
+                              <option>DarkRed</option>
+                              <option>Green</option>
+                              <option>Grey</option>
+                              <option>Lime</option>
+                              <option>Magenta</option>
+                              <option>Orange</option>
+                              <option>Purple</option>
+                              <option>Red</option>
+                              <option>White</option>
+                              <option>Yellow</option>
                           </select>
                           </div>
                           <div class="col-3 align-self-end">
                             <button class="btn btn-secondary" type="button" hx-swap="none" hx-target="body" onclick="refreshScene('defaultColor')">Ustvari barvo</button>
                           </div>
-                      
-                    </div>
+                        </div>
+
+                        <div class = "row" style = "margin-bottom: 1rem;">
+                          <div class="col-3" style = "margin-bottom: 0,5rem;">
+                            <label for="imeB">Tip predmeta</label>
+                            <select id="polje" class="form-select">
+                                <option selected="selected">Gumb</option>
+                            </select>
+                          </div>
+                          <div class="col-2">
+                            <label for="itemColorSelector">Gumb on</label>
+                            <select id="default-button-on-image" class="form-select" name="defaultButtonOnImage">
+                              <option>Azure</option>
+                              <option>Black</option>
+                            </select>
+                          </div>
+                          <div class="col-2">
+                            <label for="itemColorSelector">Gumb off</label>
+                            <select id="default-button-off-image" class="form-select" name="defaultButtonOffImage">
+                              <option>Azure</option>
+                              <option>Black</option>
+                            </select>
+                          </div>
+                          <div class="col-3 align-self-end">
+                            <button class="btn btn-secondary" type="button" hx-swap="none" hx-target="body" onclick="refreshScene('defaultButton')">Ustvari gumb</button>
+                          </div>
+                        </div>
 
                   <h4>Ustvari svoj objekt</h4>
                   <div class = "row" style = "margin-bottom: 2rem;">
-                    <div class="col-md-3 mb-3">
-                      <label for="imeB">Ime</label>
-                      <input class="form-control" id="custom-item-name" name="customItemName" value="ovira"></input>
+                    <div class="col-4">
+                      <label for="custom-item-name">Ustvari novo kategorijo</label>
+                      <input class="form-control" id="custom-category-name" name="customItemName" value="imeKategorije"></input>
                     </div>
-                    
+                    <div class="col-6 align-self-end">
+                      <button class="btn btn-secondary" type="button" hx-swap="none" hx-target="body" onclick="createNewCategory()">Ustvari novo kategorijo</button>
+                    </div>
+                  </div>
+                  
+                  <div class = "row" style = "margin-bottom: 2rem;">
+                    <div class="col-md-3 mb-3">
+                      <label for="custom-item-name">Ime</label>
+                      <input class="form-control" id="custom-item-name" name="customItemName" value="Ime"></input>
+                    </div>
+                    <div class="col-md-4">
+                      <label for="state" class="form-label">Izberi kategorijo</label>
+                      <select class="selectpicker" id="custom-item-category" name="customItemCategory" multiple>
+                        {{! customItemCategories}}
+                      </select>
+                      <div class="invalid-feedback">
+                        Polje ne sme biti prazno
+                      </div>
+                    </div>
                     <div class="col-md-4">
                       <label for="state" class="form-label" >Izberi sliko</label>
-                      <select id="custom-item-image" class="form-select" name="customItemImage">
-                        <option value="">Izberi...</option>
+                      <select class="selectpicker" id="custom-item-image"  name="customItemImage" multiple>
+                        <option selected="selected" value="">Neviden objekt</option>
                         % for object in objects:
                           <option>{{object}}</option>
                         %end
 
                       </select>
-                      <div class="invalid-feedback">
-                        Polje ne sme biti prazno
-                      </div>
                     </div>
-                    <div class="col-md-4">
-                      <label for="state" class="form-label">Izberi kategorijo</label>
-                      <select id="custom-item-category" class="form-select" name="customItemCategory">
-                        <option value="">Izberi...</option>
-                        <option>coin</option>
-                        <option>transportable</option>
-                        <option selected="selected">obstacle</option>
+                  </div>
+                  <div class = "row" style = "margin-bottom: 2rem;">
+                    <div class="col-md-2 mb-3">
+                      <label for="custom-item-name">Vrednost</label>
+                      <input class="form-control" id="custom-item-value" name="customItemValue" value="0"></input>
+                    </div>
+                    <div class="col-md-2 mb-3">
+                      <label for="custom-item-name">zOrder</label>
+                      <input class="form-control" id="custom-item-z-order" name="customItemZOrder" value="2"></input>
+                    </div>
+                    <div class="col-md-3 mb-3">
+                      <label for="custom-button-id">Poveži z gumbom</label> <br>
+                      <select id="custom-button-id" class="form-select" name="customButtonId">
+                        {{! buttonNames}}
                       </select>
-                      <div class="invalid-feedback">
-                        Polje ne sme biti prazno
-                      </div>
                     </div>
-                    <div class="col-2 align-self-end">
+                    <div class="col-md-3 mb-3">
+                      <label for="custom-item-name">barva</label> <br>
+                      <select id="custom-item-color" class="selectpicker" name="customItemColor" multiple>
+                        <option selected="selected">Azure</option>
+                        <option>Black</option>
+                        <option>Blue</option>
+                        <option>Brown</option>
+                        <option>DarkRed</option>
+                        <option>Green</option>
+                        <option>Grey</option>
+                        <option>Lime</option>
+                        <option>Magenta</option>
+                        <option>Orange</option>
+                        <option>Purple</option>
+                        <option>Red</option>
+                        <option>White</option>
+                        <option>Yellow</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class = "row" style = "margin-bottom: 2rem;">
+                    <div class="col-3 align-self-end">
                       <button class="btn btn-secondary" type="button" hx-swap="none" hx-target="body" onclick="refreshScene('customObject');">Ustvari predmet</button>
                     </div>
                   </div>
+                 
                   <h4>Dodani Predmeti</h4>
                   <div src="views/index.html" id = "scene">
-                    Ni dodanih itemov
+                    {{! scene}}
                   </div>
                   <h4>Dodaj na mrežo</h4>
                   <div class = "row" style = "margin-bottom: 2rem;">
                     <div class="col-3">
                       <label class="form-label">Ime objekta</label>
                       <select id="added-item-to-matrix" class="form-select">
+                        {{! htmlListTypes}}
                       </select>
                       <div class="invalid-feedback">
                         Polje ne sme biti prazno!
@@ -491,7 +561,9 @@
                   <div class="row">
                     <div class="col-3">
                       <h6>Ime za izbris</h6>
-                      <select id="remove-item-name" class="form-select"></select>
+                      <select id="remove-item-name" class="form-select">
+                        {{! htmlListTypes}}
+                      </select>
                       <div class="invalid-feedback">
                         Polje ne sme biti prazno!
                       </div>
@@ -507,15 +579,13 @@
                     style="max-width: 200px; max-height: 200px; object-fit: contain; margin-bottom: 1.5rem;">
                 </div>
 
-              <button class="w-100 btn btn-primary btn-lg" style="margin-bottom: 100px;" onclick="osvezi('pisek-iframe')" hx-post="/" hx-swap="none">Generiraj
-                nalogo
-              </button>
-              <button class="w-100 btn btn-primary btn-lg" style="margin-bottom: 100px;" onclick="osvezi('pisek-iframe')" hx-post="/reset" hx-swap="none">Ponastavi nalogo</button>
+              <button class="w-100 btn btn-primary btn-lg" style="margin-bottom: 100px;" onclick="osvezi('pisek-iframe')" hx-post="/" hx-swap="none">Generiraj nalogo</button>
+              <button class="w-100 btn btn-primary btn-lg" style="margin-bottom: 100px;" type="button" onclick="resetAll()">Ponastavi</button>
             </form>
           </div>
         </div>
         <script src="../static/javascript/script.js"></script>
-        <iframe src="views/naloga.html" id = "pisek-iframe" onload="this.width=screen.width;this.height=screen.height;"></iframe>
+        <!-- <iframe src="views/naloga.html" id = "pisek-iframe" onload="this.width=screen.width;this.height=screen.height;"></iframe> -->
         
       </main>
 

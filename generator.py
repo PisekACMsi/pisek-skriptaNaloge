@@ -160,7 +160,7 @@ def izpisiIncludeBlocks():
 
 def izpisiCheckEndCondition():
     global endCondition
-
+    print(endCondition)
     indikator1 = endCondition["Exist"]["indikator1"]
     ime1 = endCondition["Exist"]["ime1"]
     negIndikator1 = endCondition["Exist"]["negIndikator1"]
@@ -188,8 +188,7 @@ def izpisiCheckEndCondition():
     
     negFiltersA = r"{}"
     negFiltersB = r"{}"
-
-    if (lst[0] == "" and lst[1] == "") and (lst[2] == "" and lst[3] == ""):
+    if (lst[0] == "" or lst[1] == "") and (lst[2] == "" or lst[3] == ""):
         funkcija1 = r"//"
     else:
         if lst[0] != "" and lst[1] != "":
@@ -199,7 +198,7 @@ def izpisiCheckEndCondition():
         endCond1 = "robotEndConditions.checkItemExistence(context, lastTurn, filters1, negFilters1, exist=false)".replace("filters1", filters1).replace("negFilters1", negFilters1)
         funkcija1 = "(context, lastTurn) => { %s }"%(endCond1)
 
-    if ((lst[4] == "" and lst[5] == "") and (lst[6] == "" and lst[7] == "")) and ((lst[9] == "" and lst[10] == "") and (lst[11] == "" and lst[12] == "")):
+    if ((lst[4] == "" or lst[5] == "") and (lst[6] == "" or lst[7] == "")) and ((lst[9] == "" or lst[10] == "") and (lst[11] == "" or lst[12] == "")):
         funkcija2 = r"//"
     else:
         if lst[4] and lst[5]:
@@ -213,13 +212,11 @@ def izpisiCheckEndCondition():
         
         endCond2 = "robotEndConditions.checkItemCoincidence(context, lastTurn, filtersA, filtersB, keys, negFiltersA, negFiltersB)".replace("filtersA", filtersA).replace("filtersB", filtersB).replace("keys", keys).replace("negFiltersA", negFiltersA).replace("negFiltersB", negFiltersB)
         funkcija2 = "(context, lastTurn) => { %s }"%(endCond2)
-
     openFile = open("./generatorSkripte/endConditionTemplate.txt", "r")
     template = openFile.read()
     template = "&#&" + template.replace("funkcija1", funkcija1).replace("funkcija2", funkcija2) + "&#&"
     pySlv = {"checkEndCondition": template}
-    openFile.close()
-    
+    openFile.close()    
     return pySlv
 
 def izpisiRandomBulsit2(): 
@@ -247,23 +244,27 @@ def dodajItemType():
         return
     if ime not in list(itemsIT.keys()):
         itemID += 1
-    catsTrue = []
+    catsTrue = {}
     for cat in catIT.keys():
         if catIT[cat]:
-            catsTrue.append({"\"%s\""%cat:True})
+            catsTrue["\"%s\""%cat] = True
             possibleCategories.add(cat)
-    itemSpecifications["category"] = catsTrue[0]
+    typeOptions.add(ime)
+    itemSpecifications["category"] = catsTrue
 
-    itemSpecifications["num"] = len(list(itemsIT.keys()))+2
+    itemSpecifications["num"] = len(list(typeOptions))+2
 
     itemsIT[ime] = itemSpecifications
-    catIT = {'robot': False, 'obstacle': False, 'transportable': False, 'button': False, 'coin': False, 'number': False}
+
+    setCategoryDeafult()
     
     #saveItemTypes()
-
-
-    typeOptions.add(ime)
     itemSpecifications = {"name":"", "num": itemID, "img":"", "zOrder":itemID, "category":catIT, "value":0, "row":[], "col":[]} #nazaj na default
+
+def setCategoryDeafult():
+    global catIT
+    for key in list(catIT.keys()):
+        catIT[key] = False
 
 def createDefaultItem(itemCategory, itemImage):
     global itemsIT, itemID, typeOptions, possibleCategories, itemSpecifications, matrixExamples, aktivenPrimer, catIT
@@ -273,25 +274,26 @@ def createDefaultItem(itemCategory, itemImage):
             if itemImage != itemsIT[itemName]["img"][:-4]:
                 itemNameId += 1
     ime = itemCategory + str(itemNameId)
-    itemSpec = {"num": 2, "img":"", "zOrder":2, "category":{}, "value":0,"row":[], "col":[]}
+    typeOptions.add(ime)
+    itemSpec = {"num": 2, "img":"", "zOrder":5, "category":{}, "value":0,"row":[], "col":[]}
     
     itemSpec["category"] = {"\"%s\""%itemCategory:True}
     itemSpec["num"] = len(list(typeOptions))+2
     itemSpec["img"] = itemImage + ".png"
     itemsIT[ime] = itemSpec
-    typeOptions.add(ime)
-
+    
 def createDefaultNumber(itemValue):
     global itemsIT, itemID, typeOptions, possibleCategories, itemSpecifications, matrixExamples, aktivenPrimer, catIT
     itemCategory = "number"
     ime = itemCategory + itemValue
-    itemSpec = {"zOrder":2, "category":{}, "value":0, "row":[], "col":[]}
+    typeOptions.add(ime)
+    itemSpec = {"num":2, "zOrder":4, "row":[], "col":[]}
     
     itemSpec["category"] = {"\"%s\""%itemCategory:True}
     itemSpec["value"] = itemValue
-    itemSpec["num"] = len(list(itemsIT.keys()))+2
+    itemSpec["num"] = len(list(typeOptions))+2
     itemsIT[ime] = itemSpec
-    typeOptions.add(ime)
+    
 
 def createDefaultColor(itemCol):
     global itemsIT, itemID, typeOptions, possibleCategories, itemSpecifications, matrixExamples, aktivenPrimer, catIT
@@ -302,16 +304,36 @@ def createDefaultColor(itemCol):
             if itemCol != itemsIT[itemName]["colour"]:
                 itemNameId += 1
     ime = itemCategory + str(itemNameId)
-    itemSpec = {"zOrder":2, "value":0, "row":[], "col":[]}
+    typeOptions.add(ime)
+    itemSpec = {"num":2, "zOrder":2, "value":0, "row":[], "col":[]}
     
     itemSpec["colour"] = itemCol
-    itemSpec["num"] = len(list(itemsIT.keys()))+2
+    itemSpec["num"] = len(list(typeOptions))+2
     itemsIT[ime] = itemSpec
+
+def createDefaultButton(buttonOn, buttonOff):
+    global itemsIT, itemID, typeOptions, possibleCategories, itemSpecifications, matrixExamples, aktivenPrimer, catIT
+    itemCategory = "button"
+    itemNameId = 0
+    for itemName in itemsIT.keys():
+        if itemCategory in itemName:
+            itemNameId += 1
+    ime = itemCategory +"_"+ str(itemNameId)
     typeOptions.add(ime)
+    itemSpec = {"img":[buttonOn, buttonOff], "num":2, "zOrder":3, "value":0, "id":itemNameId, "row":[], "col":[]}
+    itemSpec["num"] = len(list(typeOptions))+2
+    itemsIT[ime] = itemSpec
+    
 
 def addItemTypeToMatrix(itemName, itemRow, itemCol):
     global itemsIT
-    if itemRow not in itemsIT[itemName]["row"] or itemCol not in itemsIT[itemName]["col"]:
+    if itemName == "robot0":
+        itemsIT[itemName]["row"] = [itemRow]
+        itemsIT[itemName]["col"] = [itemCol]
+        removeInicialisation(itemName)
+        addInicialisation({"row":itemRow, "col":itemCol, "type":itemName, "dir": 0, "value": 0})
+
+    elif itemRow not in itemsIT[itemName]["row"] or itemCol not in itemsIT[itemName]["col"]:
         itemsIT[itemName]["row"].append(itemRow)
         itemsIT[itemName]["col"].append(itemCol)
         updateMatrix()
@@ -336,7 +358,7 @@ def updateMatrix():
         cols = item["col"]
         
         for i in range(len(rows)):
-            if rows[i] < sizex and cols[i] < sizey:
+            if rows[i] < sizex and cols[i] < sizey and key != "robot0":
                 matrixExamples[aktivenPrimer][cols[i]][rows[i]] = item["num"]
 
 def addRobot():
@@ -344,7 +366,6 @@ def addRobot():
     ime = itemSpecifications.pop("name")
     if ime == "":
         return
-    itemID += 1
     itemSpecifications["category"] = {"\"robot\"":True}
     itemSpecifications["zOrder"] = 10
     row = itemSpecifications["row"][0]
@@ -357,7 +378,7 @@ def addRobot():
     addInicialisation({"row":row, "col":col, "type":ime, "dir": 0, "value": 0})
     alreadyInitialized.add(ime)
 
-    catIT = {'robot': False, 'obstacle': False, 'transportable': False, 'button': False, 'coin': False, 'number': False}
+    setCategoryDeafult()
     
     #saveItemTypes()
     typeOptions.add(ime)
@@ -366,13 +387,16 @@ def addRobot():
 def deleteItemType(ime):
     global itemsIT, itemID, typeOptions, possibleCategories, matrixExamples
     
-    itemID -= 1
     if ime in list(itemsIT.keys()):
         typeOptions.remove(ime)
         itemsIT.pop(ime)
+    
+    itemsID = 2
+    for ime in list(itemsIT.keys()):
+        itemsIT[ime]["num"] = itemsID
+        itemsID += 1
     removeInicialisation(ime)
     updateMatrix()
-
 
 def izpisiSubTaskData():
     global matrixExamples, initialisationExamples, mmm, nnn
@@ -485,7 +509,6 @@ def getItemTypes():
     itemsIT = pyVar["itemsIT"]
     matrixExamples = pyVar["matrixExamples"].split("&&&")
 
-
 def saveVariables():
     global languageStrings, randomBull1, strSE, groupByCategory, includeAllIB, wholeCategories, robotIB, singleBlocksIB, excludedBlocksIB, possibleCategories, typeOptions, checkEndEveryTurn, ignoreInvalidMoves, endCondition, randomBull2, itemsIT, matrixExamples, initialisationExamples
     currentState = {"languageStrings":languageStrings, "randomBull1":randomBull1, "strSE":strSE,
@@ -523,6 +546,47 @@ def loadVariables():
     itemsIT = pyVar["itemsIT"]
     matrixExamples = pyVar["matrixExamples"].split("&&&")
     initialisationExamples = pyVar["initialisationExamples"]
+
+def createItemTypesHtmlString():
+    if len(itemsIT.keys()) == 0:
+        return "Ni dodanih predmetov"
+    else:
+        returnHtml = ""
+        for ime in itemsIT.keys():
+            returnHtml += ime + ":&#160"
+            for ind in itemsIT[ime].keys():
+                returnHtml += ind + ": " + str(itemsIT[ime][ind]) + "&#160"
+            returnHtml += "<br>"
+            # if "number" in ime:
+            #     returnHtml += "ime: {}, value = {}, category = {}, row={}, col={} <br>".format(ime, itemsIT[ime]["value"], list(itemsIT[ime]["category"].keys())[0], itemsIT[ime]["row"], itemsIT[ime]["col"])
+            # elif "color" in ime:
+            #     returnHtml += "ime: {}, color = {},  row={}, col={} <br>".format(ime, itemsIT[ime]["colour"], itemsIT[ime]["row"], itemsIT[ime]["col"])
+            # else:  
+            #     returnHtml += "ime: {}, img = {}, category = {}, row={}, col={} <br>".format(ime, itemsIT[ime]["img"], list(itemsIT[ime]["category"].keys())[0], itemsIT[ime]["row"], itemsIT[ime]["col"])
+        # Generate the updated HTML content using a Bottle template
+        # Return the updated HTML as a response
+        return returnHtml
+
+def updateItemTypesHtmlString():
+    itemTypesNames = list(typeOptions)
+    html = ""
+    for name in itemTypesNames:
+        html += "<option>" + str(name) + "</option> <br>"
+    return html
+
+def updateCategoryOptionsHtmlString():
+    html = ""
+    for cat in catIT.keys():
+        if cat != "robot":
+            html += "<option>" + cat + "</option> <br>"
+    return html
+
+def updateButtonHtmlString():
+    html = ""
+    for item in itemsIT.keys():
+        if "button" in item:
+            html += "<option>" + item + "</option> <br>"
+    return html
 
 def resetVariables():
     global languageStrings, languageStringsKeys, languageStringsKeyWord, languageStringsValues, languageStringsLS, possibleIdicateors, randomBull1, strSE, groupByCategory, includeAllIB, wholeCategoriesIB, robotIB, singleBlocksIB, excludedBlocksIB, possibleCategories, typeOptions, checkEndEveryTurn, ignoreInvalidMoves, endCondition, randomBull2, itemsIT, matrixExamples, initialisationExamples, itemID, catIT, aktivenPrimer, itemSpecifications, alreadyInitialized, mmm, nnn, globalka
@@ -586,7 +650,7 @@ def resetVariables():
     checkEndEveryTurn = True
     ignoreInvalidMoves = False
     # to je default, vpisuj notr kar najdeš v zgornjih opcijah
-    endCondition = {"Exist": {"indikator1": "category", "ime1": "coin", "negIndikator1": None, "negIme1": None},
+    endCondition = {"Exist": {"indikator1": None, "ime1": None, "negIndikator1": None, "negIme1": None},
                     "Coincide": {"indikatorA": None, "imeA": None, "indikatorB": None, "imeB": None, "keys": None, "negIndikatorA": None, "negImeA": None, "negIndikatorB": None, "negImeB": None}}
 
     #RANDOM BULŠIT 2

@@ -136,10 +136,6 @@ function refreshDiv(divId) {
   $('#' + divId).load('http://localhost/index.html #' + divId);
 }
 
-function funkcija(){
-  $.post("/p");
-}
-
 function refreshScene(path) {
           // Perform your logic to generate the updated content
 
@@ -167,11 +163,41 @@ function refreshScene(path) {
     
     }
   }
-  else if (path == "customObject"){
+  else if (path == "defaultButton"){
     var dict = {
-      "itemCategory": document.getElementById('custom-item-category').value,
-      "itemImage": document.getElementById('custom-item-image').value,
+      "defaultButtonImageOn": document.getElementById('default-button-on-image').value,
+      "defaultButtonImageOff": document.getElementById('default-button-off-image').value,
+    }
+  }
+  else if (path == "customObject"){
+    var categoryOptions = document.getElementById('custom-item-category').selectedOptions;
+    var selectedCategories = []
+    for (var i = 0; i < categoryOptions.length; i++) {
+      var option = categoryOptions[i];
+      selectedCategories.push(option.value)
+    }
+    var imageOptions = document.getElementById('custom-item-image').selectedOptions;
+    var selectedImages= []
+    for (var i = 0; i < imageOptions.length; i++) {
+      var option = imageOptions[i];
+      selectedImages.push(option.value + ".png")
+    }
+    var colorOptions = document.getElementById('custom-item-color').selectedOptions;
+    var selectedColors = []
+    for (var i = 0; i < colorOptions.length; i++) {
+      var option = colorOptions[i];
+      selectedColors.push(option.value)
+    }
+    var buttonName = document.getElementById('custom-button-id').value;
+    var buttonId = buttonName.substr(buttonName.indexOf("_")+1, buttonName.length)
+    var dict = {
       "itemName": document.getElementById('custom-item-name').value,
+      "itemCategory": JSON.stringify(selectedCategories),
+      "itemImage": JSON.stringify(selectedImages),
+      "itemValue": document.getElementById('custom-item-value').value,
+      "itemZOrder": document.getElementById('custom-item-z-order').value,
+      "buttonId": buttonId,
+      "itemColor": JSON.stringify(selectedColors),
     }
   }
   else if (path == "addToMatrix"){
@@ -201,6 +227,7 @@ function refreshScene(path) {
   success: function(response) {
   },
 });
+
 $.ajax({
   url: "/updateItemTypes",  // Replace with the appropriate server route
   type: 'GET',
@@ -209,19 +236,41 @@ $.ajax({
     $('#scene').html(response);
   },
 });
+
 $.ajax({
   url: "/updateItemTypeOptions",  // Replace with the appropriate server route
   type: 'POST',
-  data: {
-    "selected": document.getElementById('added-item-to-matrix').value,
-  },
+  data: {},
   success: function(response) {
-    $('#added-item-to-matrix').html(response);
-    $('#remove-item-name').html(response);
+    selected1 = document.getElementById('added-item-to-matrix').value;
+    r1 = response.replace("<option>" + selected1, '<option selected="selected">'+ selected1);
+    $('#added-item-to-matrix').html(r1);
+    $('#remove-item-name').html(r1);
+    
+    selected2 = document.getElementById('coincide-label-A').value;
+
+    res = '<option></option><br>' + response
+    r2 = res.replace("<option>" + selected2, '<option selected="selected">'+ selected2);
+    $('#coincide-label-A').html(r2);
+    
+    selected3 = document.getElementById('coincide-label-B').value;
+    r3 = res.replace("<option>" + selected3, '<option selected="selected">'+ selected3);
+    $('#coincide-label-B').html(r3);
   },
 });
-  osvezi('pisek-iframe');
+
+$.ajax({
+  url: "/updateButtons",  // Replace with the appropriate server route
+  type: 'GET',
+  data: {},
+  success: function(response) {
+    $('#custom-button-id').html(r1);
+  },
+});
+
+  // osvezi('pisek-iframe');
   }
+
   
 function updateLangugaeStrings() {
   var idLS = document.getElementById('id-LS').value;
@@ -243,6 +292,41 @@ function updateLangugaeStrings() {
     }
   });
 };
+
+function createNewCategory(){
+  var category = document.getElementById('custom-category-name').value;
+  $.ajax({
+    type: 'POST', // or 'GET' depending on your server-side implementation
+    url: '/createNewCategory', // Replace with the actual route on your Bottle server
+    data: {
+      "category":category,
+    },
+    success: function(response) {
+      console.log('Request successful');
+      $('#custom-item-category').html(response);
+    },
+    error: function(xhr, status, error) {
+      // Handle errors
+      console.error('Error:', error);
+    }
+  });
+}
+
+function resetAll(){
+  $.ajax({
+    type: 'POST', // or 'GET' depending on your server-side implementation
+    url: '/resetFile', // Replace with the actual route on your Bottle server
+    data: {
+    },
+    success: function(response) {
+    },
+    error: function(xhr, status, error) {
+      // Handle errors
+      console.error('Error:', error);
+    }
+  });
+  location.reload();
+}
   
   
   

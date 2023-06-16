@@ -40,22 +40,54 @@ Tasks:
 
 ☐ Možnost dodajanja svoje kategorije
 
-☐ Robot naj ima samo eno koordinato
+✅ Robot naj ima samo eno koordinato
 
 ✅ Default stanje
     ✅ Odpravi možnost podvojenih objektov
     ✅ Dropdown za dodajanje predmetov na mrežo
 
-☐ Posodobi sezname imen dodanih objektov v htmlju ob refreshu
+✅ Posodobi sezname imen dodanih objektov v htmlju ob refreshu
 
 ✅ Dodaj izbiro posameznih delčkov
     ✅ Opcija izberi vse
-
-☐ Custom kategorije
 
 ✅ Definiraj predmet dodaj na grid ločeno
 
 ✅ Default predmeti
     ✅ Barve, Stevilke
+
+✅ Pogoj za zmago
+    ☐ Pozanimaj se kakšne naj bodo možnosti.
+
+☐ Ponastavi trenutno resetira celotno stran. A je to kul?
+
+☐ Primer objektov brez slike
+
+✅ Dodaj več barv
+
+✅ Dodaj gumb
+
+✅ Custom objekti
+    ☐ Povezava objektov z gumbi
+
+☐ Zamenjaj kategorijo ob pritisku na gumb
+
+☐ Nevidne ovire--Kul?
+
+☐ Custom blocki kakor so levo desno gor dol - brez diagonal, napisi na senzorjih.
+
+☐ Naloži svojo sliko
+
+☐ Shrani napredek
+
+☐ Dodaj več testnih primerov
+
+☐ Presledki med slikami so _ namesto spacea
+
+☐ Več itemov na istem polju
+
+
+
+☐ Gravitacija
 
 ------------------------------------------------------------------------------
