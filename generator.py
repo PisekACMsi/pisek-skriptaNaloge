@@ -238,16 +238,16 @@ def izpisiItemTypes():
     return pySlv
 
 def dodajItemType():
-    global itemsIT, itemID, typeOptions, possibleCategories, itemSpecifications, matrixExamples, aktivenPrimer, catIT
+    global itemsIT, itemID, typeOptions, possibleCategories, itemSpecifications, matrixExamples, activeExample, catIT
     ime = itemSpecifications.pop("name")
     if ime == "":
         return
     if ime not in list(itemsIT.keys()):
         itemID += 1
-    catsTrue = {}
+    catsTrue = []
     for cat in catIT.keys():
         if catIT[cat]:
-            catsTrue["\"%s\""%cat] = True
+            catsTrue.append({"\"%s\""%cat:True})
             possibleCategories.add(cat)
     typeOptions.add(ime)
     itemSpecifications["category"] = catsTrue
@@ -267,7 +267,7 @@ def setCategoryDeafult():
         catIT[key] = False
 
 def createDefaultItem(itemCategory, itemImage):
-    global itemsIT, itemID, typeOptions, possibleCategories, itemSpecifications, matrixExamples, aktivenPrimer, catIT
+    global itemsIT, itemID, typeOptions, possibleCategories, itemSpecifications, matrixExamples, activeExample, catIT
     itemNameId = 0
     for itemName in itemsIT.keys():
         if itemCategory in itemName:
@@ -275,19 +275,19 @@ def createDefaultItem(itemCategory, itemImage):
                 itemNameId += 1
     ime = itemCategory + str(itemNameId)
     typeOptions.add(ime)
-    itemSpec = {"num": 2, "img":"", "zOrder":5, "category":{}, "value":0,"row":[], "col":[]}
+    itemSpec = {"num": 2, "img":"", "zOrder":5, "category":{}, "value":0, "row":[[]for i in range(len(matrixExamples))], "col":[[]for i in range(len(matrixExamples))]}
     
     itemSpec["category"] = {"\"%s\""%itemCategory:True}
     itemSpec["num"] = len(list(typeOptions))+2
-    itemSpec["img"] = itemImage + ".png"
+    itemSpec["img"] = itemImage
     itemsIT[ime] = itemSpec
     
 def createDefaultNumber(itemValue):
-    global itemsIT, itemID, typeOptions, possibleCategories, itemSpecifications, matrixExamples, aktivenPrimer, catIT
+    global itemsIT, itemID, typeOptions, possibleCategories, itemSpecifications, matrixExamples, activeExample, catIT
     itemCategory = "number"
     ime = itemCategory + itemValue
     typeOptions.add(ime)
-    itemSpec = {"num":2, "zOrder":4, "row":[], "col":[]}
+    itemSpec = {"num":2, "zOrder":4, "row":[[]for i in range(len(matrixExamples))], "col":[[]for i in range(len(matrixExamples))]}
     
     itemSpec["category"] = {"\"%s\""%itemCategory:True}
     itemSpec["value"] = itemValue
@@ -296,7 +296,7 @@ def createDefaultNumber(itemValue):
     
 
 def createDefaultColor(itemCol):
-    global itemsIT, itemID, typeOptions, possibleCategories, itemSpecifications, matrixExamples, aktivenPrimer, catIT
+    global itemsIT, itemID, typeOptions, possibleCategories, itemSpecifications, matrixExamples, activeExample, catIT
     itemCategory = "color"
     itemNameId = 0
     for itemName in itemsIT.keys():
@@ -305,14 +305,14 @@ def createDefaultColor(itemCol):
                 itemNameId += 1
     ime = itemCategory + str(itemNameId)
     typeOptions.add(ime)
-    itemSpec = {"num":2, "zOrder":2, "value":0, "row":[], "col":[]}
+    itemSpec = {"num":2, "zOrder":2, "value":0, "row":[[]for i in range(len(matrixExamples))], "col":[[]for i in range(len(matrixExamples))]}
     
     itemSpec["colour"] = itemCol
     itemSpec["num"] = len(list(typeOptions))+2
     itemsIT[ime] = itemSpec
 
 def createDefaultButton(buttonOn, buttonOff):
-    global itemsIT, itemID, typeOptions, possibleCategories, itemSpecifications, matrixExamples, aktivenPrimer, catIT
+    global itemsIT, itemID, typeOptions, possibleCategories, itemSpecifications, matrixExamples, activeExample, catIT
     itemCategory = "button"
     itemNameId = 0
     for itemName in itemsIT.keys():
@@ -320,49 +320,53 @@ def createDefaultButton(buttonOn, buttonOff):
             itemNameId += 1
     ime = itemCategory +"_"+ str(itemNameId)
     typeOptions.add(ime)
-    itemSpec = {"img":[buttonOn, buttonOff], "num":2, "zOrder":3, "value":0, "id":itemNameId, "row":[], "col":[]}
+    itemSpec = {"img":[buttonOn, buttonOff], "num":2, "zOrder":3, "value":0, "id":itemNameId, "row":[[]for i in range(len(matrixExamples))], "col":[[]for i in range(len(matrixExamples))]}
     itemSpec["num"] = len(list(typeOptions))+2
+    itemSpec["category"] = {"\"%s\""%itemCategory:True}
     itemsIT[ime] = itemSpec
-    
 
 def addItemTypeToMatrix(itemName, itemRow, itemCol):
-    global itemsIT
+    global itemsIT, activeExample
+    print(itemsIT)
     if itemName == "robot0":
-        itemsIT[itemName]["row"] = [itemRow]
-        itemsIT[itemName]["col"] = [itemCol]
+        itemsIT[itemName]["row"][activeExample] = [itemRow]
+        itemsIT[itemName]["col"][activeExample] = [itemCol]
         removeInicialisation(itemName)
         addInicialisation({"row":itemRow, "col":itemCol, "type":itemName, "dir": 0, "value": 0})
 
-    elif itemRow not in itemsIT[itemName]["row"] or itemCol not in itemsIT[itemName]["col"]:
-        itemsIT[itemName]["row"].append(itemRow)
-        itemsIT[itemName]["col"].append(itemCol)
+    elif itemRow not in itemsIT[itemName]["row"][activeExample] or itemCol not in itemsIT[itemName]["col"][activeExample]:
+        itemsIT[itemName]["row"][activeExample].append(itemRow)
+        itemsIT[itemName]["col"][activeExample].append(itemCol)
         updateMatrix()
 
 def removeItemTypeFromMatrix(itemName, itemRow, itemCol):
-    global itemsIT
-    if itemRow in itemsIT[itemName]["row"] and itemCol in itemsIT[itemName]["col"]:
-        itemsIT[itemName]["row"].remove(itemRow)
-        itemsIT[itemName]["col"].remove(itemCol)
+    global itemsIT, activeExample
+    if itemRow in itemsIT[itemName]["row"][activeExample] and itemCol in itemsIT[itemName]["col"][activeExample]:
+        itemsIT[itemName]["row"][activeExample].remove(itemRow)
+        itemsIT[itemName]["col"][activeExample].remove(itemCol)
         updateMatrix()
 
 def updateMatrix():
-    global itemsIT, matrixExamples, aktivenPrimer
-    sizey = len(matrixExamples[aktivenPrimer])
-    sizex = len(matrixExamples[aktivenPrimer][0])
-    for i in range(sizex):
-        for j in range(sizey):
-            matrixExamples[aktivenPrimer][j][i] = 1
+    global itemsIT, matrixExamples, activeExample
+    numRows = len(matrixExamples[activeExample])
+    numCols = len(matrixExamples[activeExample][0])
+    for i in range(numRows):
+        for j in range(numCols):
+            matrixExamples[activeExample][i][j] = 1
     for key in itemsIT.keys():
         item = itemsIT[key]
-        rows = item["row"]
-        cols = item["col"]
+        rows = item["row"][activeExample]
+        cols = item["col"][activeExample]
         
-        for i in range(len(rows)):
-            if rows[i] < sizex and cols[i] < sizey and key != "robot0":
-                matrixExamples[aktivenPrimer][cols[i]][rows[i]] = item["num"]
+        for i in range(len(cols)):
+            if cols[i] < numCols and rows[i] < numRows and key != "robot0":
+                if matrixExamples[activeExample][rows[i]][cols[i]] == 1:
+                    matrixExamples[activeExample][rows[i]][cols[i]] = item["num"]
+                else:
+                    addInicialisation({"row":rows[i], "col":cols[i], "type":key, "value": 0})
 
 def addRobot():
-    global itemsIT, itemID, typeOptions, possibleCategories, itemSpecifications, matrixExamples, aktivenPrimer, catIT
+    global itemsIT, itemID, typeOptions, possibleCategories, itemSpecifications, matrixExamples, activeExample, catIT
     ime = itemSpecifications.pop("name")
     if ime == "":
         return
@@ -399,8 +403,7 @@ def deleteItemType(ime):
     updateMatrix()
 
 def izpisiSubTaskData():
-    global matrixExamples, initialisationExamples, mmm, nnn
-    changeMatrixSize()
+    global matrixExamples, initialisationExamples
     pySlv = {}
     pyLst = []
     for i in range(len(initialisationExamples)):
@@ -414,35 +417,48 @@ def izpisiMatriko(matrix):
     #matrix = np.array(matrix)
     return "&#&" + str(matrix).replace("],", "], \n") + "&#&"
 
-
 def addMatrix(mmm, nnn):
-    global matrixExamples, aktivenPrimer
-    matrixExamples[aktivenPrimer] = [[1 for i in range(mmm)] for j in range(nnn)]
+    global matrixExamples, activeExample
+    print("MATRIKA", activeExample)
+    matrixExamples[activeExample] = [[1 for i in range(mmm)] for j in range(nnn)]
 
 def addInicialisation(initSlv):
-    global initialisationExamples, aktivenPrimer
-    initialisationExamples[aktivenPrimer].append(initSlv)
+    global initialisationExamples, activeExample
+    for init in initialisationExamples[activeExample]:
+        if initSlv["type"] == init["type"]:
+            return
+    initialisationExamples[activeExample].append(initSlv)
 
 def removeInicialisation(name):
-    for i in range(len(initialisationExamples[aktivenPrimer])):
-        if initialisationExamples[aktivenPrimer][i]["type"] == name:
-            initialisationExamples[aktivenPrimer] = initialisationExamples[aktivenPrimer][:i] + initialisationExamples[aktivenPrimer][i+1:]
+    for i in range(len(initialisationExamples[activeExample])):
+        if initialisationExamples[activeExample][i]["type"] == name:
+            initialisationExamples[activeExample] = initialisationExamples[activeExample][:i] + initialisationExamples[activeExample][i+1:]
 
 
-def addExample():
-    global initialisationExamples, aktivenPrimer, mmm, nnn
-    aktivenPrimer += 1
-    initialisationExamples.append([])
-    matrixExamples.append([])
-    addMatrix(mmm, nnn)
+def updateExample(newActiveExample, le, he):
+    global initialisationExamples, activeExample, mmm, nnn, itemsIT
+    if newActiveExample > len(matrixExamples):
+        matrixExamples.append([])
+        initialisationExamples.append([])
+        for ime in itemsIT.keys():
+            itemsIT[ime]["row"].append([])
+            itemsIT[ime]["col"].append([])
+
+        activeExample = len(matrixExamples)-1
+        itemSpecifications["row"].append([])
+        itemSpecifications["col"].append([])
+        addMatrix(le, he)
+    else:
+        activeExample = newActiveExample - 1
+        changeMatrixSize(he, le)
 
 def changeMatrixValues(row, col, value):
-    global matrixExamples, aktivenPrimer
-    matrixExamples[aktivenPrimer][row][col] = value
+    global matrixExamples, activeExample
+    matrixExamples[activeExample][row][col] = value
 
-def changeMatrixSize():
-    global matrixExamples, aktivenPrimer, nnn, mmm
-    mat = matrixExamples[aktivenPrimer]
+def changeMatrixSize(nnn, mmm):
+    global matrixExamples, activeExample
+    mat = matrixExamples[activeExample]
     rr = len(mat)
     cc = len(mat[0])
     # upam da se mat obnaša klokr referenca ne kokr solo matrika
@@ -459,7 +475,7 @@ def changeMatrixSize():
     elif (rr < nnn and cc > mmm):
         mat2[:rr, ::] = mat[::, :mmm]
         mat = mat2
-    matrixExamples[aktivenPrimer] = [[mat[j][i] for i in range(mmm)] for j in range(nnn)]
+    matrixExamples[activeExample] = [[mat[j][i] for i in range(mmm)] for j in range(nnn)]
     updateMatrix()
 
 def ustvariSkripto():
@@ -577,8 +593,7 @@ def updateItemTypesHtmlString():
 def updateCategoryOptionsHtmlString():
     html = ""
     for cat in catIT.keys():
-        if cat != "robot":
-            html += "<option>" + cat + "</option> <br>"
+        html += "<option>" + cat + "</option> <br>"
     return html
 
 def updateButtonHtmlString():
@@ -588,8 +603,14 @@ def updateButtonHtmlString():
             html += "<option>" + item + "</option> <br>"
     return html
 
+def updateExamplesHtmlString():
+    html = ""
+    for i in range(len(matrixExamples)):
+        html += "<option>" + str(i+1) + "</option> <br>"
+    return html
+
 def resetVariables():
-    global languageStrings, languageStringsKeys, languageStringsKeyWord, languageStringsValues, languageStringsLS, possibleIdicateors, randomBull1, strSE, groupByCategory, includeAllIB, wholeCategoriesIB, robotIB, singleBlocksIB, excludedBlocksIB, possibleCategories, typeOptions, checkEndEveryTurn, ignoreInvalidMoves, endCondition, randomBull2, itemsIT, matrixExamples, initialisationExamples, itemID, catIT, aktivenPrimer, itemSpecifications, alreadyInitialized, mmm, nnn, globalka
+    global languageStrings, languageStringsKeys, languageStringsKeyWord, languageStringsValues, languageStringsLS, possibleIdicateors, randomBull1, strSE, groupByCategory, includeAllIB, wholeCategoriesIB, robotIB, singleBlocksIB, excludedBlocksIB, possibleCategories, typeOptions, checkEndEveryTurn, ignoreInvalidMoves, endCondition, randomBull2, itemsIT, matrixExamples, initialisationExamples, itemID, catIT, activeExample, itemSpecifications, alreadyInitialized, mmm, nnn, globalka
 
     fajlLS = open('imenaDelckov.txt', "r", encoding = ("utf-8"))
     # returns JSON object as 
@@ -677,11 +698,11 @@ def resetVariables():
     # nbStatesIT = 8 odvisen le od robota
 
     #globalna spremenljivka trenutnih nastavitev za nov item, po ustvarjenju itema se resetira na default vrednosti
-    itemSpecifications = {"name":"", "num": 2, "img":"", "zOrder":2, "category":{}, "value":0, "nbStates":8,"row":[], "col":[]}
+    itemSpecifications = {"name":"", "num": 2, "img":"", "zOrder":2, "category":{}, "value":0, "nbStates":8, "row":[[]], "col":[[]]}
 
     #MREŽA
     #GLOBAL
-    aktivenPrimer = 0 # če imaš več primerov, Id katerega trenutno editiraš
+    activeExample = 0 # če imaš več primerov, Id katerega trenutno editiraš
     mmm = 5
     nnn = 5
     matrixExamples = [[]] #seznam matrik - lahko da je več testov

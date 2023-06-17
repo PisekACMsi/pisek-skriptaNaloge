@@ -21,11 +21,13 @@ function initTask(subTask) {
      },
      actionDelay: 400,
      blocklyColourTheme: "bwinf",
-     maxInstructions: 0,
+     maxInstructions: 666,
      includeBlocks: {
           groupByCategory: true,
           generatedBlocks: {
-               robot: []
+               robot: [
+                    "move"
+               ]
           },
           standardBlocks: {
                includeAll: false,
@@ -41,52 +43,29 @@ function initTask(subTask) {
      checkEndCondition: (context, lastTurn) => { 
 	robotEndConditions.checkCombiner(context, lastTurn, [
 		//,
-		//
+		(context, lastTurn) => { robotEndConditions.checkItemCoincidence(context, lastTurn, {type: "obstacle0"}, {type: "obstacle0"}, [], {}, {}) }
 	])
 },
      ignoreInvalidMoves: false,
      border: 0.02,
-     backgroundColour: "white",
-     backgroundTile: "",
-     borderColour: "black",
-     showLabels: true,
+     backgroundColour: "#000000",
+     backgroundTile: "asfalt.png",
+     borderColour: "#000000",
+     showLabels: false,
      cellSide: 60,
      numberOfRobots: 1,
-     itemTypes: {
-          button_0: {
-               img: [
-                    "Azure",
-                    "Azure"
-               ],
-               num: 3,
-               zOrder: 3,
-               value: 0,
-               id: 0
-          },
-          Ime: {
-               num: 4,
-               img: [
-                    "banana.png",
-                    "blok1.png"
-               ],
-               zOrder: "2",
-               category: {
-                    "obstacle": true,
-                    "transportable": true
-               },
-               value: "0",
-               nbStates: 8,
-               color: [
-                    "Azure",
-                    "Black",
-                    "Blue"
-               ],
-               id: 0
-          }
-     }
+     itemTypes: {}
 };
 subTask.data = {
      easy: [
+          {
+               tiles: [[1, 1, 1, 1, 1], 
+ [1, 1, 1, 1, 1], 
+ [1, 1, 1, 1, 1], 
+ [1, 1, 1, 1, 1], 
+ [1, 1, 1, 1, 1]],
+               initItems: []
+          },
           {
                tiles: [[1, 1, 1, 1, 1], 
  [1, 1, 1, 1, 1], 

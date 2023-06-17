@@ -68,9 +68,11 @@ Tasks:
 ✅ Dodaj gumb
 
 ✅ Custom objekti
-    ☐ Povezava objektov z gumbi
+    ✅ Povezava objektov z gumbi
 
-☐ Zamenjaj kategorijo ob pritisku na gumb
+☐ Nulta bananananaaaaaaa - na koordinati 0 0 se randomly spavna objekt.
+
+✅ Zamenjaj kategorijo ob pritisku na gumb
 
 ☐ Nevidne ovire--Kul?
 
@@ -82,9 +84,9 @@ Tasks:
 
 ☐ Dodaj več testnih primerov
 
-☐ Presledki med slikami so _ namesto spacea
+✅ Presledki med slikami so _ namesto spacea
 
-☐ Več itemov na istem polju
+✅ Več itemov na istem polju
 
 
 

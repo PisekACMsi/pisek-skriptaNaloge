@@ -153,6 +153,7 @@ def home_get():
     tile_names = skripta.preberi_vsa_imena_slik("tiles") 
     character_names = skripta.preberi_vsa_imena_slik("characters")
     objects = skripta.preberi_vsa_imena_slik("objects")
+    buttons = skripta.preberi_vsa_imena_slik("buttons")
     itemTypes = generator.itemsIT
     
     languageStringsKeys = generator.languageStringsKeyWord
@@ -165,7 +166,9 @@ def home_get():
     customItemCategories = generator.updateCategoryOptionsHtmlString()
 
     buttonNames = generator.updateButtonHtmlString()
-    return bottle.template("index.html", tile_names=tile_names, character_names=character_names, objects=objects, itemTypes=itemTypes, languageStrings = [languageStringsKeys, languageStringsValues], scene=scene, htmlListTypes=htmlListTypes, customItemCategories=customItemCategories, buttonNames=buttonNames)
+
+    numOfExamples = len(generator.matrixExamples)
+    return bottle.template("index.html", tile_names=tile_names, character_names=character_names, objects=objects, itemTypes=itemTypes, languageStrings = [languageStringsKeys, languageStringsValues], scene=scene, htmlListTypes=htmlListTypes, customItemCategories=customItemCategories, buttonNames=buttonNames, buttonImages=buttons, numOfExamples=numOfExamples)
 
 @bottle.post("/") 
 def home_add():
@@ -318,22 +321,37 @@ def addDefaultButton():
     generator.ustvariSkripto()
     bottle.redirect("/")
 
+@bottle.post("/updateMatrixExamples")
+def addMatrixExample():
+    newActiveExample = int(bottle.request.forms.get("activeExample"))
+    matrixLength = int(bottle.request.forms.get("matrixLength"))
+    matrixHeight = int(bottle.request.forms.get("matrixHeight"))
+    generator.updateExample(newActiveExample, matrixLength, matrixHeight)
+    generator.ustvariSkripto()
+    return generator.updateExamplesHtmlString()
+
 @bottle.post("/addToMatrix")
 def addToMatrix():
     print("DODAJAM NA MATRIKO AAAAAAAAAAAAAAAA")
     itemName = bottle.request.forms.get("itemName")
-    itemRow = int(bottle.request.forms.get("itemRow") )
+    itemRow = int(bottle.request.forms.get("itemRow"))
     itemCol = int(bottle.request.forms.get("itemCol"))
+    newActiveExample = int(bottle.request.forms.get("activeExample"))
+    print("EXAMPLE", newActiveExample)
+    generator.activeExample = newActiveExample-1
+
     generator.addItemTypeToMatrix(itemName, itemRow, itemCol)
     generator.ustvariSkripto()
     bottle.redirect("/")
 
 @bottle.post("/removeFromMatrix")
-def addToMatrix():
+def removeFromMatrix():
     print("DODAJAM NA MATRIKO AAAAAAAAAAAAAAAA")
     itemName = bottle.request.forms.get("itemName")
     itemRow = int(bottle.request.forms.get("itemRow") )
     itemCol = int(bottle.request.forms.get("itemCol"))
+    newActiveExample = int(bottle.request.forms.get("activeExample"))
+    generator.activeExample = newActiveExample-1
     generator.removeItemTypeFromMatrix(itemName, itemRow, itemCol)
     generator.ustvariSkripto()
     bottle.redirect("/")
@@ -346,7 +364,7 @@ def dodajItem():
     itemCategory = "robot"
     itemImage = bottle.request.forms.get("itemImageR")
     generator.itemSpecifications["name"] = "robot0"
-    generator.itemSpecifications["img"] = itemImage.replace(" ", "_") + ".png"
+    generator.itemSpecifications["img"] = itemImage
     generator.catIT[itemCategory] = True
     generator.itemSpecifications["row"] = [int(itemRow.split(",")[0])]
     generator.itemSpecifications["col"] = [int(itemCol.split(",")[0])]

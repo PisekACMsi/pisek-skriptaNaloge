@@ -235,23 +235,33 @@
                     <input type="checkbox" class="form-check-input" id="showLabels" name="showLabels">
                     <label class="form-check-label" for="showLabels">Prikaži oznake</label>
                   </div>
+
                   <div class="row">
-                    <div class="col-12">
-                      <label for="email" class="form-label">Velikost mreže</label>
+
+                    <div class="col-3">
+                      <label for="id-aktivnega-primera">Testni primer</label>
+                      <input type="number" id="active-example-update-matrix" name="quantity" min="1" max="5" value="1">
                     </div>
                     <div class="col-3">
-                      <input type="text" class="form-control" id="polje-vrstica" name="sizeRow" placeholder="vrstica" value = "5">
+                      <label for="email" class="form-label">Dolžina mreže</label><br>
+                      <input type="text" class="form-control" id="update-matrix-length" name="sizeRow" placeholder="vrstica" value = "5">
                       <div class="invalid-feedback">
                         Polje ne sme biti prazno!
                       </div>
                     </div>
-                  
+              
                     <div class="col-3">
-                      <input type="text" class="form-control" id="polje-stolpec" name="sizeCol" placeholder="stolpec" value = "5">
+                      <label for="email" class="form-label">Višina mreže</label><br>
+                      <input type="text" class="form-control" id="update-matrix-height" name="sizeCol" placeholder="stolpec" value = "5">
                       <div class="invalid-feedback">
                         Polje ne sme biti prazno!
                       </div>
                     </div>
+
+                    <div class="col-3 align-self-end">
+                      <button class="btn btn-secondary" type="button" hx-swap="none" hx-target="body" onclick="updateExamples()">Posodobi mrežo</button>
+                    </div>
+
                   </div>
                 </div>
               </div>
@@ -427,15 +437,17 @@
                           <div class="col-2">
                             <label for="itemColorSelector">Gumb on</label>
                             <select id="default-button-on-image" class="form-select" name="defaultButtonOnImage">
-                              <option>Azure</option>
-                              <option>Black</option>
+                              %for butt in buttonImages:
+                                <option>{{butt}}</option>
+                              %end
                             </select>
                           </div>
                           <div class="col-2">
                             <label for="itemColorSelector">Gumb off</label>
                             <select id="default-button-off-image" class="form-select" name="defaultButtonOffImage">
-                              <option>Azure</option>
-                              <option>Black</option>
+                              %for butt in buttonImages:
+                                <option>{{butt}}</option>
+                              %end
                             </select>
                           </div>
                           <div class="col-3 align-self-end">
@@ -525,6 +537,16 @@
                     {{! scene}}
                   </div>
                   <h4>Dodaj na mrežo</h4>
+                  <div class = "row" style = "margin-bottom: 0.5rem;">
+                    <div class="col-6">
+                      <label for="id-aktivnega-primera">Testni primer </label>
+                      <select id="test-example-option" class="form-select">
+                        %for i in range(numOfExamples):
+                          <option>{{i+1}}</option>
+                        %end
+                      </select>
+                    </div>
+                  </div>
                   <div class = "row" style = "margin-bottom: 2rem;">
                     <div class="col-3">
                       <label class="form-label">Ime objekta</label>
@@ -536,16 +558,16 @@
                       </div>
                     </div>
                     <div class="col-2">
-                      <label for="email" class="form-label">Koord. X</label>
-                      <input type="text" class="form-control" id="add-coord-row" name="coordRow" placeholder="vrstica" value = "0">
+                      <label for="add-coord-col" class="form-label">Koord. X</label>
+                      <input type="text" class="form-control" id="add-coord-col" name="coordCol" placeholder="vrstica" value = "0">
                       <div class="invalid-feedback">
                         Polje ne sme biti prazno!
                       </div>
                     </div>
 
                     <div class="col-2">
-                      <label for="email" class="form-label">Koord. Y</label>
-                      <input type="text" class="form-control" id="add-coord-col" name="coordCol" placeholder="vrstica" value = "0">
+                      <label for="add-coord-row" class="form-label">Koord. Y</label>
+                      <input type="text" class="form-control" id="add-coord-row" name="coordRow" placeholder="vrstica" value = "0">
                       <div class="invalid-feedback">
                         Polje ne sme biti prazno!
                       </div>

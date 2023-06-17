@@ -98,6 +98,95 @@ $(document).ready(function () {
   });
 });
 
+var orderOfSelectedCategories = [];
+$(document).ready(function() {
+  $('#custom-item-category').selectpicker();
+
+  $('#custom-item-category').on('changed.bs.select', function(e) {
+    var selectedOptions = $(this).val();
+    if (selectedOptions == null){
+      orderOfSelectedCategories = []
+    }
+    else{
+      for (var colorIn of orderOfSelectedCategories){
+        if (!selectedOptions.includes(colorIn)){
+          var index = orderOfSelectedCategories.indexOf(colorIn);
+          if (index > -1) { // only splice array when item is found
+            orderOfSelectedCategories.splice(index, 1); // 2nd parameter means remove one item only
+          }
+        }
+      }
+      for (var colorIn of selectedOptions){
+        if (!orderOfSelectedCategories.includes(colorIn)){
+          orderOfSelectedCategories.push(colorIn);
+        }
+      }
+      
+      console.log(orderOfSelectedCategories);
+  }
+  });
+});
+
+var orderOfSelectedImages= [];
+$(document).ready(function() {
+  $('#custom-item-image').selectpicker();
+
+  $('#custom-item-image').on('changed.bs.select', function(e) {
+    var selectedOptions = $(this).val();
+    if (selectedOptions == null){
+      orderOfSelectedImages = []
+    }
+    else{
+      for (var colorIn of orderOfSelectedImages){
+        if (!selectedOptions.includes(colorIn)){
+          var index = orderOfSelectedImages.indexOf(colorIn);
+          if (index > -1) { // only splice array when item is found
+            orderOfSelectedImages.splice(index, 1); // 2nd parameter means remove one item only
+          }
+        }
+      }
+      for (var colorIn of selectedOptions){
+        if (!orderOfSelectedImages.includes(colorIn)){
+          orderOfSelectedImages.push(colorIn.replaceAll(" ", "_") + ".png");
+        }
+      }
+      
+      console.log(orderOfSelectedImages);
+  }
+  });
+});
+
+var orderOfSelectedColors = [];
+$(document).ready(function() {
+  $('#custom-item-color').selectpicker();
+
+  $('#custom-item-color').on('changed.bs.select', function(e) {
+    var selectedOptions = $(this).val();
+    if (selectedOptions == null){
+      orderOfSelectedColors = []
+    }
+    else{
+      for (var colorIn of orderOfSelectedColors){
+        if (!selectedOptions.includes(colorIn)){
+          var index = orderOfSelectedColors.indexOf(colorIn);
+          if (index > -1) { // only splice array when item is found
+            orderOfSelectedColors.splice(index, 1); // 2nd parameter means remove one item only
+          }
+        }
+      }
+      for (var colorIn of selectedOptions){
+        if (!orderOfSelectedColors.includes(colorIn)){
+          orderOfSelectedColors.push(colorIn);
+        }
+      }
+      
+      console.log(orderOfSelectedColors);
+  }
+  });
+});
+
+
+
 //funkcija doda sliko na neko mesto na gridu
 function izrisi_objekt(tip) {
   if (tip == 'objekt') {
@@ -143,13 +232,13 @@ function refreshScene(path) {
     var dict = {
       "coordRowR": document.getElementById('robot-coord-y').value,
       "coordColR": document.getElementById('robot-coord-x').value,
-      "itemImageR": document.getElementById('robot-image').value
+      "itemImageR": document.getElementById('robot-image').value.replaceAll(" ", "_") + ".png"
     }
   }
   else if (path == "defaultItem"){
     var dict = {
       "defaultItemCategory": document.getElementById('default-item-category').value,
-      "defaultItemImage": document.getElementById('default-item-image').value
+      "defaultItemImage": document.getElementById('default-item-image').value.replaceAll(" ", "_") + ".png"
     }
   }
   else if (path == "defaultNumber"){
@@ -165,39 +254,21 @@ function refreshScene(path) {
   }
   else if (path == "defaultButton"){
     var dict = {
-      "defaultButtonImageOn": document.getElementById('default-button-on-image').value,
-      "defaultButtonImageOff": document.getElementById('default-button-off-image').value,
+      "defaultButtonImageOn": document.getElementById('default-button-on-image').value.replaceAll(" ", "_") + ".png",
+      "defaultButtonImageOff": document.getElementById('default-button-off-image').value.replaceAll(" ", "_") + ".png",
     }
   }
   else if (path == "customObject"){
-    var categoryOptions = document.getElementById('custom-item-category').selectedOptions;
-    var selectedCategories = []
-    for (var i = 0; i < categoryOptions.length; i++) {
-      var option = categoryOptions[i];
-      selectedCategories.push(option.value)
-    }
-    var imageOptions = document.getElementById('custom-item-image').selectedOptions;
-    var selectedImages= []
-    for (var i = 0; i < imageOptions.length; i++) {
-      var option = imageOptions[i];
-      selectedImages.push(option.value + ".png")
-    }
-    var colorOptions = document.getElementById('custom-item-color').selectedOptions;
-    var selectedColors = []
-    for (var i = 0; i < colorOptions.length; i++) {
-      var option = colorOptions[i];
-      selectedColors.push(option.value)
-    }
     var buttonName = document.getElementById('custom-button-id').value;
     var buttonId = buttonName.substr(buttonName.indexOf("_")+1, buttonName.length)
     var dict = {
       "itemName": document.getElementById('custom-item-name').value,
-      "itemCategory": JSON.stringify(selectedCategories),
-      "itemImage": JSON.stringify(selectedImages),
+      "itemCategory": JSON.stringify(orderOfSelectedCategories),
+      "itemImage": JSON.stringify(orderOfSelectedImages),
       "itemValue": document.getElementById('custom-item-value').value,
       "itemZOrder": document.getElementById('custom-item-z-order').value,
       "buttonId": buttonId,
-      "itemColor": JSON.stringify(selectedColors),
+      "itemColor": JSON.stringify(orderOfSelectedColors),
     }
   }
   else if (path == "addToMatrix"){
@@ -205,6 +276,7 @@ function refreshScene(path) {
       "itemName": document.getElementById('added-item-to-matrix').value,
       "itemRow": document.getElementById('add-coord-row').value,
       "itemCol": document.getElementById('add-coord-col').value,
+      "activeExample": document.getElementById('test-example-option').value,
     }
   }
   else if (path == "removeFromMatrix"){
@@ -212,6 +284,7 @@ function refreshScene(path) {
       "itemName": document.getElementById('added-item-to-matrix').value,
       "itemRow": document.getElementById('add-coord-row').value,
       "itemCol": document.getElementById('add-coord-col').value,
+      "activeExample": document.getElementById('test-example-option').value,
     }
   }
   else if (path == "removeItem"){
@@ -221,7 +294,7 @@ function refreshScene(path) {
   }
 
   $.ajax({
-  url: "\\" + path,  // Replace with the appropriate server route
+  url: "\\" + path,  // ReplaceAll with the appropriate server route
   type: 'POST',
   data: dict,
   success: function(response) {
@@ -229,7 +302,7 @@ function refreshScene(path) {
 });
 
 $.ajax({
-  url: "/updateItemTypes",  // Replace with the appropriate server route
+  url: "/updateItemTypes",  // ReplaceAll with the appropriate server route
   type: 'GET',
   data: {},
   success: function(response) {
@@ -238,29 +311,29 @@ $.ajax({
 });
 
 $.ajax({
-  url: "/updateItemTypeOptions",  // Replace with the appropriate server route
+  url: "/updateItemTypeOptions",  // ReplaceAll with the appropriate server route
   type: 'POST',
   data: {},
   success: function(response) {
     selected1 = document.getElementById('added-item-to-matrix').value;
-    r1 = response.replace("<option>" + selected1, '<option selected="selected">'+ selected1);
+    r1 = response.replaceAll("<option>" + selected1, '<option selected="selected">'+ selected1);
     $('#added-item-to-matrix').html(r1);
     $('#remove-item-name').html(r1);
     
     selected2 = document.getElementById('coincide-label-A').value;
 
     res = '<option></option><br>' + response
-    r2 = res.replace("<option>" + selected2, '<option selected="selected">'+ selected2);
+    r2 = res.replaceAll("<option>" + selected2, '<option selected="selected">'+ selected2);
     $('#coincide-label-A').html(r2);
     
     selected3 = document.getElementById('coincide-label-B').value;
-    r3 = res.replace("<option>" + selected3, '<option selected="selected">'+ selected3);
+    r3 = res.replaceAll("<option>" + selected3, '<option selected="selected">'+ selected3);
     $('#coincide-label-B').html(r3);
   },
 });
 
 $.ajax({
-  url: "/updateButtons",  // Replace with the appropriate server route
+  url: "/updateButtons",  // ReplaceAll with the appropriate server route
   type: 'GET',
   data: {},
   success: function(response) {
@@ -271,13 +344,12 @@ $.ajax({
   // osvezi('pisek-iframe');
   }
 
-  
 function updateLangugaeStrings() {
   var idLS = document.getElementById('id-LS').value;
   var textLS = document.getElementById('text-LS').value;
   $.ajax({
     type: 'POST', // or 'GET' depending on your server-side implementation
-    url: '/ls', // Replace with the actual route on your Bottle server
+    url: '/ls', // ReplaceAll with the actual route on your Bottle server
     data: {
       "idLS":idLS,
       "textLS": textLS
@@ -293,11 +365,31 @@ function updateLangugaeStrings() {
   });
 };
 
+function updateExamples() {
+  $.ajax({
+    type: 'POST', // or 'GET' depending on your server-side implementation
+    url: '/updateMatrixExamples', // ReplaceAll with the actual route on your Bottle server
+    data: {
+      "activeExample": document.getElementById('active-example-update-matrix').value,
+      "matrixLength": document.getElementById('update-matrix-length').value,
+      "matrixHeight": document.getElementById('update-matrix-height').value,
+    },
+    success: function(response) {
+      console.log('Request successful');
+      $('#test-example-option').html(response);
+    },
+    error: function(xhr, status, error) {
+      // Handle errors
+      console.error('Error:', error);
+    }
+  });
+};
+
 function createNewCategory(){
   var category = document.getElementById('custom-category-name').value;
   $.ajax({
     type: 'POST', // or 'GET' depending on your server-side implementation
-    url: '/createNewCategory', // Replace with the actual route on your Bottle server
+    url: '/createNewCategory', // ReplaceAll with the actual route on your Bottle server
     data: {
       "category":category,
     },
@@ -315,7 +407,7 @@ function createNewCategory(){
 function resetAll(){
   $.ajax({
     type: 'POST', // or 'GET' depending on your server-side implementation
-    url: '/resetFile', // Replace with the actual route on your Bottle server
+    url: '/resetFile', // ReplaceAll with the actual route on your Bottle server
     data: {
     },
     success: function(response) {
@@ -327,6 +419,8 @@ function resetAll(){
   });
   location.reload();
 }
+
+
   
   
   
