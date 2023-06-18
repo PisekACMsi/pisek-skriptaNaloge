@@ -4,6 +4,8 @@ import skripta
 import json
 import flatdict
 import urllib.parse
+import os
+
 test = 0
 """Bottle poskrbi, da stran laufa in da so vse stvari povezane med sabo."""
 
@@ -150,6 +152,7 @@ def send_quickAlgo_css(filename):
 def home_get():
     global test
     print("POSODOBIL HTML BI PU PIP")
+
     tile_names = skripta.preberi_vsa_imena_slik("tiles") 
     character_names = skripta.preberi_vsa_imena_slik("characters")
     objects = skripta.preberi_vsa_imena_slik("objects")
@@ -173,6 +176,9 @@ def home_get():
 @bottle.post("/") 
 def home_add():
     print("USTVARJAM SKRIPTO")
+    image_file = bottle.request.files.get('imageFile')
+    print("Nova slikaaaaa", image_file)
+
     # Za funkcijo includeBlocks()
     #-------------------------------------------------------------------
     htmlFajl = open("./views/nalogaTemplate.txt", "r", encoding="utf-8")
@@ -222,6 +228,7 @@ def home_add():
     borderWidth = bottle.request.forms.get('borderWidth')
     backgroundImage = bottle.request.forms.get('backgroundImage')
     showLabels = bottle.request.forms.get('showLabels')
+    gravitationOn = bottle.request.forms.get('gravitationOn')
     sizeRows = bottle.request.forms.get('sizeRow')
     sizeCols = bottle.request.forms.get('sizeCol')
     generator.randomBull2["backgroundColour"] = backGroundColor
@@ -231,11 +238,11 @@ def home_add():
     generator.mmm = int(sizeRows)
     generator.nnn= int(sizeCols)
     
-    if showLabels == "on":
-        showLabels = True
-    else:
-        showLabels = False
+    showLabels = True if showLabels == "on" else False
+    gravitationOn = True if gravitationOn == "on" else False
+    
     generator.randomBull2["showLabels"] = showLabels
+    generator.randomBull1["hasGravity"] = gravitationOn
 
     #END CONDITION
     indikator1 = bottle.request.forms.get("indikator1") 
@@ -330,6 +337,14 @@ def addMatrixExample():
     generator.ustvariSkripto()
     return generator.updateExamplesHtmlString()
 
+@bottle.post("/deleteMatrixExamples")
+def addMatrixExample():
+    deleteExample = int(bottle.request.forms.get("deleteExample"))
+    generator.deleteExample(deleteExample-1)
+    generator.ustvariSkripto()
+    return generator.updateExamplesHtmlString()
+
+
 @bottle.post("/addToMatrix")
 def addToMatrix():
     print("DODAJAM NA MATRIKO AAAAAAAAAAAAAAAA")
@@ -346,7 +361,7 @@ def addToMatrix():
 
 @bottle.post("/removeFromMatrix")
 def removeFromMatrix():
-    print("DODAJAM NA MATRIKO AAAAAAAAAAAAAAAA")
+    print("BRIŠEM IZ MATRIKE AAAAAAAAAAAAAAAA")
     itemName = bottle.request.forms.get("itemName")
     itemRow = int(bottle.request.forms.get("itemRow") )
     itemCol = int(bottle.request.forms.get("itemCol"))
@@ -357,19 +372,10 @@ def removeFromMatrix():
     bottle.redirect("/")
 
 @bottle.post("/addRobot") 
-def dodajItem():
+def addRobot():
     #ITEMTYPE
-    itemRow = bottle.request.forms.get("coordRowR") 
-    itemCol = bottle.request.forms.get("coordColR")
-    itemCategory = "robot"
     itemImage = bottle.request.forms.get("itemImageR")
-    generator.itemSpecifications["name"] = "robot0"
-    generator.itemSpecifications["img"] = itemImage
-    generator.catIT[itemCategory] = True
-    generator.itemSpecifications["row"] = [int(itemRow.split(",")[0])]
-    generator.itemSpecifications["col"] = [int(itemCol.split(",")[0])]
-    generator.itemSpecifications["nbStates"] = 9
-    generator.addRobot()
+    generator.addRobot(itemImage)
     generator.ustvariSkripto()
     print("DODAJAM ROBOTA SERVER BRRRRRRR")
     bottle.redirect("/")
@@ -386,7 +392,7 @@ def deleteItem():
     print("BRIŠEM ITEM GRRRRRRR")
     deleteItem = bottle.request.forms.get("delName")
     generator.deleteItemType(deleteItem)
-    print("IZBRISAL ITEM TYPE")
+    print("IZBRISAL ITEM TYPE", deleteItem)
     generator.ustvariSkripto()
     bottle.redirect("/")
 
@@ -427,6 +433,17 @@ def update_item_types():
     generator.ustvariSkripto()
     return home_get()
 
+@bottle.post("/uploadImage")
+def update_item_types():
+    image = bottle.request.files.get('imageFile')
+    path = bottle.request.forms.get('path')
+
+    filePath = "static/img/" + path + "/" + image.filename
+    if not os.path.exists(filePath):
+        image.save(filePath)
+        return 'Image uploaded successfully.'
+    else:
+        return 'Image upload failed.'
 #----------------------------------------------------------------------------------------------------------
 
 def start_bottle():

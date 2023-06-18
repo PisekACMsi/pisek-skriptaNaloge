@@ -45,6 +45,39 @@
             <form class="needs-validation" novalidate>
               <div class="card" style="margin-bottom: 1.5rem;">
                 <div class="card-body">
+                  <h3>Naloži scene</h3>
+                  <div class="row g-3">
+                    <div class="col-12">
+                      <label for="naslov" class="form-label" >Slika robota</label><br>
+                      <form id="uploadForm">
+                        <input type="file" name="imageFile" accept="image/*" id="upload-image-robot">
+                        <input type="button" value="Upload Image" onclick="uploadImage('characters')">
+                      </form>
+                    </div>
+                  </div>
+                  <div class="row g-3">
+                    <div class="col-12">
+                      <label for="naslov" class="form-label" >Slika ozadja</label>
+                      <form id="uploadForm">
+                        <input type="file" name="imageFile" accept="image/*" id="upload-image-tile">
+                        <input type="button" value="Upload Image" onclick="uploadImage('tiles')">
+                      </form>
+                    </div>
+                  </div>
+                  <div class="row g-3">
+                    <div class="col-12">
+                      <label for="naslov" class="form-label" >Slika predmeta</label>
+                      <form id="uploadForm">
+                        <input type="file" name="imageFile" accept="image/*" id="upload-image-object">
+                        <input type="button" value="Upload Image" onclick="uploadImage('objects')">
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="card" style="margin-bottom: 1.5rem;">
+                <div class="card-body">
                   <h3>Osnovne informacije</h3>
                   <div class="row g-3">
                     <div class="col-12">
@@ -235,6 +268,10 @@
                     <input type="checkbox" class="form-check-input" id="showLabels" name="showLabels">
                     <label class="form-check-label" for="showLabels">Prikaži oznake</label>
                   </div>
+                  <div class="form-check mb-3">
+                    <input type="checkbox" class="form-check-input" id="gravitation-on" name="gravitationOn">
+                    <label class="form-check-label" for="showLabels">Vklopi gravitacijo</label>
+                  </div>
 
                   <div class="row">
 
@@ -296,7 +333,6 @@
                     <div class="col-md-3 mb-3">
                       <label for="ime-indikatorja-A">Ime objekta A</label> <br>
                       <select class="form-select" id="coincide-label-A" name="imeA">
-                        <option value="">Ne preverjaj</option>
                         {{! htmlListTypes}}
                       </select>
                     </div>
@@ -309,7 +345,6 @@
                     <div class="col-md-3 mb-3">
                       <label for="ime-indikatorja-B">Ime objekta B</label><br>
                       <select class="form-select" id="coincide-label-B" name="imeB">
-                        <option value="">Ne preverjaj</option>
                         {{! htmlListTypes}}
                       </select>
                     </div>
@@ -337,22 +372,7 @@
                         Polje ne sme biti prazno
                       </div>
                     </div>
-                     
-                      <div class="col-2">
-                        <label for="email" class="form-label">Koordinata x</label>
-                        <input type="text" class="form-control" id="robot-coord-x" name="coordColR" placeholder="vrstica" value = "0">
-                        <div class="invalid-feedback">
-                          Polje ne sme biti prazno!
-                        </div>
-                      </div>
 
-                      <div class="col-2">
-                        <label for="email" class="form-label">Koordinata y</label>
-                        <input type="text" class="form-control" id="robot-coord-y" name="coordRowR" placeholder="vrstica" value = "0">
-                        <div class="invalid-feedback">
-                          Polje ne sme biti prazno!
-                        </div>
-                      </div>
                       <div class="col-3 align-self-end">
                         <button class="btn btn-secondary" type="button" hx-swap="none" hx-target="body" onclick="refreshScene('addRobot')">Ustvari robota</button>
                       </div>
@@ -545,6 +565,9 @@
                           <option>{{i+1}}</option>
                         %end
                       </select>
+                    </div>
+                    <div class="col-2 align-self-end">
+                      <button class="btn btn-secondary" type="button" hx-swap="none" hx-target="body" onclick="deleteExample()">Izbriši testni primer</button>
                     </div>
                   </div>
                   <div class = "row" style = "margin-bottom: 2rem;">

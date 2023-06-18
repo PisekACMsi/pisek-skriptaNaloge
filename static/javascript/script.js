@@ -229,16 +229,16 @@ function refreshScene(path) {
           // Perform your logic to generate the updated content
 
   if (path == "addRobot"){
+    let img = document.getElementById('robot-image').value;
     var dict = {
-      "coordRowR": document.getElementById('robot-coord-y').value,
-      "coordColR": document.getElementById('robot-coord-x').value,
-      "itemImageR": document.getElementById('robot-image').value.replaceAll(" ", "_") + ".png"
+      "itemImageR": "characters/" + img.replaceAll(" ", "_") + (img ? '.png' : '')
     }
   }
   else if (path == "defaultItem"){
+    let img = document.getElementById('default-item-image').value;
     var dict = {
       "defaultItemCategory": document.getElementById('default-item-category').value,
-      "defaultItemImage": document.getElementById('default-item-image').value.replaceAll(" ", "_") + ".png"
+      "defaultItemImage": "objects/" + img.replaceAll(" ", "_") + (img ? '.png' : '')
     }
   }
   else if (path == "defaultNumber"){
@@ -253,9 +253,11 @@ function refreshScene(path) {
     }
   }
   else if (path == "defaultButton"){
+    img1 = document.getElementById('default-button-on-image').value;
+    img2 = document.getElementById('default-button-off-image').value;
     var dict = {
-      "defaultButtonImageOn": document.getElementById('default-button-on-image').value.replaceAll(" ", "_") + ".png",
-      "defaultButtonImageOff": document.getElementById('default-button-off-image').value.replaceAll(" ", "_") + ".png",
+      "defaultButtonImageOn": "buttons/" + img1.replaceAll(" ", "_") + (img1 ? '.png' : ''),
+      "defaultButtonImageOff": "buttons/" + img2.replaceAll(" ", "_") + (img2 ? '.png' : ''),
     }
   }
   else if (path == "customObject"){
@@ -316,18 +318,17 @@ $.ajax({
   data: {},
   success: function(response) {
     selected1 = document.getElementById('added-item-to-matrix').value;
-    r1 = response.replaceAll("<option>" + selected1, '<option selected="selected">'+ selected1);
+    r1 = response.replaceAll("<option>" + selected1, '<option selected="selected">'+ selected1).replaceAll('value=""', (selected1 ? 'value=""':'value="" selected="selected"'));
     $('#added-item-to-matrix').html(r1);
     $('#remove-item-name').html(r1);
     
     selected2 = document.getElementById('coincide-label-A').value;
 
-    res = '<option></option><br>' + response
-    r2 = res.replaceAll("<option>" + selected2, '<option selected="selected">'+ selected2);
+    r2 = res.replaceAll("<option>" + selected2, '<option selected="selected">'+ selected2).replaceAll('value=""', (selected2 ? 'value="" selected="selected"':'value=""'));
     $('#coincide-label-A').html(r2);
     
     selected3 = document.getElementById('coincide-label-B').value;
-    r3 = res.replaceAll("<option>" + selected3, '<option selected="selected">'+ selected3);
+    r3 = res.replaceAll("<option>" + selected3, '<option selected="selected">'+ selected3).replaceAll('value=""', (selected3 ? 'value="" selected="selected"':'value=""'));
     $('#coincide-label-B').html(r3);
   },
 });
@@ -385,6 +386,24 @@ function updateExamples() {
   });
 };
 
+function deleteExample(){
+  $.ajax({
+    type: 'POST', // or 'GET' depending on your server-side implementation
+    url: '/deleteMatrixExamples', // ReplaceAll with the actual route on your Bottle server
+    data: {
+      "deleteExample": document.getElementById('test-example-option').value,
+    },
+    success: function(response) {
+      console.log('Request successful');
+      $('#test-example-option').html(response);
+    },
+    error: function(xhr, status, error) {
+      // Handle errors
+      console.error('Error:', error);
+    }
+  });
+}
+
 function createNewCategory(){
   var category = document.getElementById('custom-category-name').value;
   $.ajax({
@@ -419,6 +438,41 @@ function resetAll(){
   });
   location.reload();
 }
+
+function uploadImage(path){
+  if(path=="characters"){
+    var fileInput = document.getElementById('upload-image-robot');
+  }
+  else if(path=="tiles"){
+    var fileInput = document.getElementById('upload-image-tile');
+  }
+  else if(path=="objects"){
+    var fileInput = document.getElementById('upload-image-object');
+  }
+  
+  // Create a new FormData object
+  var formData = new FormData();
+
+  formData.append('imageFile', fileInput.files[0]);
+  formData.append("path", path)
+  $.ajax({
+    type: 'POST',
+    url: '/uploadImage', // Replace with the actual route on your Bottle server
+    data: formData, // Pass the formData object directly
+    processData: false, // Prevent jQuery from processing the data
+    contentType: false, // Prevent jQuery from setting the content type
+    success: function(response) {
+      // Handle the success response from the server
+      location.reload();
+    },
+    error: function(xhr, status, error) {
+      // Handle errors
+      console.error('Error:', error);
+    }
+  });
+  
+}
+
 
 
   

@@ -12,6 +12,7 @@ function initTask(subTask) {
           nextStep: false,
           goToEnd: false
      },
+     hasGravity: false,
      introMaxHeight: "33%",
      maxListSize: 100,
      scrollbars: true,
@@ -21,13 +22,11 @@ function initTask(subTask) {
      },
      actionDelay: 400,
      blocklyColourTheme: "bwinf",
-     maxInstructions: 666,
+     maxInstructions: 0,
      includeBlocks: {
           groupByCategory: true,
           generatedBlocks: {
-               robot: [
-                    "move"
-               ]
+               robot: []
           },
           standardBlocks: {
                includeAll: false,
@@ -43,18 +42,55 @@ function initTask(subTask) {
      checkEndCondition: (context, lastTurn) => { 
 	robotEndConditions.checkCombiner(context, lastTurn, [
 		//,
-		(context, lastTurn) => { robotEndConditions.checkItemCoincidence(context, lastTurn, {type: "obstacle0"}, {type: "obstacle0"}, [], {}, {}) }
+		//
 	])
 },
      ignoreInvalidMoves: false,
      border: 0.02,
-     backgroundColour: "#000000",
-     backgroundTile: "asfalt.png",
-     borderColour: "#000000",
-     showLabels: false,
+     backgroundColour: "white",
+     backgroundTile: "",
+     borderColour: "black",
+     showLabels: true,
      cellSide: 60,
-     numberOfRobots: 1,
-     itemTypes: {}
+     numberOfRobots: 4,
+     itemTypes: {
+          robot0: {
+               img: "characters/avto.png",
+               zOrder: 8,
+               value: 0,
+               nbStates: 9,
+               category: {
+                    "robot": true
+               }
+          },
+          robot1: {
+               img: "characters/cebela.png",
+               zOrder: 8,
+               value: 0,
+               nbStates: 9,
+               category: {
+                    "robot": true
+               }
+          },
+          robot2: {
+               img: "characters/avto.png",
+               zOrder: 8,
+               value: 0,
+               nbStates: 9,
+               category: {
+                    "robot": true
+               }
+          },
+          robot3: {
+               img: "characters/rdec_robot.png",
+               zOrder: 8,
+               value: 0,
+               nbStates: 9,
+               category: {
+                    "robot": true
+               }
+          }
+     }
 };
 subTask.data = {
      easy: [
@@ -64,15 +100,36 @@ subTask.data = {
  [1, 1, 1, 1, 1], 
  [1, 1, 1, 1, 1], 
  [1, 1, 1, 1, 1]],
-               initItems: []
-          },
-          {
-               tiles: [[1, 1, 1, 1, 1], 
- [1, 1, 1, 1, 1], 
- [1, 1, 1, 1, 1], 
- [1, 1, 1, 1, 1], 
- [1, 1, 1, 1, 1]],
-               initItems: []
+               initItems: [
+                    {
+                         row: 0,
+                         col: 0,
+                         type: "robot0",
+                         dir: 0,
+                         value: 0
+                    },
+                    {
+                         row: 0,
+                         col: 0,
+                         type: "robot1",
+                         dir: 0,
+                         value: 0
+                    },
+                    {
+                         row: 0,
+                         col: 0,
+                         type: "robot2",
+                         dir: 0,
+                         value: 0
+                    },
+                    {
+                         row: 0,
+                         col: 0,
+                         type: "robot3",
+                         dir: 0,
+                         value: 0
+                    }
+               ]
           }
      ]
 };

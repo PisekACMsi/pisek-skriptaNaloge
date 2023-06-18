@@ -328,10 +328,10 @@ def createDefaultButton(buttonOn, buttonOff):
 def addItemTypeToMatrix(itemName, itemRow, itemCol):
     global itemsIT, activeExample
     print(itemsIT)
-    if itemName == "robot0":
+    if "robot" in itemName:
         itemsIT[itemName]["row"][activeExample] = [itemRow]
         itemsIT[itemName]["col"][activeExample] = [itemCol]
-        removeInicialisation(itemName)
+        removeInicialisation(itemName, -1, -1)
         addInicialisation({"row":itemRow, "col":itemCol, "type":itemName, "dir": 0, "value": 0})
 
     elif itemRow not in itemsIT[itemName]["row"][activeExample] or itemCol not in itemsIT[itemName]["col"][activeExample]:
@@ -345,9 +345,11 @@ def removeItemTypeFromMatrix(itemName, itemRow, itemCol):
         itemsIT[itemName]["row"][activeExample].remove(itemRow)
         itemsIT[itemName]["col"][activeExample].remove(itemCol)
         updateMatrix()
+        removeInicialisation(itemName, itemRow, itemCol)
 
 def updateMatrix():
     global itemsIT, matrixExamples, activeExample
+    print("UPDATE MATRIX")
     numRows = len(matrixExamples[activeExample])
     numCols = len(matrixExamples[activeExample][0])
     for i in range(numRows):
@@ -359,47 +361,38 @@ def updateMatrix():
         cols = item["col"][activeExample]
         
         for i in range(len(cols)):
-            if cols[i] < numCols and rows[i] < numRows and key != "robot0":
+            if cols[i] < numCols and rows[i] < numRows and "robot" not in key:
                 if matrixExamples[activeExample][rows[i]][cols[i]] == 1:
                     matrixExamples[activeExample][rows[i]][cols[i]] = item["num"]
-                else:
-                    addInicialisation({"row":rows[i], "col":cols[i], "type":key, "value": 0})
 
-def addRobot():
+def addRobot(itemImage):
     global itemsIT, itemID, typeOptions, possibleCategories, itemSpecifications, matrixExamples, activeExample, catIT
-    ime = itemSpecifications.pop("name")
-    if ime == "":
-        return
-    itemSpecifications["category"] = {"\"robot\"":True}
-    itemSpecifications["zOrder"] = 10
-    row = itemSpecifications["row"][0]
-    col = itemSpecifications["col"][0]
-
-    itemsIT[ime] = itemSpecifications
     
-    # inicializacija
-    removeInicialisation(ime)
-    addInicialisation({"row":row, "col":col, "type":ime, "dir": 0, "value": 0})
-    alreadyInitialized.add(ime)
-
-    setCategoryDeafult()
-    
-    #saveItemTypes()
+    itemNameId = 0
+    for itemName in itemsIT.keys():
+        if "robot" in itemName:
+            if itemImage != itemsIT[itemName]["img"]:
+                itemNameId += 1
+    randomBull2["numberOfRobots"] = itemNameId+1
+    itemSpec = {"img":"", "zOrder":8, "value":0, "nbStates":9, "row":[[0]for i in range(len(matrixExamples))], "col":[[0]for i in range(len(matrixExamples))]}
+    ime = "robot" + str(itemNameId)
     typeOptions.add(ime)
-    itemSpecifications = {"name":"", "num": itemID, "img":"", "zOrder":itemID, "category":catIT, "value":0, "nbStates":1,"row":[0], "col":[0]} #nazaj na default
+    itemSpec["category"] = {"\"robot\"":True}
+    itemSpec["img"] = itemImage
+    itemsIT[ime] = itemSpec
+    setCategoryDeafult()
+    addItemTypeToMatrix(ime, 0, 0)
+
 
 def deleteItemType(ime):
     global itemsIT, itemID, typeOptions, possibleCategories, matrixExamples
+    print("deleteItem", ime)
+    removeInicialisation(ime, -1, -1)
     
     if ime in list(itemsIT.keys()):
         typeOptions.remove(ime)
         itemsIT.pop(ime)
     
-    itemsID = 2
-    for ime in list(itemsIT.keys()):
-        itemsIT[ime]["num"] = itemsID
-        itemsID += 1
-    removeInicialisation(ime)
     updateMatrix()
 
 def izpisiSubTaskData():
@@ -429,11 +422,14 @@ def addInicialisation(initSlv):
             return
     initialisationExamples[activeExample].append(initSlv)
 
-def removeInicialisation(name):
-    for i in range(len(initialisationExamples[activeExample])):
-        if initialisationExamples[activeExample][i]["type"] == name:
-            initialisationExamples[activeExample] = initialisationExamples[activeExample][:i] + initialisationExamples[activeExample][i+1:]
-
+def removeInicialisation(itemName, itemRow, itemCol):
+    global activeExample, initialisationExamples
+    print("BRIŠEM", itemName)
+    for init in initialisationExamples[activeExample]:
+        if init["type"] == itemName and init["row"] == itemRow and init["col"] == itemCol:
+            initialisationExamples[activeExample].remove(init)
+        if init["type"] == itemName and itemRow==-1 and itemCol==-1:
+            initialisationExamples[activeExample].remove(init)
 
 def updateExample(newActiveExample, le, he):
     global initialisationExamples, activeExample, mmm, nnn, itemsIT
@@ -451,6 +447,19 @@ def updateExample(newActiveExample, le, he):
     else:
         activeExample = newActiveExample - 1
         changeMatrixSize(he, le)
+
+def deleteExample(deleteExampleId):
+    global itemsIT, matrixExamples
+    print("EXAMPLE ID", deleteExampleId)
+    if deleteExampleId == 0 and len(matrixExamples)==1:
+        return
+    for ime in itemsIT.keys():
+        print(itemsIT[ime]["row"])
+        itemsIT[ime]["row"].pop(deleteExampleId)
+        itemsIT[ime]["col"].pop(deleteExampleId)
+    matrixExamples.pop(deleteExampleId)
+    initialisationExamples.pop(deleteExampleId)
+
 
 def changeMatrixValues(row, col, value):
     global matrixExamples, activeExample
@@ -585,7 +594,7 @@ def createItemTypesHtmlString():
 
 def updateItemTypesHtmlString():
     itemTypesNames = list(typeOptions)
-    html = ""
+    html = '<option value="">Ne preverjaj</option>'
     for name in itemTypesNames:
         html += "<option>" + str(name) + "</option> <br>"
     return html
@@ -631,7 +640,9 @@ def resetVariables():
     # languageStrings = dodajSlovar(idLS, txtLS) # za posodobitev kliči to funkcijo in za drugi paramter uporabi kar pride iz spletne strani
 
     # RANDOM BULŠIT 1
-    randomBull1 = {"introMaxHeight": "33%",
+    randomBull1 = {
+        "hasGravity": False,
+        "introMaxHeight": "33%",
         "maxListSize": 100, 
         "scrollbars": True,
         "zoom": {

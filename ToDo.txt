@@ -8,14 +8,6 @@ Tasks:
 ✅  Povezat globalne spremenjivke v generatorju
     ✅ Vsaj eno funkcijo
 
-☐  Funkcija, ki ponastavi language strings
-
-☐  RandomBul1 naj bodo procenti najprej int potem pa string
-
-☐  Shranjevanje napredka
-
-☐  Najdit path do img v javascript fajlu. Več info na discordu
-
 ✅  Vpis ItemTypes
 
 ✅  V polje in predmeti dodam kategorijo, vrednost to potem daš v itemSpecifications
@@ -34,11 +26,9 @@ Tasks:
 
 ✅ Pri izbrisu itema, pohendlej neveljavne vnose
 
-☐ Dodaj ostale kategorije
+✅ Dodaj ostale kategorije
 
-☐ A res rabm redirect na koncu vsake scene zato k mi vrača response k ga nerabm v svojmu lajfu
-
-☐ Možnost dodajanja svoje kategorije
+✅ Možnost dodajanja svoje kategorije
 
 ✅ Robot naj ima samo eno koordinato
 
@@ -59,9 +49,7 @@ Tasks:
 ✅ Pogoj za zmago
     ☐ Pozanimaj se kakšne naj bodo možnosti.
 
-☐ Ponastavi trenutno resetira celotno stran. A je to kul?
-
-☐ Primer objektov brez slike
+✅ Primer objektov brez slike - bojo pač nevidni
 
 ✅ Dodaj več barv
 
@@ -70,26 +58,44 @@ Tasks:
 ✅ Custom objekti
     ✅ Povezava objektov z gumbi
 
-☐ Nulta bananananaaaaaaa - na koordinati 0 0 se randomly spavna objekt.
-
 ✅ Zamenjaj kategorijo ob pritisku na gumb
 
-☐ Nevidne ovire--Kul?
+✅ Naloži svojo sliko
 
-☐ Custom blocki kakor so levo desno gor dol - brez diagonal, napisi na senzorjih.
-
-☐ Naloži svojo sliko
-
-☐ Shrani napredek
-
-☐ Dodaj več testnih primerov
+✅ Dodaj več testnih primerov
+    ✅ Izbris testnih primerov
 
 ✅ Presledki med slikami so _ namesto spacea
 
 ✅ Več itemov na istem polju
 
+✅ Nevidne ovire--Kul?
 
+☐ Shrani napredek
 
-☐ Gravitacija
+☐ location-reload - A je to smiselno?
 
+☐ Ponastavi trenutno resetira celotno stran. A je to kul?
+
+☐ Nulta bananananaaaaaaa - na koordinati 0 0 se randomly spavna objekt.
+
+☐ A res rabm redirect na koncu vsake scene zato k mi vrača response k ga nerabm v svojmu lajfu
+
+☐ Funkcija, ki ponastavi language strings. A res rabm????? Pomoje ne. Prašej
+
+☐  RandomBul1 naj bodo procenti najprej int potem pa string. Ehhhh nerabš. Itak je default.
+
+☐  Shranjevanje napredka
+
+☐ Mal bol zrihtej end conditions.
+
+✅ Gravitacija
+
+☐ Več robotov
+
+☐ Custom blocki kakor so levo desno gor dol - brez diagonal, napisi na senzorjih.
+
+☐  Najdit path do img v javascript fajlu. Več info na discordu
+
+☐ Fajl download button
 ------------------------------------------------------------------------------
