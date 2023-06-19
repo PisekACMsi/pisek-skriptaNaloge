@@ -121,42 +121,18 @@
                   <div class="row">
                     <div class="col-md-4 mb-3">
                       <label for="blocks-dropdown">Kategorije delčkov</label>
-                      <select class="selectpicker" id="blocks-dropdown" multiple data-live-search="true"
+                      <select class="selectpicker" id="blocks-category-dropdown" multiple data-live-search="true"
                         name="blocksDropdown">
                         <option>Izberi vse</option>
-                        <option>Lists</option>
-                        <option>Variables</option>
-                        <option>Functions</option>
-                        <option>Tools</option>
-                        <option>Logic</option>
-                        <option>Loops</option>
-                        <option>Math</option>
-                        <option>Texts</option>
-                        <option>Colour</option>
+                        {{! blocksCategory}}
                       </select>
                     </div>
                     <div class="col-md-4 mb-3">
                       <label for="robot-blocks-dropdown">Premikanje robota</label>
-                      <select class="selectpicker" id="robot-blocks-dropdown" multiple data-live-search="true"
+                      <select class="selectpicker" id="blocks-robot-dropdown" multiple data-live-search="true"
                         name="robotBlocksDropdown">
                         <option>Izberi vse</option>
-                        <option selected="selected">Move</option>
-                        <option>MoveSimple</option>
-                        <option>Forward</option>
-                        <option>ForwardSimple</option>
-                        <option>Turn</option>
-                        <option>TurnAround</option>
-                        <option>Jump</option>
-                        <option>ChangeRobot</option>
-                        <option>Transport</option>
-                        <option>SensorBool</option>
-                        <option>SensorValue</option>
-                        <option>AlterValue</option>
-                        <option>Destroy</option>
-                        <option>Create</option>
-                        <option>Wait</option>
-                        <option>Nitems</option>
-                        <option>SensorRowCol</option>
+                        {{! blocksRobot}}
                       </select>
                     </div>
                     
@@ -165,38 +141,28 @@
                       <select class="selectpicker" id="robot-single-blocks-dropdown" multiple data-live-search="true"
                         name="robotSingleBlocksDropdown">
                         <option>Izberi vse</option>
-                        <option>math_arithmetic</option>
-                        <option>math_number</option>
-                        <option>controls_repeat_ext</option>
-                        <option>controls_whileUntil</option>
-                        <option>math_single</option>
-                        <option>math_number</option>
-                        <option>math_number_property</option>
-                        <option>math_number</option>
-                        <option>controls_for</option>
-                        <option>math_round</option>
-                        <option>math_modulo</option>
-                        <option>controls_flow_statements</option>
-                        <option>procedures_defreturn</option>
-                        <option>procedures_defnoreturn</option>
+                        {{!  blocksSingle}}
                       </select>
                     </div>
                   </div>
                   <div class="form-check mb-3">
-                    <input type="checkbox" class="form-check-input" id="groupByCategory" name="groupByCategory" checked>
+                    <input type="checkbox" class="form-check-input" id="group-by-category" name="groupByCategory" checked>
                     <label class="form-check-label" for="groupByCategory">Grupiraj po kategoriji</label>
                   </div>
                   <div class="row">
                     <div class="col-md-12">
                       <label for="maxInstructions">Izberi koliko delčkov je na voljo</label>
                       <div class="col-md-6">
-                        <input type="number" class="form-control" id="maxInstructions" placeholder="število"
+                        <input type="number" class="form-control" id="max-instructions" placeholder="število"
                           name="maxInstructions" value="666">
                         <div class="invalid-feedback">
                           Polje ne sme biti prazno!
                         </div>
                       </div>
                     </div>
+                  </div>
+                  <div class="row">
+                    <button id="button-update-language-strings" class="btn btn-secondary" type="button" hx-swap="none" onclick="updateBlocks()">Posodobi delčke</button>
                   </div>
                   <div class="row">
                     <div class="col-md-12">
@@ -225,10 +191,16 @@
                       <input type="text" class="form-control" id="text-LS" name="languageString" placeholder="vrstica">
                     </div>
                   </div>
-                  <div class="row">
+                  <div class="row" style="margin-bottom: 2rem;">
                     <div class="col-3 align-self-end">
                       <button id="button-update-language-strings" class="btn btn-secondary" type="button" hx-swap="none" onclick="updateLangugaeStrings()">Posodobi text</button>
                     </div>
+                  </div>
+                  <div class="row">
+                    <form id="upload-form" enctype="multipart/form-data">
+                      <input type="file" id="upload-starting-example-file" name="file" accept=".txt">
+                      <input type="button" value="Naloži delčke" onclick="uploadStartingExample()">
+                    </form>
                   </div>
                 </div>
               </div>
@@ -239,20 +211,19 @@
                   <div class="row">
                     <div class="col-md-6 mb-3">
                       <label for="blocks-dropdown">Izberi barvo ozadja</label>
-                      <input type="color"  id="backGroundSelector"  name="backGroundSelector">
+                      <input type="color"  id="background-color"  name="backGroundSelector">
                     </div>
                     <div class="col-md-6 mb-3">
                       <label for="blocks-dropdown">Izberi barvo meje</label>
-                      <input type="color"  id="border-selector"  name="borderSelector">
+                      <input type="color"  id="border-color"  name="borderSelector">
                     </div>
                     <div class="col-md-12">
                       <label for="robot-blocks-dropdown">Izberi debelino meje</label>
-                        <input type="number" class="form-control" id="borderWidth" placeholder="število"
-                          name="borderWidth" value="0.02">
+                        <input type="number" class="form-control" id="border-width" placeholder="število" name="borderWidth" value="0.02">
                     </div>
                     <div class="col-md-4">
                       <label for="state" class="form-label">Izberi sliko ozadja</label>
-                      <select id="backgroundImage" class="form-select" name="backgroundImage">
+                      <select id="background-image" class="form-select" name="backgroundImage">
                         <option value="">Izberi...</option>
                         <option selected="selected">asfalt</option>
                         % for tile in tile_names:
@@ -265,15 +236,15 @@
                     </div>
                   </div>
                   <div class="form-check mb-3">
-                    <input type="checkbox" class="form-check-input" id="showLabels" name="showLabels">
+                    <input type="checkbox" class="form-check-input" id="show-labels" name="showLabels">
                     <label class="form-check-label" for="showLabels">Prikaži oznake</label>
                   </div>
                   <div class="form-check mb-3">
-                    <input type="checkbox" class="form-check-input" id="gravitation-on" name="gravitationOn">
+                    <input type="checkbox" class="form-check-input" id="gravity-on" name="gravitationOn">
                     <label class="form-check-label" for="showLabels">Vklopi gravitacijo</label>
                   </div>
 
-                  <div class="row">
+                  <div class="row" style="margin-bottom: 2rem;">
 
                     <div class="col-3">
                       <label for="id-aktivnega-primera">Testni primer</label>
@@ -294,11 +265,9 @@
                         Polje ne sme biti prazno!
                       </div>
                     </div>
-
-                    <div class="col-3 align-self-end">
-                      <button class="btn btn-secondary" type="button" hx-swap="none" hx-target="body" onclick="updateExamples()">Posodobi mrežo</button>
-                    </div>
-
+                  </div>
+                  <div class="row">
+                    <button id="button-update-language-strings" class="btn btn-secondary" type="button" hx-swap="none" onclick="updateMatrixParameters()">Posodobi mrežo</button>
                   </div>
                 </div>
               </div>
@@ -310,13 +279,13 @@
                   <div class="row">
                     <div class="col-md-6 mb-3">
                       <label for="indikator1">Indikator</label><br>
-                      <select class="selectpicker" id="indikator1" name="indikator1">
+                      <select class="form-select" id="indikator-1" name="indikator1">
                         <option selected="selected">category</option>
                       </select>
                     </div>
                     <div class="col-md-3 mb-3">
                       <label for="ime1">Vrsta indikatorja</label>
-                      <select class="form-select" id="ime1" name="ime1">
+                      <select class="form-select" id="exist-label-1" name="ime1">
                         <option selected="selected" value="">Ne preverjaj</option>
                         <option>coin</option>
                       </select>
@@ -326,28 +295,33 @@
                   <div class="row">
                     <div class="col-md-6 mb-3">
                       <label for="indikatorA">Indikator A</label><br>
-                      <select class="selectpicker" id="indikatorA" name="indikatorA">
+                      <select class="form-select" id="indikatorA" name="indikatorA">
                         <option selected="selected">type</option>
                       </select>
                     </div>
                     <div class="col-md-3 mb-3">
                       <label for="ime-indikatorja-A">Ime objekta A</label> <br>
                       <select class="form-select" id="coincide-label-A" name="imeA">
+                        <option value="" selected="selected">Ne preverjaj</option>
                         {{! htmlListTypes}}
                       </select>
                     </div>
                     <div class="col-md-6 mb-3">
                       <label for="indikatorB">Indikator B</label><br>
-                      <select class="selectpicker" id="name-type-B" name="indikatorB">
+                      <select class="form-select" id="name-type-B" name="indikatorB">
                         <option selected="selected">type</option>
                       </select>
                     </div>
                     <div class="col-md-3 mb-3">
                       <label for="ime-indikatorja-B">Ime objekta B</label><br>
                       <select class="form-select" id="coincide-label-B" name="imeB">
+                        <option value="" selected="selected">Ne preverjaj</option>
                         {{! htmlListTypes}}
                       </select>
                     </div>
+                  </div>
+                  <div class="row">
+                    <button id="button-update-language-strings" class="btn btn-secondary" type="button" hx-swap="none" onclick="updateEndConditions()">Posodobi zmago</button>
                   </div>
                 </div>
               </div>

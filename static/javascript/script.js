@@ -73,19 +73,19 @@ $(document).ready(function () {
 
 //izberimo vse oz. ne
 $(document).ready(function () {
-  $('#blocks-dropdown').on('changed.bs.select', function (e, clickedIndex, isSelected, previousValue) {
+  $('#blocks-category-dropdown').on('changed.bs.select', function (e, clickedIndex, isSelected, previousValue) {
     if (clickedIndex === 0 && isSelected) {
-      $('#blocks-dropdown').selectpicker('selectAll');
+      $('#blocks-category-dropdown').selectpicker('selectAll');
     } else if (clickedIndex === 0 && !isSelected) {
-      $('#blocks-dropdown').selectpicker('deselectAll');
+      $('#blocks-category-dropdown').selectpicker('deselectAll');
     }
   });
 
-  $('#robot-blocks-dropdown').on('changed.bs.select', function (e, clickedIndex, isSelected, previousValue) {
+  $('#blocks-robot-dropdown').on('changed.bs.select', function (e, clickedIndex, isSelected, previousValue) {
     if (clickedIndex === 0 && isSelected) {
-      $('#robot-blocks-dropdown').selectpicker('selectAll');
+      $('#blocks-robot-dropdown').selectpicker('selectAll');
     } else if (clickedIndex === 0 && !isSelected) {
-      $('#robot-blocks-dropdown').selectpicker('deselectAll');
+      $('#blocks-robot-dropdown').selectpicker('deselectAll');
     }
   });
 
@@ -318,17 +318,17 @@ $.ajax({
   data: {},
   success: function(response) {
     selected1 = document.getElementById('added-item-to-matrix').value;
-    r1 = response.replaceAll("<option>" + selected1, '<option selected="selected">'+ selected1).replaceAll('value=""', (selected1 ? 'value=""':'value="" selected="selected"'));
+    r1 = response.replaceAll("<option>" + selected1, '<option selected="selected">'+ selected1)
     $('#added-item-to-matrix').html(r1);
     $('#remove-item-name').html(r1);
     
     selected2 = document.getElementById('coincide-label-A').value;
 
-    r2 = res.replaceAll("<option>" + selected2, '<option selected="selected">'+ selected2).replaceAll('value=""', (selected2 ? 'value="" selected="selected"':'value=""'));
+    r2 = (selected2 ? '<option value="" selected="selected">Ne preverjaj</option>':'<option value="">Ne preverjaj</option>')+response.replaceAll("<option>" + selected2, '<option selected="selected">'+ selected2);
     $('#coincide-label-A').html(r2);
     
     selected3 = document.getElementById('coincide-label-B').value;
-    r3 = res.replaceAll("<option>" + selected3, '<option selected="selected">'+ selected3).replaceAll('value=""', (selected3 ? 'value="" selected="selected"':'value=""'));
+    r3 = (selected3 ? '<option value="" selected="selected">Ne preverjaj</option>':'<option value="">Ne preverjaj</option>')+response.replaceAll("<option>" + selected3, '<option selected="selected">'+ selected3);
     $('#coincide-label-B').html(r3);
   },
 });
@@ -338,12 +338,36 @@ $.ajax({
   type: 'GET',
   data: {},
   success: function(response) {
-    $('#custom-button-id').html(r1);
+    $('#custom-button-id').html(response);
   },
 });
 
   // osvezi('pisek-iframe');
   }
+
+function updateBlocks() {
+  dict = {
+    "categoryBlocks":JSON.stringify($('#blocks-category-dropdown').val()),
+    "robotBlocks":JSON.stringify($('#blocks-robot-dropdown').val()),
+    "singleBlocks":JSON.stringify($('#robot-single-blocks-dropdown').val()),
+    "groupByCategory":document.getElementById('group-by-category').checked,
+    "maxInstructions":document.getElementById('max-instructions').value,
+  }
+
+  $.ajax({
+    type: 'POST', // or 'GET' depending on your server-side implementation
+    url: '/updateBlocks', // ReplaceAll with the actual route on your Bottle server
+    data: dict,
+    success: function(response) {
+      console.log('Request successful');
+      $('#select-LS').html(response);
+    },
+    error: function(xhr, status, error) {
+      // Handle errors
+      console.error('Error:', error);
+    }
+  });
+};
 
 function updateLangugaeStrings() {
   var idLS = document.getElementById('id-LS').value;
@@ -366,11 +390,17 @@ function updateLangugaeStrings() {
   });
 };
 
-function updateExamples() {
+function updateMatrixParameters() {
   $.ajax({
     type: 'POST', // or 'GET' depending on your server-side implementation
-    url: '/updateMatrixExamples', // ReplaceAll with the actual route on your Bottle server
+    url: '/updateMatrixParameters', // ReplaceAll with the actual route on your Bottle server
     data: {
+      "backgroundColor": document.getElementById('background-color').value,
+      "borderColor": document.getElementById('border-color').value,
+      "borderWidth": document.getElementById('border-width').value,
+      "backgroundImage": document.getElementById('background-image').value,
+      "showLabels": document.getElementById('show-labels').checked,
+      "gravityOn": document.getElementById('gravity-on').checked,
       "activeExample": document.getElementById('active-example-update-matrix').value,
       "matrixLength": document.getElementById('update-matrix-length').value,
       "matrixHeight": document.getElementById('update-matrix-height').value,
@@ -413,8 +443,9 @@ function createNewCategory(){
       "category":category,
     },
     success: function(response) {
-      console.log('Request successful');
+      console.log(response);
       $('#custom-item-category').html(response);
+      $('#custom-item-category').selectpicker('refresh');
     },
     error: function(xhr, status, error) {
       // Handle errors
@@ -473,10 +504,53 @@ function uploadImage(path){
   
 }
 
+function uploadStartingExample(){
+  
+  var fileInput = document.getElementById('upload-starting-example-file');
 
+  
+  // Create a new FormData object
+  var formData = new FormData();
 
+  formData.append('imageFile', fileInput.files[0]);
+  $.ajax({
+    type: 'POST',
+    url: '/uploadStartingExample', // Replace with the actual route on your Bottle server
+    data: formData, // Pass the formData object directly
+    processData: false, // Prevent jQuery from processing the data
+    contentType: false, // Prevent jQuery from setting the content type
+    success: function(response) {
+      // Handle the success response from the server
+      location.reload();
+    },
+    error: function(xhr, status, error) {
+      // Handle errors
+      console.error('Error:', error);
+    }
+  });
   
+}
+
+function updateEndConditions(){
+  dict = {
+    "indicate1": document.getElementById('indikator-1').value,
+    "name1": document.getElementById('exist-label-1').value,
+    "indicateA": document.getElementById('indikator-1').value,
+    "nameA": document.getElementById('coincide-label-A').value,
+    "indicateB": document.getElementById('indikator-1').value,
+    "nameB": document.getElementById('coincide-label-B').value,
+  }
+  $.ajax({
+    type: 'POST',
+    url: '/updateEndConditions', // Replace with the actual route on your Bottle server
+    data: dict, // Pass the formData object directly
+    success: function(response) {
+
+    },
+    error: function(xhr, status, error) {
+      // Handle errors
+      console.error('Error:', error);
+    }
+  });
   
-  
-  
-  
+}

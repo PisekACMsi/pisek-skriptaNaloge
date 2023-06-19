@@ -22,7 +22,7 @@ function initTask(subTask) {
      },
      actionDelay: 400,
      blocklyColourTheme: "bwinf",
-     maxInstructions: 0,
+     maxInstructions: 666,
      includeBlocks: {
           groupByCategory: true,
           generatedBlocks: {
@@ -41,48 +41,21 @@ function initTask(subTask) {
      checkEndEveryTurn: false,
      checkEndCondition: (context, lastTurn) => { 
 	robotEndConditions.checkCombiner(context, lastTurn, [
-		//,
-		//
+		(context, lastTurn) => { robotEndConditions.checkItemExistence(context, lastTurn, {category: "coin"}, {}, exist=false) },
+		(context, lastTurn) => { robotEndConditions.checkItemCoincidence(context, lastTurn, {category: "robot0"}, {category: "robot0"}, [], {}, {}) }
 	])
 },
      ignoreInvalidMoves: false,
      border: 0.02,
-     backgroundColour: "white",
-     backgroundTile: "",
-     borderColour: "black",
-     showLabels: true,
+     backgroundColour: "#000000",
+     backgroundTile: "tiles/asfalt.png",
+     borderColour: "#000000",
+     showLabels: false,
      cellSide: 60,
-     numberOfRobots: 4,
+     numberOfRobots: 1,
      itemTypes: {
           robot0: {
                img: "characters/avto.png",
-               zOrder: 8,
-               value: 0,
-               nbStates: 9,
-               category: {
-                    "robot": true
-               }
-          },
-          robot1: {
-               img: "characters/cebela.png",
-               zOrder: 8,
-               value: 0,
-               nbStates: 9,
-               category: {
-                    "robot": true
-               }
-          },
-          robot2: {
-               img: "characters/avto.png",
-               zOrder: 8,
-               value: 0,
-               nbStates: 9,
-               category: {
-                    "robot": true
-               }
-          },
-          robot3: {
-               img: "characters/rdec_robot.png",
                zOrder: 8,
                value: 0,
                nbStates: 9,
@@ -105,27 +78,6 @@ subTask.data = {
                          row: 0,
                          col: 0,
                          type: "robot0",
-                         dir: 0,
-                         value: 0
-                    },
-                    {
-                         row: 0,
-                         col: 0,
-                         type: "robot1",
-                         dir: 0,
-                         value: 0
-                    },
-                    {
-                         row: 0,
-                         col: 0,
-                         type: "robot2",
-                         dir: 0,
-                         value: 0
-                    },
-                    {
-                         row: 0,
-                         col: 0,
-                         type: "robot3",
                          dir: 0,
                          value: 0
                     }

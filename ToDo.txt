@@ -87,15 +87,17 @@ Tasks:
 
 ☐  Shranjevanje napredka
 
-☐ Mal bol zrihtej end conditions.
+☐ Mal bol zrihtej end conditions. Zenkrat vredu
 
 ✅ Gravitacija
 
-☐ Več robotov
+✅ Več robotov
 
 ☐ Custom blocki kakor so levo desno gor dol - brez diagonal, napisi na senzorjih.
 
 ☐  Najdit path do img v javascript fajlu. Več info na discordu
 
 ☐ Fajl download button
+
+✅ Load starting example
 ------------------------------------------------------------------------------

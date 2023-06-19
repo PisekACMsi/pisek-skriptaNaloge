@@ -171,7 +171,12 @@ def home_get():
     buttonNames = generator.updateButtonHtmlString()
 
     numOfExamples = len(generator.matrixExamples)
-    return bottle.template("index.html", tile_names=tile_names, character_names=character_names, objects=objects, itemTypes=itemTypes, languageStrings = [languageStringsKeys, languageStringsValues], scene=scene, htmlListTypes=htmlListTypes, customItemCategories=customItemCategories, buttonNames=buttonNames, buttonImages=buttons, numOfExamples=numOfExamples)
+
+    blocksCategory = generator.blocksCategoryHtml()
+    blocksRobot = generator.blocksRobotHtml()
+    blocksSingle = generator.blocksSingleHtml()
+    
+    return bottle.template("index.html", tile_names=tile_names, character_names=character_names, objects=objects, itemTypes=itemTypes, languageStrings = [languageStringsKeys, languageStringsValues], scene=scene, htmlListTypes=htmlListTypes, customItemCategories=customItemCategories, buttonNames=buttonNames, buttonImages=buttons, numOfExamples=numOfExamples, blocksCategory=blocksCategory, blocksSingle=blocksSingle, blocksRobot=blocksRobot)
 
 @bottle.post("/") 
 def home_add():
@@ -194,83 +199,60 @@ def home_add():
     htmlFajlOut.write(htmlString)
     htmlFajlOut.close()
 
+    # Ustvarimo skripto
+    generator.ustvariSkripto()
+    bottle.redirect("/")
 
-    bd = bottle.request.forms.getall('blocksDropdown')
-    rbd = bottle.request.forms.getall('robotBlocksDropdown')
-    rsbd = bottle.request.forms.getall('robotSingleBlocksDropdown')
-    gbc = bottle.request.forms.getall('groupByCategory')
+@bottle.post("/updateBlocks") 
+def updateBlocks():
+    categoryBlocks = json.loads(bottle.request.forms.get("categoryBlocks"))
+    robotBlocks = json.loads(bottle.request.forms.get("robotBlocks"))
+    singleBlocks = json.loads(bottle.request.forms.get("singleBlocks"))
+    groupByCategory = bottle.request.forms.get("groupByCategory")
+    maxInstructions = int(bottle.request.forms.get("maxInstructions"))
 
+    categoryBlocks = [] if categoryBlocks == None else categoryBlocks
+    robotBlocks = [] if robotBlocks == None else robotBlocks
+    singleBlocks = [] if singleBlocks == None else singleBlocks
+    print(groupByCategory)
     # Preverimo ali želimo grupirat po kategorijah
-    if len(gbc) > 0:
+    if groupByCategory == "true":
         generator.groupByCategory = True
     else:
         generator.groupByCategory = False
 
     # Nastavimo vse vrednosti, ki obstajajo v IB in Categories na true
-    for el in rbd:
-        if el != "Izberi vse":
-            el= el[0].lower() + el[1:]
-            generator.robotIB[el] = True
-
-    for el in rsbd:
-        if el != "Izberi vse":
-            el= el[0].lower() + el[1:]
-            generator.singleBlocksIB[el] = True
-
-    for el in bd:
-        if el != "Izberi vse":
-            el= el[0].lower() + el[1:]
+    for el in generator.wholeCategoriesIB.keys():
+        if el in categoryBlocks:
             generator.wholeCategoriesIB[el] = True
 
-    #OZADJE
-    backGroundColor = bottle.request.forms.get('backGroundSelector')
-    borderColor = bottle.request.forms.get('borderSelector')
-    borderWidth = bottle.request.forms.get('borderWidth')
-    backgroundImage = bottle.request.forms.get('backgroundImage')
-    showLabels = bottle.request.forms.get('showLabels')
-    gravitationOn = bottle.request.forms.get('gravitationOn')
-    sizeRows = bottle.request.forms.get('sizeRow')
-    sizeCols = bottle.request.forms.get('sizeCol')
-    generator.randomBull2["backgroundColour"] = backGroundColor
-    generator.randomBull2["borderColour"] = borderColor
-    generator.randomBull2["border"] = float(borderWidth)
-    generator.randomBull2["backgroundTile"] = backgroundImage + ".png"
-    generator.mmm = int(sizeRows)
-    generator.nnn= int(sizeCols)
-    
-    showLabels = True if showLabels == "on" else False
-    gravitationOn = True if gravitationOn == "on" else False
-    
-    generator.randomBull2["showLabels"] = showLabels
-    generator.randomBull1["hasGravity"] = gravitationOn
+    for el in generator.robotIB.keys():
+        if el in robotBlocks:
+            generator.robotIB[el] = True
 
-    #END CONDITION
-    indikator1 = bottle.request.forms.get("indikator1") 
-    ime1 = bottle.request.forms.get("ime1") 
-    indikatorA = bottle.request.forms.get("indikatorA") 
-    indikatorB = bottle.request.forms.get("indikatorB") 
-    imeA = bottle.request.forms.get("imeA")
-    imeB = bottle.request.forms.get("imeB")
-    generator.endCondition["Exist"]["indikator1"] = indikator1
-    generator.endCondition["Exist"]["ime1"] = ime1
-    generator.endCondition["Coincide"]["indikatorA"] = indikatorA
-    generator.endCondition["Coincide"]["indikatorB"] = indikatorB
-    generator.endCondition["Coincide"]["imeA"] = imeA
-    generator.endCondition["Coincide"]["imeB"] = imeB
+    for el in generator.singleBlocksIB.keys():
+        if el in singleBlocks:
+            generator.singleBlocksIB[el] = True
 
-    generator.globalka += 1
-    # Za funkcijo IzpisiHideControls(). Jo bom pustil kar prazno. 
-    #--------------------------------------------------------------------
-
-    # Za randomBull1 bom spremnil samo maxInstructions.
-    # -------------------------------------------------------------------
-    maxIns = int(bottle.request.forms.get('maxInstructions')) 
-    generator.randomBull1['maxInstructions'] = maxIns
-
-
-    # Ustvarimo skripto
+    generator.randomBull1['maxInstructions'] = maxInstructions
     generator.ustvariSkripto()
-    bottle.redirect("/")
+
+@bottle.post("/updateEndConditions")
+def updateEndConditions():
+    indicate1 = bottle.request.forms.get("indicate1")
+    name1 = bottle.request.forms.get("name1")
+    indicateA = bottle.request.forms.get("indicateA")
+    nameA = bottle.request.forms.get("nameA")
+    indicateB = bottle.request.forms.get("indicateB")
+    nameB = bottle.request.forms.get("nameB")
+
+    generator.endCondition["Exist"]["indikator1"] = indicate1
+    generator.endCondition["Exist"]["ime1"] = name1
+    generator.endCondition["Coincide"]["indikatorA"] = indicateA
+    generator.endCondition["Coincide"]["indikatorB"] = indicateB
+    generator.endCondition["Coincide"]["imeA"] = nameA
+    generator.endCondition["Coincide"]["imeB"] = nameB
+    generator.ustvariSkripto()
 
 @bottle.post("/customObject") 
 def dodajItem():
@@ -328,11 +310,28 @@ def addDefaultButton():
     generator.ustvariSkripto()
     bottle.redirect("/")
 
-@bottle.post("/updateMatrixExamples")
+@bottle.post("/updateMatrixParameters")
 def addMatrixExample():
+    backgroundColor = bottle.request.forms.get("backgroundColor")
+    borderColor = bottle.request.forms.get("borderColor")
+    borderWidth = float(bottle.request.forms.get("borderWidth"))
+    backgroundImage = bottle.request.forms.get("backgroundImage")
+    showLabels = bottle.request.forms.get("showLabels")
+    gravityOn = bottle.request.forms.get("gravityOn")
     newActiveExample = int(bottle.request.forms.get("activeExample"))
     matrixLength = int(bottle.request.forms.get("matrixLength"))
     matrixHeight = int(bottle.request.forms.get("matrixHeight"))
+    generator.randomBull2["backgroundColour"] = backgroundColor
+    generator.randomBull2["borderColour"] = borderColor
+    generator.randomBull2["border"] = float(borderWidth)
+    generator.randomBull2["backgroundTile"] = "tiles/" + backgroundImage + ".png"
+    
+    showLabels = True if showLabels == "true" else False
+    gravityOn = True if gravityOn == "true" else False
+    
+    generator.randomBull2["showLabels"] = showLabels
+    generator.randomBull1["hasGravity"] = gravityOn
+
     generator.updateExample(newActiveExample, matrixLength, matrixHeight)
     generator.ustvariSkripto()
     return generator.updateExamplesHtmlString()
@@ -444,6 +443,15 @@ def update_item_types():
         return 'Image uploaded successfully.'
     else:
         return 'Image upload failed.'
+    
+@bottle.post("/uploadStartingExample")
+def update_item_types():
+    uploaded_file = bottle.request.files.get('imageFile')
+    if uploaded_file:
+        file_content = uploaded_file.file.read()
+        generator.strSE = str(file_content.decode())
+    generator.ustvariSkripto()
+
 #----------------------------------------------------------------------------------------------------------
 
 def start_bottle():

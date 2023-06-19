@@ -108,7 +108,6 @@ def dodajSlovar(id, text):
 
     f1[f2.keys()[0]] = f2.values()[0]
     languageStringsLS = f1.as_dict()
-    print(languageStringsLS)
 
 def izpisiHideControls(restart = False, saveOrLoad = False, loadBestAnswer = False, speedSlider = False, backToFirst = False, nextStep = False, goToEnd = False):
     pySlv = {"hideControls":{}}
@@ -127,7 +126,7 @@ def izpisiRandomBulshit1():
 def izpisiStartingExample():
     global strSE
     pySlv = {"startingExample":{}}
-    
+    strSE = strSE.replace("\"", "'")
     #python slovar
     pySlv["startingExample"]["blockly"] = strSE
     # jsonStr = json.dumps(pySlv, indent = 5)
@@ -160,7 +159,6 @@ def izpisiIncludeBlocks():
 
 def izpisiCheckEndCondition():
     global endCondition
-    print(endCondition)
     indikator1 = endCondition["Exist"]["indikator1"]
     ime1 = endCondition["Exist"]["ime1"]
     negIndikator1 = endCondition["Exist"]["negIndikator1"]
@@ -327,14 +325,17 @@ def createDefaultButton(buttonOn, buttonOff):
 
 def addItemTypeToMatrix(itemName, itemRow, itemCol):
     global itemsIT, activeExample
-    print(itemsIT)
     if "robot" in itemName:
         itemsIT[itemName]["row"][activeExample] = [itemRow]
         itemsIT[itemName]["col"][activeExample] = [itemCol]
         removeInicialisation(itemName, -1, -1)
         addInicialisation({"row":itemRow, "col":itemCol, "type":itemName, "dir": 0, "value": 0})
 
-    elif itemRow not in itemsIT[itemName]["row"][activeExample] or itemCol not in itemsIT[itemName]["col"][activeExample]:
+    obstaja = False
+    for i in range(len(itemsIT[itemName]["row"][activeExample])):
+        if itemRow == itemsIT[itemName]["row"][activeExample][i] and itemCol == itemsIT[itemName]["col"][activeExample][i]:
+            obstaja = True
+    if not obstaja:
         itemsIT[itemName]["row"][activeExample].append(itemRow)
         itemsIT[itemName]["col"][activeExample].append(itemCol)
         updateMatrix()
@@ -349,7 +350,6 @@ def removeItemTypeFromMatrix(itemName, itemRow, itemCol):
 
 def updateMatrix():
     global itemsIT, matrixExamples, activeExample
-    print("UPDATE MATRIX")
     numRows = len(matrixExamples[activeExample])
     numCols = len(matrixExamples[activeExample][0])
     for i in range(numRows):
@@ -386,7 +386,6 @@ def addRobot(itemImage):
 
 def deleteItemType(ime):
     global itemsIT, itemID, typeOptions, possibleCategories, matrixExamples
-    print("deleteItem", ime)
     removeInicialisation(ime, -1, -1)
     
     if ime in list(itemsIT.keys()):
@@ -412,7 +411,6 @@ def izpisiMatriko(matrix):
 
 def addMatrix(mmm, nnn):
     global matrixExamples, activeExample
-    print("MATRIKA", activeExample)
     matrixExamples[activeExample] = [[1 for i in range(mmm)] for j in range(nnn)]
 
 def addInicialisation(initSlv):
@@ -424,7 +422,6 @@ def addInicialisation(initSlv):
 
 def removeInicialisation(itemName, itemRow, itemCol):
     global activeExample, initialisationExamples
-    print("BRIŠEM", itemName)
     for init in initialisationExamples[activeExample]:
         if init["type"] == itemName and init["row"] == itemRow and init["col"] == itemCol:
             initialisationExamples[activeExample].remove(init)
@@ -450,11 +447,9 @@ def updateExample(newActiveExample, le, he):
 
 def deleteExample(deleteExampleId):
     global itemsIT, matrixExamples
-    print("EXAMPLE ID", deleteExampleId)
     if deleteExampleId == 0 and len(matrixExamples)==1:
         return
     for ime in itemsIT.keys():
-        print(itemsIT[ime]["row"])
         itemsIT[ime]["row"].pop(deleteExampleId)
         itemsIT[ime]["col"].pop(deleteExampleId)
     matrixExamples.pop(deleteExampleId)
@@ -594,7 +589,7 @@ def createItemTypesHtmlString():
 
 def updateItemTypesHtmlString():
     itemTypesNames = list(typeOptions)
-    html = '<option value="">Ne preverjaj</option>'
+    html=""
     for name in itemTypesNames:
         html += "<option>" + str(name) + "</option> <br>"
     return html
@@ -602,7 +597,8 @@ def updateItemTypesHtmlString():
 def updateCategoryOptionsHtmlString():
     html = ""
     for cat in catIT.keys():
-        html += "<option>" + cat + "</option> <br>"
+        if cat != "button" and cat != "number":
+            html += "<option>" + cat + "</option> <br>"
     return html
 
 def updateButtonHtmlString():
@@ -616,6 +612,24 @@ def updateExamplesHtmlString():
     html = ""
     for i in range(len(matrixExamples)):
         html += "<option>" + str(i+1) + "</option> <br>"
+    return html
+
+def blocksCategoryHtml():
+    html = ""
+    for block in wholeCategoriesIB.keys():
+        html += "<option>" + block + "</option> <br>"
+    return html
+
+def blocksRobotHtml():
+    html = ""
+    for block in robotIB.keys():
+        html += "<option>" + block + "</option> <br>"
+    return html
+
+def blocksSingleHtml():
+    html = ""
+    for block in singleBlocksIB.keys():
+        html += "<option>" + block + "</option> <br>"
     return html
 
 def resetVariables():
