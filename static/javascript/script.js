@@ -334,7 +334,7 @@ $.ajax({
   },
 });
 
-  // osvezi('pisek-iframe');
+  osvezi('pisek-iframe');
   }
 
 function updateBlocks() {
@@ -359,6 +359,7 @@ function updateBlocks() {
       console.error('Error:', error);
     }
   });
+  osvezi('pisek-iframe');
 };
 
 function updateLangugaeStrings() {
@@ -380,6 +381,7 @@ function updateLangugaeStrings() {
       console.error('Error:', error);
     }
   });
+  osvezi('pisek-iframe');
 };
 
 function updateMatrixParameters() {
@@ -406,6 +408,7 @@ function updateMatrixParameters() {
       console.error('Error:', error);
     }
   });
+  osvezi('pisek-iframe');
 };
 
 function deleteExample(){
@@ -424,6 +427,7 @@ function deleteExample(){
       console.error('Error:', error);
     }
   });
+  osvezi('pisek-iframe');
 }
 
 function createNewCategory(){
@@ -493,6 +497,7 @@ function uploadImage(path){
       console.error('Error:', error);
     }
   });
+  osvezi('pisek-iframe');
   
 }
 
@@ -520,6 +525,7 @@ function uploadStartingExample(){
       console.error('Error:', error);
     }
   });
+  osvezi('pisek-iframe');
   
 }
 
@@ -544,5 +550,5 @@ function updateEndConditions(){
       console.error('Error:', error);
     }
   });
-  
+  osvezi('pisek-iframe');
 }

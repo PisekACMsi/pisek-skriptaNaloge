@@ -278,6 +278,8 @@ def createDefaultItem(itemCategory, itemImage):
     itemSpec["category"] = {"\"%s\""%itemCategory:True}
     itemSpec["num"] = len(list(typeOptions))+2
     itemSpec["img"] = itemImage
+    itemSpec["zOrder"] = len(typeOptions)
+
     itemsIT[ime] = itemSpec
     
 def createDefaultNumber(itemValue):
@@ -377,7 +379,7 @@ def addRobot(itemImage):
             if itemImage != itemsIT[itemName]["img"]:
                 itemNameId += 1
     randomBull2["numberOfRobots"] = itemNameId+1
-    itemSpec = {"img":"", "zOrder":8, "value":0, "nbStates":9, "row":[[0]for i in range(len(matrixExamples))], "col":[[0]for i in range(len(matrixExamples))]}
+    itemSpec = {"img":"", "zOrder":20, "value":0, "nbStates":9, "row":[[0]for i in range(len(matrixExamples))], "col":[[0]for i in range(len(matrixExamples))]}
     ime = "robot" + str(itemNameId)
     typeOptions.add(ime)
     itemSpec["category"] = {"\"robot\"":True}
@@ -422,11 +424,14 @@ def addInicialisation(initSlv):
 
 def removeInicialisation(itemName, itemRow, itemCol):
     global activeExample, initialisationExamples
+    zaIzbris = []
     for init in initialisationExamples[activeExample]:
         if init["type"] == itemName and init["row"] == itemRow and init["col"] == itemCol:
-            initialisationExamples[activeExample].remove(init)
+            zaIzbris.append(init)
         if init["type"] == itemName and itemRow==-1 and itemCol==-1:
-            initialisationExamples[activeExample].remove(init)
+            zaIzbris.append(init)
+    for init in zaIzbris:
+        initialisationExamples[activeExample].remove(init)
 
 def updateExample(newActiveExample, le, he):
     global initialisationExamples, activeExample, mmm, nnn, itemsIT
@@ -443,7 +448,7 @@ def updateExample(newActiveExample, le, he):
         addMatrix(le, he)
     else:
         activeExample = newActiveExample - 1
-        changeMatrixSize(he, le)
+        changeMatrixSize(le, he)
 
 def deleteExample(deleteExampleId):
     global itemsIT, matrixExamples
@@ -460,26 +465,26 @@ def changeMatrixValues(row, col, value):
     global matrixExamples, activeExample
     matrixExamples[activeExample][row][col] = value
 
-def changeMatrixSize(nnn, mmm):
+def changeMatrixSize(le, he):
     global matrixExamples, activeExample
     mat = matrixExamples[activeExample]
     rr = len(mat)
     cc = len(mat[0])
     # upam da se mat obnaša klokr referenca ne kokr solo matrika
     mat = np.array(mat)
-    mat2 = np.ones((nnn, mmm), dtype=np.int8)
-    if (rr > nnn and cc > mmm):
-        mat = mat[:nnn, :mmm]
-    elif (rr < nnn and cc < mmm):
+    mat2 = np.ones((he, le), dtype=np.int8)
+    if (rr > he and cc > le):
+        mat = mat[:he, :le]
+    elif (rr < he and cc < le):
         mat2[:rr, :cc] = mat
         mat = mat2
-    elif (rr > nnn and cc < mmm):
-        mat2[::, :cc] = mat[:nnn, ::]
+    elif (rr > he and cc < le):
+        mat2[::, :cc] = mat[:he, ::]
         mat = mat2
-    elif (rr < nnn and cc > mmm):
-        mat2[:rr, ::] = mat[::, :mmm]
+    elif (rr < he and cc > le):
+        mat2[:rr, ::] = mat[::, :le]
         mat = mat2
-    matrixExamples[activeExample] = [[mat[j][i] for i in range(mmm)] for j in range(nnn)]
+    matrixExamples[activeExample] = [[mat[j][i] for i in range(le)] for j in range(he)]
     updateMatrix()
 
 def ustvariSkripto():
