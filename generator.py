@@ -364,6 +364,9 @@ def updateMatrix():
             if cols[i] < numCols and rows[i] < numRows and "robot" not in key:
                 if matrixExamples[activeExample][rows[i]][cols[i]] == 1:
                     matrixExamples[activeExample][rows[i]][cols[i]] = item["num"]
+                else:
+                    removeInicialisation(key, rows[i], cols[i])
+                    addInicialisation({"row":rows[i], "col":cols[i], "type":key, "dir": 0, "value": 0})
 
 def addRobot(itemImage):
     global itemsIT, itemID, typeOptions, possibleCategories, itemSpecifications, matrixExamples, activeExample, catIT
@@ -415,9 +418,6 @@ def addMatrix(mmm, nnn):
 
 def addInicialisation(initSlv):
     global initialisationExamples, activeExample
-    for init in initialisationExamples[activeExample]:
-        if initSlv["type"] == init["type"]:
-            return
     initialisationExamples[activeExample].append(initSlv)
 
 def removeInicialisation(itemName, itemRow, itemCol):

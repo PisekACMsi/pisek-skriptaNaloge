@@ -261,8 +261,8 @@ def dodajItem():
     itemName = bottle.request.forms.get("itemName")
     itemCategorys = json.loads(bottle.request.forms.get("itemCategory"))
     itemImages = json.loads(bottle.request.forms.get("itemImage"))
-    itemValue = bottle.request.forms.get("itemValue")
-    zOrder = bottle.request.forms.get("itemZOrder")
+    itemValue = int(bottle.request.forms.get("itemValue"))
+    zOrder = int(bottle.request.forms.get("itemZOrder"))
     buttonId = int(bottle.request.forms.get("buttonId"))
     itemColors = json.loads(bottle.request.forms.get("itemColor"))
     generator.itemSpecifications["name"] = itemName
@@ -270,7 +270,7 @@ def dodajItem():
     generator.itemSpecifications["value"] = itemValue
     generator.itemSpecifications["zOrder"] = zOrder
     generator.itemSpecifications["color"] = itemColors
-    generator.itemSpecifications["id"] = buttonId
+    generator.itemSpecifications["id"] = buttonId + 1
     
     for cat in itemCategorys:
         generator.catIT[cat] = True
@@ -351,7 +351,6 @@ def addToMatrix():
     itemRow = int(bottle.request.forms.get("itemRow"))
     itemCol = int(bottle.request.forms.get("itemCol"))
     newActiveExample = int(bottle.request.forms.get("activeExample"))
-    print("EXAMPLE", newActiveExample)
     generator.activeExample = newActiveExample-1
 
     generator.addItemTypeToMatrix(itemName, itemRow, itemCol)

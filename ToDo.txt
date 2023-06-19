@@ -100,4 +100,6 @@ Tasks:
 ☐ Fajl download button
 
 ✅ Load starting example
+
+☐ Loči uploadane fajle od originalnih.
 ------------------------------------------------------------------------------
