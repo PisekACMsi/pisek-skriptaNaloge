@@ -53,12 +53,22 @@ function initTask(subTask) {
      showLabels: true,
      cellSide: 60,
      numberOfRobots: 1,
-     itemTypes: {}
+     itemTypes: {
+          obstacle0: {
+               num: 3,
+               img: "objects/kc.png",
+               zOrder: 1,
+               category: {
+                    "obstacle": true
+               },
+               value: 0
+          }
+     }
 };
 subTask.data = {
      easy: [
           {
-               tiles: [[1, 1, 1, 1, 1], 
+               tiles: [[3, 1, 1, 1, 1], 
  [1, 1, 1, 1, 1], 
  [1, 1, 1, 1, 1], 
  [1, 1, 1, 1, 1], 
