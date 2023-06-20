@@ -42,6 +42,7 @@ function RaphaelFactory() {
       this.animations[animName] = object;
       this.animationNames[name] = animName;
       var self = this;
+      console.log(object.animate);
       object.animate(params, time, function() {
          delete self.animations[animName];
       });

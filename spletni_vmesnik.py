@@ -14,6 +14,10 @@ test = 0
 def send_css(filename):
     return bottle.static_file(filename, root='static/css')
 
+@bottle.route('/static/javascript/pemFioi/<filename:re:.*\.css>')
+def send_css2(filename):
+    return bottle.static_file(filename, root='static/css')
+
 #img
 @bottle.route('/static/img/<filename:re:.*\.png>')
 def send_img(filename):
@@ -185,23 +189,27 @@ def home_add():
     print("Nova slikaaaaa", image_file)
 
     # Za funkcijo includeBlocks()
-    #-------------------------------------------------------------------
+    #------------------------------------------------------------------
+
+    # Ustvarimo skripto
+    generator.ustvariSkripto()
+    bottle.redirect("/")
+
+@bottle.post("/refreshText") 
+def updateText():
     htmlFajl = open("./views/nalogaTemplate.txt", "r", encoding="utf-8")
     htmlString = htmlFajl.read()
     htmlFajl.close()
 
-    titleHtml = bottle.request.forms.getunicode('exerciseTitle')
-    text1Html = bottle.request.forms.getunicode('exerciseText')
-    text2Html = bottle.request.forms.getunicode('exerciseText2')
+    titleHtml = bottle.request.forms.getunicode('title')
+    text1Html = bottle.request.forms.getunicode('text1')
+    text2Html = bottle.request.forms.getunicode('text2')
 
     htmlString = htmlString.replace("$#$Naslov$#$", titleHtml).replace("$#$Text1$#$", text1Html).replace("$#$Text2$#$", text2Html)
     htmlFajlOut = open("./views/naloga.html", "w", encoding = "utf-8")
     htmlFajlOut.write(htmlString)
     htmlFajlOut.close()
 
-    # Ustvarimo skripto
-    generator.ustvariSkripto()
-    bottle.redirect("/")
 
 @bottle.post("/updateBlocks") 
 def updateBlocks():
@@ -398,7 +406,7 @@ def deleteItem():
 def deleteLanguage():
     print("BRIŠEM LANGUAGE DONDE ESTA BLIBLIOTEKA")
     lsId = int(bottle.request.forms.get("idLS"))
-    ls = bottle.request.forms.get("textLS")
+    ls = bottle.request.forms.getunicode("textLS")
     generator.dodajSlovar(lsId, ls)
     print("POSODOBIL LANGUAGE STRINGS")
     generator.ustvariSkripto()

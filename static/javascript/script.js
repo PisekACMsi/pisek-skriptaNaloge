@@ -216,6 +216,23 @@ function refreshDiv(divId) {
   $('#' + divId).load('http://localhost/index.html #' + divId);
 }
 
+function refreshText(){
+  var dict = {
+    "title": document.getElementById('exercise-title').value,
+    "text1": document.getElementById('exercise-text').value,
+    "text2": document.getElementById('exercise-text-2').value,
+  }
+  $.ajax({
+    url: "/refreshText",  // ReplaceAll with the appropriate server route
+    type: 'POST',
+    data: dict,
+    success: function(response) {
+    },
+  })
+
+}
+
+
 function refreshScene(path) {
           // Perform your logic to generate the updated content
 
@@ -334,7 +351,7 @@ $.ajax({
   },
 });
 
-  osvezi('pisek-iframe');
+  // osvezi('pisek-iframe');
   }
 
 function updateBlocks() {
@@ -359,7 +376,7 @@ function updateBlocks() {
       console.error('Error:', error);
     }
   });
-  osvezi('pisek-iframe');
+  // osvezi('pisek-iframe');
 };
 
 function updateLangugaeStrings() {
@@ -381,7 +398,7 @@ function updateLangugaeStrings() {
       console.error('Error:', error);
     }
   });
-  osvezi('pisek-iframe');
+  // osvezi('pisek-iframe');
 };
 
 function updateMatrixParameters() {
@@ -408,7 +425,7 @@ function updateMatrixParameters() {
       console.error('Error:', error);
     }
   });
-  osvezi('pisek-iframe');
+  // osvezi('pisek-iframe');
 };
 
 function deleteExample(){
@@ -427,7 +444,7 @@ function deleteExample(){
       console.error('Error:', error);
     }
   });
-  osvezi('pisek-iframe');
+  // osvezi('pisek-iframe');
 }
 
 function createNewCategory(){
@@ -497,7 +514,7 @@ function uploadImage(path){
       console.error('Error:', error);
     }
   });
-  osvezi('pisek-iframe');
+  // osvezi('pisek-iframe');
   
 }
 
@@ -525,7 +542,7 @@ function uploadStartingExample(){
       console.error('Error:', error);
     }
   });
-  osvezi('pisek-iframe');
+  // osvezi('pisek-iframe');
   
 }
 
@@ -550,5 +567,5 @@ function updateEndConditions(){
       console.error('Error:', error);
     }
   });
-  osvezi('pisek-iframe');
+  // osvezi('pisek-iframe');
 }

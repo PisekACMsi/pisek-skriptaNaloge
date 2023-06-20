@@ -97,7 +97,7 @@ Tasks:
 
 ☐  Najdit path do img v javascript fajlu. Več info na discordu
 
-☐ Fajl download button
+✅ Fajl download button
 
 ✅ Load starting example
 

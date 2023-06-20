@@ -21,6 +21,11 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.bundle.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
+
+  <script class="remove" type="text/javascript">
+    var modulesPath = '../static/javascript/_common/modules/'
+  </script>
+
   <style>
     
   </style>
@@ -83,7 +88,7 @@
                     <div class="col-12">
                       <label for="naslov" class="form-label" >Naslov naloge</label>
                       <div class="input-group has-validation">
-                        <input type="text" class="form-control" id="naslov" placeholder="Miha in Piki" name="exerciseTitle">
+                        <input type="text" class="form-control" id="exercise-title" placeholder="Miha in Piki" name="exerciseTitle">
                         <div class="invalid-feedback">
                           Polje ne sme biti prazno!
                         </div>
@@ -92,7 +97,7 @@
 
                     <div class="col-12">
                       <label for="besedilo" class="form-label">Besedilo naloge</label>
-                      <input type="text" class="form-control" id="besedilo" name="exerciseText"
+                      <input type="text" class="form-control" id="exercise-text" name="exerciseText"
                         placeholder="Miha in Piki trenirata na pasjem poligonu. Najprej mora Miha odpreti vrata Pikiju.">
                       <div class="invalid-feedback">
                         Polje ne sme biti prazno!
@@ -106,11 +111,14 @@
                           (Opcijsko)
                         </span>
                       </label>
-                      <input type="besedilo" class="form-control" id="besedilo" name="exerciseText2" placeholder="Pravimo, da je pes človeku najboljši prijatelj.">
+                      <input type="besedilo" class="form-control" id="exercise-text-2" name="exerciseText2" placeholder="Pravimo, da je pes človeku najboljši prijatelj.">
                       <div class="invalid-feedback">
                         Polje ne sme biti prazno!
                       </div>
                     </div>
+                  </div>
+                  <div class="row">
+                    <button id="button-update-language-strings" class="btn btn-secondary" type="button" hx-swap="none" onclick="refreshText()">Posodobi besedilo</button>
                   </div>
                 </div>
               </div>
@@ -224,8 +232,7 @@
                     <div class="col-md-4">
                       <label for="state" class="form-label">Izberi sliko ozadja</label>
                       <select id="background-image" class="form-select" name="backgroundImage">
-                        <option value="">Izberi...</option>
-                        <option selected="selected">asfalt</option>
+                        <option value="">Brez...</option>
                         % for tile in tile_names:
                         <option>{{tile}}</option>
                         %end
@@ -595,17 +602,19 @@
                     </div>
                   </div>
 
-
                 <div class="col-md-12">
                   <img id="slika2" src="" onerror="this.onerror=null; this.remove();"
                     style="max-width: 200px; max-height: 200px; object-fit: contain; margin-bottom: 1.5rem;">
                 </div>
-              <button class="w-100 btn btn-primary btn-lg" style="margin-bottom: 100px;" type="button" onclick="resetAll()">Ponastavi</button>
+              <button class="w-100 btn btn-primary btn-lg" style="margin-bottom: 10px;" type="button" onclick="resetAll()">Ponastavi</button>
+              <a href="static/javascript/theTest.js" download>Download task</a>
+              <a href="views/naloga.html" download>Download index</a>
             </form>
           </div>
         </div>
         <script src="../static/javascript/script.js"></script>
-        <iframe src="views/naloga.html" id = "pisek-iframe" onload="this.width=screen.width;this.height=screen.height;"></iframe>
+
+        <!-- <iframe src="views/naloga.html" id = "pisek-iframe" onload="this.width=screen.width;this.height=screen.height;"></iframe> -->
         
       </main>
 
