@@ -83,10 +83,6 @@ Tasks:
 
 ☐ Funkcija, ki ponastavi language strings. A res rabm????? Pomoje ne. Prašej
 
-☐  RandomBul1 naj bodo procenti najprej int potem pa string. Ehhhh nerabš. Itak je default.
-
-☐  Shranjevanje napredka
-
 ☐ Mal bol zrihtej end conditions. Zenkrat vredu
 
 ✅ Gravitacija
