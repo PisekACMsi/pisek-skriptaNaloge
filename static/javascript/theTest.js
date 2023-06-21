@@ -54,10 +54,19 @@ function initTask(subTask) {
      cellSide: 60,
      numberOfRobots: 1,
      itemTypes: {
+          robot0: {
+               img: "characters/avto.png",
+               zOrder: 20,
+               value: 0,
+               nbStates: 9,
+               category: {
+                    "robot": true
+               }
+          },
           obstacle0: {
-               num: 3,
-               img: "objects/kc.png",
-               zOrder: 1,
+               num: 4,
+               img: "objects/banana.png",
+               zOrder: 2,
                category: {
                     "obstacle": true
                },
@@ -68,12 +77,20 @@ function initTask(subTask) {
 subTask.data = {
      easy: [
           {
-               tiles: [[3, 1, 1, 1, 1], 
+               tiles: [[1, 1, 1, 1, 1], 
  [1, 1, 1, 1, 1], 
  [1, 1, 1, 1, 1], 
  [1, 1, 1, 1, 1], 
  [1, 1, 1, 1, 1]],
-               initItems: []
+               initItems: [
+                    {
+                         row: 0,
+                         col: 0,
+                         type: "robot0",
+                         dir: 0,
+                         value: 0
+                    }
+               ]
           }
      ]
 };

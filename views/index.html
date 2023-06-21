@@ -177,19 +177,13 @@
                       Imena delčkov
                       <select class="form-select" id="select-LS" name="imenaDelckov">
                         %for i in range(len(languageStrings[1])):
-                        <option>{{i}}. {{languageStrings[0][i]}} : {{languageStrings[1][i]}}</option>
+                        <option> {{languageStrings[0][i]}} : {{languageStrings[1][i]}}</option>
                         %end
                       </select>
 
                     </div>
                   </div>
                   <div class="row">
-                    <div class="col-2">
-                      <label for="email" class="form-label">Id teksta</label>
-                    </div>
-                    <div class="col-3">
-                      <input type="text" class="form-control" id="id-LS" name="languageStringId" placeholder="vrstica" value = "0">
-                    </div>
                   </div>
                   <div class="row">
                     <div class="col-2">
@@ -201,7 +195,7 @@
                   </div>
                   <div class="row" style="margin-bottom: 2rem;">
                     <div class="col-3 align-self-end">
-                      <button id="button-update-language-strings" class="btn btn-secondary" type="button" hx-swap="none" onclick="updateLangugaeStrings()">Posodobi text</button>
+                      <button id="button-update-language-strings" class="btn btn-secondary" type="button" hx-swap="none" onclick="updateLanguageStrings()">Posodobi text</button>
                     </div>
                   </div>
                   <div class="row">
@@ -487,7 +481,7 @@
                     <div class="col-md-4">
                       <label for="state" class="form-label" >Izberi sliko</label>
                       <select class="selectpicker" id="custom-item-image"  name="customItemImage" multiple>
-                        <option selected="selected" value="">Neviden objekt</option>
+                        <option value="">Neviden objekt</option>
                         % for object in objects:
                           <option>{{object}}</option>
                         %end
@@ -614,7 +608,7 @@
         </div>
         <script src="../static/javascript/script.js"></script>
 
-        <iframe src="views/naloga.html" id = "pisek-iframe" onload="this.width=screen.width;this.height=screen.height;"></iframe> 
+        <!-- <iframe src="views/naloga.html" id = "pisek-iframe" onload="this.width=screen.width;this.height=screen.height;"></iframe>  -->
         
       </main>
 

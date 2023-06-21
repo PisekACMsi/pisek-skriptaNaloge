@@ -379,18 +379,17 @@ function updateBlocks() {
   // osvezi('pisek-iframe');
 };
 
-function updateLangugaeStrings() {
-  var idLS = document.getElementById('id-LS').value;
+function updateLanguageStrings() {
+  var idLS = document.getElementById('select-LS').selectedIndex;
   var textLS = document.getElementById('text-LS').value;
   $.ajax({
     type: 'POST', // or 'GET' depending on your server-side implementation
-    url: '/ls', // ReplaceAll with the actual route on your Bottle server
+    url: '/languageStrings', // ReplaceAll with the actual route on your Bottle server
     data: {
       "idLS":idLS,
       "textLS": textLS
     },
     success: function(response) {
-      console.log('Request successful');
       $('#select-LS').html(response);
     },
     error: function(xhr, status, error) {

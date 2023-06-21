@@ -578,18 +578,20 @@ def createItemTypesHtmlString():
     else:
         returnHtml = ""
         for ime in itemsIT.keys():
-            returnHtml += ime + ":&#160"
-            for ind in itemsIT[ime].keys():
-                returnHtml += ind + ": " + str(itemsIT[ime][ind]) + "&#160"
+            returnHtml += "<span style='font-size: larger; font-weight: bold;'>" + ime +"</span>" + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"
+            if "img" in itemsIT[ime].keys():
+                img = itemsIT[ime]["img"]
+                img = img[img.find("/")+1:]
+                img = img.replace(".png", "")
+                returnHtml += "<b>img" + ": </b>" + img + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"
+            if "category" in itemsIT[ime].keys():
+                returnHtml += "<b>category" + ": </b>" + list(itemsIT[ime]["category"].keys())[0].replace("\"", "") + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"
+            
+            returnHtml += "<b>points" + ": </b>["
+            for ind in range(len(itemsIT[ime]["row"][activeExample])):
+                returnHtml += "(" + str(itemsIT[ime]["col"][activeExample][ind]) + "," + str(itemsIT[ime]["row"][activeExample][ind]) + "),"+ "&nbsp;"
+            returnHtml += "]"
             returnHtml += "<br>"
-            # if "number" in ime:
-            #     returnHtml += "ime: {}, value = {}, category = {}, row={}, col={} <br>".format(ime, itemsIT[ime]["value"], list(itemsIT[ime]["category"].keys())[0], itemsIT[ime]["row"], itemsIT[ime]["col"])
-            # elif "color" in ime:
-            #     returnHtml += "ime: {}, color = {},  row={}, col={} <br>".format(ime, itemsIT[ime]["colour"], itemsIT[ime]["row"], itemsIT[ime]["col"])
-            # else:  
-            #     returnHtml += "ime: {}, img = {}, category = {}, row={}, col={} <br>".format(ime, itemsIT[ime]["img"], list(itemsIT[ime]["category"].keys())[0], itemsIT[ime]["row"], itemsIT[ime]["col"])
-        # Generate the updated HTML content using a Bottle template
-        # Return the updated HTML as a response
         return returnHtml
 
 def updateItemTypesHtmlString():
