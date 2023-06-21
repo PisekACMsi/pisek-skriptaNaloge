@@ -12,6 +12,7 @@
   <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/checkout/">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.6.0/jszip.min.js"></script>
   <link href="../static/css/form-validation.css" rel="stylesheet">
   <link href="../static/css/bootstrap.min.css" rel="stylesheet">
 
@@ -607,14 +608,13 @@
                     style="max-width: 200px; max-height: 200px; object-fit: contain; margin-bottom: 1.5rem;">
                 </div>
               <button class="w-100 btn btn-primary btn-lg" style="margin-bottom: 10px;" type="button" onclick="resetAll()">Ponastavi</button>
-              <a href="static/javascript/theTest.js" download>Download task</a>
-              <a href="views/naloga.html" download>Download index</a>
+              <button onclick="downloadFiles()"hx-swap="none" hx-target="body">Download Files as ZIP</button>
             </form>
           </div>
         </div>
         <script src="../static/javascript/script.js"></script>
 
-        <iframe src="views/naloga.html" id = "pisek-iframe" onload="this.width=screen.width;this.height=screen.height;"></iframe> 
+        <!-- <iframe src="views/naloga.html" id = "pisek-iframe" onload="this.width=screen.width;this.height=screen.height;"></iframe>  -->
         
       </main>
 

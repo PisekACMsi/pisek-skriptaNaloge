@@ -569,3 +569,43 @@ function updateEndConditions(){
   });
   // osvezi('pisek-iframe');
 }
+
+function downloadFiles() {
+  var zip = new JSZip();
+  var filePromises = [];
+
+  // Fetch the first file
+  filePromises.push(fetch("views/naloga.html")
+    .then(response => response.text())
+    .then(fileContent => {
+      // Add the first file content to the ZIP archive
+      zip.file("index.html", fileContent);
+    }));
+
+  // Fetch the second file
+  filePromises.push(fetch("static/javascript/theTest.js")
+    .then(response => response.text())
+    .then(fileContent => {
+      // Add the second file content to the ZIP archive
+      zip.file("task.js", fileContent);
+    }));
+
+  Promise.all(filePromises)
+    .then(() => {
+      // Generate the ZIP file asynchronously
+      return zip.generateAsync({ type: "blob" });
+    })
+    .then(content => {
+      // Create a temporary <a> element to trigger the download
+      var link = document.createElement('a');
+      link.href = URL.createObjectURL(content);
+      link.download = "files.zip";
+      link.click();
+
+      // Clean up the temporary URL object
+      URL.revokeObjectURL(link.href);
+    })
+    .catch(error => {
+      console.error("Error zipping and downloading files:", error);
+    });
+}
