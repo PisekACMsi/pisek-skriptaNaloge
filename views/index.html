@@ -41,8 +41,6 @@
         <div class="py-5 text-center">
           <img class="d-block mx-auto mb-4" src="../static/img/pisek.png" alt="" width="72" height="57">
           <h2>Pišek generator nalog</h2>
-          <p class="lead">To je program za sestavljanje nalog. V polja vneseš podatke in algoritem samodejno generira
-            nalogo.</p>
         </div>
 
         <div class="row justify-content-center">
@@ -52,6 +50,7 @@
               <div class="card" style="margin-bottom: 1.5rem;">
                 <div class="card-body">
                   <h3>Naloži scene</h3>
+                  <p class="gray-faded-text">Naloži poljubne slike za glavnega junaka, poljuben objekt ali ozadje. Slike naj bodo priemrnega formata.</p>
                   <div class="row g-3">
                     <div class="col-12">
                       <label for="naslov" class="form-label" >Slika robota</label><br>
@@ -85,6 +84,11 @@
               <div class="card" style="margin-bottom: 1.5rem;">
                 <div class="card-body">
                   <h3>Osnovne informacije</h3>
+                  <p class="gray-faded-text">Vpiši naslov naloge, besedilo naloge ter dodatem odstavek če želiš. 
+                    S pritiskom na gumb "posodobi besedilo" posodobiš besedilo dokumenta.
+            
+                  </p>
+
                   <div class="row g-3">
                     <div class="col-12">
                       <label for="naslov" class="form-label" >Naslov naloge</label>
@@ -127,6 +131,13 @@
               <div class="card" style="margin-bottom: 2rem;">
                 <div class="card-body">
                   <h3>Delčki</h3>
+                  <p class="gray-faded-text">Izberi kategorije delčkov ali posamezne delčke, ki naj bodo dostopne v nalogi. 
+                    Delčki "premikanje robota" nadzorujejo premikanje robota. S pritoskom na velik siv gumb shraniš spremembe v skripto.<br>
+                    Imena delčkov in sporočil naloge spreminjaš z izbiro sporočila v "Imena delčkov" ter nov tekst vpišeš v polje "Tekst". S pritiskom "Posodobi tekst" 
+                    spremembe shraniš.<br>
+                    Naložiš lahko tudi začetno postavitev delčkov na začetku naloge. S pritiskom na "choose file" izbereš želeno datoteko "robot_blockly_program.txt" in 
+                    jo s pritiskon na "naloži delčke" naložiš.
+                  </p>
                   <div class="row">
                     <div class="col-md-4 mb-3">
                       <label for="blocks-dropdown">Kategorije delčkov</label>
@@ -217,6 +228,10 @@
               <div class="card" style="margin-bottom: 2rem;">
                 <div class="card-body">
                   <h3>Ozadje</h3>
+                  <p class="gray-faded-text">Izberi parametre in pritisni "Posodobi mrežo".<br>
+                  Več testnih primeroh lahko dodaš s povečanjem številke polja "Testni primer", izbiro velikosti mreže ter pritiskom na 
+                  "Posodobi mrežo".
+                  </p>
                   <div class="row">
                     <div class="col-md-6 mb-3">
                       <label for="blocks-dropdown">Izberi barvo ozadja</label>
@@ -228,7 +243,7 @@
                     </div>
                     <div class="col-md-12">
                       <label for="robot-blocks-dropdown">Izberi debelino meje</label>
-                        <input type="number" class="form-control" id="border-width" placeholder="število" name="borderWidth" value="0.02">
+                        <input type="number" class="form-control" id="border-width" placeholder="število" name="borderWidth" value="0.02" step="0.01">
                     </div>
                     <div class="col-md-4">
                       <label for="state" class="form-label">Izberi sliko ozadja</label>
@@ -260,7 +275,7 @@
                     </div>
                     <div class="col-3">
                       <label for="email" class="form-label">Dolžina mreže</label><br>
-                      <input type="text" class="form-control" id="update-matrix-length" name="sizeRow" placeholder="vrstica" value = "5">
+                      <input type="number" class="form-control" id="update-matrix-length" name="sizeRow" placeholder="vrstica" value = "5">
                       <div class="invalid-feedback">
                         Polje ne sme biti prazno!
                       </div>
@@ -268,7 +283,7 @@
               
                     <div class="col-3">
                       <label for="email" class="form-label">Višina mreže</label><br>
-                      <input type="text" class="form-control" id="update-matrix-height" name="sizeCol" placeholder="stolpec" value = "5">
+                      <input type="number" class="form-control" id="update-matrix-height" name="sizeCol" placeholder="stolpec" value = "5">
                       <div class="invalid-feedback">
                         Polje ne sme biti prazno!
                       </div>
@@ -283,6 +298,11 @@
               <div class="card" style="margin-bottom: 2rem;">
                 <div class="card-body">
                   <h3>Pogoj za zmago</h3>
+                  <p class="gray-faded-text">Možnosti za zmago sta dve. Preveri obstoj predmetov, ter ujemanje predmetov. 
+                    Lahko preverjaš tudi oba pogoja hkrati.
+                    Indikator opiše vrsto lastnosti po kateri bo preverjal (kategorija, ime, barva...), 
+                    nato pa vrsta indikatorja dodatno specificira katero kategorijo, ime, barvo bo opreverjal. Možne izbire se posodabljajo z dodajanjem predmetov.
+                  </p>
                   <h5>Preveri obstoj predmetov</h5>
                   <div class="row">
                     <div class="col-md-6 mb-3">
@@ -337,7 +357,10 @@
               <div class="card" style="margin-bottom: 2rem;">
                 <div class="card-body">
                   <h3>Objekti</h3>
-
+                  <p class="gray-faded-text">Izberi parametre določenega objekta in pritisni ustvari objekt. 
+                    Specifikacije objekta se bodo prikazale pod "Dodani predmet". Robot ima avtomatskododeljeno lokacijo (0,0), 
+                    ki se jo lahko spremeni pod "Dodaj na mrežo". 
+                  </p>
                   <h4>Robot</h4>
                   <div class = "row" style = "margin-bottom: 2rem;">
                     
@@ -393,7 +416,7 @@
                         </div>
                         <div class="col-3">
                           <label for="obstacleImage">Vrednost</label>
-                          <input class="form-control" id="default-item-number" name="defaultItemNumber" value="0"></input>
+                          <input class="form-control" id="default-item-number" name="defaultItemNumber" value="0">
                         </div>
                         <div class="col-3 align-self-end">
                           <button class="btn btn-secondary" type="button" hx-post="/defaultNumber" hx-swap="none" hx-target="body" onclick="refreshScene('defaultNumber')">Ustvari Število</button>
@@ -441,7 +464,7 @@
                             <label for="itemColorSelector">Gumb on</label>
                             <select id="default-button-on-image" class="form-select" name="defaultButtonOnImage">
                               <option value="">Neviden gumb</option>
-                              %for butt in buttonImages:
+                              %for butt in objects:
                                 <option>{{butt}}</option>
                               %end
                             </select>
@@ -450,7 +473,7 @@
                             <label for="itemColorSelector">Gumb off</label>
                             <select id="default-button-off-image" class="form-select" name="defaultButtonOffImage">
                               <option value="">Neviden gumb</option>
-                              %for butt in buttonImages:
+                              %for butt in objects:
                                 <option>{{butt}}</option>
                               %end
                             </select>
@@ -461,10 +484,15 @@
                         </div>
 
                   <h4>Ustvari svoj objekt</h4>
+                  <p class="gray-faded-text">
+                    Ustvariš lahko poljubno kategorijo, ki ne bo počela ničesar.
+                    Če želiš dodatne specifikacije lahko ustvariš svoj objekt. Izbereš lahko več kategorij, slik, barv ki 
+                    se bodo menjale s pritiskom na gumb. Objekt lahko povežeš z gumbom šele, ko ustvariš gumb.
+                  </p>
                   <div class = "row" style = "margin-bottom: 2rem;">
                     <div class="col-4">
                       <label for="custom-item-name">Ustvari novo kategorijo</label>
-                      <input class="form-control" id="custom-category-name" name="customItemName" value="imeKategorije"></input>
+                      <input class="form-control" id="custom-category-name" name="customItemName" value="imeKategorije">
                     </div>
                     <div class="col-6 align-self-end">
                       <button class="btn btn-secondary" type="button" hx-swap="none" hx-target="body" onclick="createNewCategory()">Ustvari novo kategorijo</button>
@@ -474,7 +502,7 @@
                   <div class = "row" style = "margin-bottom: 2rem;">
                     <div class="col-md-3 mb-3">
                       <label for="custom-item-name">Ime</label>
-                      <input class="form-control" id="custom-item-name" name="customItemName" value="Ime"></input>
+                      <input class="form-control" id="custom-item-name" name="customItemName" value="Ime">
                     </div>
                     <div class="col-md-4">
                       <label for="state" class="form-label">Izberi kategorijo</label>
@@ -499,11 +527,11 @@
                   <div class = "row" style = "margin-bottom: 2rem;">
                     <div class="col-md-2 mb-3">
                       <label for="custom-item-name">Vrednost</label>
-                      <input class="form-control" id="custom-item-value" name="customItemValue" value="0"></input>
+                      <input class="form-control" id="custom-item-value" name="customItemValue" value="0">
                     </div>
                     <div class="col-md-2 mb-3">
                       <label for="custom-item-name">zOrder</label>
-                      <input class="form-control" id="custom-item-z-order" name="customItemZOrder" value="2"></input>
+                      <input class="form-control" id="custom-item-z-order" name="customItemZOrder" value="2">
                     </div>
                     <div class="col-md-3 mb-3">
                       <label for="custom-button-id">Poveži z gumbom</label> <br>
@@ -542,6 +570,13 @@
                     {{! scene}}
                   </div>
                   <h4>Dodaj na mrežo</h4>
+                  <p class="gray-faded-text">
+                    Predmet dodaš na mrežo z izbiro njegovega imena, vpisom koordinat, ter pritiskom na "Dodaj". Isti postopek za izbris predmeta. 
+                    Če obstaja več testnih primerov, izberi testni primer na katerega želiš dodati objekt. 
+                    Z izbrisom objekta bo objekt izbrisan iz vseh testnih primerov. Gumb ponastavi izbriše vse spremembe in vrne začetno stanje skripte.
+                    Za prenos datotek pritisni velik siv gumb "Prenesi datoteke"
+
+                  </p>
                   <div class = "row" style = "margin-bottom: 0.5rem;">
                     <div class="col-6">
                       <label for="id-aktivnega-primera">Testni primer </label>
@@ -608,7 +643,7 @@
                     style="max-width: 200px; max-height: 200px; object-fit: contain; margin-bottom: 1.5rem;">
                 </div>
               <button class="w-100 btn btn-primary btn-lg" style="margin-bottom: 10px;" type="button" onclick="resetAll()">Ponastavi</button>
-              <button onclick="downloadFiles()"hx-swap="none" hx-target="body">Download Files as ZIP</button>
+              <button onclick="downloadFiles()">Prenesi datoteke</button>
             </form>
           </div>
         </div>

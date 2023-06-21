@@ -27,6 +27,13 @@
   user-select: none;
 }
 
+.gray-faded-text {
+  font-size: 90%;
+  color: #888888;
+  opacity: 0.8;
+}
+
+
 @media (min-width: 768px) {
   .bd-placeholder-img-lg {
     font-size: 3.5rem;

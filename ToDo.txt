@@ -99,15 +99,17 @@ Tasks:
 
 ☐ Loči uploadane fajle od originalnih.
 
-☐ Odstrani neviden objekt kot default vrednost
+✅ Odstrani neviden objekt kot default vrednost
 
-☐ Delčki odstrani indeks
+✅ Delčki odstrani indeks
 
 ☐ Uredi css in html
 
-☐ Dodaj INFO za vsako kategorijo
+✅ Dodaj INFO za vsako kategorijo
 
 ✅ download task indeks v en gumb aka zlouda zip 
 
 ☐ Dodani predmeti formatiraj 
+
+☐ Delčke prevedi v slovenščino.
 ------------------------------------------------------------------------------
