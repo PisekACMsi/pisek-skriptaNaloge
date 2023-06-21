@@ -107,7 +107,7 @@ Tasks:
 
 ☐ Dodaj INFO za vsako kategorijo
 
-☐ download task indeks v en gumb aka zlouda zip 
+✅ download task indeks v en gumb aka zlouda zip 
 
 ☐ Dodani predmeti formatiraj 
 ------------------------------------------------------------------------------
