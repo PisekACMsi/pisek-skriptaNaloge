@@ -138,7 +138,7 @@ $(document).ready(function() {
       prejsnjeStanje = novoStanje
       console.log("add " + add)
       console.log("del " + dell)
-      if (add !== undefined) orderOfSelectedImages.push("objects/" + add.replace(" ", "_") + (add ? '.png' : ''));
+      if (add !== undefined) orderOfSelectedImages.push((add.includes("User") ? "objectsUser/" : "objects/") + add.replace(" ", "_").replace("User","") + (add ? '.png' : ''));
       index = orderOfSelectedImages.indexOf(dell);
       
       if(index>-1) orderOfSelectedImages.splice(index, 1);
@@ -237,16 +237,15 @@ function refreshScene(path) {
           // Perform your logic to generate the updated content
 
   if (path == "addRobot"){
-    let img = document.getElementById('robot-image').value;
     var dict = {
-      "itemImageR": "characters/" + img.replaceAll(" ", "_") + (img ? '.png' : '')
+      "itemImageR": ((image) => {return "characters" + (image.includes("User") ? "User/" : "/") + image.replace("User", "").replace(" ", "_") + (image ? ".png" : "");})(document.getElementById('robot-image').value),
     }
   }
   else if (path == "defaultItem"){
     let img = document.getElementById('default-item-image').value;
     var dict = {
       "defaultItemCategory": document.getElementById('default-item-category').value,
-      "defaultItemImage": "objects/" + img.replaceAll(" ", "_") + (img ? '.png' : '')
+      "defaultItemImage": "objects" + (img.includes("User") ? "User/" : "/") + img.replaceAll(" ", "_").replace("User", "") + (img ? '.png' : '')
     }
   }
   else if (path == "defaultNumber"){
@@ -401,6 +400,7 @@ function updateLanguageStrings() {
 };
 
 function updateMatrixParameters() {
+  backgroundImage = document.getElementById('background-image').value
   $.ajax({
     type: 'POST', // or 'GET' depending on your server-side implementation
     url: '/updateMatrixParameters', // ReplaceAll with the actual route on your Bottle server
@@ -408,7 +408,7 @@ function updateMatrixParameters() {
       "backgroundColor": document.getElementById('background-color').value,
       "borderColor": document.getElementById('border-color').value,
       "borderWidth": document.getElementById('border-width').value,
-      "backgroundImage": document.getElementById('background-image').value,
+      "backgroundImage": ((image) => {return "tiles" + (image.includes("User") ? "User/" : "/") + image.replace("User", "").replace(" ", "_") + (image ? ".png" : "");})(document.getElementById('background-image').value),
       "showLabels": document.getElementById('show-labels').checked,
       "gravityOn": document.getElementById('gravity-on').checked,
       "activeExample": document.getElementById('active-example-update-matrix').value,
@@ -497,7 +497,7 @@ function uploadImage(path){
   var formData = new FormData();
 
   formData.append('imageFile', fileInput.files[0]);
-  formData.append("path", path)
+  formData.append("path", path + "User")
   $.ajax({
     type: 'POST',
     url: '/uploadImage', // Replace with the actual route on your Bottle server
@@ -567,4 +567,44 @@ function updateEndConditions(){
     }
   });
   // osvezi('pisek-iframe');
+}
+
+function downloadFiles() {
+  var zip = new JSZip();
+  var filePromises = [];
+
+  // Fetch the first file
+  filePromises.push(fetch("views/naloga.html")
+    .then(response => response.text())
+    .then(fileContent => {
+      // Add the first file content to the ZIP archive
+      zip.file("index.html", fileContent);
+    }));
+
+  // Fetch the second file
+  filePromises.push(fetch("static/javascript/theTest.js")
+    .then(response => response.text())
+    .then(fileContent => {
+      // Add the second file content to the ZIP archive
+      zip.file("task.js", fileContent);
+    }));
+
+  Promise.all(filePromises)
+    .then(() => {
+      // Generate the ZIP file asynchronously
+      return zip.generateAsync({ type: "blob" });
+    })
+    .then(content => {
+      // Create a temporary <a> element to trigger the download
+      var link = document.createElement('a');
+      link.href = URL.createObjectURL(content);
+      link.download = "files.zip";
+      link.click();
+
+      // Clean up the temporary URL object
+      URL.revokeObjectURL(link.href);
+    })
+    .catch(error => {
+      console.error("Error zipping and downloading files:", error);
+    });
 }

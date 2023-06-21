@@ -160,7 +160,6 @@ def home_get():
     tile_names = skripta.preberi_vsa_imena_slik("tiles") 
     character_names = skripta.preberi_vsa_imena_slik("characters")
     objects = skripta.preberi_vsa_imena_slik("objects")
-    buttons = skripta.preberi_vsa_imena_slik("buttons")
     itemTypes = generator.itemsIT
     
     languageStringsKeys = generator.languageStringsKeyWord
@@ -180,7 +179,7 @@ def home_get():
     blocksRobot = generator.blocksRobotHtml()
     blocksSingle = generator.blocksSingleHtml()
     
-    return bottle.template("index.html", tile_names=tile_names, character_names=character_names, objects=objects, itemTypes=itemTypes, languageStrings = [languageStringsKeys, languageStringsValues], scene=scene, htmlListTypes=htmlListTypes, customItemCategories=customItemCategories, buttonNames=buttonNames, buttonImages=buttons, numOfExamples=numOfExamples, blocksCategory=blocksCategory, blocksSingle=blocksSingle, blocksRobot=blocksRobot)
+    return bottle.template("index.html", tile_names=tile_names, character_names=character_names, objects=objects, itemTypes=itemTypes, languageStrings = [languageStringsKeys, languageStringsValues], scene=scene, htmlListTypes=htmlListTypes, customItemCategories=customItemCategories, buttonNames=buttonNames, numOfExamples=numOfExamples, blocksCategory=blocksCategory, blocksSingle=blocksSingle, blocksRobot=blocksRobot)
 
 @bottle.post("/") 
 def home_add():
@@ -332,8 +331,8 @@ def addMatrixExample():
     generator.randomBull2["backgroundColour"] = backgroundColor
     generator.randomBull2["borderColour"] = borderColor
     generator.randomBull2["border"] = float(borderWidth)
-    generator.randomBull2["backgroundTile"] = "tiles/" + backgroundImage + ".png"
-    
+    generator.randomBull2["backgroundTile"] = backgroundImage
+    print(backgroundImage)
     showLabels = True if showLabels == "true" else False
     gravityOn = True if gravityOn == "true" else False
     
@@ -381,6 +380,7 @@ def removeFromMatrix():
 def addRobot():
     #ITEMTYPE
     itemImage = bottle.request.forms.get("itemImageR")
+    
     generator.addRobot(itemImage)
     generator.ustvariSkripto()
     print("DODAJAM ROBOTA SERVER BRRRRRRR")

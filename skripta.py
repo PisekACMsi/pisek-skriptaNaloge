@@ -113,5 +113,9 @@ def preberi_vsa_imena_slik(mapa):
         filename = filename.split('.')[0]
         filename = filename.replace('_', ' ')
         file_names.append(filename)
+    for filename in os.listdir(folder_path + "User"):
+        filename = filename.split('.')[0]
+        filename = filename.replace('_', ' ')
+        file_names.append(filename + "User")
     return file_names
 
