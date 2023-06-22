@@ -1,7 +1,15 @@
 function initTask(subTask) {
  subTask.gridInfos = {
      languageStrings: {
-          sl: {}
+          sl: {
+               label: {
+                    jump1d: "dddd",
+                    forward: "gg"
+               },
+               errors: {
+                    unknownType: "gg"
+               }
+          }
      },
      hideControls: {
           restart: false,
@@ -22,7 +30,7 @@ function initTask(subTask) {
      },
      actionDelay: 400,
      blocklyColourTheme: "bwinf",
-     maxInstructions: 0,
+     maxInstructions: 11,
      includeBlocks: {
           groupByCategory: true,
           generatedBlocks: {
