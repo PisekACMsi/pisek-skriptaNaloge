@@ -1,7 +1,11 @@
 function initTask(subTask) {
  subTask.gridInfos = {
      languageStrings: {
-          sl: {}
+          sl: {
+               label: {
+                    jump1d: "qweqwe"
+               }
+          }
      },
      hideControls: {
           restart: false,
@@ -22,7 +26,7 @@ function initTask(subTask) {
      },
      actionDelay: 400,
      blocklyColourTheme: "bwinf",
-     maxInstructions: 0,
+     maxInstructions: 666,
      includeBlocks: {
           groupByCategory: true,
           generatedBlocks: {
@@ -30,7 +34,9 @@ function initTask(subTask) {
           },
           standardBlocks: {
                includeAll: false,
-               wholeCategories: [],
+               wholeCategories: [
+                    "logic"
+               ],
                singleBlocks: [],
                excludedBlocks: []
           }
@@ -51,10 +57,6 @@ function initTask(subTask) {
      backgroundTile: "",
      borderColour: "black",
      showLabels: true,
-     backgroundColour: "white",
-     backgroundTile: "",
-     borderColour: "black",
-     showLabels: true,
      cellSide: 60,
      numberOfRobots: 1,
      itemTypes: {}
@@ -62,7 +64,7 @@ function initTask(subTask) {
 subTask.data = {
      easy: [
           {
-               tiles: [[5, 1, 1, 1, 1], 
+               tiles: [[1, 1, 1, 1, 1], 
  [1, 1, 1, 1, 1], 
  [1, 1, 1, 1, 1], 
  [1, 1, 1, 1, 1], 
