@@ -3,11 +3,15 @@ function initTask(subTask) {
      languageStrings: {
           sl: {
                label: {
+<<<<<<< HEAD
+                    jump1d: "qweqwe"
+=======
                     jump1d: "dddd",
                     forward: "gg"
                },
                errors: {
                     unknownType: "gg"
+>>>>>>> 45232d0e76e206be69b56e0a3067614d45c66286
                }
           }
      },
@@ -30,7 +34,11 @@ function initTask(subTask) {
      },
      actionDelay: 400,
      blocklyColourTheme: "bwinf",
+<<<<<<< HEAD
+     maxInstructions: 666,
+=======
      maxInstructions: 11,
+>>>>>>> 45232d0e76e206be69b56e0a3067614d45c66286
      includeBlocks: {
           groupByCategory: true,
           generatedBlocks: {
@@ -38,7 +46,9 @@ function initTask(subTask) {
           },
           standardBlocks: {
                includeAll: false,
-               wholeCategories: [],
+               wholeCategories: [
+                    "logic"
+               ],
                singleBlocks: [],
                excludedBlocks: []
           }
@@ -59,10 +69,6 @@ function initTask(subTask) {
      backgroundTile: "",
      borderColour: "black",
      showLabels: true,
-     backgroundColour: "white",
-     backgroundTile: "",
-     borderColour: "black",
-     showLabels: true,
      cellSide: 60,
      numberOfRobots: 1,
      itemTypes: {}
@@ -70,7 +76,7 @@ function initTask(subTask) {
 subTask.data = {
      easy: [
           {
-               tiles: [[5, 1, 1, 1, 1], 
+               tiles: [[1, 1, 1, 1, 1], 
  [1, 1, 1, 1, 1], 
  [1, 1, 1, 1, 1], 
  [1, 1, 1, 1, 1], 
