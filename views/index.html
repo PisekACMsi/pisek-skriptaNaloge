@@ -22,15 +22,14 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.bundle.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
 
+<!--Zakaj se to uporabla??-->
   <script class="remove" type="text/javascript">
     var modulesPath = '../static/javascript/_common/modules/'
   </script>
-
-  <style>
-    
-  </style>
-
+<!---->
 </head>
 
 <body class="bg-light">
@@ -127,17 +126,20 @@
                   </div>
                 </div>
               </div>
+              </div>
 
+            <div class="row justify-content-center">
+              <div class="col-md-7 col-lg-8">
               <div class="card" style="margin-bottom: 2rem;">
                 <div class="card-body">
                   <h3>Delčki</h3>
-                  <p class="gray-faded-text">Izberi kategorije delčkov ali posamezne delčke, ki naj bodo dostopne v nalogi. 
-                    Delčki "premikanje robota" nadzorujejo premikanje robota. S pritoskom na velik siv gumb shraniš spremembe v skripto.<br>
-                    Imena delčkov in sporočil naloge spreminjaš z izbiro sporočila v "Imena delčkov" ter nov tekst vpišeš v polje "Tekst". S pritiskom "Posodobi tekst" 
-                    spremembe shraniš.<br>
-                    Naložiš lahko tudi začetno postavitev delčkov na začetku naloge. S pritiskom na "choose file" izbereš želeno datoteko "robot_blockly_program.txt" in 
-                    jo s pritiskon na "naloži delčke" naložiš.
-                  </p>
+                  <!--ICON delčki-->     
+                    <div class="d-inline-block">
+                      <span class="info-icon" data-toggle="tooltip" data-placement="top" title="Izberi kategorije delčkov ali posamezne delčke, ki naj bodo dostopne v nalogi...Delčki PREMIKANJE ROBOTA nadzorujejo premikanje robota. S pritoskom na velik siv gumb shraniš spremembe v skripto. Imena delčkov in sporočil naloge spreminjaš z izbiro sporočila v IMENA DELČKOV ter nov tekst vpišeš v polje TEKST. S pritiskom POSODOBI TEKST spremembe shraniš. Naložiš lahko tudi začetno postavitev delčkov na začetku naloge. S pritiskom na CHOOSE FILE izbereš želeno datoteko robot_blockly_program.txt in jo s pritiskon na NALOŽI DELČKE naložiš.">
+                        <i class="fas fa-info-circle"></i>
+                      </span>
+                    </div>
+                  <!---->
                   <div class="row">
                     <div class="col-md-4 mb-3">
                       <label for="blocks-dropdown">Kategorije delčkov</label>
@@ -218,7 +220,10 @@
                   </div>
                 </div>
               </div>
-              
+              </div>
+            </div>
+            <div class="row justify-content-center">
+              <div class="col-md-7 col-lg-8">
               <div class="card" style="margin-bottom: 2rem;">
                 <div class="card-body">
                   <h3>Ozadje</h3>
@@ -288,7 +293,10 @@
                   </div>
                 </div>
               </div>
-
+              </div>
+            </div>
+            <div class="row justify-content-center">
+              <div class="col-md-7 col-lg-8">
               <div class="card" style="margin-bottom: 2rem;">
                 <div class="card-body">
                   <h3>Pogoj za zmago</h3>
@@ -347,7 +355,10 @@
                   </div>
                 </div>
               </div>
-
+              </div>
+            </div>
+            <div class="row justify-content-center">
+              <div class="col-md-7 col-lg-8">
               <div class="card" style="margin-bottom: 2rem;">
                 <div class="card-body">
                   <h3>Objekti</h3>
@@ -641,6 +652,7 @@
             </form>
           </div>
         </div>
+        
         <script src="../static/javascript/script.js"></script>
 
         <!-- <iframe src="views/naloga.html" id = "pisek-iframe" onload="this.width=screen.width;this.height=screen.height;"></iframe>  -->
