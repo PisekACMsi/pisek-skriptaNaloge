@@ -51,46 +51,13 @@ function initTask(subTask) {
      backgroundTile: "",
      borderColour: "black",
      showLabels: true,
+     backgroundColour: "white",
+     backgroundTile: "",
+     borderColour: "black",
+     showLabels: true,
      cellSide: 60,
      numberOfRobots: 1,
-     itemTypes: {
-          Ime1: {
-               num: 3,
-               img: [
-                    "banana"
-               ],
-               zOrder: 2,
-               category: [
-                    {
-                         "obstacle": true
-                    }
-               ],
-               value: 0,
-               nbStates: 8,
-               color: [
-                    "Azure"
-               ],
-               id: 1
-          },
-          number0: {
-               num: 4,
-               zOrder: 4,
-               category: [
-                    {
-                         "number": true
-                    }
-               ],
-               value: "0"
-          },
-          color0: {
-               num: 5,
-               zOrder: 2,
-               value: 0,
-               colour: "Purple",
-               category:[],
-               img:[]
-          }
-     }
+     itemTypes: {}
 };
 subTask.data = {
      easy: [
