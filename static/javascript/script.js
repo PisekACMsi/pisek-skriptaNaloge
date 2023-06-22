@@ -608,3 +608,9 @@ function downloadFiles() {
       console.error("Error zipping and downloading files:", error);
     });
 }
+
+// INFO icon
+
+$(function () {
+  $('[data-toggle="tooltip"]').tooltip()
+})
