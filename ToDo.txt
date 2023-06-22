@@ -89,17 +89,14 @@ Tasks:
 
 ✅ Več robotov
 
-☐ Custom blocki kakor so levo desno gor dol - brez diagonal, napisi na senzorjih.
-
 ☐  Najdit path do img v javascript fajlu. Več info na discordu
 
 ✅ Fajl download button
 
 ✅ Load starting example
 
-☐ Loči uploadane fajle od originalnih.
+✅ Loči uploadane fajle od originalnih.
 
-✅ Odstrani neviden objekt kot default vrednost
 ✅ Odstrani neviden objekt kot default vrednost
 
 ✅ Delčki odstrani indeks
@@ -112,5 +109,9 @@ Tasks:
 
 ✅ Dodani predmeti formatiraj 
 
-☐ Delčke prevedi v slovenščino.
+☐ Delčke prevedi v slovenščino???
+
+☐ Template objekti
+
+☐ Pokomentirej
 ------------------------------------------------------------------------------

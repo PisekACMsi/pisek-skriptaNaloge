@@ -93,7 +93,7 @@
                     <div class="col-12">
                       <label for="naslov" class="form-label" >Naslov naloge</label>
                       <div class="input-group has-validation">
-                        <input type="text" class="form-control" id="exercise-title" placeholder="Miha in Piki" name="exerciseTitle">
+                        <input type="text" class="form-control" id="exercise-title" placeholder="Naslov naloge" name="exerciseTitle">
                         <div class="invalid-feedback">
                           Polje ne sme biti prazno!
                         </div>
@@ -103,7 +103,7 @@
                     <div class="col-12">
                       <label for="besedilo" class="form-label">Besedilo naloge</label>
                       <input type="text" class="form-control" id="exercise-text" name="exerciseText"
-                        placeholder="Miha in Piki trenirata na pasjem poligonu. Najprej mora Miha odpreti vrata Pikiju.">
+                        placeholder="Besedilo naloge">
                       <div class="invalid-feedback">
                         Polje ne sme biti prazno!
                       </div>
@@ -116,7 +116,7 @@
                           (Opcijsko)
                         </span>
                       </label>
-                      <input type="besedilo" class="form-control" id="exercise-text-2" name="exerciseText2" placeholder="Pravimo, da je pes človeku najboljši prijatelj.">
+                      <input type="besedilo" class="form-control" id="exercise-text-2" name="exerciseText2" placeholder="Dodatno besedilo naloge">
                       <div class="invalid-feedback">
                         Polje ne sme biti prazno!
                       </div>
@@ -188,9 +188,7 @@
                     <div class="col-md-12">
                       Imena delčkov
                       <select class="form-select" id="select-LS" name="imenaDelckov">
-                        %for i in range(len(languageStrings[1])):
-                        <option> {{languageStrings[0][i]}} : {{languageStrings[1][i]}}</option>
-                        %end
+                        {{! languageStrings}}
                       </select>
 
                     </div>
@@ -214,6 +212,7 @@
                     <form id="upload-form" enctype="multipart/form-data">
                       <input type="file" id="upload-starting-example-file" name="file" accept=".txt">
                       <input type="button" value="Naloži delčke" onclick="uploadStartingExample()">
+                      <button id="button-update-language-strings" class="btn btn-secondary" type="button" hx-swap="none" onclick="deleteStartingExample()">Izbriši delčke</button>
                     </form>
                   </div>
                 </div>
@@ -560,7 +559,7 @@
                   </div>
                  
                   <h4>Dodani Predmeti</h4>
-                  <div src="views/index.html" id = "scene">
+                  <div src="views/index.html" id = "scene" style = "margin-bottom: 2rem;">
                     {{! scene}}
                   </div>
                   <h4>Dodaj na mrežo</h4>

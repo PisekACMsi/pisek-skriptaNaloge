@@ -98,83 +98,82 @@ $(document).ready(function () {
   });
 });
 
-var orderOfSelectedCategories = [];
-$(document).ready(function() {
-  $('#custom-item-category').selectpicker();
+// var orderOfSelectedCategories = [];
+// $(document).ready(function() {
+//   $('#custom-item-category').selectpicker();
 
-  $('#custom-item-category').on('changed.bs.select', function(e) {
-    var selectedOptions = $(this).val();
-    if (selectedOptions == null){
-      orderOfSelectedCategories = []
-    }
-    else{
-      for(var del=0; del < orderOfSelectedCategories.length; del++){
-        if (! selectedOptions.includes(orderOfSelectedCategories[del])) orderOfSelectedCategories.splice(del, 1);
+//   $('#custom-item-category').on('changed.bs.select', function(e) {
+//     var selectedOptions = $(this).val();
+//     if (selectedOptions == null){
+//       orderOfSelectedCategories = []
+//     }
+//     else{
+//       for(var del=0; del < orderOfSelectedCategories.length; del++){
+//         if (! selectedOptions.includes(orderOfSelectedCategories[del])) orderOfSelectedCategories.splice(del, 1);
 
-      }
-      for(var add=0; add < selectedOptions.length; add++){
-        console.log(add)
-        if (! orderOfSelectedCategories.includes(selectedOptions[add])) orderOfSelectedCategories.push(selectedOptions[add]);
+//       }
+//       for(var add=0; add < selectedOptions.length; add++){
+//         console.log(add)
+//         if (! orderOfSelectedCategories.includes(selectedOptions[add])) orderOfSelectedCategories.push(selectedOptions[add]);
 
-      }
-  }
-  });
-});
+//       }
+//   }
+//   });
+// });
 
-var orderOfSelectedImages= [''];
-var prejsnjeStanje = new Set();
-prejsnjeStanje.add('');
-$(document).ready(function() {
-  $('#custom-item-image').selectpicker();
+// var orderOfSelectedImages= [];
+// var prejsnjeStanje = new Set();
+// $(document).ready(function() {
+//   $('#custom-item-image').selectpicker();
 
-  $('#custom-item-image').on('changed.bs.select', function(e) {
-    var novoStanje = new Set($(this).val());
-    if (novoStanje == null){
-      orderOfSelectedImages = []
-    }
-    else{
-      [add] = new Set([...novoStanje].filter(element => !prejsnjeStanje.has(element)));
-      [dell] = new Set([...prejsnjeStanje].filter(element => !novoStanje.has(element)));
-      prejsnjeStanje = novoStanje
-      console.log("add " + add)
-      console.log("del " + dell)
-      if (add !== undefined) orderOfSelectedImages.push((add.includes("User") ? "objectsUser/" : "objects/") + add.replace(" ", "_").replace("User","") + (add ? '.png' : ''));
-      index = orderOfSelectedImages.indexOf(dell);
+//   $('#custom-item-image').on('changed.bs.select', function(e) {
+//     var novoStanje = new Set($(this).val());
+//     if (novoStanje == null){
+//       orderOfSelectedImages = []
+//     }
+//     else{
+//       [add] = new Set([...novoStanje].filter(element => !prejsnjeStanje.has(element)));
+//       [dell] = new Set([...prejsnjeStanje].filter(element => !novoStanje.has(element)));
+//       prejsnjeStanje = novoStanje
+//       console.log("add " + add)
+//       console.log("del " + dell)
+//       if (add !== undefined) orderOfSelectedImages.push((add.includes("User") ? "objectsUser/" : "objects/") + add.replace(" ", "_").replace("User","") + (add ? '.png' : ''));
+//       index = orderOfSelectedImages.indexOf(dell);
       
-      if(index>-1) orderOfSelectedImages.splice(index, 1);
-  }
-  console.log(orderOfSelectedImages);
-  });
-});
+//       if(index>-1) orderOfSelectedImages.splice(index, 1);
+//   }
+//   console.log(orderOfSelectedImages);
+//   });
+// });
 
-var orderOfSelectedColors = [];
-$(document).ready(function() {
-  $('#custom-item-color').selectpicker();
+// var orderOfSelectedColors = [];
+// $(document).ready(function() {
+//   $('#custom-item-color').selectpicker();
 
-  $('#custom-item-color').on('changed.bs.select', function(e) {
-    var selectedOptions = $(this).val();
-    if (selectedOptions == null){
-      orderOfSelectedColors = []
-    }
-    else{
-      for (var colorIn of orderOfSelectedColors){
-        if (!selectedOptions.includes(colorIn)){
-          var index = orderOfSelectedColors.indexOf(colorIn);
-          if (index > -1) { // only splice array when item is found
-            orderOfSelectedColors.splice(index, 1); // 2nd parameter means remove one item only
-          }
-        }
-      }
-      for (var colorIn of selectedOptions){
-        if (!orderOfSelectedColors.includes(colorIn)){
-          orderOfSelectedColors.push(colorIn);
-        }
-      }
+//   $('#custom-item-color').on('changed.bs.select', function(e) {
+//     var selectedOptions = $(this).val();
+//     if (selectedOptions == null){
+//       orderOfSelectedColors = []
+//     }
+//     else{
+//       for (var colorIn of orderOfSelectedColors){
+//         if (!selectedOptions.includes(colorIn)){
+//           var index = orderOfSelectedColors.indexOf(colorIn);
+//           if (index > -1) { // only splice array when item is found
+//             orderOfSelectedColors.splice(index, 1); // 2nd parameter means remove one item only
+//           }
+//         }
+//       }
+//       for (var colorIn of selectedOptions){
+//         if (!orderOfSelectedColors.includes(colorIn)){
+//           orderOfSelectedColors.push(colorIn);
+//         }
+//       }
       
-      console.log(orderOfSelectedColors);
-  }
-  });
-});
+//       console.log(orderOfSelectedColors);
+//   }
+//   });
+// });
 
 
 
@@ -271,14 +270,15 @@ function refreshScene(path) {
     var buttonName = document.getElementById('custom-button-id').value;
     var buttonId = buttonName.substr(buttonName.indexOf("_")+1, buttonName.length)
     buttonId = (buttonId ? buttonId:"0")
+    console.log($('#custom-item-image').val());
     var dict = {
       "itemName": document.getElementById('custom-item-name').value,
-      "itemCategory": JSON.stringify(orderOfSelectedCategories),
-      "itemImage": JSON.stringify(orderOfSelectedImages),
+      "itemCategory": JSON.stringify($('#custom-item-category').val()),
+      "itemImage": JSON.stringify($('#custom-item-image').val()),
       "itemValue": document.getElementById('custom-item-value').value,
       "itemZOrder": document.getElementById('custom-item-z-order').value,
       "buttonId": buttonId,
-      "itemColor": JSON.stringify(orderOfSelectedColors),
+      "itemColor": JSON.stringify($('#custom-item-color').val()),
     }
   }
   else if (path == "addToMatrix"){
@@ -367,8 +367,6 @@ function updateBlocks() {
     url: '/updateBlocks', // ReplaceAll with the actual route on your Bottle server
     data: dict,
     success: function(response) {
-      console.log('Request successful');
-      $('#select-LS').html(response);
     },
     error: function(xhr, status, error) {
       // Handle errors
@@ -398,6 +396,15 @@ function updateLanguageStrings() {
   });
   // osvezi('pisek-iframe');
 };
+
+function deleteStartingExample(){
+  $.ajax({
+    type: 'POST', // or 'GET' depending on your server-side implementation
+    url: '/deleteStartingExample', // ReplaceAll with the actual route on your Bottle server
+    data: {
+    },
+  });
+}
 
 function updateMatrixParameters() {
   backgroundImage = document.getElementById('background-image').value
