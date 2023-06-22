@@ -162,8 +162,7 @@ def home_get():
     objects = skripta.preberi_vsa_imena_slik("objects")
     itemTypes = generator.itemsIT
     
-    languageStringsKeys = generator.languageStringsKeyWord
-    languageStringsValues = generator.languageStringsValues
+    languageStrings = generator.updateLanguageStringHtml(0)
     
     scene = generator.createItemTypesHtmlString()
 
@@ -179,7 +178,7 @@ def home_get():
     blocksRobot = generator.blocksRobotHtml()
     blocksSingle = generator.blocksSingleHtml()
     
-    return bottle.template("index.html", tile_names=tile_names, character_names=character_names, objects=objects, itemTypes=itemTypes, languageStrings = [languageStringsKeys, languageStringsValues], scene=scene, htmlListTypes=htmlListTypes, customItemCategories=customItemCategories, buttonNames=buttonNames, numOfExamples=numOfExamples, blocksCategory=blocksCategory, blocksSingle=blocksSingle, blocksRobot=blocksRobot)
+    return bottle.template("index.html", tile_names=tile_names, character_names=character_names, objects=objects, itemTypes=itemTypes, languageStrings = languageStrings, scene=scene, htmlListTypes=htmlListTypes, customItemCategories=customItemCategories, buttonNames=buttonNames, numOfExamples=numOfExamples, blocksCategory=blocksCategory, blocksSingle=blocksSingle, blocksRobot=blocksRobot)
 
 @bottle.post("/") 
 def home_add():
@@ -232,16 +231,27 @@ def updateBlocks():
     for el in generator.wholeCategoriesIB.keys():
         if el in categoryBlocks:
             generator.wholeCategoriesIB[el] = True
+        else:
+            generator.wholeCategoriesIB[el] = False
 
     for el in generator.robotIB.keys():
         if el in robotBlocks:
             generator.robotIB[el] = True
+        else:
+            generator.robotIB[el] = False
 
     for el in generator.singleBlocksIB.keys():
         if el in singleBlocks:
             generator.singleBlocksIB[el] = True
+        else:
+            generator.singleBlocksIB[el] = False
 
     generator.randomBull1['maxInstructions'] = maxInstructions
+    generator.ustvariSkripto()
+
+@bottle.post("/deleteStartingExample")
+def deleteStartingExample():
+    generator.strSE = ""
     generator.ustvariSkripto()
 
 @bottle.post("/updateEndConditions")
@@ -332,7 +342,6 @@ def addMatrixExample():
     generator.randomBull2["borderColour"] = borderColor
     generator.randomBull2["border"] = float(borderWidth)
     generator.randomBull2["backgroundTile"] = backgroundImage
-    print(backgroundImage)
     showLabels = True if showLabels == "true" else False
     gravityOn = True if gravityOn == "true" else False
     
@@ -411,16 +420,7 @@ def deleteLanguage():
     print("POSODOBIL LANGUAGE STRINGS")
     generator.ustvariSkripto()
 
-    languageStringsKeys = generator.languageStringsKeyWord
-    languageStringsValues = generator.languageStringsValues
-
-    htmlStr = ""
-    for i in range(len(languageStringsKeys)):
-        if lsId==i:
-            htmlStr += '<option selected="selected">{} : {}</option> <br>'.format(languageStringsKeys[i], languageStringsValues[i])
-        else:
-            htmlStr += '<option>{} : {}</option> <br>'.format(languageStringsKeys[i], languageStringsValues[i])
-    return htmlStr
+    return generator.updateLanguageStringHtml(lsId)
 
 @bottle.get("/updateItemTypes") 
 def update_item_types():
