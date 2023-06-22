@@ -128,9 +128,11 @@
                       </div>
                     </div>
                   </div>
-                  <div class="row">
-                    <button id="button-update-language-strings" class="btn btn-secondary" type="button" hx-swap="none"
-                      onclick="refreshText()">Posodobi besedilo</button>
+                  <div class="row mt-3">
+                    <div class="col-12 text-center">
+                      <button id="button-update-language-strings" class="btn btn-outline-primary col-md-6 mx-auto"
+                        type="button" hx-swap="none" onclick="refreshText()">Posodobi besedilo</button>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -167,7 +169,6 @@
                         {{! blocksRobot}}
                       </select>
                     </div>
-
                     <div class="col-md-4 mb-3">
                       <label for="robot-blocks-dropdown">Posamezni delčki</label>
                       <select class="selectpicker" id="robot-single-blocks-dropdown" multiple data-live-search="true"
@@ -185,44 +186,61 @@
                   <div class="row">
                     <div class="col-md-12">
                       <label for="maxInstructions">Izberi koliko delčkov je na voljo</label>
-                      <div class="col-md-6">
+                      <div class="input-group">
                         <input type="number" class="form-control" id="max-instructions" placeholder="število"
-                          name="maxInstructions" value="666">
+                          name="maxInstructions" value="10">
                         <div class="invalid-feedback">
                           Polje ne sme biti prazno!
+                        </div>
+                        <div class="input-group-append">
+                          <button id="button-update-language-strings" class="btn btn-outline-primary col-md-12"
+                            type="button" hx-swap="none" onclick="updateBlocks()">Posodobi delčke</button>
                         </div>
                       </div>
                     </div>
                   </div>
+                  <br>
                   <div class="row">
                     <button id="button-update-language-strings" class="btn btn-secondary" type="button" hx-swap="none"
                       onclick="updateBlocks()">Posodobi delčke</button>
                   </div>
                   <div class="row">
+                    <label for="email" class="form-label">Tekst</label>
                     <div class="col-md-12">
                       Imena delčkov
                       <select class="form-select" id="select-LS" name="imenaDelckov">
                         {{! languageStrings}}
                       </select>
 
-                    </div>
+
+                  <div class="d-inline-block">
+                    <h4 class="d-inline align-middle">Spreminjaj tekst delčkov</h4>
+                    <!--ICON delčki-->
+                    <span class="info-icon d-inline" data-toggle="tooltip" data-placement="top"
+                      title="Izberi in spremeni besedilo, ki želiš, da se prikazuje.">
+                      <i class="fas fa-info-circle" style="vertical-align: middle;"></i>
+                    </span>
                   </div>
                   <div class="row">
-                  </div>
-                  <div class="row">
-                    <div class="col-2">
-                      <label for="email" class="form-label">Tekst</label>
+                    <label for="email" class="form-label">Tekst</label>
+                    <div class="col-md-12">
+
+                      <div class="input-group">
+                        <select class="form-select" id="select-LS" name="imenaDelckov">
+                          %for i in range(len(languageStrings[1])):
+                          <option> {{languageStrings[0][i]}} : {{languageStrings[1][i]}}</option>
+                          %end
+                        </select>
+                        <input type="text" class="form-control" id="text-LS" name="languageString"
+                          placeholder="vrstica">
+                        <div class="input-group-append">
+                          <button id="button-update-language-strings" class="btn btn-outline-primary" type="button"
+                            hx-swap="none" onclick="updateLanguageStrings()">Posodobi text</button>
+                        </div>
+                      </div>
                     </div>
-                    <div class="col-6">
-                      <input type="text" class="form-control" id="text-LS" name="languageString" placeholder="vrstica">
-                    </div>
                   </div>
-                  <div class="row" style="margin-bottom: 2rem;">
-                    <div class="col-3 align-self-end">
-                      <button id="button-update-language-strings" class="btn btn-secondary" type="button" hx-swap="none"
-                        onclick="updateLanguageStrings()">Posodobi text</button>
-                    </div>
-                  </div>
+                  <br>
                   <div class="row">
                     <form id="upload-form" enctype="multipart/form-data">
                       <input type="file" id="upload-starting-example-file" name="file" accept=".txt">
@@ -307,9 +325,11 @@
                       </div>
                     </div>
                   </div>
-                  <div class="row">
-                    <button id="button-update-language-strings" class="btn btn-secondary" type="button" hx-swap="none"
-                      onclick="updateMatrixParameters()">Posodobi mrežo</button>
+                  <div class="row mt-3">
+                    <div class="col-12 text-center">
+                      <button id="button-update-language-strings" class="btn btn-outline-primary col-md-6 mx-auto"
+                        type="button" hx-swap="none" onclick="updateMatrixParameters()">Posodobi mrežo</button>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -328,55 +348,75 @@
                     </span>
                     <!---->
                   </div>
-                  <h5>Preveri obstoj predmetov</h5>
+                  <h5  style="margin-top: 1.5rem;">Preveri obstoj predmetov</h5>
                   <div class="row">
-                    <div class="col-md-6 mb-3">
-                      <label for="indikator1">Indikator</label><br>
-                      <select class="form-select" id="indikator-1" name="indikator1">
-                        <option selected="selected">category</option>
-                      </select>
-                    </div>
-                    <div class="col-md-3 mb-3">
-                      <label for="ime1">Vrsta indikatorja</label>
-                      <select class="form-select" id="exist-label-1" name="ime1">
-                        <option selected="selected" value="">Ne preverjaj</option>
-                        <option>coin</option>
-                      </select>
+                    <div class="col-md-12">
+                      <div class="input-group">
+                        <div class="input-group-prepend">
+                          <label class="input-group-text" for="indikator-1">Indikator</label>
+                        </div>
+                        <select class="form-select" id="indikator-1" name="indikator1">
+                          <option selected="selected">category</option>
+                        </select>
+                        <div class="input-group-prepend">
+                          <label class="input-group-text" for="exist-label-1">Vrsta indikatorja</label>
+                        </div>
+                        <select class="form-select" id="exist-label-1" name="ime1">
+                          <option selected="selected" value="">Ne preverjaj</option>
+                          <option>coin</option>
+                        </select>
+                      </div>
                     </div>
                   </div>
-                  <h5>Preveri ujemanje predmetov</h5>
+
+
+                  <h5 style="margin-top: 1.5rem;">Preveri ujemanje predmetov</h5>
                   <div class="row">
-                    <div class="col-md-6 mb-3">
-                      <label for="indikatorA">Indikator A</label><br>
-                      <select class="form-select" id="indikatorA" name="indikatorA">
-                        <option selected="selected">type</option>
-                      </select>
-                    </div>
-                    <div class="col-md-3 mb-3">
-                      <label for="ime-indikatorja-A">Ime objekta A</label> <br>
-                      <select class="form-select" id="coincide-label-A" name="imeA">
-                        <option value="" selected="selected">Ne preverjaj</option>
-                        {{! htmlListTypes}}
-                      </select>
-                    </div>
-                    <div class="col-md-6 mb-3">
-                      <label for="indikatorB">Indikator B</label><br>
-                      <select class="form-select" id="name-type-B" name="indikatorB">
-                        <option selected="selected">type</option>
-                      </select>
-                    </div>
-                    <div class="col-md-3 mb-3">
-                      <label for="ime-indikatorja-B">Ime objekta B</label><br>
-                      <select class="form-select" id="coincide-label-B" name="imeB">
-                        <option value="" selected="selected">Ne preverjaj</option>
-                        {{! htmlListTypes}}
-                      </select>
+                    <div class="col-md-12">
+                      <div class="input-group">
+                        <div class="input-group-prepend">
+                          <label class="input-group-text" for="indikatorA">Indikator A</label>
+                        </div>
+                        <select class="form-select" id="indikatorA" name="indikatorA">
+                          <option selected="selected">type</option>
+                        </select>
+                        <div class="input-group-prepend">
+                          <label class="input-group-text" for="ime-indikatorja-A">Ime objekta A</label>
+                        </div>
+                        <select class="form-select" id="coincide-label-A" name="imeA">
+                          <option value="" selected="selected">Ne preverjaj</option>
+                          {{! htmlListTypes}}
+                        </select>
+                      </div>
                     </div>
                   </div>
+                  <br>
                   <div class="row">
-                    <button id="button-update-language-strings" class="btn btn-secondary" type="button" hx-swap="none"
-                      onclick="updateEndConditions()">Posodobi zmago</button>
+                    <div class="col-md-12">
+                      <div class="input-group">
+                        <div class="input-group-prepend">
+                          <label class="input-group-text" for="indikatorB">Indikator B</label>
+                        </div>
+                        <select class="form-select" id="name-type-B" name="indikatorB">
+                          <option selected="selected">type</option>
+                        </select>
+                        <div class="input-group-prepend">
+                          <label class="input-group-text" for="ime-indikatorja-B">Ime objekta B</label>
+                        </div>
+                        <select class="form-select" id="coincide-label-B" name="imeB">
+                          <option value="" selected="selected">Ne preverjaj</option>
+                          {{! htmlListTypes}}
+                        </select>
+                      </div>
+                    </div>
                   </div>
+                  <div class="row mt-3">
+                    <div class="col-12 text-center">
+                      <button id="button-update-language-strings" class="btn btn-outline-primary col-md-6 mx-auto"
+                        type="button" hx-swap="none" onclick="updateEndConditions()">Posodobi pogoje</button>
+                    </div>
+                  </div>
+
                 </div>
               </div>
             </div>
@@ -394,26 +434,23 @@
                     </span>
                     <!---->
                   </div>
-                  <h4>Robot</h4>
-                  <div class="row" style="margin-bottom: 2rem;">
-
-                    <div class="col-md-4">
-                      <label for="state" class="form-label">Izberi sliko</label>
+                  <h4 style="margin-top: 1.5rem;">Robot</h4>
+                  <div class="row" style="margin-bottom: 1.5rem;">
+                    <div class="input-group mb-3">
                       <select id="robot-image" class="form-select" name="itemImageR">
-                        <option value="">Izberi...</option>
+                        <option value="">Izberi sliko robota</option>
                         % for charName in character_names:
                         <option>{{charName}}</option>
                         %end
 
                       </select>
+                      <div class="input-group-append">
+                        <button class="btn btn-outline-primary" type="button" hx-swap="none" hx-target="body"
+                          onclick="refreshScene('addRobot')">Ustvari robota</button>
+                      </div>
                       <div class="invalid-feedback">
                         Polje ne sme biti prazno
                       </div>
-                    </div>
-
-                    <div class="col-3 align-self-end">
-                      <button class="btn btn-secondary" type="button" hx-swap="none" hx-target="body"
-                        onclick="refreshScene('addRobot')">Ustvari robota</button>
                     </div>
                   </div>
 
@@ -620,7 +657,7 @@
                         <!--ICON delčki-->
                         <span class="info-icon d-inline" data-toggle="tooltip" data-placement="top"
                           title="Predmet dodaš na mrežo z izbiro njegovega imena, vpisom koordinat, ter pritiskom na DODAJ. Isti postopek za izbris predmeta. Če obstaja več testnih primerov, izberi testni primer na katerega želiš dodati objekt. Z izbrisom objekta bo objekt izbrisan iz vseh testnih primerov. Gumb ponastavi izbriše vse spremembe in vrne začetno stanje skripte. Za prenos datotek pritisni velik siv gumb PRENESI DATOTEKE.">
-                          
+
                           <i class="fas fa-info-circle" style="vertical-align: middle;"></i>
                         </span>
                         <!---->
