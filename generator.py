@@ -3,34 +3,7 @@ import json
 import re
 import flatdict
 
-def ustvariSkripto():
-    ulmSlv = {}
-    ulmSlv.update(izpisiLanguageStrings())
-    ulmSlv.update(izpisiHideControls())
-    ulmSlv.update(izpisiRandomBulshit1())
-    ulmSlv.update(izpisiIncludeBlocks())
-    ulmSlv.update(izpisiStartingExample())
-    ulmSlv.update({"checkEndEveryTurn":True})
-    ulmSlv.update(izpisiCheckEndCondition())
-    ulmSlv.update({"ignoreInvalidMoves":False})
-    ulmSlv.update(izpisiRandomBulsit2())
-    ulmSlv.update(izpisiItemTypes())
-    jsonStr = json.dumps(ulmSlv, indent = 5, ensure_ascii=False)
-    jsString1 = re.sub("\"([^\"]+)\":", r"\1:", jsonStr).replace(r'\"', "")
-    jsString1 = jsString1.replace("\"&#&", "").replace("&#&\"", "").replace("\\\\", "\"").replace("\\n", "\n").replace("\\t", "\t")
-    str1 = "subTask.gridInfos = {};".format(jsString1)
-
-    subTaskData = izpisiSubTaskData()
-    jsonStr = json.dumps(subTaskData, indent = 5, ensure_ascii=False)
-    jsString2 = re.sub("\"([^\"]+)\":", r"\1:", jsonStr).replace(r'\"', "").replace("\"&#&", "").replace("&#&\"", "")
-    jsString2 = jsString2.replace("\\n", "\n")
-    str2 = "subTask.data = {};".format(jsString2)
-
-    theString = "function initTask(subTask) {{\n {0}\n{1}\ninitBlocklySubTask(subTask); \n}}".format(str1, str2)
-    fajl = open("static/javascript/theTest.js", "w", encoding = "utf-8")
-    fajl.write(theString)
-    fajl.close()
-
+#ne dela nč...
 def saveItemTypes():
     global itemsIT, matrixExamples
     currentState = {"itemsIT":itemsIT, "matrixExamples":"&&&".join(map(str,matrixExamples))}
@@ -39,6 +12,7 @@ def saveItemTypes():
     jsonFile.write(jsonStr)
     jsonFile.close()
 
+#še nč ne dela
 def getItemTypes():
     global itemsIT, matrixExamples
 
@@ -49,7 +23,7 @@ def getItemTypes():
     itemsIT = pyVar["itemsIT"]
     matrixExamples = pyVar["matrixExamples"].split("&&&")
 
-
+#še nč ne dela
 def saveVariables():
     global languageStrings, randomBull1, strSE, groupByCategory, includeAllIB, wholeCategories, robotIB, singleBlocksIB, excludedBlocksIB, possibleCategories, typeOptions, checkEndEveryTurn, ignoreInvalidMoves, endCondition, randomBull2, itemsIT, matrixExamples, initialisationExamples
     currentState = {"languageStrings":languageStrings, "randomBull1":randomBull1, "strSE":strSE,
@@ -63,6 +37,7 @@ def saveVariables():
     jsonFile.write(jsonStr)
     jsonFile.close()
 
+#še nč ne dela
 def loadVariables():
     global languageStrings, randomBull1, strSE, groupByCategory, includeAllIB, wholeCategories, robotIB, singleBlocksIB, excludedBlocksIB, possibleCategories, typeOptions, checkEndEveryTurn, ignoreInvalidMoves, endCondition, randomBull2, itemsIT, matrixExamples, initialisationExamples
 
@@ -88,6 +63,7 @@ def loadVariables():
     matrixExamples = pyVar["matrixExamples"].split("&&&")
     initialisationExamples = pyVar["initialisationExamples"]
 
+#Language strigs zapakira v pythonov slovar.
 def izpisiLanguageStrings():
     global languageStringsLS
     pySlv = {"languageStrings":{"sl":{}}}
@@ -98,6 +74,7 @@ def izpisiLanguageStrings():
     # return jsString[1:-1]
     return pySlv
 
+#V language strings doda spremenjen slovar
 def dodajSlovar(id, text):
     global languageStringsValues, languageStringsKeys, languageStringsLS
     languageStringsValues[id] = text
@@ -109,6 +86,7 @@ def dodajSlovar(id, text):
     f1[f2.keys()[0]] = f2.values()[0]
     languageStringsLS = f1.as_dict()
 
+#v slovarju vrne podatke za hideControl. Je na default
 def izpisiHideControls(restart = False, saveOrLoad = False, loadBestAnswer = False, speedSlider = False, backToFirst = False, nextStep = False, goToEnd = False):
     pySlv = {"hideControls":{}}
     slv = {"restart": restart, "saveOrLoad": saveOrLoad, "loadBestAnswer": loadBestAnswer, "speedSlider": speedSlider, "backToFirst": backToFirst, "nextStep": nextStep, "goToEnd": goToEnd,}
@@ -119,10 +97,12 @@ def izpisiHideControls(restart = False, saveOrLoad = False, loadBestAnswer = Fal
     # return jsString[1:-1]
     return pySlv
 
+#vrne slovar randomBull1
 def izpisiRandomBulshit1():
     global randomBull1
     return randomBull1
 
+#vrne slovar v katerem je začetzni primer
 def izpisiStartingExample():
     global strSE
     pySlv = {"startingExample":{}}
@@ -134,6 +114,7 @@ def izpisiStartingExample():
     # return jsString[1:-1]
     return pySlv
 
+#rne slovar z blocky
 def izpisiIncludeBlocks():
     global groupByCategory, includeAllIB, wholeCategoriesIB, robotIB, singleBlocksIB, excludedBlocksIB
     
@@ -157,6 +138,7 @@ def izpisiIncludeBlocks():
     
     return pySlv
 
+#vrne slovar s končnimi pogoji v stringu
 def izpisiCheckEndCondition():
     global endCondition
     indikator1 = endCondition["Exist"]["indikator1"]
@@ -217,10 +199,12 @@ def izpisiCheckEndCondition():
     openFile.close()    
     return pySlv
 
+#isto kokr randombull1
 def izpisiRandomBulsit2(): 
     global randomBull2
     return randomBull2
 
+#izpiše slovar itemTypov
 def izpisiItemTypes():
     global itemsIT
     kopija = {}
@@ -235,6 +219,7 @@ def izpisiItemTypes():
     
     return pySlv
 
+#v slovar iteTypov doda item type
 def dodajItemType():
     global itemsIT, itemID, typeOptions, possibleCategories, itemSpecifications, matrixExamples, activeExample, catIT
     ime = itemSpecifications.pop("name")
@@ -249,7 +234,7 @@ def dodajItemType():
             possibleCategories.add(cat)
     typeOptions.add(ime)
     itemSpecifications["category"] = catsTrue
-
+    print(itemSpecifications)
     itemSpecifications["num"] = len(list(typeOptions))+2
 
     itemsIT[ime] = itemSpecifications
@@ -259,11 +244,13 @@ def dodajItemType():
     #saveItemTypes()
     itemSpecifications = {"name":"", "num": itemID, "img":"", "zOrder":itemID, "category":catIT, "value":0, "row":[], "col":[]} #nazaj na default
 
+#vse trenutne kategorije da na false
 def setCategoryDeafult():
     global catIT
     for key in list(catIT.keys()):
         catIT[key] = False
 
+#v slovar iteTypov doda item 
 def createDefaultItem(itemCategory, itemImage):
     global itemsIT, itemID, typeOptions, possibleCategories, itemSpecifications, matrixExamples, activeExample, catIT
     itemNameId = 0
@@ -275,13 +262,14 @@ def createDefaultItem(itemCategory, itemImage):
     typeOptions.add(ime)
     itemSpec = {"num": 2, "img":"", "zOrder":5, "category":{}, "value":0, "row":[[]for i in range(len(matrixExamples))], "col":[[]for i in range(len(matrixExamples))]}
     
-    itemSpec["category"] = {"\"%s\""%itemCategory:True}
+    itemSpec["category"] = [{"\"%s\""%itemCategory:True}]
     itemSpec["num"] = len(list(typeOptions))+2
-    itemSpec["img"] = itemImage
+    itemSpec["img"] = [itemImage]
     itemSpec["zOrder"] = len(typeOptions)
 
     itemsIT[ime] = itemSpec
-    
+
+#v slovar iteTypov doda number
 def createDefaultNumber(itemValue):
     global itemsIT, itemID, typeOptions, possibleCategories, itemSpecifications, matrixExamples, activeExample, catIT
     itemCategory = "number"
@@ -289,12 +277,12 @@ def createDefaultNumber(itemValue):
     typeOptions.add(ime)
     itemSpec = {"num":2, "zOrder":4, "row":[[]for i in range(len(matrixExamples))], "col":[[]for i in range(len(matrixExamples))]}
     
-    itemSpec["category"] = {"\"%s\""%itemCategory:True}
+    itemSpec["category"] = [{"\"%s\""%itemCategory:True}]
     itemSpec["value"] = itemValue
     itemSpec["num"] = len(list(typeOptions))+2
     itemsIT[ime] = itemSpec
     
-
+#v slovar iteTypov doda barvo
 def createDefaultColor(itemCol):
     global itemsIT, itemID, typeOptions, possibleCategories, itemSpecifications, matrixExamples, activeExample, catIT
     itemCategory = "color"
@@ -311,6 +299,7 @@ def createDefaultColor(itemCol):
     itemSpec["num"] = len(list(typeOptions))+2
     itemsIT[ime] = itemSpec
 
+#v slovar iteTypov doda gumb
 def createDefaultButton(buttonOn, buttonOff):
     global itemsIT, itemID, typeOptions, possibleCategories, itemSpecifications, matrixExamples, activeExample, catIT
     itemCategory = "button"
@@ -322,9 +311,10 @@ def createDefaultButton(buttonOn, buttonOff):
     typeOptions.add(ime)
     itemSpec = {"img":[buttonOn, buttonOff], "num":2, "zOrder":3, "value":0, "id":itemNameId, "row":[[]for i in range(len(matrixExamples))], "col":[[]for i in range(len(matrixExamples))]}
     itemSpec["num"] = len(list(typeOptions))+2
-    itemSpec["category"] = {"\"%s\""%itemCategory:True}
+    itemSpec["category"] = [{"\"%s\""%itemCategory:True}]
     itemsIT[ime] = itemSpec
 
+# item type doda na matriko, če na matriki že obstaja ga inicializira
 def addItemTypeToMatrix(itemName, itemRow, itemCol):
     global itemsIT, activeExample
     if "robot" in itemName:
@@ -342,6 +332,7 @@ def addItemTypeToMatrix(itemName, itemRow, itemCol):
         itemsIT[itemName]["col"][activeExample].append(itemCol)
         updateMatrix()
 
+#odstrani iz matrike in iz inicializacije
 def removeItemTypeFromMatrix(itemName, itemRow, itemCol):
     global itemsIT, activeExample
     if itemRow in itemsIT[itemName]["row"][activeExample] and itemCol in itemsIT[itemName]["col"][activeExample]:
@@ -350,6 +341,7 @@ def removeItemTypeFromMatrix(itemName, itemRow, itemCol):
         updateMatrix()
         removeInicialisation(itemName, itemRow, itemCol)
 
+#posodobi matriko. Iz vsakega itema prebere kje je.
 def updateMatrix():
     global itemsIT, matrixExamples, activeExample
     numRows = len(matrixExamples[activeExample])
@@ -370,6 +362,7 @@ def updateMatrix():
                     removeInicialisation(key, rows[i], cols[i])
                     addInicialisation({"row":rows[i], "col":cols[i], "type":key, "dir": 0, "value": 0})
 
+#v inicializacijo doda robota
 def addRobot(itemImage):
     global itemsIT, itemID, typeOptions, possibleCategories, itemSpecifications, matrixExamples, activeExample, catIT
     
@@ -382,13 +375,13 @@ def addRobot(itemImage):
     itemSpec = {"img":"", "zOrder":20, "value":0, "nbStates":9, "row":[[0]for i in range(len(matrixExamples))], "col":[[0]for i in range(len(matrixExamples))]}
     ime = "robot" + str(itemNameId)
     typeOptions.add(ime)
-    itemSpec["category"] = {"\"robot\"":True}
-    itemSpec["img"] = itemImage
+    itemSpec["category"] = [{"\"robot\"":True}]
+    itemSpec["img"] = [itemImage]
     itemsIT[ime] = itemSpec
     setCategoryDeafult()
     addItemTypeToMatrix(ime, 0, 0)
 
-
+#izbriše itemtype
 def deleteItemType(ime):
     global itemsIT, itemID, typeOptions, possibleCategories, matrixExamples
     removeInicialisation(ime, -1, -1)
@@ -399,6 +392,7 @@ def deleteItemType(ime):
     
     updateMatrix()
 
+#v python slovar vrne subtaskdata
 def izpisiSubTaskData():
     global matrixExamples, initialisationExamples
     pySlv = {}
@@ -410,18 +404,22 @@ def izpisiSubTaskData():
     pySlv["easy"] = pyLst
     return pySlv
     
+#vrne matriko v obliki stringa
 def izpisiMatriko(matrix):
     #matrix = np.array(matrix)
     return "&#&" + str(matrix).replace("],", "], \n") + "&#&"
 
+#doda novo matriko v testne primere
 def addMatrix(mmm, nnn):
     global matrixExamples, activeExample
     matrixExamples[activeExample] = [[1 for i in range(mmm)] for j in range(nnn)]
 
+#doda inicializacijo
 def addInicialisation(initSlv):
     global initialisationExamples, activeExample
     initialisationExamples[activeExample].append(initSlv)
 
+#odstrani inicializacijo, če sta row in col negativni odstrani vse inicializacije s tem imenom
 def removeInicialisation(itemName, itemRow, itemCol):
     global activeExample, initialisationExamples
     zaIzbris = []
@@ -433,6 +431,7 @@ def removeInicialisation(itemName, itemRow, itemCol):
     for init in zaIzbris:
         initialisationExamples[activeExample].remove(init)
 
+#Doda nov testni primer ali posodobi trenutni izbrain primer
 def updateExample(newActiveExample, le, he):
     global initialisationExamples, activeExample, mmm, nnn, itemsIT
     if newActiveExample > len(matrixExamples):
@@ -450,6 +449,7 @@ def updateExample(newActiveExample, le, he):
         activeExample = newActiveExample - 1
         changeMatrixSize(le, he)
 
+#izbriše example
 def deleteExample(deleteExampleId):
     global itemsIT, matrixExamples
     if deleteExampleId == 0 and len(matrixExamples)==1:
@@ -460,11 +460,12 @@ def deleteExample(deleteExampleId):
     matrixExamples.pop(deleteExampleId)
     initialisationExamples.pop(deleteExampleId)
 
-
+#Spremeni vrednost matrike-mislm da ne rabm
 def changeMatrixValues(row, col, value):
     global matrixExamples, activeExample
     matrixExamples[activeExample][row][col] = value
 
+#spremeni velikost matrike
 def changeMatrixSize(le, he):
     global matrixExamples, activeExample
     mat = matrixExamples[activeExample]
@@ -487,6 +488,7 @@ def changeMatrixSize(le, he):
     matrixExamples[activeExample] = [[mat[j][i] for i in range(le)] for j in range(he)]
     updateMatrix()
 
+#ustvari skripto, spremeni poslane stringe
 def ustvariSkripto():
     print("USTVARJAM SKRIPTO")
     ulmSlv = {}
@@ -516,6 +518,7 @@ def ustvariSkripto():
     fajl.write(theString)
     fajl.close()
 
+#ne dela
 def saveItemTypes():
     global itemsIT, matrixExamples
     currentState = {"itemsIT":itemsIT, "matrixExamples":"&&&".join(map(str,matrixExamples))}
@@ -524,6 +527,7 @@ def saveItemTypes():
     jsonFile.write(jsonStr)
     jsonFile.close()
 
+#ne dela
 def getItemTypes():
     global itemsIT, matrixExamples
 
@@ -534,6 +538,7 @@ def getItemTypes():
     itemsIT = pyVar["itemsIT"]
     matrixExamples = pyVar["matrixExamples"].split("&&&")
 
+#ne dela
 def saveVariables():
     global languageStrings, randomBull1, strSE, groupByCategory, includeAllIB, wholeCategories, robotIB, singleBlocksIB, excludedBlocksIB, possibleCategories, typeOptions, checkEndEveryTurn, ignoreInvalidMoves, endCondition, randomBull2, itemsIT, matrixExamples, initialisationExamples
     currentState = {"languageStrings":languageStrings, "randomBull1":randomBull1, "strSE":strSE,
@@ -547,6 +552,7 @@ def saveVariables():
     jsonFile.write(jsonStr)
     jsonFile.close()
 
+#ne dela
 def loadVariables():
     global languageStrings, randomBull1, strSE, groupByCategory, includeAllIB, wholeCategories, robotIB, singleBlocksIB, excludedBlocksIB, possibleCategories, typeOptions, checkEndEveryTurn, ignoreInvalidMoves, endCondition, randomBull2, itemsIT, matrixExamples, initialisationExamples
 
@@ -580,19 +586,27 @@ def createItemTypesHtmlString():
         for ime in itemsIT.keys():
             returnHtml += "<span style='font-size: larger; font-weight: bold;'>" + ime +"</span>" + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"
             if "img" in itemsIT[ime].keys():
-                img = itemsIT[ime]["img"]
-                img = img[img.find("/")+1:]
-                img = img.replace(".png", "")
+                img = itemsIT[ime]["img"][0]
                 returnHtml += "<b>img" + ": </b>" + img + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"
             if "category" in itemsIT[ime].keys():
-                returnHtml += "<b>category" + ": </b>" + list(itemsIT[ime]["category"].keys())[0].replace("\"", "") + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"
+                returnHtml += "<b>category" + ": </b>" + str(itemsIT[ime]["category"]) + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"
             
             returnHtml += "<b>points" + ": </b>["
+            print(itemsIT[ime]["row"][activeExample])
             for ind in range(len(itemsIT[ime]["row"][activeExample])):
                 returnHtml += "(" + str(itemsIT[ime]["col"][activeExample][ind]) + "," + str(itemsIT[ime]["row"][activeExample][ind]) + "),"+ "&nbsp;"
             returnHtml += "]"
             returnHtml += "<br>"
         return returnHtml
+
+def updateLanguageStringHtml(id):
+    html = ""
+    for i in range(len(languageStringsKeyWord)):
+        if i == id:
+            html += "<option selected='selected'>" + languageStringsKeyWord[i] + ": " + languageStringsValues[i] + "</option>"
+        else:
+            html += "<option>" + languageStringsKeyWord[i] + ": " + languageStringsValues[i] + "</option>"
+    return html
 
 def updateItemTypesHtmlString():
     itemTypesNames = list(typeOptions)
@@ -624,21 +638,31 @@ def updateExamplesHtmlString():
 def blocksCategoryHtml():
     html = ""
     for block in wholeCategoriesIB.keys():
-        html += "<option>" + block + "</option> <br>"
+        if wholeCategoriesIB[block]:
+            html += "<option selected='selected'>" + block + "</option> <br>"
+        else:
+            html += "<option>" + block + "</option> <br>"
     return html
 
 def blocksRobotHtml():
     html = ""
     for block in robotIB.keys():
-        html += "<option>" + block + "</option> <br>"
+        if robotIB[block]:
+            html += "<option selected='selected'>" + block + "</option> <br>"
+        else:
+            html += "<option>" + block + "</option> <br>"
     return html
 
 def blocksSingleHtml():
     html = ""
     for block in singleBlocksIB.keys():
-        html += "<option>" + block + "</option> <br>"
+        if singleBlocksIB[block]:
+            html += "<option selected='selected'>" + block + "</option> <br>"
+        else:
+            html += "<option>" + block + "</option> <br>"
     return html
 
+#resetira vse globalne variable
 def resetVariables():
     global languageStrings, languageStringsKeys, languageStringsKeyWord, languageStringsValues, languageStringsLS, possibleIdicateors, randomBull1, strSE, groupByCategory, includeAllIB, wholeCategoriesIB, robotIB, singleBlocksIB, excludedBlocksIB, possibleCategories, typeOptions, checkEndEveryTurn, ignoreInvalidMoves, endCondition, randomBull2, itemsIT, matrixExamples, initialisationExamples, itemID, catIT, activeExample, itemSpecifications, alreadyInitialized, mmm, nnn, globalka
 
@@ -681,7 +705,7 @@ def resetVariables():
     # INCLUDE BLOCKS
     groupByCategory = True # neki za obklukat
     includeAllIB = False # neki za obklukat
-    wholeCategoriesIB = {"tools":False, "logic":False, "loops":False, "math":False, "texts":False, "lists":False, "colour":False, "variables":False, "functions":False} # neki za obklukat
+    wholeCategoriesIB = {"logic":False, "loops":False, "math":False, "texts":False, "lists":False, "colour":False, "variables":False, "functions":False} # neki za obklukat
     # bloki za robota, na začetku so vsi false, na spletni strani naj bo dropdown za klukat, ko obkljuka spremeni v True
     robotIB = {"move": False, "moveSimple": False, "forward": False, "forwardSimple": False, "turn": False, "turnAround": False, "jump": False, "changeRobot": False, "transport": False, "sensorBool": False, "sensorValue": False, "alterValue": False, "destroy": False, "create": False, "wait": False, "nitems": False, "sensorRowCol": False}
     singleBlocksIB = {"robot_start": False, "math_arithmetic": False, "math_number": False, "math_number": False, "controls_repeat_ext": False, "math_number": False, "math_number": False, "variables_get": False, "controls_whileUntil": False, "math_single": False, "math_number": False, "variables_set": False, "math_number_property": False, "math_number": False, "controls_for": False, "math_number": False, "math_number": False, "math_number": False, "math_round": False, "math_number": False, "math_modulo": False, "math_number": False, "math_number": False, "controls_flow_statements": False, "procedures_defreturn": False, "procedures_defnoreturn": False, "math_change": False, "math_number": False, "procedures_ifreturn": False, "procedures_callnoreturn": False, "procedures_callreturn": False}
@@ -745,8 +769,5 @@ def resetVariables():
     alreadyInitialized = set()
 
 if __name__ == "__main__":
-    #ustvariSkripto()
-    #saveVariables()
-    #loadVariables()
     resetVariables()
     ustvariSkripto()
