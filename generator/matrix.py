@@ -16,7 +16,7 @@ class Matrix:
                 return False
         
     def removeItem(self, row, col):
-        self.matrix[row][col] == 1
+        self.matrix[row][col] = 1
     
     def removeAllItem(self, num):
         for i in range(self.width):

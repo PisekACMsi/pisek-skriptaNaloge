@@ -25,14 +25,23 @@ class Robot(ItemType):
         return {"num":self.num, "category":self.returnCat, "img":self.image, "zOrder":self.zOrder, "nbStates":self.nbStates}
 
 class Number(ItemType):
-    def __init__(self, value):
+    def __init__(self, name, num, category, images, zOrder, value):
+        super().__init__(name, num, category, images, zOrder)
         self.value = value
     def represent(self):
-        return {"num":self.num, "category":self.returnCat, "img":self.image, "zOrder":self.zOrder, "value":self.value}
+        return {"num":self.num, "category":self.returnCat, "zOrder":self.zOrder, "value":self.value}
 
 class Color(ItemType):
-    def __init__(self, color):
-        self.color = color
+    def __init__(self, name, num, category, images, zOrder, colour):
+        super().__init__(name, num, category, images, zOrder)
+        self.color = colour
     def represent(self):
-        return {"num":self.num, "category":self.returnCat, "img":self.image, "zOrder":self.zOrder, "colour":self.color}
+        return {"num":self.num, "zOrder":self.zOrder, "colour":self.color}
+    
+class Button(ItemType):
+    def __init__(self, name, num, category, images, zOrder, id):
+        super().__init__(name, num, category, images, zOrder)
+        self.id = id
+    def represent(self):
+        return {"num":self.num, "zOrder":self.zOrder, "category":self.returnCat, "img":self.image, "id":self.id}
     

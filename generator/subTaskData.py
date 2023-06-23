@@ -15,6 +15,14 @@ class SubtaskData:
     def represent(self):
         return {"easy": [example.represent() for example in self.examples]}
     
+    def removeExample(self, id):
+        if(len(self.examples) > 1):
+            self.examples = self.examples[:id] + self.examples[id+1:]
+
+    def removeItemType(self, itemName, itemNum):
+        for example in self.examples:
+            example.removeAllFromMatrix(itemNum, itemName)
+    
     def updateExamplesHtmlString(self):
         html = ""
         for i in range(len(self.examples)):

@@ -40,11 +40,11 @@ function initTask(subTask) {
                robot: []
           },
           standardBlocks: {
-               includeAll: false
-          },
-          wholeCategories: [],
-          singleBlocks: [],
-          excludedBlocks: []
+               includeAll: false,
+               wholeCategories: [],
+               singleBlocks: [],
+               excludedBlocks: []
+          }
      },
      checkEndCondition: (context, lastTurn) => { 
 	robotEndConditions.checkCombiner(context, lastTurn, [
@@ -52,33 +52,7 @@ function initTask(subTask) {
 		//
 	])
 },
-     itemTypes: {
-          robot0: {
-               num: 0,
-               category: [
-                    {
-                         'robot': true
-                    }
-               ],
-               img: [
-                    "characters/avto.png"
-               ],
-               zOrder: 10,
-               nbStates: 8
-          },
-          obstacle0: {
-               num: 1,
-               category: [
-                    {
-                         'obstacle': true
-                    }
-               ],
-               img: [
-                    "objects/banana.png"
-               ],
-               zOrder: 3
-          }
-     }
+     itemTypes: {}
 };
 subTask.data = {
      easy: [

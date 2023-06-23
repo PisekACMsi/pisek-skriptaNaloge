@@ -12,6 +12,7 @@ class LanguageStrings:
         fajlLS.close()
         self.languageStringsSlvFlat  = flatdict.FlatDict(languageStringsSlv, delimiter=".")
         self.languageStringsKeys = [key for key in self.languageStringsSlvFlat.keys()]
+        self.keyWords = [key.split(".")[-1] for key in self.languageStringsKeys]
 
     def addFlatDictCategories(self, id, value):
         key = self.languageStringsKeys[id]
@@ -25,7 +26,7 @@ class LanguageStrings:
         html = ""
         for id, key in enumerate(self.languageStringsKeys):
             if id == selectedId:
-                html += "<option selected='selected'>" + key + ": " + self.languageStringsSlvFlat[key] + "</option>"
+                html += "<option selected='selected'>" + self.keyWords[id] + ": " + self.languageStringsSlvFlat[key] + "</option>"
             else:
-                html += "<option>" + key + ": " + self.languageStringsSlvFlat[key] + "</option>"
+                html += "<option>" + self.keyWords[id] + ": " + self.languageStringsSlvFlat[key] + "</option>"
         return html

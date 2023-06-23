@@ -3,7 +3,7 @@ class Initialization:
         self.init = []
     
     def addInitialization(self, objectName, row, col):
-        self.init.append({"type":objectName,"row":row,"col":col})
+        self.init.append({"type":objectName,"row":row,"col":col, "dir":0})
 
     def dellInitialization(self, objectName, row, col):
         initForDelete = []
