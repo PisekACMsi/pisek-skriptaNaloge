@@ -9,13 +9,13 @@ class Board:
         self.maxInstructions = maxInstructions
         self.numberOfRobots = numberOfRobots
         
-        self.introMaxHeight = "33%",
-        self.maxListSize = 100,
-        self.scrollbars = True,
-        self.actionDelay = 400,
-        self.blocklyColourTheme = "bwinf",
-        self.ignoreInvalidMoves = False,
-        self.cellSide = 60,
+        self.introMaxHeight = "33%"
+        self.maxListSize = 100
+        self.scrollbars = True
+        self.actionDelay = 400
+        self.blocklyColourTheme = "bwinf"
+        self.ignoreInvalidMoves = False
+        self.cellSide = 60
         self.hideControls = {
           "restart": False,
           "saveOrLoad": False,
@@ -24,22 +24,33 @@ class Board:
           "backToFirst": False,
           "nextStep": False,
           "goToEnd": False
-        },
+        }
         self.zoom = {
             "controls": True,
             "scale": 1
-        },
+        }
         self.startingExample = {
           "blockly": ""
-     },
+        }
 
     def updateStartingExample(self, example):
         self.startingExample["blockly"] = example
     
-    def represent(self):
-        return {"backgroundColour":self.backgColor, "backgroundTile":self.backgImage, 
+    def representSolo(self):
+        return { "hasGravity":self.gravity, "introMaxHeight": self.introMaxHeight, "maxListSize":self.maxListSize,
+                "scrollbars":self.scrollbars, "zoom":self.zoom, "actionDelay":self.actionDelay,
+                "blocklyColourTheme": self.blocklyColourTheme,  "maxInstructions":self.maxInstructions,
+                "ignoreInvalidMoves":self.ignoreInvalidMoves, "border":self.lineWidth,
+                "backgroundColour":self.backgColor, "backgroundTile":self.backgImage, 
                 "borderColour":self.lineColor, "showLabels":self.showLabels, 
-                "hasGravity":self.gravity, "maxInstructions":self.maxInstructions, 
-                "ignoreInvalidMoves":self.ignoreInvalidMoves,"border":self.lineWidth,
                 "cellSide":self.cellSide, "numberOfRobots":self.numberOfRobots, 
-                "hideControls":self.hideControls, "zoom":self.zoom, "startingExample":self.startingExample}
+                  "startingExample":self.startingExample}
+    
+    def representHideControls(self):
+        return {"hideControls":self.hideControls}
+    
+    def representZoom(self):
+        return {"zoom":self.zoom}
+    
+    def representStartingExample(self):
+        return {"startingExample":self.startingExample}

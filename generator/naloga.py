@@ -17,9 +17,13 @@ class Naloga:
         self.subTaskData = SubtaskData()
 
     def createFile(self):
+        print("USTVARJAM FAJL")
         ulmSlv = {}
         ulmSlv.update(self.languageStrings.represent())
-        ulmSlv.update(self.board.represent())
+        ulmSlv.update(self.board.representHideControls())
+        ulmSlv.update(self.board.representZoom())
+        ulmSlv.update(self.board.representSolo())
+        ulmSlv.update(self.board.representStartingExample())
         ulmSlv.update(self.includeBlocks.represent())
         ulmSlv.update(self.endCondition.represent())
         ulmSlv.update(self.itemTypes.represent())
@@ -38,8 +42,4 @@ class Naloga:
         fajl = open("generator/theTest.js", "w", encoding = "utf-8")
         fajl.write(theString)
         fajl.close()
-
-naloga = Naloga()
-naloga.itemTypes.addItem(ItemType("ime1"))
-naloga.createFile()
 

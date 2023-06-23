@@ -3,7 +3,7 @@ import json
 
 class LanguageStrings:
     def __init__(self):
-        self.changedLanguageStrings = flatdict.FlatDict({})
+        self.changedLanguageStrings = flatdict.FlatDict({},delimiter=".")
         self.initializeLanguageStrings()
 
     def initializeLanguageStrings(self):
@@ -16,7 +16,16 @@ class LanguageStrings:
     def addFlatDictCategories(self, id, value):
         key = self.languageStringsKeys[id]
         self.changedLanguageStrings[key] = value
+        self.languageStringsSlvFlat[key] = value
 
     def represent(self):
-        return {"sl":self.changedLanguageStrings.as_dict()}
+        return {"languageStrings":{"sl":self.changedLanguageStrings.as_dict()}}
 
+    def languageStringsHtml(self, selectedId):
+        html = ""
+        for id, key in enumerate(self.languageStringsKeys):
+            if id == selectedId:
+                html += "<option selected='selected'>" + key + ": " + self.languageStringsSlvFlat[key] + "</option>"
+            else:
+                html += "<option>" + key + ": " + self.languageStringsSlvFlat[key] + "</option>"
+        return html
