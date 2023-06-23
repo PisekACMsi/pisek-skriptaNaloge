@@ -1,9 +1,7 @@
 function initTask(subTask) {
  subTask.gridInfos = {
      languageStrings: {
-          sl: {
-               startingBlockName: "oj"
-          }
+          sl: {}
      },
      hideControls: {
           restart: false,
@@ -54,18 +52,44 @@ function initTask(subTask) {
 		//
 	])
 },
-<<<<<<< HEAD
-     ignoreInvalidMoves: false,
-     border: 0.02,
-     backgroundColour: "white",
-     backgroundTile: "",
-     borderColour: "black",
-     showLabels: true,
-     cellSide: 60,
-     numberOfRobots: 1,
-=======
->>>>>>> novGenerator
-     itemTypes: {}
+     itemTypes: {
+          robot0: {
+               category: [
+                    {
+                         'robot': true
+                    }
+               ],
+               img: [
+                    "characters/avto.png"
+               ],
+               zOrder: 10,
+               nbStates: 8
+          },
+          obstacle0: {
+               num: 4,
+               category: [
+                    {
+                         'obstacle': true
+                    }
+               ],
+               img: [
+                    "objects/banana.png"
+               ],
+               zOrder: 5
+          },
+          robot1: {
+               category: [
+                    {
+                         'robot': true
+                    }
+               ],
+               img: [
+                    "characters/avto.png"
+               ],
+               zOrder: 10,
+               nbStates: 8
+          }
+     }
 };
 subTask.data = {
      easy: [

@@ -36,8 +36,8 @@ class Itemtypes:
         elif cat == "button":
             item = Button(name = itemName, num = num, category = cats, images = parameters, zOrder = 2, id = id)
             self.addItem(item)
-        elif cat in ["image", "transportable","obstacle"]:
-            item = ItemType(name = itemName, num = num, category = cats, images = parameters, zOrder = 3)
+        elif cat in ["image", "transportable","obstacle", "coin"]:
+            item = ItemType(name = itemName, num = num, category = cats, images = parameters)
             self.addItem(item)
 
     def updateItemList(self):

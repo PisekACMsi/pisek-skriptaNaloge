@@ -355,8 +355,7 @@ def addToMatrix():
     itemName = bottle.request.forms.get("itemName")
     itemRow = int(bottle.request.forms.get("itemRow"))
     itemCol = int(bottle.request.forms.get("itemCol"))
-    newActiveExample = int(bottle.request.forms.get("activeExample"))
-
+    newActiveExample = 1 #int(bottle.request.forms.get("activeExample"))
     itemNumber = generator2.itemTypes.items[itemName].num
     generator2.subTaskData.examples[newActiveExample-1].addToMatrix(itemNumber, itemName, itemRow, itemCol)
     generator2.createFile()

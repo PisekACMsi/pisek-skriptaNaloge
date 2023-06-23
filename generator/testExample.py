@@ -12,7 +12,7 @@ class TestExample:
             self.inicialisation.dellAllInitialization(objectName)
             self.inicialisation.addInitialization(objectName, row, col)
         else:
-            added = self.matrix.addItem(row, col, objectNum, objectName)
+            added = self.matrix.addItem(row, col, objectNum)
             if not added:
                 self.inicialisation.addInitialization(objectName, row, col)
 

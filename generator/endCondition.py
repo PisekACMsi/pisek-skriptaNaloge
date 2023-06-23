@@ -63,8 +63,7 @@ class EndCondition():
         template = openFile.read()
         template = "&#&" + template.replace("funkcija1", self.funkcija1).replace("funkcija2", self.funkcija2) + "&#&"
         pySlv = {"checkEndCondition": template}
-        openFile.close() 
-        print(pySlv)   
+        openFile.close()  
         return pySlv
         
 

@@ -286,7 +286,7 @@ function refreshScene(path) {
       "itemName": document.getElementById('added-item-to-matrix').value,
       "itemRow": document.getElementById('add-coord-row').value,
       "itemCol": document.getElementById('add-coord-col').value,
-      "activeExample": document.getElementById('test-example-option').value,
+      // "activeExample": document.getElementById('test-example-option').value,
     }
   }
   else if (path == "removeFromMatrix"){
@@ -294,7 +294,7 @@ function refreshScene(path) {
       "itemName": document.getElementById('added-item-to-matrix').value,
       "itemRow": document.getElementById('add-coord-row').value,
       "itemCol": document.getElementById('add-coord-col').value,
-      "activeExample": document.getElementById('test-example-option').value,
+      // "activeExample": document.getElementById('test-example-option').value,
     }
   }
   else if (path == "removeItem"){
