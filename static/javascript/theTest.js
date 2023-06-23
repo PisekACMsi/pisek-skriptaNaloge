@@ -1,19 +1,7 @@
 function initTask(subTask) {
  subTask.gridInfos = {
      languageStrings: {
-          sl: {
-               label: {
-<<<<<<< HEAD
-                    jump1d: "qweqwe"
-=======
-                    jump1d: "dddd",
-                    forward: "gg"
-               },
-               errors: {
-                    unknownType: "gg"
->>>>>>> 45232d0e76e206be69b56e0a3067614d45c66286
-               }
-          }
+          sl: {}
      },
      hideControls: {
           restart: false,
@@ -34,11 +22,7 @@ function initTask(subTask) {
      },
      actionDelay: 400,
      blocklyColourTheme: "bwinf",
-<<<<<<< HEAD
-     maxInstructions: 666,
-=======
-     maxInstructions: 11,
->>>>>>> 45232d0e76e206be69b56e0a3067614d45c66286
+     maxInstructions: 0,
      includeBlocks: {
           groupByCategory: true,
           generatedBlocks: {
@@ -46,9 +30,7 @@ function initTask(subTask) {
           },
           standardBlocks: {
                includeAll: false,
-               wholeCategories: [
-                    "logic"
-               ],
+               wholeCategories: [],
                singleBlocks: [],
                excludedBlocks: []
           }
@@ -71,12 +53,24 @@ function initTask(subTask) {
      showLabels: true,
      cellSide: 60,
      numberOfRobots: 1,
-     itemTypes: {}
+     itemTypes: {
+          number0: {
+               num: 3,
+               zOrder: 4,
+               category: [
+                    {
+                         "number": true
+                    }
+               ],
+               value: "0",
+               image:[""]
+          }
+     }
 };
 subTask.data = {
      easy: [
           {
-               tiles: [[1, 1, 1, 1, 1], 
+               tiles: [[3, 1, 1, 1, 1], 
  [1, 1, 1, 1, 1], 
  [1, 1, 1, 1, 1], 
  [1, 1, 1, 1, 1], 
