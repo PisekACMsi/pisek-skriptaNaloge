@@ -12,17 +12,28 @@ function initTask(subTask) {
           nextStep: false,
           goToEnd: false
      },
-     hasGravity: false,
-     introMaxHeight: "33%",
-     maxListSize: 100,
-     scrollbars: true,
      zoom: {
           controls: true,
           scale: 1
      },
+     hasGravity: false,
+     introMaxHeight: "33%",
+     maxListSize: 100,
+     scrollbars: true,
      actionDelay: 400,
      blocklyColourTheme: "bwinf",
      maxInstructions: 0,
+     ignoreInvalidMoves: false,
+     border: 0.02,
+     backgroundColour: "white",
+     backgroundTile: "",
+     borderColour: "black",
+     showLabels: true,
+     cellSide: 60,
+     numberOfRobots: 1,
+     startingExample: {
+          blockly: ""
+     },
      includeBlocks: {
           groupByCategory: true,
           generatedBlocks: {
@@ -35,25 +46,50 @@ function initTask(subTask) {
                excludedBlocks: []
           }
      },
-     startingExample: {
-          blockly: ""
-     },
-     checkEndEveryTurn: false,
      checkEndCondition: (context, lastTurn) => { 
 	robotEndConditions.checkCombiner(context, lastTurn, [
 		//,
 		//
 	])
 },
-     ignoreInvalidMoves: false,
-     border: 0.02,
-     backgroundColour: "white",
-     backgroundTile: "",
-     borderColour: "black",
-     showLabels: true,
-     cellSide: 60,
-     numberOfRobots: 1,
-     itemTypes: {}
+     itemTypes: {
+          robot0: {
+               category: [
+                    {
+                         'robot': true
+                    }
+               ],
+               img: [
+                    "characters/avto.png"
+               ],
+               zOrder: 10,
+               nbStates: 8
+          },
+          obstacle0: {
+               num: 4,
+               category: [
+                    {
+                         'obstacle': true
+                    }
+               ],
+               img: [
+                    "objects/banana.png"
+               ],
+               zOrder: 5
+          },
+          robot1: {
+               category: [
+                    {
+                         'robot': true
+                    }
+               ],
+               img: [
+                    "characters/avto.png"
+               ],
+               zOrder: 10,
+               nbStates: 8
+          }
+     }
 };
 subTask.data = {
      easy: [

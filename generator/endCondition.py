@@ -24,13 +24,21 @@ class EndCondition():
         self.createConditions()
     
     def createConditions(self):
+        filters1 = r"{}"
+        negFilters1 = r"{}"
+        filtersA = r"{}"
+        filtersB = r"{}"
+        keys = r"[]"
+        
+        negFiltersA = r"{}"
+        negFiltersB = r"{}"
         if (self.cond["indikator1"] == "" or self.cond["ime1"] == "") and (self.cond["negIndikator1"] == "" or self.cond["negIme1"] == ""):
             self.funkcija1 = r"//"
         else:
             if self.cond["indikator1"] != "" and self.cond["ime1"] != "":
-                filters1 = "{%s: \\%s\\}"%(self.cond[0], self.cond[1])
+                filters1 = "{%s: \\%s\\}"%(self.cond["indikator1"], self.cond["ime1"])
             if self.cond["negIndikator1"] != "" and self.cond["negIme1"] != "":
-                negFilters1 = "{%s: \\%s\\}"%(self.cond[2], self.cond[3])
+                negFilters1 = "{%s: \\%s\\}"%(self.cond["negIndikator1"], self.cond["negIme1"])
             endCond1 = "robotEndConditions.checkItemExistence(context, lastTurn, filters1, negFilters1, exist=false)".replace("filters1", filters1).replace("negFilters1", negFilters1)
             self.funkcija1 = "(context, lastTurn) => { %s }"%(endCond1)
 
@@ -55,7 +63,7 @@ class EndCondition():
         template = openFile.read()
         template = "&#&" + template.replace("funkcija1", self.funkcija1).replace("funkcija2", self.funkcija2) + "&#&"
         pySlv = {"checkEndCondition": template}
-        openFile.close()    
+        openFile.close()  
         return pySlv
         
 
