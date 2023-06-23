@@ -443,45 +443,58 @@
                   </div>
 
                   <h4>Ustvari objekt</h4>
-                  <div class="row" style="margin-bottom: 0,5rem;">
-                    <div class="col-3">
-                      <label for="imeB">Tip predmeta</label>
-                      <select id="default-item-category" class="form-select" name="defaultItemCategory">
-                        <option selected="selected">obstacle</option>
-                        <option>transportable</option>
-                        <option>coin</option>
-                        <option>image</option>
-                      </select>
-                    </div>
-                    <div class="col-3">
-                      <label for="obstacleImage">Slika</label>
-                      <select id="default-item-image" class="form-select" name="defaultItemImage">
-                        <option value="">Izberi...</option>
-                        % for object in objects:
-                        <option>{{object}}</option>
-                        %end
-                      </select>
-                    </div>
-                    <div class="col-3 align-self-end">
-                      <button class="btn btn-secondary" type="button" hx-swap="none" hx-target="body"
-                        onclick="refreshScene('defaultItem')">Ustvari objekt</button>
+                    
+                    <div class="row">
+                      <div class="col-md-12">
+                        <div class="input-group">
+                          <div class="input-group-prepend">
+                            <label class="input-group-text" for="default-item-category">Tip predmeta</label>
+                          </div>
+                          <select id="default-item-category" class="form-select" name="defaultItemCategory">
+                            <option selected="selected">obstacle</option>
+                            <option>transportable</option>
+                            <option>coin</option>
+                            <option>image</option>
+                          </select>
+                          <div class="input-group-prepend">
+                            <label class="input-group-text" for="default-item-image">Slika</label>
+                          </div>
+                          <select id="default-item-image" class="form-select" name="defaultItemImage">
+                            <option value="">Izberi...</option>
+                            % for object in objects:
+                            <option>{{object}}</option>
+                            %end
+                          </select>
+                        <div class = "input-group-prepend">
+                            <button class="btn btn-outline-primary" type="button" hx-swap="none" hx-target="body"
+                              onclick="refreshScene('defaultItem')">Ustvari objekt</button>
+                        </div>
+                        </div>
+                      </div>
                     </div>
 
-                    <div class="row" style="margin-bottom: 2rem;">
-                      <div class="col-3">
-                        <label for="imeB">Tip predmeta</label>
-                        <select id="polje" class="form-select">
-                          <option selected="selected">Število</option>
-                        </select>
+                      <div class="row" style = "margin-top: 1.5rem;">
+                        <div class="col-md-12">
+                          <div class="input-group">
+                            <div class="input-group-prepend">
+                              <label class="input-group-text" for="polje">Tip predmeta</label>
+                            </div>
+                            <select id="polje" class="form-select">
+                              <option selected="selected">Število</option>
+                            </select>
+                            <div class="input-group-prepend">
+                              <label class = "input input-group-text" for="obstacleImage">Vrednost</label>
+                            </div>
+                            <input class="form-control" id="default-item-number" name="defaultItemNumber" value="0">
+                          <div class = "input-group-prepend">
+                            <button class="btn btn-outline-primary" type="button" hx-post="/defaultNumber" hx-swap="none"
+                            hx-target="body" onclick="refreshScene('defaultNumber')">Ustvari Število</button>
+                          </div>
+                          </div>
+                        </div>
                       </div>
-                      <div class="col-3">
-                        <label for="obstacleImage">Vrednost</label>
-                        <input class="form-control" id="default-item-number" name="defaultItemNumber" value="0">
-                      </div>
-                      <div class="col-3 align-self-end">
-                        <button class="btn btn-secondary" type="button" hx-post="/defaultNumber" hx-swap="none"
-                          hx-target="body" onclick="refreshScene('defaultNumber')">Ustvari Število</button>
-                      </div>
+
+
 
                       <div class="row" style="margin-bottom: 1rem;">
                         <div class="col-3" style="margin-bottom: 0,5rem;">
