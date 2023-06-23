@@ -40,8 +40,10 @@
     <div class="container">
       <main>
         <div class="py-5 text-center">
-          <img class="d-block mx-auto mb-4 animate__animated animate__lightSpeedInLeft" src="../static/img/pisek.png"
-            alt="" width="72" height="57">
+          <a href="views/naloga.html" target="_blank">
+            <img class="d-block mx-auto mb-4 animate__animated animate__lightSpeedInLeft"
+              src="../static/img/pisek.png" alt="" width="72" height="57">
+          </a>
           <h1 class="animate__animated animate__lightSpeedInRight">Pišek generator nalog</h1>
         </div>
 
@@ -58,38 +60,28 @@
                     <i class="fas fa-info-circle" style="vertical-align: middle;"></i>
                   </span>
                   <!---->
-                  <div class="input-group mb-3">
-                    <div class="custom-file">
-                        <input type="file" class="custom-file-input" id="inputGroupFile02">
-                        <label class="custom-file-label" for="inputGroupFile02">Poišči</label>
-                    </div>
-                    <div class="input-group-append">
-                        <span class="input-group-text" id="upload-image-robot" onclick="uploadImage('characters')">Naloži</span>
-                    </div>
+
+                  <div class="col-md-4 mb-6">
+                    <div class="input-group">
+                    <select class="form-select" id="picture-type">
+                      <option selected="selected" value="">Izberi tip slike</option>
+                      <option>Robot</option>
+                      <option>Ozadje</option>
+                      <option>Predmet</option>
+                    </select>
+                  </div>
+                  </div>
+
+                <div class="row g-3">
+                  <div class="col-12">
+                    <label for="naslov" class="form-label">Izberi sliko</label>
+                    <form id="uploadForm">
+                      <input type="file" name="imageFile" accept="image/*" id="upload-image">
+                      <input type="button" value="Upload Image" onclick="uploadImage()">
+                    </form>
+                  </div>
                 </div>
                 
-                  <div class="row g-3">
-                    <div class="col-12">
-                    </div>
-                  </div>
-                  <div class="row g-3">
-                    <div class="col-12">
-                      <label for="naslov" class="form-label">Slika ozadja</label>
-                      <form id="uploadForm">
-                        <input type="file" name="imageFile" accept="image/*" id="upload-image-tile">
-                        <input type="button" value="Upload Image" onclick="uploadImage('tiles')">
-                      </form>
-                    </div>
-                  </div>
-                  <div class="row g-3">
-                    <div class="col-12">
-                      <label for="naslov" class="form-label">Slika predmeta</label>
-                      <form id="uploadForm">
-                        <input type="file" name="imageFile" accept="image/*" id="upload-image-object">
-                        <input type="button" value="Upload Image" onclick="uploadImage('objects')">
-                      </form>
-                    </div>
-                  </div>
                 </div>
               </div>
 

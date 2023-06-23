@@ -428,6 +428,7 @@ def update_item_types():
 
 @bottle.post("/uploadImage")
 def update_item_types():
+    print("KAJMA")
     image = bottle.request.files.get('imageFile')
     path = bottle.request.forms.get('path')
 

@@ -489,15 +489,19 @@ function resetAll(){
   location.reload();
 }
 
-function uploadImage(path){
-  if(path=="characters"){
+function uploadImage(){
+  var path = document.getElementById('upload-image');
+  if(path=="Robot"){
     var fileInput = document.getElementById('upload-image-robot');
+    path = "charactersUser";
   }
-  else if(path=="tiles"){
+  else if(path=="Ozadje"){
     var fileInput = document.getElementById('upload-image-tile');
+    path = "tilesUser";
   }
-  else if(path=="objects"){
+  else if(path=="Predmet"){
     var fileInput = document.getElementById('upload-image-object');
+    path = "objectsUser";
   }
   
   // Create a new FormData object
