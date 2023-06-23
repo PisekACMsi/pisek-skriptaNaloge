@@ -108,7 +108,7 @@
                     <div class="col-12">
                       <label for="besedilo" class="form-label">Besedilo naloge</label>
                       <input type="text" class="form-control" id="exercise-text" name="exerciseText"
-                        placeholder="Besedilo naloge">
+                        placeholder="Miha in Piki trenirata na pasjem poligonu. Najprej mora Miha odpreti vrata Pikiju.">
                       <div class="invalid-feedback">
                         Polje ne sme biti prazno!
                       </div>
@@ -200,17 +200,6 @@
                     </div>
                   </div>
                   <br>
-                  <div class="row">
-                    <button id="button-update-language-strings" class="btn btn-secondary" type="button" hx-swap="none"
-                      onclick="updateBlocks()">Posodobi delčke</button>
-                  </div>
-                  <div class="row">
-                    <label for="email" class="form-label">Tekst</label>
-                    <div class="col-md-12">
-                      Imena delčkov
-                      <select class="form-select" id="select-LS" name="imenaDelckov">
-                        {{! languageStrings}}
-                      </select>
 
 
                   <div class="d-inline-block">
@@ -245,7 +234,6 @@
                     <form id="upload-form" enctype="multipart/form-data">
                       <input type="file" id="upload-starting-example-file" name="file" accept=".txt">
                       <input type="button" value="Naloži delčke" onclick="uploadStartingExample()">
-                      <button id="button-update-language-strings" class="btn btn-secondary" type="button" hx-swap="none" onclick="deleteStartingExample()">Izbriši delčke</button>
                     </form>
                   </div>
                 </div>
