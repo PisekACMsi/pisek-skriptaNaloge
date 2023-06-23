@@ -1,4 +1,18 @@
 
 .card {
-    background: gold;
-  }
+    border-radius: 10px !important; 
+    
+}
+.card-body{
+    
+    border-radius: 10px;
+    background-color: rgb(245, 250, 254);
+}
+
+body {
+    background-image: linear-gradient(to right top, #5b5b5b, #8d6d82, #cf7a80, #f29a5d, #dcd13f) !important; 
+}
+h1{
+    color: rgb(255, 253, 210) !important;
+}
+

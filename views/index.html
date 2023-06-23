@@ -25,10 +25,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css" rel="stylesheet">
-  <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
-    />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
 </head>
 
 <!--Zakaj se to uporabla??-->
@@ -38,13 +35,14 @@
 <!---->
 </head>
 
-<body style="background-color: #c7ddf8;">
+<body>
   <form method="POST" action="/">
     <div class="container">
       <main>
         <div class="py-5 text-center">
-          <img class="d-block mx-auto mb-4 animate__animated animate__lightSpeedInLeft" src="../static/img/pisek.png" alt="" width="72" height="57">
-          <h2 class ="animate__animated animate__lightSpeedInRight">Pišek generator nalog</h2>
+          <img class="d-block mx-auto mb-4 animate__animated animate__lightSpeedInLeft" src="../static/img/pisek.png"
+            alt="" width="72" height="57">
+          <h1 class="animate__animated animate__lightSpeedInRight">Pišek generator nalog</h1>
         </div>
 
         <div class="row justify-content-center">
@@ -60,13 +58,18 @@
                     <i class="fas fa-info-circle" style="vertical-align: middle;"></i>
                   </span>
                   <!---->
+                  <div class="input-group mb-3">
+                    <div class="custom-file">
+                        <input type="file" class="custom-file-input" id="inputGroupFile02">
+                        <label class="custom-file-label" for="inputGroupFile02">Poišči</label>
+                    </div>
+                    <div class="input-group-append">
+                        <span class="input-group-text" id="upload-image-robot" onclick="uploadImage('characters')">Naloži</span>
+                    </div>
+                </div>
+                
                   <div class="row g-3">
                     <div class="col-12">
-                      <label for="naslov" class="form-label">Slika robota</label><br>
-                      <form id="uploadForm">
-                        <input type="file" name="imageFile" accept="image/*" id="upload-image-robot">
-                        <input type="button" value="Upload Image" onclick="uploadImage('characters')">
-                      </form>
                     </div>
                   </div>
                   <div class="row g-3">
@@ -719,7 +722,7 @@
                 -->
 
 
-                  <div class="row" style="margin-top: 1.5rem;">
+                  <div class="row" style="margin-top: 1.5rem;margin-bottom: 1.5rem;">
                     <div class="col-md-12">
                       <div class="input-group">
                         <div class="input-group-prepend">
@@ -769,39 +772,51 @@
                     </div>
                   </div>
                 -->
+                </div>
+              </div>
+            </div>
+          </div>
 
-                  <div class="col-md-12">
-                    <img id="slika2" src="" onerror="this.onerror=null; this.remove();"
-                      style="max-width: 200px; max-height: 200px; object-fit: contain; margin-bottom: 1.5rem;">
-                  </div>
-                  <div class="col-12 text-center" style="margin-top: 10rem;">
-                    <div class="row">
-                      <div class="col-md-6 mx-auto">
-                        <button class="btn btn-outline-danger col-md-4 " type="button" onclick="resetAll()">
-                          <i class="bi bi-arrow-clockwise"></i> Ponastavi
-                        </button>
-                        <button class="btn btn-outline-primary col-md-6" type="button" onclick="downloadFiles()">
-                          <i class="bi bi-box-arrow-down"></i> Prenesi datoteke
-                        </button>
+          <div class="row justify-content-center">
+            <div class="col-md-12 col-lg-12">
+              <div class="card" style="margin-bottom: 2rem;">
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div class="d-flex justify-content-between align-items-center" style="margin-bottom: 1.5rem;">
+                        <h3 class="d-inline align-middle">Končni izgled naloge</h3>
+                        <button class="btn btn-primary">nov zavihek <i class="bi bi-link-45deg"></i></button>
                       </div>
+                      <iframe src="views/naloga.html" id="pisek-iframe" onload="this.width=screen.width;this.height=screen.height;" style="width: 100%;"></iframe>
                     </div>
                   </div>
                   
-                  
-                  
-                  
-                  
+                <div class="col-md-12">
+                  <img id="slika2" src="" onerror="this.onerror=null; this.remove();"
+                    style="max-width: 200px; max-height: 200px; object-fit: contain; margin-bottom: 1.5rem;">
+                </div>
+                <div class="col-12 text-center" style="margin-top: 3rem;">
+                  <div class="row" style="margin-bottom: 1.5rem;">
+                    <div class="col-md-6 mx-auto">
+                      <button class="btn btn-outline-danger col-md-4 " type="button" onclick="resetAll()">
+                        <i class="bi bi-arrow-clockwise"></i> Ponastavi
+                      </button>
+                      <button class="btn btn-outline-primary col-md-6" type="button" onclick="downloadFiles()">
+                        <i class="bi bi-box-arrow-down"></i> Prenesi datoteke
+                      </button>
+                    </div>
+                  </div>
+                </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-      </main>
+    </div>
+    </main>
     </div>
   </form>
   <script src="../static/javascript/script.js"></script>
-
-  <!-- <iframe src="views/naloga.html" id = "pisek-iframe" onload="this.width=screen.width;this.height=screen.height;"></iframe>  -->
 
   <footer class="my-5 pt-5 text-muted text-center text-small">
     <p class="mb-1">&copy; 2023 Pišek</p>
