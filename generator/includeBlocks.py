@@ -14,6 +14,7 @@ class IncludeBlocks:
     
     def addRobotBlock(self, block):
         self.robotBlocks.append(block)
+    
 
     def represent(self):
         return {"includeBlocks":{"groupByCategory":self.groupByCategory, "generatedBlocks":{"robot":self.robotBlocks}, "standardBlocks":{"includeAll":self.includeAll}, "wholeCategories":self.categoryBlocks, "singleBlocks":self.individualBlocks, "excludedBlocks":[]}}

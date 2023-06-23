@@ -466,7 +466,7 @@ def update_item_types():
 
 def start_bottle():
     print("ZAGANJAM BOTTLE")
-    generator.resetVariables()
-    generator.ustvariSkripto()
-    #Zaženemo bottle
-    bottle.run(host='localhost', port=8081, debug=True)
+    # generator.resetVariables()
+    # generator.ustvariSkripto()
+    # #Zaženemo bottle
+    # bottle.run(host='localhost', port=8081, debug=True)
