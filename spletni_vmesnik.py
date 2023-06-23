@@ -1,13 +1,14 @@
 import sys
-sys.path.insert(1, './')
+sys.path.insert(1, 'generator/')
+from naloga import *
 import bottle 
-import generator
+import generatorStari
 import skripta
 import json
 import flatdict
 import urllib.parse
 import os
-from naloga import *
+
 
 # caution: path[0] is reserved for script path (or '' in REPL)
 
@@ -168,7 +169,7 @@ def home_get():
     objects = skripta.preberi_vsa_imena_slik("objects")
     
     languageStrings = generator2.languageStrings.languageStringsHtml(0)
-    
+
     scene = generator2.itemTypes.createItemTypesHtmlString()
 
     htmlListTypes = generator2.itemTypes.updateItemTypesHtmlString()
@@ -240,8 +241,8 @@ def updateBlocks():
 
 @bottle.post("/deleteStartingExample")
 def deleteStartingExample():
-    generator.strSE = ""
-    generator.ustvariSkripto()
+    generatorStari.strSE = ""
+    generatorStari.ustvariSkripto()
 
 @bottle.post("/updateEndConditions")
 def updateEndConditions():
@@ -272,18 +273,18 @@ def dodajItem():
     zOrder = int(bottle.request.forms.get("itemZOrder"))
     buttonId = int(bottle.request.forms.get("buttonId"))
     itemColors = json.loads(bottle.request.forms.get("itemColor"))
-    generator.itemSpecifications["name"] = itemName
-    generator.itemSpecifications["img"] = itemImages
-    generator.itemSpecifications["value"] = itemValue
-    generator.itemSpecifications["zOrder"] = zOrder
-    generator.itemSpecifications["color"] = itemColors
-    generator.itemSpecifications["id"] = buttonId + 1
+    generatorStari.itemSpecifications["name"] = itemName
+    generatorStari.itemSpecifications["img"] = itemImages
+    generatorStari.itemSpecifications["value"] = itemValue
+    generatorStari.itemSpecifications["zOrder"] = zOrder
+    generatorStari.itemSpecifications["color"] = itemColors
+    generatorStari.itemSpecifications["id"] = buttonId + 1
     
     for cat in itemCategorys:
-        generator.catIT[cat] = True
+        generatorStari.catIT[cat] = True
     
-    generator.dodajItemType() #kliče naj se z gumbom ustvari
-    generator.ustvariSkripto()
+    generatorStari.dodajItemType() #kliče naj se z gumbom ustvari
+    generatorStari.ustvariSkripto()
     bottle.redirect("/")
 
 @bottle.post("/defaultItem")
@@ -391,8 +392,8 @@ def addRobot():
 def createNewCategory():
     print("CREATE NEW CATEGORY")
     category = bottle.request.forms.get("category")
-    generator.catIT[category] = False
-    return generator.updateCategoryOptionsHtmlString()
+    generatorStari.catIT[category] = False
+    return generatorStari.updateCategoryOptionsHtmlString()
 
 @bottle.post("/removeItem") 
 def deleteItem():

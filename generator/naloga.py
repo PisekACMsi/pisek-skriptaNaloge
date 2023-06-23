@@ -39,7 +39,7 @@ class Naloga:
         str2 = "subTask.data = {};".format(jsString2)
 
         theString = "function initTask(subTask) {{\n {0}\n{1}\ninitBlocklySubTask(subTask); \n}}".format(str1, str2)
-        fajl = open("generator/theTest.js", "w", encoding = "utf-8")
+        fajl = open("static/javascript/theTest.js", "w", encoding = "utf-8")
         fajl.write(theString)
         fajl.close()
 
