@@ -24,6 +24,11 @@
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.bundle.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css" rel="stylesheet">
+  <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+    />
 </head>
 
 <!--Zakaj se to uporabla??-->
@@ -38,8 +43,8 @@
     <div class="container">
       <main>
         <div class="py-5 text-center">
-          <img class="d-block mx-auto mb-4" src="../static/img/pisek.png" alt="" width="72" height="57">
-          <h2>Pišek generator nalog</h2>
+          <img class="d-block mx-auto mb-4 animate__animated animate__lightSpeedInLeft" src="../static/img/pisek.png" alt="" width="72" height="57">
+          <h2 class ="animate__animated animate__lightSpeedInRight">Pišek generator nalog</h2>
         </div>
 
         <div class="row justify-content-center">
@@ -179,7 +184,7 @@
                       </select>
                     </div>
                   </div>
-                  <div class="form-check mb-3" style = "margin-top: 1rem;">
+                  <div class="form-check mb-3" style="margin-top: 1rem;">
                     <input type="checkbox" class="form-check-input" id="group-by-category" name="groupByCategory"
                       checked>
                     <label class="form-check-label" for="groupByCategory">Grupiraj po kategoriji</label>
@@ -337,7 +342,7 @@
                     </span>
                     <!---->
                   </div>
-                  <h5  style="margin-top: 1.5rem;">Preveri obstoj predmetov</h5>
+                  <h5 style="margin-top: 1.5rem;">Preveri obstoj predmetov</h5>
                   <div class="row">
                     <div class="col-md-12">
                       <div class="input-group">
@@ -446,335 +451,354 @@
                   </div>
 
                   <h4>Ustvari objekt</h4>
-                    
-                    <div class="row">
-                      <div class="col-md-12">
-                        <div class="input-group">
-                          <div class="input-group-prepend">
-                            <label class="input-group-text" for="default-item-category">Tip predmeta</label>
-                          </div>
-                          <select id="default-item-category" class="form-select" name="defaultItemCategory">
-                            <option selected="selected">obstacle</option>
-                            <option>transportable</option>
-                            <option>coin</option>
-                            <option>image</option>
-                          </select>
-                          <div class="input-group-prepend">
-                            <label class="input-group-text" for="default-item-image">Slika</label>
-                          </div>
-                          <select id="default-item-image" class="form-select" name="defaultItemImage">
-                            <option value="">Izberi...</option>
-                            % for object in objects:
-                            <option>{{object}}</option>
-                            %end
-                          </select>
-                        <div class = "input-group-prepend">
-                            <button class="btn btn-outline-primary" type="button" hx-swap="none" hx-target="body"
-                              onclick="refreshScene('defaultItem')">Ustvari objekt</button>
-                        </div>
-                        </div>
-                      </div>
-                    </div>
 
-                      <div class="row" style = "margin-top: 1.5rem;">
-                        <div class="col-md-12">
-                          <div class="input-group">
-                            <div class="input-group-prepend">
-                              <label class="input-group-text" for="polje">Tip predmeta</label>
-                            </div>
-                            <select id="polje" class="form-select">
-                              <option selected="selected">Število</option>
-                            </select>
-                            <div class="input-group-prepend">
-                              <label class = "input input-group-text" for="obstacleImage">Vrednost</label>
-                            </div>
-                            <input class="form-control" id="default-item-number" name="defaultItemNumber" value="0" type="number">
-                          <div class = "input-group-prepend">
-                            <button class="btn btn-outline-primary" type="button" hx-post="/defaultNumber" hx-swap="none"
-                            hx-target="body" onclick="refreshScene('defaultNumber')">Ustvari Število</button>
-                          </div>
-                          </div>
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div class="input-group">
+                        <div class="input-group-prepend">
+                          <label class="input-group-text" for="default-item-category">Tip predmeta</label>
+                        </div>
+                        <select id="default-item-category" class="form-select" name="defaultItemCategory">
+                          <option selected="selected">obstacle</option>
+                          <option>transportable</option>
+                          <option>coin</option>
+                          <option>image</option>
+                        </select>
+                        <div class="input-group-prepend">
+                          <label class="input-group-text" for="default-item-image">Slika</label>
+                        </div>
+                        <select id="default-item-image" class="form-select" name="defaultItemImage">
+                          <option value="">Izberi...</option>
+                          % for object in objects:
+                          <option>{{object}}</option>
+                          %end
+                        </select>
+                        <div class="input-group-prepend">
+                          <button class="btn btn-outline-primary" type="button" hx-swap="none" hx-target="body"
+                            onclick="refreshScene('defaultItem')">Ustvari objekt</button>
                         </div>
                       </div>
-
-
-                      <div class="row" style = "margin-top: 1.5rem;">
-                        <div class="col-md-12">
-                          <div class="input-group">
-                            <div class="input-group-prepend">
-                              <label class="input-group-text" for="object-color">Tip predmeta</label>
-                            </div>
-                            <select id="object-color" class="form-select">
-                              <option selected="selected">Barva</option>
-                            </select>
-                            <div class="input-group-prepend">
-                              <label class = "input input-group-text" for="itemColorSelector">Vrednost</label>
-                            </div>
-                            <select id="default-item-color" class="form-select" name="defaultItemColor">
-                              <option>Azure</option>
-                              <option>Black</option>
-                              <option>Blue</option>
-                              <option>Brown</option>
-                              <option>DarkRed</option>
-                              <option>Green</option>
-                              <option>Grey</option>
-                              <option>Lime</option>
-                              <option>Magenta</option>
-                              <option>Orange</option>
-                              <option>Purple</option>
-                              <option>Red</option>
-                              <option>White</option>
-                              <option>Yellow</option>
-                            </select>
-                          <div class = "input-group-prepend">
-                            <button class="btn btn-outline-primary" type="button" hx-swap="none" hx-target="body"
-                            onclick="refreshScene('defaultColor')">Ustvari barvo</button>
-                          </div>
-                          </div>
-                        </div>
-                      </div>
-
-
-                      <div class="row" style = "margin-top: 1.5rem;">
-                        <div class="col-md-12">
-                          <div class="input-group">
-                            <div class="input-group-prepend">
-                              <label class="input-group-text" for="object-button">Tip predmeta</label>
-                            </div>
-                            <select id="object-button" class="form-select">
-                              <option selected="selected">Gumb</option>
-                            </select>
-                            <div class="input-group-prepend">
-                              <label class = "input input-group-text" for="create-button-on">Gumb on</label>
-                            </div>
-                            <select id="create-button-on" class="form-select" name="defaultButtonOnImage">
-                              <option value="">Neviden gumb</option>
-                              %for butt in objects:
-                              <option>{{butt}}</option>
-                              %end
-                            </select>
-                            <div class="input-group-prepend">
-                              <label class = "input input-group-text" for="create-button-off">Gumb on</label>
-                            </div>
-                            <select id="default-button-off-image" class="form-select" name="defaultButtonOffImage">
-                              <option value="">Neviden gumb</option>
-                              %for butt in objects:
-                              <option>{{butt}}</option>
-                              %end
-                            </select>
-                          <div class = "input-group-prepend">
-                            <button class="btn btn-outline-primary" type="button" hx-swap="none" hx-target="body"
-                            onclick="refreshScene('defaultButton')">Ustvari gumb</button>
-                          </div>
-                          </div>
-                        </div>
-                      </div>
-
-                      <h4 style = "margin-top: 1.5rem;">Ustvari novo kategorijo</h4>
-                      <div class="row" style = "margin-top: 1.5rem;">
-                        <div class="col-md-12">
-                          <div class="input-group">
-                            <input class="form-control" id="custom-category-name" name="customItemName"
-                            value="imeKategorije">
-                          <div class = "input-group-prepend">
-                            <button class="btn btn-outline-primary" type="button" hx-swap="none" hx-target="body"
-                            onclick="createNewCategory()">Ustvari novo kategorijo</button>
-                          </div>
-                          </div>
-                        </div>
-                      </div>
-
-                      <div class="d-inline-block" style="margin-top: 1.5rem;">
-                        <h4 class="d-inline align-middle">Ustvari svoj objekt</h4>
-                        <!--ICON delčki-->
-                        <span class="info-icon d-inline" data-toggle="tooltip" data-placement="top"
-                          title="Ustvariš lahko poljubno kategorijo, ki ne bo počela ničesar. Če želiš dodatne specifikacije lahko ustvariš svoj objekt. Izbereš lahko več kategorij, slik, barv ki se bodo menjale s pritiskom na gumb. Objekt lahko povežeš z gumbom šele, ko ustvariš gumb.">
-                          <i class="fas fa-info-circle" style="vertical-align: middle;"></i>
-                        </span>
-                        <!---->
-                      </div>
-
-
-
-                      <div class="row" style = "margin-top: 1.5rem;">
-                        <div class="col-md-12">
-                          <div class="input-group">
-                            <div class="input-group-prepend">
-                              <label for="custom-item-name" class = "input-group-text">Ime</label>
-                            </div>
-                            <input class="form-control" id="custom-item-name" name="customItemName" value="Ime">
-                            <div class="input-group-prepend">
-                              <label for="state" class = "input input-group-text" >Izberi kategorijo</label>
-                            </div>
-                            <select class="selectpicker" id="custom-item-category" name="customItemCategory" multiple>
-                              {{! customItemCategories}}
-                            </select>
-                            <div class="invalid-feedback">
-                              Polje ne sme biti prazno
-                            </div>
-                            <div class="input-group-prepend">
-                              <label for="state" class="input input-group-text">Izberi sliko</label>
-                            </div>
-                            <select class="selectpicker" id="custom-item-image" name="customItemImage" multiple>
-                              <option value="">Neviden objekt</option>
-                              % for object in objects:
-                              <option>{{object}}</option>
-                              %end
-                            </select>
-                          </div>
-                        </div>
-                      </div>
-
-                      <div class="row" style = "margin-top: 1.5rem;">
-                        <div class="col-md-12">
-                          <div class="input-group">
-                            <div class="input-group-prepend">
-                              <label for="custom-item-value" class="input-group-text">Vrednost</label>
-                            </div>
-                            <input class="form-control" id="custom-item-value" name="customItemValue" value="0" type ="number">
-                            <div class="input-group-prepend">
-                              <label for="custom-item-zorder" class ="input-group-text">zOrder</label>
-                            </div>
-                            <input class="form-control" id="custom-item-z-order" name="customItemZOrder" value="2" type ="number" min="1" max="7">
-                            <div class="invalid-feedback">
-                              Polje ne sme biti prazno
-                            </div>
-                            <div class="input-group-prepend">
-                              <label for="custom-button-id" class ="input-group-text">Poveži z gumbom</label>
-                            </div>
-                            <select id="custom-button-id" class="form-select" name="customButtonId">
-                              {{! buttonNames}}
-                            </select>
-                            <div class="input-group-prepend">
-                              <label for="custom-item-name" class ="input-group-text">barva</label>
-                            </div>
-                            <select id="custom-item-color" class="selectpicker" name="customItemColor" multiple>
-                              <option selected="selected">Azure</option>
-                              <option>Black</option>
-                              <option>Blue</option>
-                              <option>Brown</option>
-                              <option>DarkRed</option>
-                              <option>Green</option>
-                              <option>Grey</option>
-                              <option>Lime</option>
-                              <option>Magenta</option>
-                              <option>Orange</option>
-                              <option>Purple</option>
-                              <option>Red</option>
-                              <option>White</option>
-                              <option>Yellow</option>
-                            </select>
-                          </div>
-                          <div class="row mt-3">
-                            <div class="col-12 text-center">
-                              <button class="btn btn-outline-primary col-md-6 mx-auto" type="button" hx-swap="none" hx-target="body"
-                            onclick="refreshScene('customObject');">Ustvari predmet</button>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-
-
-
-
-                      <h4>Dodani Predmeti</h4>
-                      <div src="views/index.html" id="scene">
-                        {{! scene}}
-                      </div>
-
-                      <div class="d-inline-block">
-                        <h4 class="d-inline align-middle">Dodaj na mrežo</h4>
-                        <!--ICON delčki-->
-                        <span class="info-icon d-inline" data-toggle="tooltip" data-placement="top"
-                          title="Predmet dodaš na mrežo z izbiro njegovega imena, vpisom koordinat, ter pritiskom na DODAJ. Isti postopek za izbris predmeta. Če obstaja več testnih primerov, izberi testni primer na katerega želiš dodati objekt. Z izbrisom objekta bo objekt izbrisan iz vseh testnih primerov. Gumb ponastavi izbriše vse spremembe in vrne začetno stanje skripte. Za prenos datotek pritisni velik siv gumb PRENESI DATOTEKE.">
-
-                          <i class="fas fa-info-circle" style="vertical-align: middle;"></i>
-                        </span>
-                        <!---->
-
-                      </div>
-                      <div class="row" style="margin-bottom: 0.5rem;">
-                        <div class="col-6">
-                          <label for="id-aktivnega-primera">Testni primer </label>
-                          <select id="test-example-option" class="form-select">
-                            %for i in range(numOfExamples):
-                            <option>{{i+1}}</option>
-                            %end
-                          </select>
-                        </div>
-                        <div class="col-2 align-self-end">
-                          <button class="btn btn-secondary" type="button" hx-swap="none" hx-target="body"
-                            onclick="deleteExample()">Izbriši testni primer</button>
-                        </div>
-                      </div>
-                      <div class="row" style="margin-bottom: 2rem;">
-                        <div class="col-3">
-                          <label class="form-label">Ime objekta</label>
-                          <select id="added-item-to-matrix" class="form-select">
-                            {{! htmlListTypes}}
-                          </select>
-                          <div class="invalid-feedback">
-                            Polje ne sme biti prazno!
-                          </div>
-                        </div>
-                        <div class="col-2">
-                          <label for="add-coord-col" class="form-label">Koord. X</label>
-                          <input type="text" class="form-control" id="add-coord-col" name="coordCol"
-                            placeholder="vrstica" value="0">
-                          <div class="invalid-feedback">
-                            Polje ne sme biti prazno!
-                          </div>
-                        </div>
-
-                        <div class="col-2">
-                          <label for="add-coord-row" class="form-label">Koord. Y</label>
-                          <input type="text" class="form-control" id="add-coord-row" name="coordRow"
-                            placeholder="vrstica" value="0">
-                          <div class="invalid-feedback">
-                            Polje ne sme biti prazno!
-                          </div>
-                        </div>
-                        <div class="col-2 align-self-end">
-                          <button class="btn btn-secondary" type="button" hx-swap="none" hx-target="body"
-                            onclick="refreshScene('addToMatrix');">Dodaj</button>
-                        </div>
-                        <div class="col-2 align-self-end">
-                          <button class="btn btn-secondary" type="button" hx-swap="none" hx-target="body"
-                            onclick="refreshScene('removeFromMatrix');">Odstrani</button>
-                        </div>
-                      </div>
-
-                      <div class="row">
-                        <div class="col-3">
-                          <h6>Ime za izbris</h6>
-                          <select id="remove-item-name" class="form-select">
-                            {{! htmlListTypes}}
-                          </select>
-                          <div class="invalid-feedback">
-                            Polje ne sme biti prazno!
-                          </div>
-                        </div>
-                        <div class="col-3 align-self-end">
-                          <button class="btn btn-secondary" type="button" hx-swap="none" hx-target="body"
-                            onclick="refreshScene('removeItem');">Izbriši</button>
-                        </div>
-                      </div>
-
-                      <div class="col-md-12">
-                        <img id="slika2" src="" onerror="this.onerror=null; this.remove();"
-                          style="max-width: 200px; max-height: 200px; object-fit: contain; margin-bottom: 1.5rem;">
-                      </div>
-                      <button class="w-100 btn btn-primary btn-lg" style="margin-bottom: 10px;" type="button"
-                        onclick="resetAll()">Ponastavi</button>
-                      <button onclick="downloadFiles()">Prenesi datoteke</button>
                     </div>
                   </div>
+
+                  <div class="row" style="margin-top: 1.5rem;">
+                    <div class="col-md-12">
+                      <div class="input-group">
+                        <div class="input-group-prepend">
+                          <label class="input-group-text" for="polje">Tip predmeta</label>
+                        </div>
+                        <select id="polje" class="form-select">
+                          <option selected="selected">Število</option>
+                        </select>
+                        <div class="input-group-prepend">
+                          <label class="input input-group-text" for="obstacleImage">Vrednost</label>
+                        </div>
+                        <input class="form-control" id="default-item-number" name="defaultItemNumber" value="0"
+                          type="number">
+                        <div class="input-group-prepend">
+                          <button class="btn btn-outline-primary" type="button" hx-post="/defaultNumber" hx-swap="none"
+                            hx-target="body" onclick="refreshScene('defaultNumber')">Ustvari Število</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+
+                  <div class="row" style="margin-top: 1.5rem;">
+                    <div class="col-md-12">
+                      <div class="input-group">
+                        <div class="input-group-prepend">
+                          <label class="input-group-text" for="object-color">Tip predmeta</label>
+                        </div>
+                        <select id="object-color" class="form-select">
+                          <option selected="selected">Barva</option>
+                        </select>
+                        <div class="input-group-prepend">
+                          <label class="input input-group-text" for="itemColorSelector">Vrednost</label>
+                        </div>
+                        <select id="default-item-color" class="form-select" name="defaultItemColor">
+                          <option>Azure</option>
+                          <option>Black</option>
+                          <option>Blue</option>
+                          <option>Brown</option>
+                          <option>DarkRed</option>
+                          <option>Green</option>
+                          <option>Grey</option>
+                          <option>Lime</option>
+                          <option>Magenta</option>
+                          <option>Orange</option>
+                          <option>Purple</option>
+                          <option>Red</option>
+                          <option>White</option>
+                          <option>Yellow</option>
+                        </select>
+                        <div class="input-group-prepend">
+                          <button class="btn btn-outline-primary" type="button" hx-swap="none" hx-target="body"
+                            onclick="refreshScene('defaultColor')">Ustvari barvo</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+
+                  <div class="row" style="margin-top: 1.5rem;">
+                    <div class="col-md-12">
+                      <div class="input-group">
+                        <div class="input-group-prepend">
+                          <label class="input-group-text" for="polje">Tip predmeta</label>
+                        </div>
+                        <select id="polje" class="form-select">
+                          <option selected="selected">Gumb</option>
+                        </select>
+                        <div class="input-group-prepend">
+                          <label class="input input-group-text" for="default-button-on-image">Gumb on</label>
+                        </div>
+                        <select id="default-button-on-image" class="form-select" name="defaultButtonOnImage">
+                          <option value="">Neviden gumb</option>
+                          %for butt in objects:
+                          <option>{{butt}}</option>
+                          %end
+                        </select>
+                        <div class="input-group-prepend">
+                          <label class="input input-group-text" for="default-button-off-image">Gumb on</label>
+                        </div>
+                        <select id="default-button-off-image" class="form-select" name="defaultButtonOffImage">
+                          <option value="">Neviden gumb</option>
+                          %for butt in objects:
+                          <option>{{butt}}</option>
+                          %end
+                        </select>
+                        <div class="input-group-prepend">
+                          <button class="btn btn-outline-primary" type="button" hx-swap="none" hx-target="body"
+                            onclick="refreshScene('defaultButton')">Ustvari gumb</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <h4 style="margin-top: 1.5rem;">Ustvari novo kategorijo</h4>
+                  <div class="row" style="margin-top: 1.5rem;">
+                    <div class="col-md-12">
+                      <div class="input-group">
+                        <input class="form-control" id="custom-category-name" name="customItemName"
+                          value="imeKategorije">
+                        <div class="input-group-prepend">
+                          <button class="btn btn-outline-primary" type="button" hx-swap="none" hx-target="body"
+                            onclick="createNewCategory()">Ustvari novo kategorijo</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="d-inline-block" style="margin-top: 1.5rem;">
+                    <h4 class="d-inline align-middle">Ustvari svoj objekt</h4>
+                    <!--ICON delčki-->
+                    <span class="info-icon d-inline" data-toggle="tooltip" data-placement="top"
+                      title="Ustvariš lahko poljubno kategorijo, ki ne bo počela ničesar. Če želiš dodatne specifikacije lahko ustvariš svoj objekt. Izbereš lahko več kategorij, slik, barv ki se bodo menjale s pritiskom na gumb. Objekt lahko povežeš z gumbom šele, ko ustvariš gumb.">
+                      <i class="fas fa-info-circle" style="vertical-align: middle;"></i>
+                    </span>
+                    <!---->
+                  </div>
+
+
+
+                  <div class="row" style="margin-top: 1.5rem;">
+                    <div class="col-md-12">
+                      <div class="input-group">
+                        <div class="input-group-prepend">
+                          <label for="custom-item-name" class="input-group-text">Ime</label>
+                        </div>
+                        <input class="form-control" id="custom-item-name" name="customItemName" value="Ime">
+                        <div class="input-group-prepend">
+                          <label for="state" class="input input-group-text">Izberi kategorijo</label>
+                        </div>
+                        <select class="selectpicker" id="custom-item-category" name="customItemCategory" multiple>
+                          {{! customItemCategories}}
+                        </select>
+                        <div class="invalid-feedback">
+                          Polje ne sme biti prazno
+                        </div>
+                        <div class="input-group-prepend">
+                          <label for="state" class="input input-group-text">Izberi sliko</label>
+                        </div>
+                        <select class="selectpicker" id="custom-item-image" name="customItemImage" multiple>
+                          <option value="">Neviden objekt</option>
+                          % for object in objects:
+                          <option>{{object}}</option>
+                          %end
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row" style="margin-top: 1.5rem;">
+                    <div class="col-md-12">
+                      <div class="input-group">
+                        <div class="input-group-prepend">
+                          <label for="custom-item-value" class="input-group-text">Vrednost</label>
+                        </div>
+                        <input class="form-control" id="custom-item-value" name="customItemValue" value="0"
+                          type="number">
+                        <div class="input-group-prepend">
+                          <label for="custom-item-zorder" class="input-group-text">zOrder</label>
+                        </div>
+                        <input class="form-control" id="custom-item-z-order" name="customItemZOrder" value="2"
+                          type="number" min="1" max="7">
+                        <div class="invalid-feedback">
+                          Polje ne sme biti prazno
+                        </div>
+                        <div class="input-group-prepend">
+                          <label for="custom-button-id" class="input-group-text">Poveži z gumbom</label>
+                        </div>
+                        <select id="custom-button-id" class="form-select" name="customButtonId">
+                          {{! buttonNames}}
+                        </select>
+                        <div class="input-group-prepend">
+                          <label for="custom-item-name" class="input-group-text">barva</label>
+                        </div>
+                        <select id="custom-item-color" class="selectpicker" name="customItemColor" multiple>
+                          <option selected="selected">Azure</option>
+                          <option>Black</option>
+                          <option>Blue</option>
+                          <option>Brown</option>
+                          <option>DarkRed</option>
+                          <option>Green</option>
+                          <option>Grey</option>
+                          <option>Lime</option>
+                          <option>Magenta</option>
+                          <option>Orange</option>
+                          <option>Purple</option>
+                          <option>Red</option>
+                          <option>White</option>
+                          <option>Yellow</option>
+                        </select>
+                      </div>
+                      <div class="row mt-3">
+                        <div class="col-12 text-center">
+                          <button class="btn btn-outline-primary col-md-6 mx-auto" type="button" hx-swap="none"
+                            hx-target="body" onclick="refreshScene('customObject');">Ustvari predmet</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+
+
+
+                  <h4>Dodani Predmeti</h4>
+                  <div src="views/index.html" id="scene" style="margin-bottom: 1.5rem;">
+                    {{! scene}}
+                  </div>
+
+                  <div class="d-inline-block">
+                    <h4 class="d-inline align-middle">Dodaj na mrežo</h4>
+                    <!--ICON delčki-->
+                    <span class="info-icon d-inline" data-toggle="tooltip" data-placement="top"
+                      title="Predmet dodaš na mrežo z izbiro njegovega imena, vpisom koordinat, ter pritiskom na DODAJ. Isti postopek za izbris predmeta. Če obstaja več testnih primerov, izberi testni primer na katerega želiš dodati objekt. Z izbrisom objekta bo objekt izbrisan iz vseh testnih primerov. Gumb ponastavi izbriše vse spremembe in vrne začetno stanje skripte. Za prenos datotek pritisni velik siv gumb PRENESI DATOTEKE.">
+
+                      <i class="fas fa-info-circle" style="vertical-align: middle;"></i>
+                    </span>
+                    <!---->
+                  </div>
+
+                  <!--
+                  <div class="row" style="margin-bottom: 0.5rem;">
+                    <div class="col-6">
+                      <label for="id-aktivnega-primera">Testni primer </label>
+                      <select id="test-example-option" class="form-select">
+                        %for i in range(numOfExamples):
+                        <option>{{i+1}}</option>
+                        %end
+                      </select>
+                    </div>
+                    <div class="col-2 align-self-end">
+                      <button class="btn btn-secondary" type="button" hx-swap="none" hx-target="body"
+                        onclick="deleteExample()">Izbriši testni primer</button>
+                    </div>
+                  </div>
+                -->
+
+
+                  <div class="row" style="margin-top: 1.5rem;">
+                    <div class="col-md-12">
+                      <div class="input-group">
+                        <div class="input-group-prepend">
+                          <label class="input-group-text">Ime objekta</label>
+                        </div>
+                        <select id="added-item-to-matrix" class="form-select">
+                          {{! htmlListTypes}}
+                        </select>
+                        <div class="input-group-prepend">
+                          <label for="add-coord-col" class="input-group-text">Koord. X</label>
+                        </div>
+                        <input type="text" class="form-control" id="add-coord-col" name="coordCol" placeholder="vrstica"
+                          value="0">
+                        <div class="invalid-feedback">
+                          Polje ne sme biti prazno!
+                        </div>
+                        <div class="input-group-prepend">
+                          <label for="add-coord-row" class="input-group-text">Koord. Y</label>
+                        </div>
+                        <input type="text" class="form-control" id="add-coord-row" name="coordRow" placeholder="vrstica"
+                          value="0">
+                        <div class="invalid-feedback">
+                          Polje ne sme biti prazno!
+                        </div>
+                        <button class="btn btn-outline-primary" type="button" hx-swap="none" hx-target="body"
+                          onclick="refreshScene('addToMatrix');">Dodaj</button>
+                        <button class="btn btn-outline-danger" type="button" hx-swap="none" hx-target="body"
+                          onclick="refreshScene('removeFromMatrix');">Odstrani</button>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!--
+                  <div class="row">
+                    <div class="col-3">
+                      <h6>Ime za izbris</h6>
+                      <select id="remove-item-name" class="form-select">
+                        {{! htmlListTypes}}
+                      </select>
+                      <div class="invalid-feedback">
+                        Polje ne sme biti prazno!
+                      </div>
+                    </div>
+                    <div class="col-3 align-self-end">
+                      <button class="btn btn-secondary" type="button" hx-swap="none" hx-target="body"
+                        onclick="refreshScene('removeItem');">Izbriši</button>
+                    </div>
+                  </div>
+                -->
+
+                  <div class="col-md-12">
+                    <img id="slika2" src="" onerror="this.onerror=null; this.remove();"
+                      style="max-width: 200px; max-height: 200px; object-fit: contain; margin-bottom: 1.5rem;">
+                  </div>
+                  <div class="col-12 text-center" style="margin-top: 10rem;">
+                    <div class="row">
+                      <div class="col-md-6 mx-auto">
+                        <button class="btn btn-outline-danger col-md-4 " type="button" onclick="resetAll()">
+                          <i class="bi bi-arrow-clockwise"></i> Ponastavi
+                        </button>
+                        <button class="btn btn-outline-primary col-md-6" type="button" onclick="downloadFiles()">
+                          <i class="bi bi-box-arrow-down"></i> Prenesi datoteke
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  
+                  
+                  
+                  
                 </div>
               </div>
             </div>
-          </main>
+          </div>
         </div>
-      </form>
+      </main>
+    </div>
+  </form>
   <script src="../static/javascript/script.js"></script>
 
   <!-- <iframe src="views/naloga.html" id = "pisek-iframe" onload="this.width=screen.width;this.height=screen.height;"></iframe>  -->

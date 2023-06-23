@@ -155,7 +155,6 @@ def send_quickAlgo_css(filename):
 @bottle.get("/") 
 def home_get():
     global test
-    print("POSODOBIL HTML BI PU PIP")
 
     tile_names = skripta.preberi_vsa_imena_slik("tiles") 
     character_names = skripta.preberi_vsa_imena_slik("characters")
@@ -182,9 +181,7 @@ def home_get():
 
 @bottle.post("/") 
 def home_add():
-    print("USTVARJAM SKRIPTO")
     image_file = bottle.request.files.get('imageFile')
-    print("Nova slikaaaaa", image_file)
 
     # Za funkcijo includeBlocks()
     #------------------------------------------------------------------
@@ -220,7 +217,6 @@ def updateBlocks():
     categoryBlocks = [] if categoryBlocks == None else categoryBlocks
     robotBlocks = [] if robotBlocks == None else robotBlocks
     singleBlocks = [] if singleBlocks == None else singleBlocks
-    print(groupByCategory)
     # Preverimo ali želimo grupirat po kategorijah
     if groupByCategory == "true":
         generator.groupByCategory = True
@@ -274,7 +270,6 @@ def updateEndConditions():
 @bottle.post("/customObject") 
 def dodajItem():
     #ITEMTYPE
-    print("DODAL ITEM TYPE, DELAM KOT ZAMORC")
     itemName = bottle.request.forms.get("itemName")
     itemCategorys = json.loads(bottle.request.forms.get("itemCategory"))
     itemImages = json.loads(bottle.request.forms.get("itemImage"))
@@ -302,7 +297,6 @@ def addDefaultItems():
     itemImage= bottle.request.forms.get("defaultItemImage")
     generator.createDefaultItem(itemCategory, itemImage)
     generator.ustvariSkripto()
-    print("Dodal default: ", itemCategory)
     bottle.redirect("/")
 
 @bottle.post("/defaultNumber")
@@ -362,7 +356,6 @@ def addMatrixExample():
 
 @bottle.post("/addToMatrix")
 def addToMatrix():
-    print("DODAJAM NA MATRIKO AAAAAAAAAAAAAAAA")
     itemName = bottle.request.forms.get("itemName")
     itemRow = int(bottle.request.forms.get("itemRow"))
     itemCol = int(bottle.request.forms.get("itemCol"))
@@ -375,7 +368,6 @@ def addToMatrix():
 
 @bottle.post("/removeFromMatrix")
 def removeFromMatrix():
-    print("BRIŠEM IZ MATRIKE AAAAAAAAAAAAAAAA")
     itemName = bottle.request.forms.get("itemName")
     itemRow = int(bottle.request.forms.get("itemRow") )
     itemCol = int(bottle.request.forms.get("itemCol"))
@@ -392,32 +384,26 @@ def addRobot():
     
     generator.addRobot(itemImage)
     generator.ustvariSkripto()
-    print("DODAJAM ROBOTA SERVER BRRRRRRR")
     bottle.redirect("/")
 
 @bottle.post("/createNewCategory")
 def createNewCategory():
-    print("CREATE NEW CATEGORY")
     category = bottle.request.forms.get("category")
     generator.catIT[category] = False
     return generator.updateCategoryOptionsHtmlString()
 
 @bottle.post("/removeItem") 
 def deleteItem():
-    print("BRIŠEM ITEM GRRRRRRR")
     deleteItem = bottle.request.forms.get("delName")
     generator.deleteItemType(deleteItem)
-    print("IZBRISAL ITEM TYPE", deleteItem)
     generator.ustvariSkripto()
     bottle.redirect("/")
 
 @bottle.post("/languageStrings")
 def deleteLanguage():
-    print("BRIŠEM LANGUAGE DONDE ESTA BLIBLIOTEKA")
     lsId = int(bottle.request.forms.get("idLS"))
     ls = bottle.request.forms.getunicode("textLS")
     generator.dodajSlovar(lsId, ls)
-    print("POSODOBIL LANGUAGE STRINGS")
     generator.ustvariSkripto()
 
     return generator.updateLanguageStringHtml(lsId)
@@ -432,12 +418,10 @@ def update_item_types():
 
 @bottle.get("/updateButtons") 
 def update_item_types():
-    print("GUMBI: ", generator.updateButtonHtmlString())
     return generator.updateButtonHtmlString()
 
 @bottle.post("/resetFile")
 def update_item_types():
-    print("RESETIRAM WOOOOOOOOOOOOOOOOOOO")
     generator.resetVariables()
     generator.ustvariSkripto()
     return home_get()
@@ -465,7 +449,6 @@ def update_item_types():
 #----------------------------------------------------------------------------------------------------------
 
 def start_bottle():
-    print("ZAGANJAM BOTTLE")
     generator.resetVariables()
     generator.ustvariSkripto()
     #Zaženemo bottle
