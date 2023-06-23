@@ -1,10 +1,17 @@
+import sys
+sys.path.insert(1, 'generator/')
+from naloga import *
 import bottle 
-import generator
+import generatorStari
 import skripta
 import json
 import flatdict
 import urllib.parse
 import os
+
+
+# caution: path[0] is reserved for script path (or '' in REPL)
+
 
 test = 0
 """Bottle poskrbi, da stran laufa in da so vse stvari povezane med sabo."""
@@ -159,35 +166,28 @@ def home_get():
     tile_names = skripta.preberi_vsa_imena_slik("tiles") 
     character_names = skripta.preberi_vsa_imena_slik("characters")
     objects = skripta.preberi_vsa_imena_slik("objects")
-    itemTypes = generator.itemsIT
     
-    languageStrings = generator.updateLanguageStringHtml(0)
+    languageStrings = generator2.languageStrings.languageStringsHtml(0)
+
+    scene = generator2.itemTypes.createItemTypesHtmlString()
+
+    htmlListTypes = generator2.itemTypes.updateItemTypesHtmlString()
+
+    customItemCategories = generator2.itemTypes.updateCategoryOptionsHtmlString()
+
+    buttonNames = generator2.itemTypes.updateButtonHtmlString()
+
+    numOfExamples = len(generator2.subTaskData.examples)
+
+    blocksCategory = generator2.includeBlocks.blocksCategoryHtml()
+    blocksRobot = generator2.includeBlocks.blocksRobotHtml()
+    blocksSingle = generator2.includeBlocks.blocksSingleHtml()
     
-    scene = generator.createItemTypesHtmlString()
-
-    htmlListTypes = generator.updateItemTypesHtmlString()
-
-    customItemCategories = generator.updateCategoryOptionsHtmlString()
-
-    buttonNames = generator.updateButtonHtmlString()
-
-    numOfExamples = len(generator.matrixExamples)
-
-    blocksCategory = generator.blocksCategoryHtml()
-    blocksRobot = generator.blocksRobotHtml()
-    blocksSingle = generator.blocksSingleHtml()
-    
-    return bottle.template("index.html", tile_names=tile_names, character_names=character_names, objects=objects, itemTypes=itemTypes, languageStrings = languageStrings, scene=scene, htmlListTypes=htmlListTypes, customItemCategories=customItemCategories, buttonNames=buttonNames, numOfExamples=numOfExamples, blocksCategory=blocksCategory, blocksSingle=blocksSingle, blocksRobot=blocksRobot)
+    return bottle.template("index.html", tile_names=tile_names, character_names=character_names, objects=objects, languageStrings = languageStrings, scene=scene, htmlListTypes=htmlListTypes, customItemCategories=customItemCategories, buttonNames=buttonNames, numOfExamples=numOfExamples, blocksCategory=blocksCategory, blocksSingle=blocksSingle, blocksRobot=blocksRobot)
 
 @bottle.post("/") 
 def home_add():
-    image_file = bottle.request.files.get('imageFile')
-
-    # Za funkcijo includeBlocks()
-    #------------------------------------------------------------------
-
-    # Ustvarimo skripto
-    generator.ustvariSkripto()
+    #generator.ustvariSkripto()
     bottle.redirect("/")
 
 @bottle.post("/refreshText") 
@@ -218,37 +218,30 @@ def updateBlocks():
     robotBlocks = [] if robotBlocks == None else robotBlocks
     singleBlocks = [] if singleBlocks == None else singleBlocks
     # Preverimo ali želimo grupirat po kategorijah
+    for block in categoryBlocks:
+        if block != "Izberi vse":
+            generator2.includeBlocks.categoryBlocks[block] = True
+    for block in robotBlocks:
+        if block != "Izberi vse":
+            generator2.includeBlocks.robotBlocks[block] = True
+    for block in singleBlocks:
+        if block != "Izberi vse":
+            generator2.includeBlocks.individualBlocks[block] = True
+
+    
     if groupByCategory == "true":
-        generator.groupByCategory = True
+        generator2.includeBlocks.groupByCategory = True
     else:
-        generator.groupByCategory = False
+        generator2.includeBlocks.groupByCategory = False
 
     # Nastavimo vse vrednosti, ki obstajajo v IB in Categories na true
-    for el in generator.wholeCategoriesIB.keys():
-        if el in categoryBlocks:
-            generator.wholeCategoriesIB[el] = True
-        else:
-            generator.wholeCategoriesIB[el] = False
-
-    for el in generator.robotIB.keys():
-        if el in robotBlocks:
-            generator.robotIB[el] = True
-        else:
-            generator.robotIB[el] = False
-
-    for el in generator.singleBlocksIB.keys():
-        if el in singleBlocks:
-            generator.singleBlocksIB[el] = True
-        else:
-            generator.singleBlocksIB[el] = False
-
-    generator.randomBull1['maxInstructions'] = maxInstructions
-    generator.ustvariSkripto()
+    generator2.board.maxInstructions = maxInstructions
+    generator2.createFile()
 
 @bottle.post("/deleteStartingExample")
 def deleteStartingExample():
-    generator.strSE = ""
-    generator.ustvariSkripto()
+    generatorStari.strSE = ""
+    generatorStari.ustvariSkripto()
 
 @bottle.post("/updateEndConditions")
 def updateEndConditions():
@@ -259,13 +252,14 @@ def updateEndConditions():
     indicateB = bottle.request.forms.get("indicateB")
     nameB = bottle.request.forms.get("nameB")
 
-    generator.endCondition["Exist"]["indikator1"] = indicate1
-    generator.endCondition["Exist"]["ime1"] = name1
-    generator.endCondition["Coincide"]["indikatorA"] = indicateA
-    generator.endCondition["Coincide"]["indikatorB"] = indicateB
-    generator.endCondition["Coincide"]["imeA"] = nameA
-    generator.endCondition["Coincide"]["imeB"] = nameB
-    generator.ustvariSkripto()
+    generator2.endCondition.cond["indikator1"] = indicate1
+    generator2.endCondition.cond["ime1"] = name1
+    generator2.endCondition.cond["indikatorA"] = indicateA
+    generator2.endCondition.cond["indikatorB"] = indicateB
+    generator2.endCondition.cond["imeA"] = nameA
+    generator2.endCondition.cond["imeB"] = nameB
+    generator2.endCondition.createConditions()
+    generator2.createFile()
 
 @bottle.post("/customObject") 
 def dodajItem():
@@ -277,48 +271,50 @@ def dodajItem():
     zOrder = int(bottle.request.forms.get("itemZOrder"))
     buttonId = int(bottle.request.forms.get("buttonId"))
     itemColors = json.loads(bottle.request.forms.get("itemColor"))
-    generator.itemSpecifications["name"] = itemName
-    generator.itemSpecifications["img"] = itemImages
-    generator.itemSpecifications["value"] = itemValue
-    generator.itemSpecifications["zOrder"] = zOrder
-    generator.itemSpecifications["color"] = itemColors
-    generator.itemSpecifications["id"] = buttonId + 1
+    generatorStari.itemSpecifications["name"] = itemName
+    generatorStari.itemSpecifications["img"] = itemImages
+    generatorStari.itemSpecifications["value"] = itemValue
+    generatorStari.itemSpecifications["zOrder"] = zOrder
+    generatorStari.itemSpecifications["color"] = itemColors
+    generatorStari.itemSpecifications["id"] = buttonId + 1
     
     for cat in itemCategorys:
-        generator.catIT[cat] = True
+        generatorStari.catIT[cat] = True
     
-    generator.dodajItemType() #kliče naj se z gumbom ustvari
-    generator.ustvariSkripto()
+    generatorStari.dodajItemType() #kliče naj se z gumbom ustvari
+    generatorStari.ustvariSkripto()
     bottle.redirect("/")
 
 @bottle.post("/defaultItem")
 def addDefaultItems():
     itemCategory = bottle.request.forms.get("defaultItemCategory")
     itemImage= bottle.request.forms.get("defaultItemImage")
-    generator.createDefaultItem(itemCategory, itemImage)
-    generator.ustvariSkripto()
+    generator2.itemTypes.createDefaultItem([itemCategory], [itemImage])
+    generator2.createFile()
     bottle.redirect("/")
 
 @bottle.post("/defaultNumber")
 def addDefaultNumber():
+    print("BBBBBBBB")
     itemNum= bottle.request.forms.get("defaultItemNumber")
-    generator.createDefaultNumber(itemNum)
-    generator.ustvariSkripto()
+    generator2.itemTypes.createDefaultItem(["number"], itemNum)
+    generator2.createFile()
+    print(generator2.itemTypes.items.keys())
     bottle.redirect("/")
 
 @bottle.post("/defaultColor")
 def addDefaultColor():
     itemCol= bottle.request.forms.get("defaultItemColor")
-    generator.createDefaultColor(itemCol)
-    generator.ustvariSkripto()
+    generator2.itemTypes.createDefaultItem(["colour"], [itemCol])
+    generator2.createFile()
     bottle.redirect("/")
 
 @bottle.post("/defaultButton")
 def addDefaultButton():
     buttonOn = bottle.request.forms.get("defaultButtonImageOn")
     buttonOff = bottle.request.forms.get("defaultButtonImageOff")
-    generator.createDefaultButton(buttonOn, buttonOff)
-    generator.ustvariSkripto()
+    generator2.itemTypes.createDefaultItem(["button"], [buttonOn, buttonOff])
+    generator2.createFile()
     bottle.redirect("/")
 
 @bottle.post("/updateMatrixParameters")
@@ -329,29 +325,29 @@ def addMatrixExample():
     backgroundImage = bottle.request.forms.get("backgroundImage")
     showLabels = bottle.request.forms.get("showLabels")
     gravityOn = bottle.request.forms.get("gravityOn")
-    newActiveExample = int(bottle.request.forms.get("activeExample"))
+    exampleId = int(bottle.request.forms.get("activeExample"))
     matrixLength = int(bottle.request.forms.get("matrixLength"))
     matrixHeight = int(bottle.request.forms.get("matrixHeight"))
-    generator.randomBull2["backgroundColour"] = backgroundColor
-    generator.randomBull2["borderColour"] = borderColor
-    generator.randomBull2["border"] = float(borderWidth)
-    generator.randomBull2["backgroundTile"] = backgroundImage
+    generator2.board.backgColor = backgroundColor
+    generator2.board.lineColor = borderColor
+    generator2.board.lineWidth = float(borderWidth)
+    generator2.board.backgImage = backgroundImage
     showLabels = True if showLabels == "true" else False
     gravityOn = True if gravityOn == "true" else False
     
-    generator.randomBull2["showLabels"] = showLabels
-    generator.randomBull1["hasGravity"] = gravityOn
+    generator2.board.showLabels = showLabels
+    generator2.board.gravity = gravityOn
 
-    generator.updateExample(newActiveExample, matrixLength, matrixHeight)
-    generator.ustvariSkripto()
-    return generator.updateExamplesHtmlString()
+    generator2.subTaskData.updateExample(exampleId, matrixLength, matrixHeight)
+    generator2.createFile()
+    return generator2.subTaskData.updateExamplesHtmlString()
 
 @bottle.post("/deleteMatrixExamples")
 def addMatrixExample():
     deleteExample = int(bottle.request.forms.get("deleteExample"))
-    generator.deleteExample(deleteExample-1)
-    generator.ustvariSkripto()
-    return generator.updateExamplesHtmlString()
+    generator2.subTaskData.removeExample(deleteExample-1)
+    generator2.createFile()
+    return generator2.subTaskData.updateExamplesHtmlString()
 
 
 @bottle.post("/addToMatrix")
@@ -360,10 +356,10 @@ def addToMatrix():
     itemRow = int(bottle.request.forms.get("itemRow"))
     itemCol = int(bottle.request.forms.get("itemCol"))
     newActiveExample = int(bottle.request.forms.get("activeExample"))
-    generator.activeExample = newActiveExample-1
 
-    generator.addItemTypeToMatrix(itemName, itemRow, itemCol)
-    generator.ustvariSkripto()
+    itemNumber = generator2.itemTypes.items[itemName].num
+    generator2.subTaskData.examples[newActiveExample-1].addToMatrix(itemNumber, itemName, itemRow, itemCol)
+    generator2.createFile()
     bottle.redirect("/")
 
 @bottle.post("/removeFromMatrix")
@@ -372,9 +368,10 @@ def removeFromMatrix():
     itemRow = int(bottle.request.forms.get("itemRow") )
     itemCol = int(bottle.request.forms.get("itemCol"))
     newActiveExample = int(bottle.request.forms.get("activeExample"))
-    generator.activeExample = newActiveExample-1
-    generator.removeItemTypeFromMatrix(itemName, itemRow, itemCol)
-    generator.ustvariSkripto()
+    
+    itemNumber = generator2.itemTypes.items[itemName].num
+    generator2.subTaskData.examples[newActiveExample-1].removeFromMatrix(itemNumber, itemName, itemRow, itemCol)
+    generator2.createFile()
     bottle.redirect("/")
 
 @bottle.post("/addRobot") 
@@ -382,48 +379,54 @@ def addRobot():
     #ITEMTYPE
     itemImage = bottle.request.forms.get("itemImageR")
     
-    generator.addRobot(itemImage)
-    generator.ustvariSkripto()
+    generator2.itemTypes.createDefaultItem(["robot"], [itemImage])
+    generator2.createFile()
+    print("DODAJAM ROBOTA SERVER BRRRRRRR")
     bottle.redirect("/")
 
 @bottle.post("/createNewCategory")
 def createNewCategory():
     category = bottle.request.forms.get("category")
-    generator.catIT[category] = False
-    return generator.updateCategoryOptionsHtmlString()
+    generatorStari.catIT[category] = False
+    return generatorStari.updateCategoryOptionsHtmlString()
 
 @bottle.post("/removeItem") 
 def deleteItem():
     deleteItem = bottle.request.forms.get("delName")
-    generator.deleteItemType(deleteItem)
-    generator.ustvariSkripto()
+
+    itemNumber = generator2.itemTypes.items[deleteItem].num
+    generator2.itemTypes.removeItem(deleteItem)
+    generator2.subTaskData.removeItemType(deleteItem, itemNumber)
+    print("IZBRISAL ITEM TYPE", deleteItem)
+    generator2.createFile()
     bottle.redirect("/")
 
 @bottle.post("/languageStrings")
 def deleteLanguage():
     lsId = int(bottle.request.forms.get("idLS"))
     ls = bottle.request.forms.getunicode("textLS")
-    generator.dodajSlovar(lsId, ls)
-    generator.ustvariSkripto()
+    generator2.languageStrings.addFlatDictCategories(lsId, ls)
+    print("POSODOBIL LANGUAGE STRINGS")
+    generator2.createFile()
 
-    return generator.updateLanguageStringHtml(lsId)
+    return generator2.languageStrings.languageStringsHtml(lsId)
 
 @bottle.get("/updateItemTypes") 
 def update_item_types():
-    return generator.createItemTypesHtmlString()
+    return generator2.itemTypes.createItemTypesHtmlString()
 
 @bottle.post("/updateItemTypeOptions") 
 def update_item_types():
-    return generator.updateItemTypesHtmlString()
+    return generator2.itemTypes.updateItemTypesHtmlString()
 
 @bottle.get("/updateButtons") 
 def update_item_types():
-    return generator.updateButtonHtmlString()
+    return generator2.itemTypes.updateButtonHtmlString()
 
 @bottle.post("/resetFile")
 def update_item_types():
-    generator.resetVariables()
-    generator.ustvariSkripto()
+    generator2 = Naloga()
+    generator2.createFile()
     return home_get()
 
 @bottle.post("/uploadImage")
@@ -443,13 +446,13 @@ def update_item_types():
     uploaded_file = bottle.request.files.get('imageFile')
     if uploaded_file:
         file_content = uploaded_file.file.read()
-        generator.strSE = str(file_content.decode())
-    generator.ustvariSkripto()
+        generator2.board.updateStartingExample(file_content.decode().replace("\"", "'"))
+    generator2.createFile()
 
 #----------------------------------------------------------------------------------------------------------
 
 def start_bottle():
-    generator.resetVariables()
-    generator.ustvariSkripto()
-    #Zaženemo bottle
+    global generator2
+    generator2 = Naloga()
+    generator2.createFile()
     bottle.run(host='localhost', port=8081, debug=True)

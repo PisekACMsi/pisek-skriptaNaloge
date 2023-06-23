@@ -225,9 +225,8 @@
 
                       <div class="input-group">
                         <select class="form-select" id="select-LS" name="imenaDelckov">
-                          %for i in range(len(languageStrings[1])):
-                          <option> {{languageStrings[0][i]}} : {{languageStrings[1][i]}}</option>
-                          %end
+                          {{! languageStrings}}
+
                         </select>
                         <input type="text" class="form-control" id="text-LS" name="languageString"
                           placeholder="vrstica">

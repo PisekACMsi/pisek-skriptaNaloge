@@ -8,9 +8,13 @@ class TestExample:
 
     def addToMatrix(self, objectNum, objectName, row, col):
         objectNum = objectNum
-        added = self.matrix.addItem(row, col, objectNum)
-        if not added:
+        if "robot" in objectName:
+            self.inicialisation.dellAllInitialization(objectName)
             self.inicialisation.addInitialization(objectName, row, col)
+        else:
+            added = self.matrix.addItem(row, col, objectNum, objectName)
+            if not added:
+                self.inicialisation.addInitialization(objectName, row, col)
 
     def removeFromMatrix(self, objectNum, objectName, row, col):
         if self.matrix.matrix[row][col] == objectNum:
