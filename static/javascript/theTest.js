@@ -64,7 +64,90 @@ function initTask(subTask) {
 		//
 	])
 },
-     itemTypes: {}
+     itemTypes: {
+          obstacle0: {
+               num: 3,
+               category: [
+                    {
+                         'obstacle': true
+                    }
+               ],
+               img: [
+                    "objects/blok3.png"
+               ],
+               zOrder: 5
+          },
+          obstacle1: {
+               num: 4,
+               category: [
+                    {
+                         'obstacle': true
+                    }
+               ],
+               img: [
+                    "objects/blok3.png"
+               ],
+               zOrder: 5
+          },
+          obstacle2: {
+               num: 5,
+               category: [
+                    {
+                         'obstacle': true
+                    }
+               ],
+               img: [
+                    "objects/blok3.png"
+               ],
+               zOrder: 5
+          },
+          obstacle3: {
+               num: 6,
+               category: [
+                    {
+                         'obstacle': true
+                    }
+               ],
+               img: [
+                    "objects/blok3.png"
+               ],
+               zOrder: 5
+          },
+          obstacle4: {
+               num: 7,
+               category: [
+                    {
+                         'obstacle': true
+                    }
+               ],
+               img: [
+                    "objects/blok3.png"
+               ],
+               zOrder: 5
+          },
+          number0: {
+               num: 8,
+               category: [
+                    {
+                         'number': true
+                    }
+               ],
+               zOrder: 4,
+               value: "0"
+          },
+          robot0: {
+               category: [
+                    {
+                         'robot': true
+                    }
+               ],
+               img: [
+                    "characters/marta_in piki.png"
+               ],
+               zOrder: 10,
+               nbStates: 8
+          }
+     }
 };
 subTask.data = {
      easy: [

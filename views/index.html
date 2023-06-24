@@ -442,8 +442,9 @@
                         % for charName in character_names:
                         <option>{{charName}}</option>
                         %end
-
                       </select>
+
+                    
                       <div class="input-group-append">
                         <button class="btn btn-outline-primary" type="button" hx-swap="none" hx-target="body"
                           onclick="refreshScene('addRobot')">Ustvari robota</button>
@@ -452,6 +453,7 @@
                         Polje ne sme biti prazno
                       </div>
                     </div>
+                    <img id = "character-img" src ="" style="max-height: 300px; max-width: 500px;">
                   </div>
 
                   <h4>Ustvari objekt</h4>
@@ -483,7 +485,9 @@
                         </div>
                       </div>
                     </div>
+                    <img id = "object-img" src ="" style="max-height: 200px; max-width: 200px;margin-top: 0.5rem;">
                   </div>
+                  
 
                   <div class="row" style="margin-top: 1.5rem;">
                     <div class="col-md-12">
@@ -521,20 +525,21 @@
                           <label class="input input-group-text" for="itemColorSelector">Vrednost</label>
                         </div>
                         <select id="default-item-color" class="form-select" name="defaultItemColor">
-                          <option>Azure</option>
-                          <option>Black</option>
-                          <option>Blue</option>
-                          <option>Brown</option>
-                          <option>DarkRed</option>
-                          <option>Green</option>
-                          <option>Grey</option>
-                          <option>Lime</option>
-                          <option>Magenta</option>
-                          <option>Orange</option>
-                          <option>Purple</option>
-                          <option>Red</option>
-                          <option>White</option>
-                          <option>Yellow</option>
+                          <option selected="selected">Izberi barvo</option>
+                          <option>azure</option>
+                          <option>black</option>
+                          <option>blue</option>
+                          <option>brown</option>
+                          <option>darkRed</option>
+                          <option>green</option>
+                          <option>grey</option>
+                          <option>lime</option>
+                          <option>magenta</option>
+                          <option>orange</option>
+                          <option>purple</option>
+                          <option>red</option>
+                          <option>white</option>
+                          <option>yellow</option>
                         </select>
                         <div class="input-group-prepend">
                           <button class="btn btn-outline-primary" type="button" hx-swap="none" hx-target="body"
@@ -542,6 +547,7 @@
                         </div>
                       </div>
                     </div>
+                    <div id="color-div"></div>
                   </div>
 
 

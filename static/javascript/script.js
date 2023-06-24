@@ -8,28 +8,38 @@ var velikost_x = 0;
 var velikost_y = 0;
 //funkcija, ki prikaže sliko za glavnega junaka
 $(document).ready(function () {
-  $("#junak").change(function () {
-    var value = $("#junak option:selected");
+  $("#robot-image").change(function () {
+    var value = $("#robot-image option:selected");
     newURL_junak = "../static/img/characters/" + value.text().split(' ').join('_') + ".png";
-    $("#slika1").attr("src", newURL_junak);
+    $("#character-img").attr("src", newURL_junak);
   });
 });
 
 //funkcija, ki prikaže sliko za polje in jo izriše na gridu
 $(document).ready(function () {
-  $("#polje").change(function () {
-    var value = $("#polje option:selected");
-    newURL_polje = "../static/img/tiles/" + value.text().split(' ').join('_') + ".png";
-    $("#slika2").attr("src", newURL_polje);
-  });
+  $("#default-item-color").change(function () {
+    var value = $("#default-item-color option:selected").text();
+    var element = document.getElementById("color-div");
+    element.style.backgroundColor = value;
+    var width = 200;
+    var height = 200;
+
+    if (width) {
+      element.style.width = width + "px";
+    }
+
+    if (height) {
+      element.style.height = height + "px";
+    }
+    });
 });
 
 //funkcija, ki prikaže sliko za predmet
 $(document).ready(function () {
-  $("#item").change(function () {
-    var value = $("#item option:selected");
+  $("#default-item-image").change(function () {
+    var value = $("#default-item-image option:selected");
     newURL_predmet = "../static/img/objects/" + value.text().split(' ').join('_') + ".png";
-    $("#slika3").attr("src", newURL_predmet);
+    $("#object-img").attr("src", newURL_predmet);
   });
 });
 
