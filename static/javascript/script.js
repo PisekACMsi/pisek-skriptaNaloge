@@ -489,45 +489,6 @@ function resetAll(){
   location.reload();
 }
 
-function uploadImage(){
-  var path = document.getElementById('upload-image');
-  if(path=="Robot"){
-    var fileInput = document.getElementById('upload-image-robot');
-    path = "charactersUser";
-  }
-  else if(path=="Ozadje"){
-    var fileInput = document.getElementById('upload-image-tile');
-    path = "tilesUser";
-  }
-  else if(path=="Predmet"){
-    var fileInput = document.getElementById('upload-image-object');
-    path = "objectsUser";
-  }
-  
-  // Create a new FormData object
-  var formData = new FormData();
-
-  formData.append('imageFile', fileInput.files[0]);
-  formData.append("path", path + "User")
-  $.ajax({
-    type: 'POST',
-    url: '/uploadImage', // Replace with the actual route on your Bottle server
-    data: formData, // Pass the formData object directly
-    processData: false, // Prevent jQuery from processing the data
-    contentType: false, // Prevent jQuery from setting the content type
-    success: function(response) {
-      // Handle the success response from the server
-      location.reload();
-    },
-    error: function(xhr, status, error) {
-      // Handle errors
-      console.error('Error:', error);
-    }
-  });
-  // osvezi('pisek-iframe');
-  
-}
-
 function uploadStartingExample(){
   
   var fileInput = document.getElementById('upload-starting-example-file');
@@ -625,3 +586,50 @@ function downloadFiles() {
 $(function () {
   $('[data-toggle="tooltip"]').tooltip()
 })
+
+
+//ZA UPLOADAT SLIKE
+
+// Register the plugin with FilePond
+FilePond.registerPlugin(FilePondPluginImagePreview);
+
+// Get a reference to the file input element
+const inputElement = document.querySelector('input[type="file"]');
+
+// Create a FilePond instance
+const pond = FilePond.create(inputElement);
+
+// Set options for FilePond
+pond.setOptions({
+  server: {
+    url: 'http://localhost:8081/',
+    process: {
+      url: '/uploadImage',
+      method: 'POST',
+      withCredentials: false,
+      onload: (response) => response.key,
+      onerror: (response) => response.data,
+      ondata: (formData) => {
+        formData.append('type', document.getElementById('picture-type').value);
+        formData.append('file', pond.getFile().file, pond.getFile().filename);
+        return formData;
+      },
+    },
+    revert: '/revert',
+    restore: '/restore/',
+    load: '/load/',
+    fetch: '/fetch/',
+  },
+});
+
+// Optionally, add event listeners or perform other operations on the FilePond instance
+pond.on('addfile', (error, file) => {
+  if (!error) {
+    console.log('File added:', file);
+  } else {
+    console.error('Error adding file:', error);
+  }
+});
+
+
+

@@ -16,6 +16,10 @@
   <link href="../static/css/form-validation.css" rel="stylesheet">
   <link href="../static/css/bootstrap.min.css" rel="stylesheet">
   <link href="../static/css/style.css" rel="stylesheet">
+  <script src="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.js"></script>
+  <script src="https://unpkg.com/filepond/dist/filepond.js"></script>
+  <link href="https://unpkg.com/filepond/dist/filepond.css" rel="stylesheet">
+    <link href="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css" rel="stylesheet">
 
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
   <link rel="stylesheet"
@@ -26,6 +30,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+
 </head>
 
 <!--Zakaj se to uporabla??-->
@@ -40,9 +45,8 @@
     <div class="container">
       <main>
         <div class="py-5 text-center">
-          <a href="views/naloga.html" target="_blank">
-            <img class="d-block mx-auto mb-4 animate__animated animate__lightSpeedInLeft"
-              src="../static/img/pisek.png" alt="" width="72" height="57">
+          <a href="views/naloga.html" target="_blank" class="icon-link">
+            <img class="d-block mx-auto mb-4 animate__animated animate__lightSpeedInLeft" src="../static/img/pisek.png" alt="" width="72" height="57">
           </a>
           <h1 class="animate__animated animate__lightSpeedInRight">Pišek generator nalog</h1>
         </div>
@@ -50,94 +54,107 @@
         <div class="row justify-content-center">
           <div class="col-md-7 col-lg-12">
             <form class="needs-validation" novalidate>
-              <div class="card" style="margin-bottom: 1.5rem;">
-                <div class="card-body">
-
-                  <h3 class="d-inline align-middle">Naloži scene</h3>
-                  <!--ICON delčki-->
-                  <span class="info-icon d-inline" data-toggle="tooltip" data-placement="top"
-                    title="Naloži poljubne slike za glavnega junaka, poljuben objekt ali ozadje. Slike naj bodo primernega formata.">
-                    <i class="fas fa-info-circle" style="vertical-align: middle;"></i>
-                  </span>
-                  <!---->
-
-                  <div class="col-md-4 mb-6">
-                    <div class="input-group">
-                    <select class="form-select" id="picture-type">
-                      <option selected="selected" value="">Izberi tip slike</option>
-                      <option>Robot</option>
-                      <option>Ozadje</option>
-                      <option>Predmet</option>
-                    </select>
-                  </div>
-                  </div>
-
-                <div class="row g-3">
-                  <div class="col-12">
-                    <label for="naslov" class="form-label">Izberi sliko</label>
-                    <form id="uploadForm">
-                      <input type="file" name="imageFile" accept="image/*" id="upload-image">
-                      <input type="button" value="Upload Image" onclick="uploadImage()">
-                    </form>
-                  </div>
-                </div>
-                
-                </div>
-              </div>
-
-              <div class="card" style="margin-bottom: 1.5rem;">
-                <div class="card-body">
-                  <h3 class="d-inline align-middle">Osnovne informacije</h3>
-                  <!--ICON delčki-->
-                  <span class="info-icon d-inline" data-toggle="tooltip" data-placement="top"
-                    title="Vpiši naslov naloge, besedilo naloge ter dodatem odstavek če želiš. S pritiskom na gumb POSODOBI BESEDILO posodobiš besedilo dokumenta.">
-                    <i class="fas fa-info-circle" style="vertical-align: middle;"></i>
-                  </span>
-                  <!---->
-                  <div class="row g-3">
-                    <div class="col-12">
-                      <label for="naslov" class="form-label">Naslov naloge</label>
-                      <div class="input-group has-validation">
-                        <input type="text" class="form-control" id="exercise-title" placeholder="Miha in Piki"
-                          name="exerciseTitle">
-                        <div class="invalid-feedback">
-                          Polje ne sme biti prazno!
-                        </div>
-                      </div>
-                    </div>
-
-                    <div class="col-12">
-                      <label for="besedilo" class="form-label">Besedilo naloge</label>
-                      <input type="text" class="form-control" id="exercise-text" name="exerciseText"
-                        placeholder="Miha in Piki trenirata na pasjem poligonu. Najprej mora Miha odpreti vrata Pikiju.">
-                      <div class="invalid-feedback">
-                        Polje ne sme biti prazno!
-                      </div>
-                    </div>
-
-                    <div class="col-12">
-                      <label for="email" class="form-label">
-                        Dodatno besedilo naloge
-                        <span class="text-muted">
-                          (Opcijsko)
-                        </span>
-                      </label>
-                      <input type="besedilo" class="form-control" id="exercise-text-2" name="exerciseText2"
-                        placeholder="Pravimo, da je pes človeku najboljši prijatelj.">
-                      <div class="invalid-feedback">
-                        Polje ne sme biti prazno!
-                      </div>
-                    </div>
-                  </div>
-                  <div class="row mt-3">
-                    <div class="col-12 text-center">
-                      <button id="button-update-language-strings" class="btn btn-outline-primary col-md-6 mx-auto"
-                        type="button" hx-swap="none" onclick="refreshText()">Posodobi besedilo</button>
-                    </div>
+        <div class="card" style="margin-bottom: 1.5rem;">
+          <div class="card-body">
+            <h3 class="d-inline align-middle">Osnovne informacije</h3>
+            <!--ICON delčki-->
+            <span class="info-icon d-inline" data-toggle="tooltip" data-placement="top"
+              title="Vpiši naslov naloge, besedilo naloge ter dodatem odstavek če želiš. S pritiskom na gumb POSODOBI BESEDILO posodobiš besedilo dokumenta.">
+              <i class="fas fa-info-circle" style="vertical-align: middle;"></i>
+            </span>
+            <!---->
+            <div class="row g-3">
+              <div class="col-12">
+                <label for="naslov" class="form-label">Naslov naloge</label>
+                <div class="input-group has-validation">
+                  <input type="text" class="form-control" id="exercise-title" placeholder="Miha in Piki"
+                    name="exerciseTitle">
+                  <div class="invalid-feedback">
+                    Polje ne sme biti prazno!
                   </div>
                 </div>
               </div>
+
+              <div class="col-12">
+                <label for="besedilo" class="form-label">Besedilo naloge</label>
+                <input type="text" class="form-control" id="exercise-text" name="exerciseText"
+                  placeholder="Miha in Piki trenirata na pasjem poligonu. Najprej mora Miha odpreti vrata Pikiju.">
+                <div class="invalid-feedback">
+                  Polje ne sme biti prazno!
+                </div>
+              </div>
+
+              <div class="col-12">
+                <label for="email" class="form-label">
+                  Dodatno besedilo naloge
+                  <span class="text-muted">
+                    (Opcijsko)
+                  </span>
+                </label>
+                <input type="besedilo" class="form-control" id="exercise-text-2" name="exerciseText2"
+                  placeholder="Pravimo, da je pes človeku najboljši prijatelj.">
+                <div class="invalid-feedback">
+                  Polje ne sme biti prazno!
+                </div>
+              </div>
+            </div>
+            <div class="row mt-3">
+              <div class="col-12 text-center">
+                <button id="button-update-language-strings" class="btn btn-outline-primary col-md-6 mx-auto"
+                  type="button" hx-swap="none" onclick="refreshText()">Posodobi besedilo</button>
+              </div>
+            </div>
           </div>
+        </div>
+            </form>
+    </div>
+        </div>
+
+        <div class="row justify-content-left">
+          <div class="col-md-7 col-lg-12">
+            <div class="card" style="margin-bottom: 1.5rem;">
+              <div class="card-body">
+                <h3 class="d-inline align-middle">Naloži scene</h3>
+                <!--ICON delčki-->
+                <span class="info-icon d-inline" data-toggle="tooltip" data-placement="top"
+                  title="Naloži poljubne slike za glavnega junaka, poljuben objekt ali ozadje. Slike naj bodo primernega formata.">
+                  <i class="fas fa-info-circle" style="vertical-align: middle;"></i>
+                </span>
+                <!---->
+        
+                <div class="row">
+                  <div class="col-4">
+                    <label for="picture-type" class="form-label">Izberi tip slike</label>
+                    <div class="input-group">
+                      <select class="form-select" id="picture-type">
+                        <option selected="selected">Robot</option>
+                        <option>Ozadje</option>
+                        <option>Predmet</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+
+                <label for="filepond1" class="form-label">Izberi sliko</label>
+                <div class="row">
+                  <div class="col-12">
+                <form>
+                  <input type="file" 
+                    class="filepond"
+                    name="filepond"
+                    multiple
+                    data-max-file-size="300MB"
+                    data-max-files="5" 
+                    accept=".png"/>
+                </form>
+              </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        
 
           <div class="row justify-content-center">
             <div class="col-md-7 col-lg-12">
@@ -217,9 +234,8 @@
 
                       <div class="input-group">
                         <select class="form-select" id="select-LS" name="imenaDelckov">
-                          %for i in range(len(languageStrings[1])):
-                          <option> {{languageStrings[0][i]}} : {{languageStrings[1][i]}}</option>
-                          %end
+                          {{! languageStrings}}
+
                         </select>
                         <input type="text" class="form-control" id="text-LS" name="languageString"
                           placeholder="vrstica">
@@ -229,13 +245,6 @@
                         </div>
                       </div>
                     </div>
-                  </div>
-                  <br>
-                  <div class="row">
-                    <form id="upload-form" enctype="multipart/form-data">
-                      <input type="file" id="upload-starting-example-file" name="file" accept=".txt">
-                      <input type="button" value="Naloži delčke" onclick="uploadStartingExample()">
-                    </form>
                   </div>
                 </div>
               </div>
@@ -777,9 +786,9 @@
                     <div class="col-md-12">
                       <div class="d-flex justify-content-between align-items-center" style="margin-bottom: 1.5rem;">
                         <h3 class="d-inline align-middle">Končni izgled naloge</h3>
-                        <button class="btn btn-primary">nov zavihek <i class="bi bi-link-45deg"></i></button>
+                        <a href="views/naloga.html" target="_blank">nov zavihek <i class="bi bi-link-45deg"></i></button>
                       </div>
-                      <iframe src="views/naloga.html" id="pisek-iframe" onload="this.width=screen.width;this.height=screen.height;" style="width: 100%;"></iframe>
+                      <!-- <iframe src="views/naloga.html" id="pisek-iframe" onload="this.width=screen.width;this.height=screen.height;" style="width: 100%;"></iframe> -->
                     </div>
                   </div>
                   
@@ -814,6 +823,8 @@
     <p class="mb-1">&copy; 2023 Pišek</p>
   </footer>
   </div>
+  <script src="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.js"></script>
+  <script src="https://unpkg.com/filepond/dist/filepond.js"></script>
   <script src="https://unpkg.com/htmx.org@1.9.2"></script>
   <script src="../static/javascript/bootstrap.bundle.min.js"></script>
   <script src="../static/javascript/form-validation.js"></script>

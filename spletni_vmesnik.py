@@ -430,20 +430,28 @@ def update_item_types():
 
 @bottle.post("/uploadImage")
 def update_item_types():
-    print("KAJMA")
-    image = bottle.request.files.get('imageFile')
-    path = bottle.request.forms.get('path')
+    type = bottle.request.forms.get('type')
+    file = bottle.request.files.get('file')
+    if type == "Robot":
+        type = "charactersUser"
 
-    filePath = "static/img/" + path + "/" + image.filename
+    if type == "Ozadje":
+        type = "tilesUser"
+
+    if type == "Predmet":
+        type = "objectsUser"
+    filePath = "static/img/" + type + "/" + file.filename
+
     if not os.path.exists(filePath):
-        image.save(filePath)
-        return 'Image uploaded successfully.'
+        file.save(filePath)
+        print("Completed")
     else:
-        return 'Image upload failed.'
+        print("Error")
     
 @bottle.post("/uploadStartingExample")
 def update_item_types():
-    uploaded_file = bottle.request.files.get('imageFile')
+    print("OHH YEEE")
+    uploaded_file = bottle.request.files.get('file')
     if uploaded_file:
         file_content = uploaded_file.file.read()
         generator2.board.updateStartingExample(file_content.decode().replace("\"", "'"))

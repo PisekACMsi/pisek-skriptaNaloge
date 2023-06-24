@@ -1,7 +1,19 @@
 function initTask(subTask) {
  subTask.gridInfos = {
      languageStrings: {
-          sl: {}
+          sl: {
+               label: {
+                    alterValue1D: "bla",
+                    sensorValue: "bla"
+               },
+               options: {
+                    tools: {
+                         bool: {
+                              colour: "bla"
+                         }
+                    }
+               }
+          }
      },
      hideControls: {
           restart: false,
@@ -52,44 +64,7 @@ function initTask(subTask) {
 		//
 	])
 },
-     itemTypes: {
-          robot0: {
-               category: [
-                    {
-                         'robot': true
-                    }
-               ],
-               img: [
-                    "characters/avto.png"
-               ],
-               zOrder: 10,
-               nbStates: 8
-          },
-          obstacle0: {
-               num: 4,
-               category: [
-                    {
-                         'obstacle': true
-                    }
-               ],
-               img: [
-                    "objects/banana.png"
-               ],
-               zOrder: 5
-          },
-          robot1: {
-               category: [
-                    {
-                         'robot': true
-                    }
-               ],
-               img: [
-                    "characters/avto.png"
-               ],
-               zOrder: 10,
-               nbStates: 8
-          }
-     }
+     itemTypes: {}
 };
 subTask.data = {
      easy: [
