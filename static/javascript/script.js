@@ -8,28 +8,38 @@ var velikost_x = 0;
 var velikost_y = 0;
 //funkcija, ki prikaže sliko za glavnega junaka
 $(document).ready(function () {
-  $("#junak").change(function () {
-    var value = $("#junak option:selected");
+  $("#robot-image").change(function () {
+    var value = $("#robot-image option:selected");
     newURL_junak = "../static/img/characters/" + value.text().split(' ').join('_') + ".png";
-    $("#slika1").attr("src", newURL_junak);
+    $("#character-img").attr("src", newURL_junak);
   });
 });
 
 //funkcija, ki prikaže sliko za polje in jo izriše na gridu
 $(document).ready(function () {
-  $("#polje").change(function () {
-    var value = $("#polje option:selected");
-    newURL_polje = "../static/img/tiles/" + value.text().split(' ').join('_') + ".png";
-    $("#slika2").attr("src", newURL_polje);
-  });
+  $("#default-item-color").change(function () {
+    var value = $("#default-item-color option:selected").text();
+    var element = document.getElementById("color-div");
+    element.style.backgroundColor = value;
+    var width = 200;
+    var height = 200;
+
+    if (width) {
+      element.style.width = width + "px";
+    }
+
+    if (height) {
+      element.style.height = height + "px";
+    }
+    });
 });
 
 //funkcija, ki prikaže sliko za predmet
 $(document).ready(function () {
-  $("#item").change(function () {
-    var value = $("#item option:selected");
+  $("#default-item-image").change(function () {
+    var value = $("#default-item-image option:selected");
     newURL_predmet = "../static/img/objects/" + value.text().split(' ').join('_') + ".png";
-    $("#slika3").attr("src", newURL_predmet);
+    $("#object-img").attr("src", newURL_predmet);
   });
 });
 
@@ -489,41 +499,6 @@ function resetAll(){
   location.reload();
 }
 
-function uploadImage(path){
-  if(path=="characters"){
-    var fileInput = document.getElementById('upload-image-robot');
-  }
-  else if(path=="tiles"){
-    var fileInput = document.getElementById('upload-image-tile');
-  }
-  else if(path=="objects"){
-    var fileInput = document.getElementById('upload-image-object');
-  }
-  
-  // Create a new FormData object
-  var formData = new FormData();
-
-  formData.append('imageFile', fileInput.files[0]);
-  formData.append("path", path + "User")
-  $.ajax({
-    type: 'POST',
-    url: '/uploadImage', // Replace with the actual route on your Bottle server
-    data: formData, // Pass the formData object directly
-    processData: false, // Prevent jQuery from processing the data
-    contentType: false, // Prevent jQuery from setting the content type
-    success: function(response) {
-      // Handle the success response from the server
-      location.reload();
-    },
-    error: function(xhr, status, error) {
-      // Handle errors
-      console.error('Error:', error);
-    }
-  });
-  // osvezi('pisek-iframe');
-  
-}
-
 function uploadStartingExample(){
   
   var fileInput = document.getElementById('upload-starting-example-file');
@@ -621,3 +596,50 @@ function downloadFiles() {
 $(function () {
   $('[data-toggle="tooltip"]').tooltip()
 })
+
+
+//ZA UPLOADAT SLIKE
+
+// Register the plugin with FilePond
+FilePond.registerPlugin(FilePondPluginImagePreview);
+
+// Get a reference to the file input element
+const inputElement = document.querySelector('input[type="file"]');
+
+// Create a FilePond instance
+const pond = FilePond.create(inputElement);
+
+// Set options for FilePond
+pond.setOptions({
+  server: {
+    url: 'http://localhost:8081/',
+    process: {
+      url: '/uploadImage',
+      method: 'POST',
+      withCredentials: false,
+      onload: (response) => response.key,
+      onerror: (response) => response.data,
+      ondata: (formData) => {
+        formData.append('type', document.getElementById('picture-type').value);
+        formData.append('file', pond.getFile().file, pond.getFile().filename);
+        return formData;
+      },
+    },
+    revert: '/revert',
+    restore: '/restore/',
+    load: '/load/',
+    fetch: '/fetch/',
+  },
+});
+
+// Optionally, add event listeners or perform other operations on the FilePond instance
+pond.on('addfile', (error, file) => {
+  if (!error) {
+    console.log('File added:', file);
+  } else {
+    console.error('Error adding file:', error);
+  }
+});
+
+
+

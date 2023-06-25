@@ -1,24 +1,62 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<title>Font Awesome Icons</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FilePond Plugin Image Preview Demo</title>
+    <link href="https://unpkg.com/filepond/dist/filepond.css" rel="stylesheet">
+    <link href="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css" rel="stylesheet">
 </head>
+<style>
+    .filepond--credits {
+    display: none;
+}
+/* the background color of the filepond drop area */
+.filepond--panel-root {
+    border-radius: 0.5em;
+}
+</style>
 <body>
 
-<p>Some Font Awesome icons:</p>
-<i class="fa fa-cloud"></i>
-<i class="fa fa-heart"></i>
-<i class="fa fa-car"></i>
-<i class="fa fa-file"></i>
-<i class="fa fa-bars"></i>
+    <input type="file"/>
 
-<p>Styled Font Awesome icons (size, color, and shadow):</p>
-<i class="fa fa-cloud" style="font-size:24px;"></i>
-<i class="fa fa-cloud" style="font-size:36px;"></i>
-<i class="fa fa-cloud" style="font-size:48px;color:red;"></i>
-<i class="fa fa-cloud" style="font-size:60px;color:lightblue;text-shadow:2px 2px 4px #000000;"></i>
+    <script src="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.js"></script>
+    <script src="https://unpkg.com/filepond/dist/filepond.js"></script>
+
+    <script>
+    // Register the plugin with FilePond
+    FilePond.registerPlugin(FilePondPluginImagePreview);
+
+    // Get a reference to the file input element
+    const inputElement = document.querySelector('input[type="file"]');
+
+    // Create the FilePond instance
+    const pond = FilePond.create(inputElement);
+    FilePond.setOptions({
+    server: {
+        url: 'http://192.168.0.100',
+        timeout: 1000,
+        process: {
+            url: './process',
+            method: 'POST',
+            headers: {
+                'x-customheader': 'Hello World',
+            },
+            withCredentials: false,
+            onload: (response) => response.key,
+            onerror: (response) => response.data,
+            ondata: (formData) => {
+                formData.append('Hello', 'World');
+                return formData;
+            },
+        },
+        revert: './revert',
+        restore: './restore/',
+        load: './load/',
+        fetch: './fetch/',
+    },
+});
+    </script>
 
 </body>
 </html>

@@ -16,3 +16,31 @@ h1{
     color: rgb(255, 253, 210) !important;
 }
 
+/*Spreminjarnje ikonce, animacija*/
+.icon-link {
+    display: inline-block;
+    transition: transform 0.5s ease;
+  }
+
+  .icon-link:hover {
+    transform: scale(1.5) rotate(-15deg);
+  }
+
+/*File drop*/
+
+.filepond--credits {
+    display: none;
+}
+@media (min-width: 30em) {
+    .filepond--item {
+        width: calc(50% - 0.5em);
+    }
+}
+
+@media (min-width: 50em) {
+    .filepond--item {
+        width: calc(33.33% - 0.5em);
+    }
+}
+
+
