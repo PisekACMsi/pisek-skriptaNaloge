@@ -21,12 +21,3 @@ class LanguageStrings:
 
     def represent(self):
         return {"languageStrings":{"sl":self.changedLanguageStrings.as_dict()}}
-
-    def languageStringsHtml(self, selectedId):
-        html = ""
-        for id, key in enumerate(self.languageStringsKeys):
-            if id == selectedId:
-                html += "<option selected='selected'>" + self.keyWords[id] + ": " + self.languageStringsSlvFlat[key] + "</option>"
-            else:
-                html += "<option>" + self.keyWords[id] + ": " + self.languageStringsSlvFlat[key] + "</option>"
-        return html

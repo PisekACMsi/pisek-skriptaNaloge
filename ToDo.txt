@@ -114,4 +114,8 @@ Tasks:
 ☐ Template objekti
 
 ☐ Pokomentirej
+
+☐ Pazi na podvajanje objektov še posebej robota
+
+☐ Custom object je skechy
 ------------------------------------------------------------------------------

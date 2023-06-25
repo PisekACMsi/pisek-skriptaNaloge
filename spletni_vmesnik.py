@@ -1,8 +1,8 @@
 import sys
 sys.path.insert(1, 'generator/')
 from naloga import *
-import bottle 
-import generatorStari
+from htmlCreator import *
+import bottle
 import skripta
 import json
 import flatdict
@@ -167,21 +167,21 @@ def home_get():
     character_names = skripta.preberi_vsa_imena_slik("characters")
     objects = skripta.preberi_vsa_imena_slik("objects")
     
-    languageStrings = generator2.languageStrings.languageStringsHtml(0)
+    languageStrings = htmlCreator.languageStringsHtml(0)
 
-    scene = generator2.itemTypes.createItemTypesHtmlString()
+    scene = htmlCreator.createItemTypesHtmlString()
 
-    htmlListTypes = generator2.itemTypes.updateItemTypesHtmlString()
+    htmlListTypes = htmlCreator.updateItemTypesHtmlString()
 
-    customItemCategories = generator2.itemTypes.updateCategoryOptionsHtmlString()
+    customItemCategories = htmlCreator.updateCategoryOptionsHtmlString()
 
-    buttonNames = generator2.itemTypes.updateButtonHtmlString()
+    buttonNames = htmlCreator.updateButtonHtmlString()
 
     numOfExamples = len(generator2.subTaskData.examples)
 
-    blocksCategory = generator2.includeBlocks.blocksCategoryHtml()
-    blocksRobot = generator2.includeBlocks.blocksRobotHtml()
-    blocksSingle = generator2.includeBlocks.blocksSingleHtml()
+    blocksCategory = htmlCreator.blocksCategoryHtml()
+    blocksRobot = htmlCreator.blocksRobotHtml()
+    blocksSingle = htmlCreator.blocksSingleHtml()
     
     return bottle.template("index.html", tile_names=tile_names, character_names=character_names, objects=objects, languageStrings = languageStrings, scene=scene, htmlListTypes=htmlListTypes, customItemCategories=customItemCategories, buttonNames=buttonNames, numOfExamples=numOfExamples, blocksCategory=blocksCategory, blocksSingle=blocksSingle, blocksRobot=blocksRobot)
 
@@ -240,8 +240,8 @@ def updateBlocks():
 
 @bottle.post("/deleteStartingExample")
 def deleteStartingExample():
-    generatorStari.strSE = ""
-    generatorStari.ustvariSkripto()
+    generator2.board.updateStartingExample("")
+    generator2.createFile()
 
 @bottle.post("/updateEndConditions")
 def updateEndConditions():
@@ -271,19 +271,19 @@ def dodajItem():
     zOrder = int(bottle.request.forms.get("itemZOrder"))
     buttonId = int(bottle.request.forms.get("buttonId"))
     itemColors = json.loads(bottle.request.forms.get("itemColor"))
-    generatorStari.itemSpecifications["name"] = itemName
-    generatorStari.itemSpecifications["img"] = itemImages
-    generatorStari.itemSpecifications["value"] = itemValue
-    generatorStari.itemSpecifications["zOrder"] = zOrder
-    generatorStari.itemSpecifications["color"] = itemColors
-    generatorStari.itemSpecifications["id"] = buttonId + 1
+    # generatorStari.itemSpecifications["name"] = itemName
+    # generatorStari.itemSpecifications["img"] = itemImages
+    # generatorStari.itemSpecifications["value"] = itemValue
+    # generatorStari.itemSpecifications["zOrder"] = zOrder
+    # generatorStari.itemSpecifications["color"] = itemColors
+    # generatorStari.itemSpecifications["id"] = buttonId + 1
     
-    for cat in itemCategorys:
-        generatorStari.catIT[cat] = True
+    # for cat in itemCategorys:
+    #     generatorStari.catIT[cat] = True
     
-    generatorStari.dodajItemType() #kliče naj se z gumbom ustvari
-    generatorStari.ustvariSkripto()
-    bottle.redirect("/")
+    # generatorStari.dodajItemType() #kliče naj se z gumbom ustvari
+    # generatorStari.ustvariSkripto()
+    # bottle.redirect("/")
 
 @bottle.post("/defaultItem")
 def addDefaultItems():
@@ -386,8 +386,8 @@ def addRobot():
 @bottle.post("/createNewCategory")
 def createNewCategory():
     category = bottle.request.forms.get("category")
-    generatorStari.catIT[category] = False
-    return generatorStari.updateCategoryOptionsHtmlString()
+    # generatorStari.catIT[category] = False
+    # return generatorStari.updateCategoryOptionsHtmlString()
 
 @bottle.post("/removeItem") 
 def deleteItem():
@@ -408,19 +408,19 @@ def deleteLanguage():
     print("POSODOBIL LANGUAGE STRINGS")
     generator2.createFile()
 
-    return generator2.languageStrings.languageStringsHtml(lsId)
+    return htmlCreator.languageStringsHtml(lsId)
 
 @bottle.get("/updateItemTypes") 
 def update_item_types():
-    return generator2.itemTypes.createItemTypesHtmlString()
+    return htmlCreator.createItemTypesHtmlString()
 
 @bottle.post("/updateItemTypeOptions") 
 def update_item_types():
-    return generator2.itemTypes.updateItemTypesHtmlString()
+    return htmlCreator.updateItemTypesHtmlString()
 
 @bottle.get("/updateButtons") 
 def update_item_types():
-    return generator2.itemTypes.updateButtonHtmlString()
+    return htmlCreator.updateButtonHtmlString()
 
 @bottle.post("/resetFile")
 def update_item_types():
@@ -451,7 +451,8 @@ def update_item_types():
 #----------------------------------------------------------------------------------------------------------
 
 def start_bottle():
-    global generator2
+    global generator2, htmlCreator
     generator2 = Naloga()
+    htmlCreator = HtmlCreator(generator2)
     generator2.createFile()
     bottle.run(host='localhost', port=8081, debug=True)

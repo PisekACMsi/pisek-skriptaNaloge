@@ -22,7 +22,7 @@ function initTask(subTask) {
      scrollbars: true,
      actionDelay: 400,
      blocklyColourTheme: "bwinf",
-     maxInstructions: 0,
+     maxInstructions: 10,
      ignoreInvalidMoves: false,
      border: 0.02,
      backgroundColour: "white",
@@ -37,11 +37,19 @@ function initTask(subTask) {
      includeBlocks: {
           groupByCategory: true,
           generatedBlocks: {
-               robot: []
+               robot: [
+                    "moveSimple",
+                    "forward",
+                    "forwardSimple"
+               ]
           },
           standardBlocks: {
                includeAll: false,
-               wholeCategories: [],
+               wholeCategories: [
+                    "logic",
+                    "loops",
+                    "math"
+               ],
                singleBlocks: [],
                excludedBlocks: []
           }
@@ -53,20 +61,8 @@ function initTask(subTask) {
 	])
 },
      itemTypes: {
-          robot0: {
-               category: [
-                    {
-                         'robot': true
-                    }
-               ],
-               img: [
-                    "characters/avto.png"
-               ],
-               zOrder: 10,
-               nbStates: 8
-          },
           obstacle0: {
-               num: 4,
+               num: 3,
                category: [
                     {
                          'obstacle': true
@@ -77,17 +73,15 @@ function initTask(subTask) {
                ],
                zOrder: 5
           },
-          robot1: {
+          number0: {
+               num: 4,
                category: [
                     {
-                         'robot': true
+                         'number': true
                     }
                ],
-               img: [
-                    "characters/avto.png"
-               ],
-               zOrder: 10,
-               nbStates: 8
+               zOrder: 4,
+               value: "0"
           }
      }
 };

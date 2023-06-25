@@ -10,7 +10,6 @@ class Itemtypes:
         self.updateItemList()
 
     def createDefaultItem(self, cats, parameters):
-        print("AAAAAAAAAAAAAAA", parameters)
         cat = cats[0]
         id = 0
         for addedType in list(self.items.keys()):
@@ -56,37 +55,3 @@ class Itemtypes:
         for type in self.items.keys():
             repr[type] = self.items[type].represent()
         return {"itemTypes":repr}
-    
-    def updateItemTypesHtmlString(self):
-        itemTypesNames = list(self.addedTypes)
-        html=""
-        for name in itemTypesNames:
-            html += "<option>" + str(name) + "</option> <br>"
-        return html
-    
-    def createItemTypesHtmlString(self):
-        if len(self.items.keys()) == 0:
-            return "Ni dodanih predmetov"
-        else:
-            returnHtml = ""
-            for ime in self.items.keys():
-                returnHtml += "<b>" + ime + ": </b>"
-                for thingi in self.items[ime].represent().keys():
-                    returnHtml += "<b>" + thingi + ": </b>  " + str(self.items[ime].represent()[thingi]) + "      "
-                returnHtml += "<br>"
-
-            return returnHtml
-        
-    def updateCategoryOptionsHtmlString(self):
-        html = ""
-        for cat in list(self.addedCategories):
-            if cat != "button" and cat != "number":
-                html += "<option>" + cat + "</option> <br>"
-        return html
-    
-    def updateButtonHtmlString(self):
-        html = ""
-        for item in self.items.keys():
-            if "button" in item:
-                html += "<option>" + item + "</option> <br>"
-        return html

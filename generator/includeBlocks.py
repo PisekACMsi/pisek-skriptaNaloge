@@ -33,30 +33,3 @@ class IncludeBlocks:
         return {"includeBlocks":{"groupByCategory": self.groupByCategory, "generatedBlocks":{"robot": robotBlocksAdd}, 
                                  "standardBlocks":{"includeAll":self.includeAll, "wholeCategories":categoryBlocksAdd, 
                                  "singleBlocks": individualBlocksAdd, "excludedBlocks":[]}}}
-    
-    def blocksCategoryHtml(self):
-        html = ""
-        for block in self.categoryBlocks.keys():
-            if self.categoryBlocks[block]:
-                html += "<option selected='selected'>" + block + "</option> <br>"
-            else:
-                html += "<option>" + block + "</option> <br>"
-        return html
-    
-    def blocksRobotHtml(self):
-        html = ""
-        for block in self.robotBlocks.keys():
-            if self.robotBlocks[block]:
-                html += "<option selected='selected'>" + block + "</option> <br>"
-            else:
-                html += "<option>" + block + "</option> <br>"
-        return html
-
-    def blocksSingleHtml(self):
-        html = ""
-        for block in self.individualBlocks.keys():
-            if self.individualBlocks[block]:
-                html += "<option selected='selected'>" + block + "</option> <br>"
-            else:
-                html += "<option>" + block + "</option> <br>"
-        return html
