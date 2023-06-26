@@ -175,7 +175,7 @@ def home_get():
 
     itemTypesNoButtons = htmlCreator.updateItemTypesNoButtonsHtmlString
 
-    customItemCategories = htmlCreator.updateCategoryOptionsHtmlString()
+    customItemCategories = htmlCreator.categoriesHtml()
 
     buttonNames = htmlCreator.updateButtonHtmlString()
 
@@ -253,6 +253,9 @@ def updateEndConditions():
     nameA = bottle.request.forms.get("nameA")
     indicateB = bottle.request.forms.get("indicateB")
     nameB = bottle.request.forms.get("nameB")
+    checkEveryTurn = True if bottle.request.forms.get("checkEveryTurn") == "true" else False
+
+
 
     generator2.endCondition.cond["indikator1"] = indicate1
     generator2.endCondition.cond["ime1"] = name1
@@ -261,6 +264,7 @@ def updateEndConditions():
     generator2.endCondition.cond["imeA"] = nameA
     generator2.endCondition.cond["imeB"] = nameB
     generator2.endCondition.createConditions()
+    generator2.board.checkEndEveryTurn = checkEveryTurn
     generator2.createFile()
 
 @bottle.post("/connectButton") 
@@ -277,8 +281,8 @@ def dodajItem():
 @bottle.post("/defaultItem")
 def addDefaultItems():
     itemCategory = bottle.request.forms.get("defaultItemCategory")
-    itemImage= bottle.request.forms.get("defaultItemImage")
-    generator2.itemTypes.createDefaultItem([itemCategory], [itemImage])
+    itemImage= json.loads(bottle.request.forms.get("defaultItemImage"))
+    generator2.itemTypes.createDefaultItem([itemCategory], itemImage)
     generator2.createFile()
     bottle.redirect("/")
 
@@ -374,8 +378,8 @@ def addRobot():
 @bottle.post("/createNewCategory")
 def createNewCategory():
     category = bottle.request.forms.get("category")
-    # generatorStari.catIT[category] = False
-    # return generatorStari.updateCategoryOptionsHtmlString()
+    htmlCreator.addCustomCategory(category)
+    return htmlCreator.categoriesHtml()
 
 @bottle.post("/removeItem") 
 def deleteItem():
@@ -436,11 +440,17 @@ def update_item_types():
     
 @bottle.post("/uploadStartingExample")
 def update_item_types():
-    uploaded_file = bottle.request.files.get('file')
+    
+    uploaded_file = bottle.request.files.get('imageFile')
     if uploaded_file:
         file_content = uploaded_file.file.read()
         generator2.board.updateStartingExample(file_content.decode().replace("\"", "'"))
     generator2.createFile()
+
+@bottle.get("/getItemImages")
+def get_item_images():
+    print(json.dumps(htmlCreator.getAllImages()))
+    return json.dumps(htmlCreator.getAllImages())
 
 #----------------------------------------------------------------------------------------------------------
 

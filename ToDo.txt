@@ -115,7 +115,12 @@ Tasks:
 
 ☐ Pokomentirej
 
-☐ Pazi na podvajanje objektov še posebej robota
+✅ Pazi na podvajanje objektov še posebej robota
 
-☐ Custom object je skechy
+☐ Gumb za upload blockly
+
+☐ Preimenuj delčke search bar
+
+☐ dodanih delčkov se ne da več dat stran
+
 ------------------------------------------------------------------------------

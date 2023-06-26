@@ -1,5 +1,5 @@
 class Board:
-    def __init__(self, backgColor = "white", backgImage = "", lineColor = "black", lineWidth = 0.02, showLabels = True, gravity = False, maxInstructions=0, numberOfRobots=1):
+    def __init__(self, backgColor = "white", backgImage = "", lineColor = "black", lineWidth = 0.02, showLabels = True, gravity = False, maxInstructions=0, numberOfRobots=1, checkEndEveryTurn=False):
         self.backgColor = backgColor #string
         self.backgImage = backgImage #string path to image
         self.lineColor = lineColor #string
@@ -8,6 +8,7 @@ class Board:
         self.gravity = gravity #bool
         self.maxInstructions = maxInstructions
         self.numberOfRobots = numberOfRobots
+        self.checkEndEveryTurn = checkEndEveryTurn
         
         self.introMaxHeight = "33%"
         self.maxListSize = 100
@@ -44,7 +45,7 @@ class Board:
                 "backgroundColour":self.backgColor, "backgroundTile":self.backgImage, 
                 "borderColour":self.lineColor, "showLabels":self.showLabels, 
                 "cellSide":self.cellSide, "numberOfRobots":self.numberOfRobots, 
-                  "startingExample":self.startingExample}
+                  "startingExample":self.startingExample, "checkEndEveryTurn":self.checkEndEveryTurn}
     
     def representHideControls(self):
         return {"hideControls":self.hideControls}

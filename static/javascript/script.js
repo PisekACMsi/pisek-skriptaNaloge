@@ -125,9 +125,9 @@ for (var b of before){
 return [dodani, odvzeti]
 }
 
-var orderOfSelections = [[],[]];
-var beforeSelections = [[],[]];
-var selectedIds = ["#robot-image", "#default-item-color"]
+var orderOfSelections = [[],[], []];
+var beforeSelections = [[],[], []];
+var selectedIds = ["#robot-image", "#default-item-image", "#default-item-color"]
 
 function createSelectpickerHandler(iii) {
   return function(e) {
@@ -232,14 +232,13 @@ function modifyImageName(path, images){
 function refreshScene(path) {
   if (path == "addRobot"){
     var dict = {
-      "itemImageR": JSON.stringify(orderOfSelections[0])
+      "itemImageR": JSON.stringify(modifyImageName("characters", orderOfSelections[0]))
     }
   }
   else if (path == "defaultItem"){
-    let img = document.getElementById('default-item-image').value;
     var dict = {
       "defaultItemCategory": document.getElementById('default-item-category').value,
-      "defaultItemImage": "objects" + (img.includes("User") ? "User/" : "/") + img.replaceAll(" ", "_").replace("User", "") + (img ? '.png' : '')
+      "defaultItemImage": JSON.stringify(modifyImageName("objects", orderOfSelections[1]))
     }
   }
   else if (path == "defaultNumber"){
@@ -249,7 +248,7 @@ function refreshScene(path) {
   }
   else if (path == "defaultColor"){
     var dict = {
-      "defaultItemColor": JSON.stringify(modifyImageName("characters", orderOfSelections[1])),
+      "defaultItemColor": JSON.stringify(orderOfSelections[2]),
     
     }
   }
@@ -367,8 +366,9 @@ function updateBlocks() {
 };
 
 function updateLanguageStrings() {
-  var idLS = document.getElementById('select-LS').selectedIndex;
+  var idLS = $('#select-LS').prop('selectedIndex');
   var textLS = document.getElementById('text-LS').value;
+  console.log(idLS)
   $.ajax({
     type: 'POST', // or 'GET' depending on your server-side implementation
     url: '/languageStrings', // ReplaceAll with the actual route on your Bottle server
@@ -378,13 +378,14 @@ function updateLanguageStrings() {
     },
     success: function(response) {
       $('#select-LS').html(response);
+      $('#select-LS').selectpicker('refresh');
     },
     error: function(xhr, status, error) {
       // Handle errors
       console.error('Error:', error);
     }
   });
-  // osvezi('pisek-iframe');
+
 };
 
 function deleteStartingExample(){
@@ -453,8 +454,8 @@ function createNewCategory(){
     },
     success: function(response) {
       console.log(response);
-      $('#custom-item-category').html(response);
-      $('#custom-item-category').selectpicker('refresh');
+      $('#default-item-category').html(response);
+      $('#default-item-category').selectpicker('refresh');
     },
     error: function(xhr, status, error) {
       // Handle errors
@@ -515,6 +516,7 @@ function updateEndConditions(){
     "nameA": document.getElementById('coincide-label-A').value,
     "indicateB": document.getElementById('indikator-1').value,
     "nameB": document.getElementById('coincide-label-B').value,
+    "checkEveryTurn": document.getElementById('scheck-every-turn').checked,
   }
   $.ajax({
     type: 'POST',
@@ -531,45 +533,115 @@ function updateEndConditions(){
   // osvezi('pisek-iframe');
 }
 
+function getImages() {
+  return new Promise(function(resolve, reject) {
+    $.ajax({
+      url: "/getItemImages",
+      type: 'GET',
+      data: {},
+      success: function(response) {
+        var parsedResponse = JSON.parse(response);
+        resolve(parsedResponse);
+      },
+      error: function(xhr, status, error) {
+        reject(error);
+      }
+    });
+  });
+}
+
+function getImageUrl(imageName){
+  return "./static/img/" + imageName
+}
+
+function getFileName(imageName){
+  var slashIndex = imageName.indexOf("/");
+  var imageName = imageName.substring(slashIndex + 1);
+  return imageName
+}
+
+function getImageData(url) {
+  return new Promise(function(resolve, reject) {
+    $.ajax({
+      url: url,
+      type: 'GET',
+      responseType: 'arraybuffer',
+      success: function(response) {
+        resolve(response);
+      },
+      error: function(xhr, status, error) {
+        reject(error);
+      }
+    });
+  });
+}
+
 function downloadFiles() {
   var zip = new JSZip();
   var filePromises = [];
 
-  // Fetch the first file
-  filePromises.push(fetch("views/naloga.html")
-    .then(response => response.text())
-    .then(fileContent => {
-      // Add the first file content to the ZIP archive
-      zip.file("index.html", fileContent);
-    }));
-
-  // Fetch the second file
-  filePromises.push(fetch("static/javascript/theTest.js")
-    .then(response => response.text())
-    .then(fileContent => {
-      // Add the second file content to the ZIP archive
-      zip.file("task.js", fileContent);
-    }));
-
-  Promise.all(filePromises)
-    .then(() => {
-      // Generate the ZIP file asynchronously
-      return zip.generateAsync({ type: "blob" });
-    })
-    .then(content => {
-      // Create a temporary <a> element to trigger the download
-      var link = document.createElement('a');
-      link.href = URL.createObjectURL(content);
-      link.download = "files.zip";
-      link.click();
-
-      // Clean up the temporary URL object
-      URL.revokeObjectURL(link.href);
-    })
-    .catch(error => {
-      console.error("Error zipping and downloading files:", error);
+  getImages().then(function(images) {
+    // Process the images here or pass them to another function
+    console.log(images);
+    
+    // Example: Add images to the zip file
+    images.forEach(function(image) {
+      var imageUrl = getImageUrl(image); // Replace with your own function to get the image URL
+      var fileName = getFileName(image); // Replace with your own function to get the file name
+      
+      var imagePromise = getImageData(imageUrl).then(function(data) {
+        // Add the image data to the ZIP archive
+        zip.file(fileName, data, { binary: true, type: "image/png" });
+      });
+      filePromises.push(imagePromise);
     });
+    
+    // Fetch the first file (e.g., HTML file)
+    filePromises.push(fetch("views/naloga.html")
+      .then(response => response.text())
+      .then(fileContent => {
+        // Add the first file content to the ZIP archive
+        zip.file("index.html", fileContent);
+      }));
+
+    // Fetch the second file
+    filePromises.push(fetch("static/javascript/theTest.js")
+      .then(response => response.text())
+      .then(fileContent => {
+        // Add the second file content to the ZIP archive
+        zip.file("task.js", fileContent);
+      }));
+
+    filePromises.push(fetch("static/javascript/blocklyRobot_lib.js")
+      .then(response => response.text())
+      .then(fileContent => {
+        // Add the third file content to the ZIP archive
+        zip.file("blocklyRobot_lib.js", fileContent);
+      }));
+
+    Promise.all(filePromises)
+      .then(() => {
+        // Generate the ZIP file asynchronously
+        return zip.generateAsync({ type: "blob" });
+      })
+      .then(content => {
+        // Create a temporary <a> element to trigger the download
+        var link = document.createElement('a');
+        link.href = URL.createObjectURL(content);
+        link.download = "files.zip";
+        link.click();
+
+        // Clean up the temporary URL object
+        URL.revokeObjectURL(link.href);
+      })
+      .catch(error => {
+        console.error("Error zipping and downloading files:", error);
+      });
+  }).catch(function(error) {
+    console.error('Error:', error);
+  });
 }
+
 
 // INFO icon
 

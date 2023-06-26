@@ -1,8 +1,19 @@
 class HtmlCreator:
     def __init__(self, naloga):
         self.naloga = naloga
+        self.categories = ["obstacle", "coin", "transportable", "image"]
 
-    
+    def addCustomCategory(self, categoy):
+        self.categories.append(categoy)
+
+    def getAllImages(self):
+        backgTile = self.naloga.board.backgImage
+        otherImages = [backgTile] if backgTile != "" else []
+        for item in self.naloga.itemTypes.items.values():
+            for image in item.image:
+                otherImages.append(image)
+        return otherImages
+
     def languageStringsHtml(self, selectedId):
         languageStringsKeys = self.naloga.languageStrings.languageStringsKeys
         keyWords = self.naloga.languageStrings.keyWords
@@ -89,3 +100,13 @@ class HtmlCreator:
             else:
                 html += "<option>" + block + "</option> <br>"
         return html
+    
+    def categoriesHtml(self):
+        html = ""
+        for categroy in self.categories:
+            html += "<option>" + categroy + "</option>"
+        return html
+    
+
+    
+
