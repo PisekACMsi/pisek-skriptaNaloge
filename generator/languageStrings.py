@@ -7,7 +7,7 @@ class LanguageStrings:
         self.initializeLanguageStrings()
 
     def initializeLanguageStrings(self):
-        fajlLS = open('imenaDelckov.txt', "r", encoding = ("utf-8"))
+        fajlLS = open('generator/imenaDelckov.txt', "r", encoding = ("utf-8"))
         languageStringsSlv = json.load(fajlLS)["sl"]
         fajlLS.close()
         self.languageStringsSlvFlat  = flatdict.FlatDict(languageStringsSlv, delimiter=".")

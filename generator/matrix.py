@@ -12,6 +12,8 @@ class Matrix:
             if self.matrix[row][col] == 1:
                 self.matrix[row][col] = num
                 return True
+            elif self.matrix[row][col] == num:
+                return True
             else:
                 return False
         

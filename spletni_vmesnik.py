@@ -173,6 +173,8 @@ def home_get():
 
     htmlListTypes = htmlCreator.updateItemTypesHtmlString()
 
+    itemTypesNoButtons = htmlCreator.updateItemTypesNoButtonsHtmlString
+
     customItemCategories = htmlCreator.updateCategoryOptionsHtmlString()
 
     buttonNames = htmlCreator.updateButtonHtmlString()
@@ -183,7 +185,7 @@ def home_get():
     blocksRobot = htmlCreator.blocksRobotHtml()
     blocksSingle = htmlCreator.blocksSingleHtml()
     
-    return bottle.template("index.html", tile_names=tile_names, character_names=character_names, objects=objects, languageStrings = languageStrings, scene=scene, htmlListTypes=htmlListTypes, customItemCategories=customItemCategories, buttonNames=buttonNames, numOfExamples=numOfExamples, blocksCategory=blocksCategory, blocksSingle=blocksSingle, blocksRobot=blocksRobot)
+    return bottle.template("index.html", tile_names=tile_names, character_names=character_names, objects=objects, languageStrings = languageStrings, scene=scene, htmlListTypes=htmlListTypes, customItemCategories=customItemCategories, itemTypesNoButtons=itemTypesNoButtons, buttonNames=buttonNames, numOfExamples=numOfExamples, blocksCategory=blocksCategory, blocksSingle=blocksSingle, blocksRobot=blocksRobot)
 
 @bottle.post("/") 
 def home_add():
@@ -261,29 +263,16 @@ def updateEndConditions():
     generator2.endCondition.createConditions()
     generator2.createFile()
 
-@bottle.post("/customObject") 
+@bottle.post("/connectButton") 
 def dodajItem():
     #ITEMTYPE
     itemName = bottle.request.forms.get("itemName")
-    itemCategorys = json.loads(bottle.request.forms.get("itemCategory"))
-    itemImages = json.loads(bottle.request.forms.get("itemImage"))
-    itemValue = int(bottle.request.forms.get("itemValue"))
-    zOrder = int(bottle.request.forms.get("itemZOrder"))
     buttonId = int(bottle.request.forms.get("buttonId"))
-    itemColors = json.loads(bottle.request.forms.get("itemColor"))
-    # generatorStari.itemSpecifications["name"] = itemName
-    # generatorStari.itemSpecifications["img"] = itemImages
-    # generatorStari.itemSpecifications["value"] = itemValue
-    # generatorStari.itemSpecifications["zOrder"] = zOrder
-    # generatorStari.itemSpecifications["color"] = itemColors
-    # generatorStari.itemSpecifications["id"] = buttonId + 1
+    if "button" not in itemName:
+        generator2.itemTypes.items[itemName].id = buttonId
     
-    # for cat in itemCategorys:
-    #     generatorStari.catIT[cat] = True
-    
-    # generatorStari.dodajItemType() #kliče naj se z gumbom ustvari
-    # generatorStari.ustvariSkripto()
-    # bottle.redirect("/")
+    generator2.createFile()
+    bottle.redirect("/")
 
 @bottle.post("/defaultItem")
 def addDefaultItems():
@@ -355,9 +344,9 @@ def addToMatrix():
     itemName = bottle.request.forms.get("itemName")
     itemRow = int(bottle.request.forms.get("itemRow"))
     itemCol = int(bottle.request.forms.get("itemCol"))
-    newActiveExample = 1 #int(bottle.request.forms.get("activeExample"))
-    itemNumber = generator2.itemTypes.items[itemName].num
-    generator2.subTaskData.examples[newActiveExample-1].addToMatrix(itemNumber, itemName, itemRow, itemCol)
+    newActiveExample = int(bottle.request.forms.get("activeExample"))
+    
+    generator2.addToMatrix(itemName, itemRow, itemCol, newActiveExample)
     generator2.createFile()
     bottle.redirect("/")
 
@@ -376,9 +365,9 @@ def removeFromMatrix():
 @bottle.post("/addRobot") 
 def addRobot():
     #ITEMTYPE
-    itemImage = bottle.request.forms.get("itemImageR")
-    
-    generator2.itemTypes.createDefaultItem(["robot"], [itemImage])
+    itemImage = json.loads(bottle.request.forms.get("itemImageR"))
+    generator2.createItem(["robot"], itemImage)
+
     generator2.createFile()
     bottle.redirect("/")
 
@@ -392,9 +381,7 @@ def createNewCategory():
 def deleteItem():
     deleteItem = bottle.request.forms.get("delName")
 
-    itemNumber = generator2.itemTypes.items[deleteItem].num
-    generator2.itemTypes.removeItem(deleteItem)
-    generator2.subTaskData.removeItemType(deleteItem, itemNumber)
+    generator2.deleteItem(deleteItem)
     generator2.createFile()
     bottle.redirect("/")
 

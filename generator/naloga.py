@@ -16,6 +16,20 @@ class Naloga:
         self.itemTypes = Itemtypes()
         self.subTaskData = SubtaskData()
 
+    def createItem(self, cats, parameters):
+        self.itemTypes.createDefaultItem(cats, parameters)
+
+    def deleteItem(self, deleteItemName):
+        itemNumber = self.itemTypes.items[deleteItemName].num
+        self.itemTypes.removeItem(deleteItemName)
+        self.subTaskData.removeItemType(deleteItemName, itemNumber)
+    
+    def addToMatrix(self, itemName, itemRow, itemCol, newActiveExample):
+        itemNumber = self.itemTypes.items[itemName].num
+        self.subTaskData.examples[newActiveExample-1].addToMatrix(itemNumber, itemName, itemRow, itemCol)
+
+
+
     def createFile(self):
         print("USTVARJAM FAJL")
         ulmSlv = {}

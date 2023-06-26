@@ -30,11 +30,18 @@ class HtmlCreator:
             return returnHtml
         
     def updateItemTypesHtmlString(self):
-        addedTypes = self.naloga.itemTypes.addedTypes
-        itemTypesNames = list(addedTypes)
+        itemTypesNames = list(self.naloga.itemTypes.items.keys())
         html=""
         for name in itemTypesNames:
             html += "<option>" + str(name) + "</option> <br>"
+        return html
+    
+    def updateItemTypesNoButtonsHtmlString(self):
+        itemTypesNames = list(self.naloga.itemTypes.items.keys())
+        html=""
+        for name in itemTypesNames:
+            if "button" not in name:
+                html += "<option>" + str(name) + "</option> <br>"
         return html
     
     def updateCategoryOptionsHtmlString(self):
@@ -47,7 +54,7 @@ class HtmlCreator:
     
     def updateButtonHtmlString(self):
         items = self.naloga.itemTypes.items
-        html = ""
+        html = "<option value=''> Ni povezave </option> <br>"
         for item in items.keys():
             if "button" in item:
                 html += "<option>" + item + "</option> <br>"

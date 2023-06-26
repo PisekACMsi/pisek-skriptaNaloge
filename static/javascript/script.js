@@ -108,28 +108,55 @@ $(document).ready(function () {
   });
 });
 
-// var orderOfSelectedCategories = [];
-// $(document).ready(function() {
-//   $('#custom-item-category').selectpicker();
+function beforeAfter(before, after){
+  var dodani = []
+  var odvzeti = []
+for (var a of after){
+  if (!before.includes(a)){
+      dodani.push(a)
+  }
+}
 
-//   $('#custom-item-category').on('changed.bs.select', function(e) {
-//     var selectedOptions = $(this).val();
-//     if (selectedOptions == null){
-//       orderOfSelectedCategories = []
-//     }
-//     else{
-//       for(var del=0; del < orderOfSelectedCategories.length; del++){
-//         if (! selectedOptions.includes(orderOfSelectedCategories[del])) orderOfSelectedCategories.splice(del, 1);
+for (var b of before){
+  if (!after.includes(b)){
+      odvzeti.push(b)
+  }
+}
+return [dodani, odvzeti]
+}
 
-//       }
-//       for(var add=0; add < selectedOptions.length; add++){
-//         console.log(add)
-//         if (! orderOfSelectedCategories.includes(selectedOptions[add])) orderOfSelectedCategories.push(selectedOptions[add]);
+var orderOfSelectedImageRobot = [];
+var before = []
+$(document).ready(function() {
+  $('#robot-image').selectpicker();
 
-//       }
-//   }
-//   });
-// });
+  $('#robot-image').on('changed.bs.select', function(e) {
+    var selectedOptions = $(this).val();
+    if (selectedOptions == null){
+      orderOfSelectedImageRobot = []
+    }
+    else{
+      var beforeafter = beforeAfter(before, selectedOptions)
+      var added = beforeafter[0]
+      var removed = beforeafter[1]
+      if (added.length > 0){
+        for(var add of added){
+          orderOfSelectedImageRobot.push(add)
+        }
+      }
+      else if (removed.length > 0){
+        for(var rem of removed){
+          var index = orderOfSelectedImageRobot.indexOf(rem);
+          if (index !== -1) {
+            orderOfSelectedImageRobot.splice(index, 1);
+          }
+        }
+      }
+      before = orderOfSelectedImageRobot
+    }
+    console.log(orderOfSelectedImageRobot)
+  });
+});
 
 // var orderOfSelectedImages= [];
 // var prejsnjeStanje = new Set();
@@ -241,13 +268,19 @@ function refreshText(){
 
 }
 
+function modifyImageName(path, images){
+  var newImages = []
+  for(var image of images){
+    img = path + (image.includes("User") ? "User/" : "/") + image.replaceAll(" ", "_") + (image ? ".png" : "")
+    newImages.push(img)
+  }
+  return newImages
+}
 
 function refreshScene(path) {
-          // Perform your logic to generate the updated content
-
   if (path == "addRobot"){
     var dict = {
-      "itemImageR": ((image) => {return "characters" + (image.includes("User") ? "User/" : "/") + image.replace("User", "").replace(" ", "_") + (image ? ".png" : "");})(document.getElementById('robot-image').value),
+      "itemImageR": JSON.stringify(modifyImageName("characters", orderOfSelectedImageRobot))
     }
   }
   else if (path == "defaultItem"){
@@ -276,27 +309,12 @@ function refreshScene(path) {
       "defaultButtonImageOff": "buttons/" + img2.replaceAll(" ", "_") + (img2 ? '.png' : ''),
     }
   }
-  else if (path == "customObject"){
-    var buttonName = document.getElementById('custom-button-id').value;
-    var buttonId = buttonName.substr(buttonName.indexOf("_")+1, buttonName.length)
-    buttonId = (buttonId ? buttonId:"0")
-    console.log($('#custom-item-image').val());
-    var dict = {
-      "itemName": document.getElementById('custom-item-name').value,
-      "itemCategory": JSON.stringify($('#custom-item-category').val()),
-      "itemImage": JSON.stringify($('#custom-item-image').val()),
-      "itemValue": document.getElementById('custom-item-value').value,
-      "itemZOrder": document.getElementById('custom-item-z-order').value,
-      "buttonId": buttonId,
-      "itemColor": JSON.stringify($('#custom-item-color').val()),
-    }
-  }
   else if (path == "addToMatrix"){
     var dict = {
       "itemName": document.getElementById('added-item-to-matrix').value,
       "itemRow": document.getElementById('add-coord-row').value,
       "itemCol": document.getElementById('add-coord-col').value,
-      // "activeExample": document.getElementById('test-example-option').value,
+      "activeExample": document.getElementById('test-example-option').value,
     }
   }
   else if (path == "removeFromMatrix"){
@@ -304,7 +322,7 @@ function refreshScene(path) {
       "itemName": document.getElementById('added-item-to-matrix').value,
       "itemRow": document.getElementById('add-coord-row').value,
       "itemCol": document.getElementById('add-coord-col').value,
-      // "activeExample": document.getElementById('test-example-option').value,
+      "activeExample": document.getElementById('test-example-option').value,
     }
   }
   else if (path == "removeItem"){
@@ -312,7 +330,16 @@ function refreshScene(path) {
       "delName": document.getElementById('remove-item-name').value,
     }
   }
-
+  else if (path == "connectButton"){
+    var buttonName = document.getElementById('connect-button-id').value;
+    var buttonId = buttonName.substr(buttonName.indexOf("_")+1, buttonName.length)
+    buttonId = (buttonId ? buttonId:"0")
+    var dict = {
+      "buttonId": buttonId,
+      "itemName": document.getElementById('connect-button-item-name').value,
+    }
+  }
+  
   $.ajax({
   url: "\\" + path,  // ReplaceAll with the appropriate server route
   type: 'POST',
@@ -339,6 +366,7 @@ $.ajax({
     r1 = response.replaceAll("<option>" + selected1, '<option selected="selected">'+ selected1)
     $('#added-item-to-matrix').html(r1);
     $('#remove-item-name').html(r1);
+    $('#connect-button-item-name').html(r1);
     
     selected2 = document.getElementById('coincide-label-A').value;
 
@@ -356,7 +384,7 @@ $.ajax({
   type: 'GET',
   data: {},
   success: function(response) {
-    $('#custom-button-id').html(response);
+    $('#connect-button-id').html(response);
   },
 });
 
