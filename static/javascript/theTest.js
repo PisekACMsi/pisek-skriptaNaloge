@@ -52,36 +52,7 @@ function initTask(subTask) {
 		//
 	])
 },
-     itemTypes: {
-          robot_1: {
-               category: [
-                    {
-                         'robot': true
-                    }
-               ],
-               img: [
-                    "characters/astronavt_in_cebelica.png"
-               ],
-               zOrder: 10,
-               nbStates: 8,
-               id: 0
-          },
-          robot_2: {
-               category: [
-                    {
-                         'robot': true
-                    }
-               ],
-               img: [
-                    "characters/gasilski_avto.png",
-                    "characters/gasilec.png",
-                    "characters/cebela.png"
-               ],
-               zOrder: 10,
-               nbStates: 8,
-               id: 0
-          }
-     }
+     itemTypes: {}
 };
 subTask.data = {
      easy: [

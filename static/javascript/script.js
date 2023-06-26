@@ -125,94 +125,46 @@ for (var b of before){
 return [dodani, odvzeti]
 }
 
-var orderOfSelectedImageRobot = [];
-var before = []
-$(document).ready(function() {
-  $('#robot-image').selectpicker();
+var orderOfSelections = [[],[]];
+var beforeSelections = [[],[]];
+var selectedIds = ["#robot-image", "#default-item-color"]
 
-  $('#robot-image').on('changed.bs.select', function(e) {
+function createSelectpickerHandler(iii) {
+  return function(e) {
     var selectedOptions = $(this).val();
-    if (selectedOptions == null){
-      orderOfSelectedImageRobot = []
-    }
-    else{
-      var beforeafter = beforeAfter(before, selectedOptions)
-      var added = beforeafter[0]
-      var removed = beforeafter[1]
-      if (added.length > 0){
-        for(var add of added){
-          orderOfSelectedImageRobot.push(add)
+    if (selectedOptions == null) {
+      orderOfSelections[iii] = [];
+    } else {
+      var beforeafter = beforeAfter(beforeSelections[iii], selectedOptions);
+      var added = beforeafter[0];
+      var removed = beforeafter[1];
+      if (added.length > 0) {
+        for (var add of added) {
+          orderOfSelections[iii].push(add);
         }
-      }
-      else if (removed.length > 0){
-        for(var rem of removed){
-          var index = orderOfSelectedImageRobot.indexOf(rem);
+      } else if (removed.length > 0) {
+        for (var rem of removed) {
+          var index = orderOfSelections[iii].indexOf(rem);
           if (index !== -1) {
-            orderOfSelectedImageRobot.splice(index, 1);
+            orderOfSelections[iii].splice(index, 1);
           }
         }
       }
-      before = orderOfSelectedImageRobot
+      beforeSelections[iii] = orderOfSelections[iii];
     }
-    console.log(orderOfSelectedImageRobot)
-  });
+  };
+}
+
+$(document).ready(function() {
+  for (var iii = 0; iii < selectedIds.length; iii++) {
+    (function(index) {
+      var htmlId = selectedIds[index];
+      $(htmlId).selectpicker();
+
+      $(htmlId).on('changed.bs.select', createSelectpickerHandler(index));
+    })(iii);
+  }
 });
-
-// var orderOfSelectedImages= [];
-// var prejsnjeStanje = new Set();
-// $(document).ready(function() {
-//   $('#custom-item-image').selectpicker();
-
-//   $('#custom-item-image').on('changed.bs.select', function(e) {
-//     var novoStanje = new Set($(this).val());
-//     if (novoStanje == null){
-//       orderOfSelectedImages = []
-//     }
-//     else{
-//       [add] = new Set([...novoStanje].filter(element => !prejsnjeStanje.has(element)));
-//       [dell] = new Set([...prejsnjeStanje].filter(element => !novoStanje.has(element)));
-//       prejsnjeStanje = novoStanje
-//       console.log("add " + add)
-//       console.log("del " + dell)
-//       if (add !== undefined) orderOfSelectedImages.push((add.includes("User") ? "objectsUser/" : "objects/") + add.replace(" ", "_").replace("User","") + (add ? '.png' : ''));
-//       index = orderOfSelectedImages.indexOf(dell);
-      
-//       if(index>-1) orderOfSelectedImages.splice(index, 1);
-//   }
-//   console.log(orderOfSelectedImages);
-//   });
-// });
-
-// var orderOfSelectedColors = [];
-// $(document).ready(function() {
-//   $('#custom-item-color').selectpicker();
-
-//   $('#custom-item-color').on('changed.bs.select', function(e) {
-//     var selectedOptions = $(this).val();
-//     if (selectedOptions == null){
-//       orderOfSelectedColors = []
-//     }
-//     else{
-//       for (var colorIn of orderOfSelectedColors){
-//         if (!selectedOptions.includes(colorIn)){
-//           var index = orderOfSelectedColors.indexOf(colorIn);
-//           if (index > -1) { // only splice array when item is found
-//             orderOfSelectedColors.splice(index, 1); // 2nd parameter means remove one item only
-//           }
-//         }
-//       }
-//       for (var colorIn of selectedOptions){
-//         if (!orderOfSelectedColors.includes(colorIn)){
-//           orderOfSelectedColors.push(colorIn);
-//         }
-//       }
-      
-//       console.log(orderOfSelectedColors);
-//   }
-//   });
-// });
-
-
 
 //funkcija doda sliko na neko mesto na gridu
 function izrisi_objekt(tip) {
@@ -280,7 +232,7 @@ function modifyImageName(path, images){
 function refreshScene(path) {
   if (path == "addRobot"){
     var dict = {
-      "itemImageR": JSON.stringify(modifyImageName("characters", orderOfSelectedImageRobot))
+      "itemImageR": JSON.stringify(orderOfSelections[0])
     }
   }
   else if (path == "defaultItem"){
@@ -297,7 +249,7 @@ function refreshScene(path) {
   }
   else if (path == "defaultColor"){
     var dict = {
-      "defaultItemColor": document.getElementById('default-item-color').value,
+      "defaultItemColor": JSON.stringify(modifyImageName("characters", orderOfSelections[1])),
     
     }
   }

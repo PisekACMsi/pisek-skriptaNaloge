@@ -293,8 +293,8 @@ def addDefaultNumber():
 
 @bottle.post("/defaultColor")
 def addDefaultColor():
-    itemCol= bottle.request.forms.get("defaultItemColor")
-    generator2.itemTypes.createDefaultItem(["colour"], [itemCol])
+    itemCol= json.loads(bottle.request.forms.get("defaultItemColor"))
+    generator2.itemTypes.createDefaultItem(["colour"], itemCol)
     generator2.createFile()
     bottle.redirect("/")
 
@@ -408,7 +408,9 @@ def update_item_types():
 
 @bottle.post("/resetFile")
 def update_item_types():
+    global generator2, htmlCreator
     generator2 = Naloga()
+    htmlCreator = HtmlCreator(generator2)
     generator2.createFile()
     return home_get()
 
